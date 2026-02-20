@@ -32,6 +32,7 @@ To fix this issue:
    ip route 10.10.10.1 255.255.255.255 192.168.100.1
    ```
 - Test the ping again to confirm bidirectional connectivity.
+
 ![Image](assets/images/file-673c97d98eb44.png)
 
 ### Testing IPv6
