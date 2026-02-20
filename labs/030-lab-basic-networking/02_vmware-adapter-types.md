@@ -14,14 +14,14 @@ There are several adapters available for use in Workstation that you may use in 
 > - [ ] **A.** NAT
 > - [ ] **B.** Bridged
 > - [ ] **C.** Host-only
-> 
-> <details>
-> <summary>👉 <b>Check your answer</b></summary>
-> 
-> **Correct Option: B**
-> 
-> **Feedback:** In **Bridged** mode, the VM's virtual NIC is "bridged" directly to your physical NIC, making it appear as a separate physical computer on your home network.
-> </details>
+
+<details>
+<summary>👉 <b>Check your answer</b></summary>
+
+**Correct Option: B**
+
+**Feedback:** In **Bridged** mode, the VM's virtual NIC is "bridged" directly to your physical NIC, making it appear as a separate physical computer on your home network.
+</details>
 
 **Scenario 2: VMware Managed**
 > [!NOTE]
@@ -30,14 +30,14 @@ There are several adapters available for use in Workstation that you may use in 
 > - [ ] **A.** NAT
 > - [ ] **B.** Bridged
 > - [ ] **C.** Host-only
-> 
-> <details>
-> <summary>👉 <b>Check your answer</b></summary>
-> 
-> **Correct Option: A**
-> 
-> **Feedback:** **NAT** (Network Address Translation) is the default mode. VMware creates a private internal network and "naps" the traffic to your host's IP to get out to the internet.
-> </details>
+
+<details>
+<summary>👉 <b>Check your answer</b></summary>
+
+**Correct Option: A**
+
+**Feedback:** **NAT** (Network Address Translation) is the default mode. VMware creates a private internal network and "naps" the traffic to your host's IP to get out to the internet.
+</details>
 
 **Scenario 3: Connectivity vs. Isolation**
 > [!NOTE]
@@ -45,14 +45,14 @@ There are several adapters available for use in Workstation that you may use in 
 > 
 > - [ ] True
 > - [ ] False
-> 
-> <details>
-> <summary>👉 <b>Reveal answer</b></summary>
-> 
-> **Correct:** True
-> 
-> **Feedback:** **Host-only** provides a private link between the host and the VM. It is perfect for local testing when you want to ensure the VM stays isolated from the outside world.
-> </details>
+
+<details>
+<summary>👉 <b>Reveal answer</b></summary>
+
+**Correct:** True
+
+**Feedback:** **Host-only** provides a private link between the host and the VM. It is perfect for local testing when you want to ensure the VM stays isolated from the outside world.
+</details>
 
 ---
 
