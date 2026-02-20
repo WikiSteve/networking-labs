@@ -21,11 +21,11 @@ When configuring network devices, using a **loopback interface** for management 
    ```
 
 This configuration adds `2001:cafe::1/128` as a stable, easy-to-remember IPv6 address for management on **Loopback 1**. This address will remain reachable as long as the device is active, independent of any physical interface status.
-![[assets/images/file-6736941b6a214.png]]
-![[assets/images/file-6737787c1d35c.png]]
+![Image](assets/images/file-6736941b6a214.png)
+![Image](assets/images/file-6737787c1d35c.png)
 ### Test connection on host (Windows or Linux)
 
-![[assets/images/file-67377bd708726.png]]
+![Image](assets/images/file-67377bd708726.png)
 
 ### 🧠 Why Did IPv4 Fail?
 
@@ -127,7 +127,7 @@ Even though the Cisco 2811 supports **Loopback0**, we are using **Loopback1** to
    This response indicates that the HTTP server is active and responding, but requires authentication to access its resources.
 
 
-![[assets/images/file-67393f56b05ff.png]]
+![Image](assets/images/file-67393f56b05ff.png)
 
 ### **Why Does It Say Unauthorized?**
 

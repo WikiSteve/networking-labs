@@ -22,7 +22,7 @@ If you’ve already completed this step, you’re good to go. Let’s proceed to
 
 ## Why Does VLAN 1 Already Have an IP Address?
 
-![[assets/images/file-6733e5c4d50c9.png]]
+![Image](assets/images/file-6733e5c4d50c9.png)
 
 You might notice that VLAN 1 on your Catalyst 1300 switch has an IP address, even though it doesn’t appear in the running configuration. This default IP (usually **192.168.1.254/24**) is hard-coded into the switch to allow administrators quick access to the device out of the box. It provides immediate connectivity for initial setup, making it accessible via the Web GUI or console port without needing configuration.
 
@@ -85,7 +85,7 @@ In addition to IPv4, we can configure IPv6 addresses on VLAN 1. Here’s a break
 **Feedback:** If only all of lifes problems could be solved by setting an IP address
 </details>
 
-![[assets/images/file-6733f2c03b558.png]]
+![Image](assets/images/file-6733f2c03b558.png)
 
 **Pro Tip**: Quick Refresh for Network Changes
 
@@ -97,7 +97,7 @@ If you absolutely need to release a DHCP lease, you’ll still need to do that t
 
 This method allows your VM to quickly renew its IP settings, just like a physical machine.
 
-![[assets/images/file-6733f54fc0b60.png]]
+![Image](assets/images/file-6733f54fc0b60.png)
 
 ### Reaching the Link-Local Address Despite a Failed DORA
 
@@ -105,7 +105,7 @@ In the example below, you can see the **169.254.x.x** address assigned by Window
 
 However, even without a DHCP-assigned IPv4 address, we can still reach the **link-local IPv6 address** we set on the device. In this case, `fe80::beef:1234` is accessible, as shown by the successful ping response. Link-local addresses are independent of DHCP and are designed to work on the local network segment, allowing communication even when other IP configuration options fail. This provides a reliable fallback for local connectivity!
 
-![[assets/images/file-6733f707246c5.png]]
+![Image](assets/images/file-6733f707246c5.png)
 
 ### Accessing the Web GUI via Link-Local IPv6 Address (For Initial Setup Only)
 
@@ -125,7 +125,7 @@ However, with multiple NICs, accessing resources like a Web GUI via link-local a
 
 For this reason, we’re only using the link-local address here to demonstrate that it *is* possible to connect. Going forward, we’ll switch to a global IPv6 address for reliable connectivity, ensuring the switch remains accessible regardless of network configuration.
 
-![[assets/images/file-67349dd7c0a06.png]]
+![Image](assets/images/file-67349dd7c0a06.png)
 
 **Why Did the Initial Ping Fail?**
 
@@ -142,7 +142,7 @@ So, the successful ping command looks like this:
 
 By appending `%enx00808a815890`, we’re telling the system to send the ping specifically through this interface, eliminating any ambiguity and allowing the ping to succeed.
 
-![[assets/images/file-6733fa1c7eb6d.png]]
+![Image](assets/images/file-6733fa1c7eb6d.png)
 
 **Why Can’t We Access Anything Beyond Link-Local?**
 
@@ -162,9 +162,9 @@ When we enable IPv6 unicast routing, a few things happen:
 Once **`ipv6 unicast-routing`** is enabled, the switch and connected devices can automatically assign global addresses and discover the default gateway, enabling full connectivity beyond the local network.
 
 
-![[assets/images/file-6733faedbad25.png]]
+![Image](assets/images/file-6733faedbad25.png)
 
-![[assets/images/file-67314a322d0f8.png]]
+![Image](assets/images/file-67314a322d0f8.png)
 
 **Identifying Your Network Interface for IPv6 Link-Local Connections**
 
@@ -174,7 +174,7 @@ To connect via a link-local IPv6 address, you need the correct interface identif
 
 Using this identifier will ensure you’re targeting the right interface, especially when dealing with multiple network adapters.
 
-![[assets/images/file-67314c442a18f.png]]
+![Image](assets/images/file-67314c442a18f.png)
 
 ---
 ### 🧠 Q: Access IPv4
