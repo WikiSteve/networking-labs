@@ -2,11 +2,11 @@
 
 Starting on the server computer:
 
-![Image](assets/images/file-62d81f887e439.png)
+![[assets/images/file-62d81f887e439.png]]
 
 ### **`/etc/hosts`**
 
-![Image](assets/images/file-62d81da0b20df.png)
+![[assets/images/file-62d81da0b20df.png]]
 
 There are two main ways of completing a hostname to IP mapping:
 - Name server (DNS)
@@ -25,19 +25,19 @@ Below you'll see `localhost` in IPv6 and two multicast addresses for IPv6 purpos
 
 To begin, add a line that maps the loopback IP to your new server hostname. The loopback is **`127.0.0.1`** and my hostname will be `ssharpe-server`.
 
-![Image](assets/images/file-62d822122bb66.png)
+![[assets/images/file-62d822122bb66.png]]
 
-![Image](assets/images/file-62d8227d395ab.png)
+![[assets/images/file-62d8227d395ab.png]]
 
 Ping your new address.  You'll see the search went back to SSharpe-Debian.Sharpe.com, that is totally OK.  We cannot remove this yet because that is our current hostname. Doing so now would LOCK YOU OUT.
 
 Next, open **`/etc/hostname`** and change `Debian` to `server`.
 
-![Image](assets/images/file-62d82422b044f.png)
+![[assets/images/file-62d82422b044f.png]]
 
 Reboot the VM.
 
-![Image](assets/images/file-62d824aab3b74.png)
+![[assets/images/file-62d824aab3b74.png]]
 
 ## **Screenshot 1: Hostname Change Proof**
 **Requirement:** Prove you were not locked out. Include the new hostname and make sure to use **`sudo`**. If you receive any errors with **`sudo`**, you are locked out and will need to revert to your snapshot.
@@ -46,7 +46,7 @@ You can now return to the **`hosts`** file and rename the line that says `Debian
 
 Also add the client computer now so you can use the client hostname instead of an IP address later. The client address should have host `.201`; the network is whatever your NAT network is. My network is `192.168.90.0/24`, so my client will be `192.168.90.201`.
 
-![Image](assets/images/file-62d82742b9029.png)
+![[assets/images/file-62d82742b9029.png]]
 
 - **Step 1:** Make sure the client computer has the correct IP.
 - **Step 2:** Ensure these are the FQDNs for the hosts (formatted as `hostname.LASTNAME.com`).
@@ -54,7 +54,7 @@ Also add the client computer now so you can use the client hostname instead of a
 
 Once you've updated your **`hosts`** file, **reboot again** before the next screenshot.
 
-![Image](assets/images/file-62d828f60d4d4.png)
+![[assets/images/file-62d828f60d4d4.png]]
 
 ## **Screenshot 2: Host File Verification**
 **Requirement:** Proving the hosts have been configured correctly and you're still not locked out.

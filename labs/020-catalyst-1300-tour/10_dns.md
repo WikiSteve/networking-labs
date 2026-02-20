@@ -22,7 +22,7 @@ Confirm the domain name is already set to `LastName.com`, as configured earlier 
 
 `LastNameR1# show running-config | b ip domain `
 
-![Image](assets/images/file-673fd586346b8.png)
+![[assets/images/file-673fd586346b8.png]]
 
 If the domain name is missing or needs correction:
 
@@ -79,7 +79,7 @@ Confirm the DNS server is correctly added:
 ```plaintext
 LastNameR1# show running-config | section ip dhcp pool
 ```
-![Image](assets/images/file-6740acfac7bf9.png)
+![[assets/images/file-6740acfac7bf9.png]]
 
 ## Set External DNS Servers
 

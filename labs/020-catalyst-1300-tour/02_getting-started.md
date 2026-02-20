@@ -2,7 +2,7 @@
 
 ## Let’s Reset This Bad Boy 🎛️
 
-![Image](assets/images/file-6733ba49c1eb5.jpg)
+![[assets/images/file-6733ba49c1eb5.jpg]]
 
 **Connected? Check!** You’re in the console port! If you were looking for a good view, well, this is it. Enjoy the CLI, the blank slate of possibilities.
 
@@ -27,7 +27,7 @@ If you don’t hit that 18-second Goldilocks zone exactly, the switch will only 
 
 In the screenshot, notice the absence of any “resetting device to factory defaults” message. Instead, you’ll just see the usual reboot sequence with lines like:
 
-![Image](assets/images/file-6733bc2f893c0.png)
+![[assets/images/file-6733bc2f893c0.png]]
 
 and then standard initialization messages before arriving at the familiar login prompt. Without that confirmation of a factory reset, the old configuration and passwords are still in place.
 
@@ -73,7 +73,7 @@ This combo meets the minimum requirements and is simple to type. But, if you’r
 
 ## Why is the Status Light Blinking?
 
-![Image](assets/images/file-6733d396ac71c.gif)
+![[assets/images/file-6733d396ac71c.gif]]
 
 The blinking status light on your Catalyst 1300 switch indicates that, while the switch is operational, it hasn’t been fully integrated into your network setup. By default, the switch is assigned the IP address **192.168.1.254** on **VLAN 1**, which allows initial access via the Web GUI or console port. However, until it’s assigned an IP address that aligns with your network’s addressing scheme, the switch will keep blinking to signal it’s not yet fully configured for network management.
 
