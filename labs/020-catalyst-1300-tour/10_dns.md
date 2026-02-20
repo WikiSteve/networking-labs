@@ -107,49 +107,33 @@ ip name-server 8.8.8.8`
 
 **Step 4: Test DNS Resolution**
 
-1.
+1. **Test Internal DNS on the Router**
+   Verify internal name resolution works:
+   ```bash
+   LastNameR1# ping LastNameR1.LastName.com
+   LastNameR1# ping LastNameSW1.LastName.com
+   ```
 
-**Test Internal DNS on the Router**
+2. **Test External DNS on the Router**
+   Verify external name resolution: 
+   ```bash
+   LastNameR1# ping google.com
+   ```
 
-  - Verify internal name resolution works:
+3. **Test DHCP Clients**
+   - **Windows Clients:** Use `ipconfig /all` to confirm `10.10.10.2` is assigned as the DNS server.
+   - **Linux Clients:**
+     - On systems with Network Manager, use: `nmcli dev show`
+     - For barebones Debian systems, check `/etc/resolv.conf`: `cat /etc/resolv.conf`
+     - Ensure `nameserver 10.10.10.2` is listed.
 
-```plaintext
-LastNameR1# ping LastNameR1.LastName.com
- LastNameR1# ping LastNameSW1.LastName.com
-```
+4. **Test Name Resolution from Clients**
+   Test internal and external resolution:
+   ```bash
+   ping LastNameR1.LastName.com
+   ping google.com
+   ```
 
-1.
-
-**Test External DNS on the Router**
-
-  - Verify external name resolution: `LastNameR1# ping google.com `
-
-1.
-
-**Test DHCP Clients**
-
-  - **Windows Clients:**
-
-    - Use `ipconfig /all` to confirm `10.10.10.2` is assigned as the DNS server.
-
-  - **Linux Clients:**
-
-    - On systems with Network Manager, use: `nmcli dev show `
-
-    - For barebones Debian systems, check `/etc/resolv.conf`: `cat /etc/resolv.conf `
-
- Ensure `nameserver 10.10.10.2` is listed.
-
-1.
-
-**Test Name Resolution from Clients**
-
-  - Test internal and external resolution:
-
-```plaintext
-ping LastNameR1.LastName.com
-ping google.com
-```
 
 **Important Notes**
 

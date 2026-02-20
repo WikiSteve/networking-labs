@@ -62,13 +62,8 @@ Feature Focus
 
 While both the Catalyst 1300 and Cisco 2811 can provide network connectivity, they’re not interchangeable:
 
--
-
-**Catalyst 1300**: Suited for SMBs needing a reliable, straightforward **switch** with basic inter-VLAN routing. It’s ideal for environments focused on Layer 2 switching with occasional, simple Layer 3 requirements (e.g., RIP for IPv4).
-
--
-
-**Cisco 2811 Router**: Although EOL since 2016, the 2811 remains capable in environments needing a dedicated **router** with support for complex Layer 3 routing, multiple protocols (EIGRP, OSPF), and advanced security configurations. While it’s not a switch, it can play a crucial role as a backbone router in network setups where dynamic routing and advanced configurations are required.
+- **Catalyst 1300**: Suited for SMBs needing a reliable, straightforward **switch** with basic inter-VLAN routing. It’s ideal for environments focused on Layer 2 switching with occasional, simple Layer 3 requirements (e.g., RIP for IPv4).
+- **Cisco 2811 Router**: Although EOL since 2016, the 2811 remains capable in environments needing a dedicated **router** with support for complex Layer 3 routing, multiple protocols (EIGRP, OSPF), and advanced security configurations. While it’s not a switch, it can play a crucial role as a backbone router in network setups where dynamic routing and advanced configurations are required.
 
 **Conclusion**
 

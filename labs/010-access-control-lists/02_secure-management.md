@@ -1,20 +1,20 @@
 # Secure Management
 
-## Secure Management
+## Objective
 
 The goal is to:
 
 1. Allow general web traffic **through** the switch without restriction.
+2. Block **only SSH, HTTP, and HTTPS management traffic** targeting the Catalyst 1300 physical interface addresses.
+3. Permit SSH and HTTPS access to the Catalyst 1300 **only via loopback interfaces**.
 
-1. Block **only SSH, HTTP and HTTPS management traffic** targeting the Catalyst 1300's physical interface addresses.
-
-Permit SSH and HTTPS access to the Catalyst 1300 **only via its loopback interfaces. **I do not evaluate blocking HTTP towards the loopback, but *unencrypted HTTP should always be blocked.*
+I do not evaluate blocking HTTP toward the loopback, but unencrypted HTTP should still be blocked.
 
 This ACL is an **extended ACL**, which means it applies filtering closer to the **Source** of the traffic.
 
 **Why This is an Extended ACL**
 
-- **Extended → Source**: The acronym helps us remember that **Extended ACLs** are placed near the **Source** of the traffic to block unwanted data before it even gets far into the network.
+- **Extended -> Source**: The acronym helps us remember that **Extended ACLs** are placed near the **Source** of the traffic to block unwanted data before it gets far into the network.
 
 - Unlike **Standard ACLs**, which only filter based on destination IP, extended ACLs allow filtering based on **source IP, destination IP, protocol, and port numbers**. This granularity ensures greater control and efficiency in traffic management.
 
@@ -23,16 +23,15 @@ This ACL is an **extended ACL**, which means it applies filtering closer to the 
 In this lab, we're controlling traffic based on both **source** (e.g., `any`) and **destination** (e.g., `192.168.100.1`, `2001:dead:beef:cafe::1`). We're also specifying protocols (TCP) and ports (SSH, HTTP, HTTPS). This level of detail is only possible with an extended ACL.
 
 - **Security at the Source:**
-
- By applying the extended ACL to VLAN 1 with the `service-acl input` command, we're ensuring that SSH and HTTPS traffic targeting the management interfaces is stopped as close to its origin as possible, preventing unnecessary resource usage and mitigating security risks.
+  By applying the extended ACL to VLAN 1 with the `service-acl input` command, SSH and HTTPS traffic targeting management interfaces is stopped close to the origin.
 
 **Catchy Way to Remember:**
 
-**Extended ACLs act Early at the Source!**
+**Extended ACLs act early at the source.**
 
 Think of them as proactive guards, screening traffic as it tries to enter the network. In contrast, standard ACLs wait passively at the destination.
 
-Extended ACLs → **Efficient, Early, Exact.**
+Extended ACLs: **Efficient, Early, Exact.**
 
 **IPv4 and IPv6 ACLs**
 
@@ -40,35 +39,26 @@ The following configurations specify rules to block management access to the Cat
 
 **IPv4 ACL:**
 
-`ip access-list extended MGMT_ACL_V4
-
-deny tcp any any 192.168.100.1 0.0.0.0 22 ace-priority 15 # Deny SSH to VLAN1
-
-deny tcp any any 192.168.100.1 0.0.0.0 443 ace-priority 25 # Deny HTTPS to VLAN1
-
-permit ip any any ace-priority 50 # Allow all other traffic `
+```bash
+ip access-list extended MGMT_ACL_V4
+  deny tcp any any 192.168.100.1 0.0.0.0 22 ace-priority 15 # Deny SSH to VLAN1
+  deny tcp any any 192.168.100.1 0.0.0.0 443 ace-priority 25 # Deny HTTPS to VLAN1
+  permit ip any any ace-priority 50 # Allow all other traffic
+```
 
 ### Explanation of the Line:
 
-`deny tcp any any 192.168.100.1 0.0.0.0 22 ace-priority 15`
+**`deny tcp any any 192.168.100.1 0.0.0.0 22 ace-priority 15`**
 
-1.
+1. **Command Breakdown:**
+   - **`deny tcp`**: Denies all traffic using the TCP protocol.
+   - **`any any`**: Applies the rule to any source and destination IP addresses.
+   - **`192.168.100.1 0.0.0.0`**: Targets traffic specifically destined for `192.168.100.1`, as the wildcard mask `0.0.0.0` specifies an exact match.
+   - **`22`**: Specifies the destination port for SSH traffic.
+   - **`ace-priority 15`**: Assigns this rule a priority of `15`, determining its order of evaluation.
 
-**Command Breakdown:**
+2. **What This Rule Does:** This rule blocks all SSH traffic destined for `192.168.100.1`. By explicitly denying SSH to this interface, it ensures unauthorized management access is prevented.
 
-  - **`deny tcp`**: Denies all traffic using the TCP protocol.
-
-  - **`any any`**: Applies the rule to any source and destination IP addresses.
-
-  - **`192.168.100.1 0.0.0.0`**: Targets traffic specifically destined for `192.168.100.1`, as the wildcard mask `0.0.0.0` specifies an exact match.
-
-  - **`22`**: Specifies the destination port for SSH traffic.
-
-  - **`ace-priority 15`**: Assigns this rule a priority of `15`, determining its order of evaluation.
-
-1.
-
-**What This Rule Does:** This rule blocks all SSH traffic destined for `192.168.100.1`. By explicitly denying SSH to this interface, it ensures unauthorized management access is prevented.
 
 ### Why Use `ace-priority`?
 
@@ -88,61 +78,43 @@ In this case, the **`ace-priority`** is used to control the order in which the r
 
 ### Best Practices for `ace-priority`:
 
-1.
-
-**Incremental Gaps:**
+1. **Incremental Gaps:**
 
  Use increments (e.g., 5) to provide flexibility for future additions.
 
-1.
-
-**Restrictive First, Permissive Last:**
+1. **Restrictive First, Permissive Last:**
 
  Place restrictive rules (e.g., `deny`) with **lower priorities** so they are processed before broader permissive rules (e.g., `permit ip any any`).
 
-1.
-
-**Plan for Growth:**
+1. **Plan for Growth:**
 
  Leave gaps in your numbering to accommodate changes, especially in dynamic environments.
 
 **IPv6 ACL:**
 
-`ipv6 access-list MGMT_ACL_V6
-
-deny tcp any any fe80::beef:1234/128 22 ace-priority 15 # Deny SSH to link-local
-
-deny tcp any any fe80::beef:1234/128 443 ace-priority 16 # Deny HTTPS to link-local
-
-deny tcp any any 2001:dead:beef:cafe::1/128 443 ace-priority 20 # Deny HTTPS to VLAN1
-
-deny tcp any any 2001:dead:beef:cafe::1/128 22 ace-priority 21 # Deny SSH to VLAN1
-
-permit ipv6 any any ace-priority 50 # Allow all other IPv6 traffic  `
+```bash
+ipv6 access-list MGMT_ACL_V6
+  deny tcp any any fe80::beef:1234/128 22 ace-priority 15 # Deny SSH to link-local
+  deny tcp any any fe80::beef:1234/128 443 ace-priority 16 # Deny HTTPS to link-local
+  deny tcp any any 2001:dead:beef:cafe::1/128 443 ace-priority 20 # Deny HTTPS to VLAN1
+  deny tcp any any 2001:dead:beef:cafe::1/128 22 ace-priority 21 # Deny SSH to VLAN1
+  permit ipv6 any any ace-priority 50 # Allow all other IPv6 traffic
+```
 
 ### **Explanation of IPv6 Deny Rules**
 
 **The Two SSH Deny Rules**
 
-1.
+1. **`deny tcp any any fe80::beef:1234/128 22 ace-priority 15`**
+   - This rule blocks SSH traffic to the **link-local address** `fe80::beef:1234`.
+   - **Link-local addresses** are automatically assigned to all IPv6-enabled interfaces and are valid only within the same link (e.g., LAN or VLAN).
+   - Since link-local addresses are always active, they can serve as an unintended backdoor for management access. This rule explicitly denies SSH traffic to the link-local address, enhancing security.
 
-**`deny tcp any any fe80::beef:1234/128 22 ace-priority 15 # Deny SSH to link-local`**
+2. **`deny tcp any any 2001:dead:beef:cafe::1/128 22 ace-priority 21`**
+   - This rule blocks SSH traffic to the **global unicast address** `2001:dead:beef:cafe::1`.
+   - **Global unicast addresses** are routable across the internet or a larger network. This address might represent a VLAN's management interface, making it a critical target to secure.
+   - This rule ensures that SSH access to the global interface is blocked, even from external sources, to reduce exposure to potential attacks.
 
-  - This rule blocks SSH traffic to the **link-local address** `fe80::beef:1234`.
-
-  - **Link-local addresses** are automatically assigned to all IPv6-enabled interfaces and are valid only within the same link (e.g., LAN or VLAN).
-
-  - Since link-local addresses are always active, they can serve as an unintended backdoor for management access. This rule explicitly denies SSH traffic to the link-local address, enhancing security.
-
-1.
-
-**`deny tcp any any 2001:dead:beef:cafe::1/128 22 ace-priority 21 # Deny SSH to VLAN1`**
-
-  - This rule blocks SSH traffic to the **global unicast address** `2001:dead:beef:cafe::1`.
-
-  - **Global unicast addresses** are routable across the internet or a larger network. This address might represent a VLAN's management interface, making it a critical target to secure.
-
-  - This rule ensures that SSH access to the global interface is blocked, even from external sources, to reduce exposure to potential attacks.
 
 **Why Two Rules for SSH?**
 
@@ -182,21 +154,15 @@ The **`ace-priority`** value of `21` reflects a **practical shortcut** during th
 
 **Best Practices for Handling Similar Situations:**
 
-1.
-
-**Use Incremental Priority Gaps:**
+1. **Use Incremental Priority Gaps:**
 
   - Always leave room (e.g., increments of 5) for future edits to minimize disruption.
 
-1.
-
-**Preserve Processing Order:**
+1. **Preserve Processing Order:**
 
   - Avoid renumbering unless absolutely necessary, as this can inadvertently change how the ACL behaves.
 
-1.
-
-**Document Adjustments:**
+1. **Document Adjustments:**
 
   - Clearly explain why specific priorities deviate from the standard increment.
 
@@ -210,21 +176,15 @@ This approach highlights a real-world balance between efficiency and meticulousn
 
 ### **Why Use Comments (`#`)?**
 
-The `#` symbol and accompanying text in the ACL commands are **comments for your reference only**. These **cannot be entered into the Cisco CLI**. When entering the commands, omit everything after and including the `#`. Best practice is the **remark **keyword for comments, which we will use on the Cisco 2811 router, but sadly, the Catalyst 1300 does not support the **remark** command.
+The `#` symbol and accompanying text in the ACL commands are **comments for your reference only**. These **cannot be entered into the Cisco CLI**. When entering the commands, omit everything after and including the `#`. Best practice is the **`remark`** keyword for comments, which we will use on the Cisco 2811 router, but the Catalyst 1300 does not support the `remark` command.
 
 **Example:**
 
--
+- **What you see in the guide:**
+  **`deny tcp any any 192.168.100.1 0.0.0.0 22 ace-priority 15 # Deny SSH to VLAN1`**
 
-**What you see in the guide:**
-
- `deny tcp any any 192.168.100.1 0.0.0.0 22 ace-priority 15 # Deny SSH to VLAN1`
-
--
-
-**What you enter in the CLI:**
-
- `deny tcp any any 192.168.100.1 0.0.0.0 22 ace-priority 15`
+- **What you enter in the CLI:**
+  **`deny tcp any any 192.168.100.1 0.0.0.0 22 ace-priority 15`**
 
 ### **Applying the ACLs**
 
@@ -232,7 +192,7 @@ To bind both IPv4 and IPv6 ACLs to VLAN 1, use the following command: 
 
 ```bash
 interface vlan 1
-service-acl input MGMT_ACL_V4 MGMT_ACL_V6 # Apply both ACLs 
+  service-acl input MGMT_ACL_V4 MGMT_ACL_V6 # Apply both ACLs
 ```
 
 ### **Using `nmap` for Testing ACLs**
@@ -242,55 +202,45 @@ service-acl input MGMT_ACL_V4 MGMT_ACL_V6 # Apply both ACLs 
 **What Does `nmap` Do?**
 
 - **Port Scanning:** Identifies whether specific ports (e.g., `22`, `80`, `443`) are open, closed, or filtered.
-
 - **Service Identification:** Confirms which services (e.g., SSH, HTTP, HTTPS) are running on those ports.
-
 - **Testing ACLs:** Validates whether your ACL rules are effectively blocking or allowing traffic as expected.
 
 In this case:
-
 - The goal is to block access to management ports (SSH, HTTP, HTTPS) on `192.168.100.1` while allowing traffic to `10.10.10.1` (loopback interface).
-
 - `nmap` provides real-time feedback to ensure your ACL is working as intended.
 
 **Install `nmap`**
 
 Before running the scan, make sure you have `nmap` installed on your system. If not, you can install it using the following command:
 
-`sudo apt install nmap `
+**`sudo apt install nmap`**
 
 Once installed, use `nmap` to run the command provided in the guide and verify your ACL configuration.
 
 **The Syntax of the Command**
 
-`nmap -Pn -sT -p 22,80,443 10.10.10.1 192.168.100.1 `
+**`nmap -Pn -sT -p 22,80,443 10.10.10.1 192.168.100.1`**
 
 - **`nmap`**: The command-line tool used for network exploration and security auditing.
-
 - **`-Pn`**: Disables ping checks before scanning, assuming the host is up. Useful if ICMP is blocked.
-
 - **`-sT`**: Specifies a TCP connect scan, which establishes a full TCP connection to determine if a port is open.
-
-- **`-p 22,80,443`**: Specifies the ports to scan:
-
-  - **22** (SSH), **80** (HTTP), and **443** (HTTPS).
-
+- **`-p 22,80,443`**: Specifies the ports to scan: **22** (SSH), **80** (HTTP), and **443** (HTTPS).
 - **`10.10.10.1 192.168.100.1`**: The two target IP addresses to scan.
+
 
 ## Screenshot 1 Explanation and Requirements
 
-![Image](assets/images/file-6743bf4dc16fa.png)
+![Screenshot](assets/images/file-6743bf4dc16fa.png)
 
 **1. The Command**
 
 The command visible in the screenshot is:
 
-`nmap -Pn -sT -p 22,80,443 10.10.10.1 192.168.100.1 `
+**`nmap -Pn -sT -p 22,80,443 10.10.10.1 192.168.100.1`**
 
 This command runs an **Nmap TCP connect scan** for the ports SSH (`22`), HTTP (`80`), and HTTPS (`443`) on two IP addresses:
 
 - **`10.10.10.1`**: This is the loopback interface of your device.
-
 - **`192.168.100.1`**: This is the VLAN management interface.
 
 **2. DNS and Pointer Records**
@@ -300,49 +250,34 @@ When you configured DNS in the prerequisite lab, you set up **forward zones** (h
 Here’s where **Pointer (PTR) records** come in:
 
 - **PTR records** handle **reverse lookups**, resolving IP addresses back to hostnames.
-
 - The **Cisco 2811 automatically generates PTR records** based on the forward zone configuration.
-
-  - If you followed the correct DNS configuration steps in the prerequisite lab, the PTR record for `10.10.10.1` should resolve to:
-
- `LastNameSW1.LastName.com`
+  - If you followed the correct DNS configuration steps in the prerequisite lab, the PTR record for `10.10.10.1` should resolve to: **`LastNameSW1.LastName.com`**
 
 By doing the forward zone configuration correctly, you automatically set up reverse DNS functionality without needing to manage PTR records manually.
 
 **3. Port Status for Grading**
 
 - For **grading purposes**, all ports for `10.10.10.1` (loopback interface) **must be open**.
-
   - Any port showing as **filtered** indicates a configuration or connection issue, and your submission will not be graded.
 
 **4. HTTP Reachability**
 
 - **In this screenshot:** Port `80` (HTTP) must be **open** for `192.168.100.1` to verify the gateway is reachable.
-
 - **In the next screenshot:** All ports for `192.168.100.1` must show as **filtered**, confirming proper ACL implementation.
 
 **5. Host Naming and Customized Prompt**
 
 Your Debian machine must meet the following requirements in all screenshots:
 
-- **Hostname:** Must be formatted as:
-
- `FirstInitialLastName-acllab`
-
- Example: If your name is John Smith, the hostname must be `JSmith-acllab`.
-
+- **Hostname:** Must be formatted as: **`FirstInitialLastName-acllab`**
+  - Example: If your name is John Smith, the hostname must be `JSmith-acllab`.
 - **Login Name:** You must be logged in as your **first name**, as shown in the screenshot.
-
-- **Prompt:** The shell prompt must include:
-
-  - **Date and Time**, as shown in the screenshot.
-
- Example: `[steve@sharpe-acllab 2024-11-24 19:59:26]`.
+- **Prompt:** The shell prompt must include **Date and Time**, as shown in the screenshot.
+  - Example: `[steve@sharpe-acllab 2024-11-24 19:59:26]`.
 
 ### **Key Note About DNS**
 
 - While you configured forward zones (hostnames to IP addresses) during the prerequisite lab, the Cisco 2811 automatically created the **PTR records** for reverse DNS lookups.
-
 - You do not need to configure PTR records yourself. If your DNS setup was done correctly, reverse lookups will work seamlessly.
 
 ### **Strict Submission Requirements**
@@ -350,10 +285,8 @@ Your Debian machine must meet the following requirements in all screenshots:
 Your screenshot must match the following:
 
 1. Correct DNS resolution (both forward and reverse).
-
-1. Accurate hostname, login name, and prompt (with date and time).
-
-1. The expected port status results for `10.10.10.1` and `192.168.100.1`.
+2. Accurate hostname, login name, and prompt (with date and time).
+3. The expected port status results for `10.10.10.1` and `192.168.100.1`.
 
 **Any deviation will result in a zero for this slide.** If anything is unclear, make sure to ask for assistance!
 
@@ -362,9 +295,7 @@ Your screenshot must match the following:
 Now that you need to modify the ACL, it's a good time to understand how to make changes. Changes to an ACL are locked while it is applied to an interface. You can modify the ACL in several ways:
 
 - Add new rules using the **ace-priorities** we discussed earlier, ensuring precise control over the evaluation order.
-
 - Delete or adjust individual rules as needed, then reapply the updated ACL.
-
 - Completely remove the ACL, edit it, and rebind it to the interface.
 
 The following instructions will be useful regardless of which approach you take.
@@ -373,11 +304,11 @@ The following instructions will be useful regardless of which approach you take.
 
 When an ACL is applied to an interface, attempting to remove it directly results in an error:
 
-`LastNameSW1(config)#no ip access-list extended MGMT_ACL_V4
-
+```plaintext
+LastNameSW1(config)# no ip access-list extended MGMT_ACL_V4
 This action may cause a brief interruption of ACL/policy services.
-
-Cannot delete/modify MGMT_ACL_V4, ACL is in use. `
+Cannot delete/modify MGMT_ACL_V4, ACL is in use.
+```
 
 The system prevents you from deleting an ACL that is actively bound to an interface.
 
@@ -387,11 +318,13 @@ The system prevents you from deleting an ACL that is actively bound to an interf
 
 Unlike traditional IOS, the Catalyst 1300 uses a simplified command for unbinding ACLs. To remove both IPv4 and IPv6 ACLs from VLAN 1, use:
 
-`LastNameSW1(config-if)#no service-acl input `
+**`LastNameSW1(config-if)# no service-acl input`**
 
 **Output Example:**
 
-`28-Nov-2024 18:27:10 %QOS_CLI-I-NETACLIFCHANGED: Input ACL 'MGMT_ACL_V4' and ACL 'MGMT_ACL_V6' have been removed `
+```plaintext
+28-Nov-2024 18:27:10 %QOS_CLI-I-NETACLIFCHANGED: Input ACL 'MGMT_ACL_V4' and ACL 'MGMT_ACL_V6' have been removed
+```
 
 At this point, the ACLs are no longer applied to the interface, freeing them for deletion or modification.
 
@@ -399,23 +332,18 @@ At this point, the ACLs are no longer applied to the interface, freeing them for
 
 With the ACL unbound, you can now remove it safely:
 
--
+- **For IPv4:**
+  **`LastNameSW1(config)# no ip access-list extended MGMT_ACL_V4`**
 
-**For IPv4:**
-
- `LastNameSW1(config)#no ip access-list extended MGMT_ACL_V4 `
-
--
-
-**For IPv6:**
-
- `LastNameSW1(config)#no ipv6 access-list MGMT_ACL_V6 `
+- **For IPv6:**
+  **`LastNameSW1(config)# no ipv6 access-list MGMT_ACL_V6`**
 
 **3. Reapply the ACLs After Changes**
 
 Once you've made the necessary changes to the ACLs, reapply them to the interface:
 
-`LastNameSW1(config-if)#service-acl input MGMT_ACL_V4 MGMT_ACL_V6 `
+**`LastNameSW1(config-if)# service-acl input MGMT_ACL_V4 MGMT_ACL_V6`**
+
 
 ### **Key Notes**
 
@@ -427,7 +355,7 @@ Once you've made the necessary changes to the ACLs, reapply them to the interfac
 
 ## **Screenshot 2 Explanation and Requirements**
 
-![Image](assets/images/file-6743c4bdea07c.png)
+![Screenshot](assets/images/file-6743c4bdea07c.png)
 
 **1. The Command**
 
@@ -497,7 +425,7 @@ Ask questions if you need clarification!
 
 ## **Screenshot 3 IPv6 Loopback Scan**
 
-![Image](assets/images/file-6744b0937328f.png)
+![Screenshot](assets/images/file-6744b0937328f.png)
 
 **1. The Command**
 
@@ -553,7 +481,7 @@ Your Debian machine must meet the following requirements:
 
 ## **Screenshot 4 VLAN 1 Global IPv6 Address**
 
-![Image](assets/images/file-6744b3e640859.png)
+![Screenshot](assets/images/file-6744b3e640859.png)
 
 **1. The Command**
 
@@ -617,7 +545,7 @@ Your Debian machine must meet the following requirements:
 
 ## **Screenshot 5 VLAN 1 Global IPv6 Address**
 
-![Image](assets/images/file-6744f5daf01e0.png)
+![Screenshot](assets/images/file-6744f5daf01e0.png)
 
 **1. The Command**
 
@@ -679,13 +607,13 @@ Your Debian machine must meet the following requirements:
 
 ## Verifying Your Interface Name
 
-![Image](assets/images/file-6744e925efd57.png)
+![Screenshot](assets/images/file-6744e925efd57.png)
 
 Before testing **link-local addresses**, you need to identify the correct **interface name** on your machine. In this example, the interface name is **`ens192`**, but your interface name may differ depending on your configuration. This screenshot is provided **for guidance only** and is not part of your submission.
 
 ## **Screenshot 6 Testing Link-Local Address for VLAN 1**
 
-![Image](assets/images/file-6744edd1defb2.png)
+![Screenshot](assets/images/file-6744edd1defb2.png)
 
 **1. The Command**
 
@@ -753,7 +681,7 @@ Your Debian machine must meet the following requirements:
 
 ## **Screenshot 7 Testing Link-Local Address for VLAN 1 (All Ports Filtered)**
 
-![Image](assets/images/file-6744f9f463f57.png)
+![Screenshot](assets/images/file-6744f9f463f57.png)
 
 **1. The Command**
 

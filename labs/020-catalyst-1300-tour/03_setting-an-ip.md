@@ -4,34 +4,18 @@
 
 Before we dive into configuring the IP address for your Catalyst 1300 switch, here are some key ground rules:
 
-1.
-
-**No Static IPs on College Computers**
-
- Do not set a static IP address on any college-provided computer. We’ll guide you through configuring a DHCP server and connecting via both IPv4 and IPv6. College computers must connect using **DHCP ONLY** for IPv4 or through **IPv6 router advertisements**.
-
-1.
-
-**Personal Virtual Machines on College Computers? Static IPs Allowed**
-
- If you’re running virtual machines on a college computer, you may set static IPs on your **personal virtual machines** as long as they’re in **bridge mode**. However, **do not set a static IP on the college’s physical host machine**—stick to DHCP or IPv6 to avoid any network issues.
-
-1.
-
-**Bring Your Own Device (BYOD)**
-
- If you’re using your own device on the college network, you have full control—feel free to configure IPs however you prefer!
+1. **No Static IPs on College Computers** Do not set a static IP address on any college-provided computer. We’ll guide you through configuring a DHCP server and connecting via both IPv4 and IPv6. College computers must connect using **DHCP ONLY** for IPv4 or through **IPv6 router advertisements**.
+2. **Personal Virtual Machines on College Computers? Static IPs Allowed** If you’re running virtual machines on a college computer, you may set static IPs on your **personal virtual machines** as long as they’re in **bridge mode**. However, **do not set a static IP on the college’s physical host machine**—stick to DHCP or IPv6 to avoid any network issues.
+3. **Bring Your Own Device (BYOD)** If you’re using your own device on the college network, you have full control—feel free to configure IPs however you prefer!
 
 Before we get into setting up the IP address, here’s a quick reminder of the default login details:
 
 - **Default Username:** `cisco`
-
 - **Default Password:** `cisco`
 
 If you haven’t changed these yet, it’s a good time to do so! We recommend updating to the following for an easier login experience that still meets security requirements:
 
 - **Suggested Username:** `admin`
-
 - **Suggested Password:** `Don'tpanic`
 
 If you’ve already completed this step, you’re good to go. Let’s proceed to configuring the IP address!
@@ -48,58 +32,73 @@ Once the switch is officially configured with a specific IP, this default IP is 
 
 ## Setting an IP
 
-Configure vlan 1 with an IPv4 address
+Configure VLAN 1 with an IPv4 address:
 
-SharpeSW1(config)#interface vlan 1
-
-SharpeSW1(config-if)#ip address 192.168.100.1 255.255.255.0
+```bash
+interface vlan 1
+  ip address 192.168.100.1 255.255.255.0
+```
 
 ### IPv6 Address Configuration on VLAN 1
 
 In addition to IPv4, we can configure IPv6 addresses on VLAN 1. Here’s a breakdown of the commands:
 
-1.
+1. **Link-Local Address**
+   ```bash
+   ipv6 address fe80::beef:1234 link-local
+   ```
+   This command assigns a **link-local IPv6 address** to VLAN 1. Link-local addresses, which start with `fe80::`, are automatically available on each IPv6-enabled interface and are used for communication within the local network segment. This type of address isn’t routable outside the local link, meaning it won’t go beyond this specific network. The `link-local` keyword specifies that this address is for local communication only.
 
-**Link-Local Address**
-
- `SharpeSW1(config-if)#ipv6 address fe80::beef:1234 link-local `
-
-This command assigns a **link-local IPv6 address** to VLAN 1. Link-local addresses, which start with `fe80::`, are automatically available on each IPv6-enabled interface and are used for communication within the local network segment. This type of address isn’t routable outside the local link, meaning it won’t go beyond this specific network. The `link-local` keyword specifies that this address is for local communication only.
-
-1.
-
-**Global Unicast Address**
-
- `SharpeSW1(config-if)#ipv6 address 2001:dead:beef:cafe::1/64 `
-
-This command assigns a **global unicast IPv6 address** to VLAN 1. Global unicast addresses, like this one starting with `2001:`, are routable on the public internet and uniquely identify the device on the global IPv6 network. The `/64` at the end is the prefix length, indicating that the first 64 bits define the network portion, while the remaining bits are for host addresses. This address makes the switch reachable on networks outside the local link.
-
-## 🧠 Knowledge Check
-
-At this stage, we need to set the college computer to 192.168.100.10/24
-
-- [ ] True
-- [ ] False
-
-<details>
-<summary><b>Reveal answer</b></summary>
-
-**Answer:** True
-</details>
+2. **Global Unicast Address**
+   ```bash
+   ipv6 address 2001:dead:beef:cafe::1/64
+   ```
+   This command assigns a **global unicast IPv6 address** to VLAN 1. Global unicast addresses, like this one starting with `2001:`, are routable on the public internet and uniquely identify the device on the global IPv6 network. The `/64` at the end is the prefix length, indicating that the first 64 bits define the network portion, while the remaining bits are for host addresses. This address makes the switch reachable on networks outside the local link.
 
 
-## 🧠 Knowledge Check
+---
+### 🧠 Rules Q1: Static IP
 
-Is your status light still blinking?
-
-- [ ] True
-- [ ] False
+> [!NOTE]
+> **Statement:** At this stage, we need to set the college computer to 192.168.100.10/24
+> 
+> - [ ] True
+> - [ ] False
 
 <details>
-<summary><b>Reveal answer</b></summary>
+<summary>👉 <b>Reveal answer</b></summary>
 
-**Answer:** True
+**Correct:** False
+
+**Feedback:** You're paying attention :)
 </details>
+
+---
+
+
+
+
+---
+### 🧠 Status light blinking?
+
+> [!NOTE]
+> **Statement:** Is your status light still blinking?
+> 
+> - [ ] True
+> - [ ] False
+
+<details>
+<summary>👉 <b>Reveal answer</b></summary>
+
+**Correct:** False
+
+**Feedback:** If only all of lifes problems could be solved by setting an IP address
+</details>
+
+---
+
+
+
 
 
 ![Image](assets/images/file-6733f2c03b558.png)
@@ -150,13 +149,12 @@ In this example, the initial ping to the link-local address `fe80::beef:1234` fa
 
 To resolve this, we need to specify the exact interface we want to use for the ping. In IPv6, you can do this with the `%` symbol followed by the interface identifier:
 
-- **On Windows**: Use the **interface number**, which you can find by running the `route print` command.
-
-- **On Linux**: Use the **interface name**, which can be found with commands like `ip addr`. In this example, the interface name is `enx00808a815890`.
+- **On Windows**: Use the **interface number**, which you can find by running the **`route print`** command.
+- **On Linux**: Use the **interface name**, which can be found with commands like **`ip addr`**. In this example, the interface name is `enx00808a815890`.
 
 So, the successful ping command looks like this:
 
-`ping -c 1 fe80::beef:1234%enx00808a815890 `
+**`ping -c 1 fe80::beef:1234%enx00808a815890`**
 
 By appending `%enx00808a815890`, we’re telling the system to send the ping specifically through this interface, eliminating any ambiguity and allowing the ping to succeed.
 
@@ -168,21 +166,17 @@ In the initial screenshot, you’ll notice that our network setup lacks both a *
 
 This is because **IPv6 routing** and **global address configuration** aren’t automatically enabled. To fix this, we can use the following command on the switch:
 
-`SharpeSW1(config)#ipv6 unicast-routing `
+**`ipv6 unicast-routing`**
 
 **Enabling IPv6 Unicast Routing**
 
 When we enable IPv6 unicast routing, a few things happen:
 
-1.
+1. **Router Advertisements (RAs)**: The switch begins sending router advertisements to connected devices. These advertisements allow devices on the network to automatically configure their own global IPv6 addresses without needing DHCP.
+2. **IPv6’s Magic Without DHCP**: Unlike IPv4, IPv6 doesn’t require DHCP to function. Devices can configure themselves using information from the router advertisements, allowing them to access the internet or other networks seamlessly. DHCP is entirely optional in the IPv6 world, primarily used only when additional configuration details (like DNS servers) are needed.
 
-**Router Advertisements (RAs)**: The switch begins sending router advertisements to connected devices. These advertisements allow devices on the network to automatically configure their own global IPv6 addresses without needing DHCP.
+Once **`ipv6 unicast-routing`** is enabled, the switch and connected devices can automatically assign global addresses and discover the default gateway, enabling full connectivity beyond the local network.
 
-1.
-
-**IPv6’s Magic Without DHCP**: Unlike IPv4, IPv6 doesn’t require DHCP to function. Devices can configure themselves using information from the router advertisements, allowing them to access the internet or other networks seamlessly. DHCP is entirely optional in the IPv6 world, primarily used only when additional configuration details (like DNS servers) are needed.
-
-Once **ipv6 unicast-routing** is enabled, the switch and connected devices can automatically assign global addresses and discover the default gateway, enabling full connectivity beyond the local network. This demonstrates one of IPv6’s major advantages—built-in self-configuration, making network setup a lot easier!
 
 ![Image](assets/images/file-6733faedbad25.png)
 
@@ -198,21 +192,24 @@ Using this identifier will ensure you’re targeting the right interface, especi
 
 ![Image](assets/images/file-67314c442a18f.png)
 
-## 🧠 Knowledge Check
+---
+### 🧠 Q: Access IPv4
 
-So we've set an IPv4 address on the switch. We will access it by:
-
-- [ ] Setting the college computer to a static IP within this subnet
-- [ ] Tune into the next step **Configuring DHCP**
+> [!NOTE]
+> **Question:** So we've set an IPv4 address on the switch. We will access it by:
+> 
+> - [ ] **A.** Setting the college computer to a static IP within this subnet
+> - [ ] **B.** Tune into the next step **Configuring DHCP**
 
 <details>
-<summary><b>Reveal answer</b></summary>
+<summary>👉 <b>Check your answer</b></summary>
 
-**Answer:** Tune into the next step **Configuring DHCP**
+**Correct Option: B**
 
-**Feedback:**
-- Tune into the next step **Configuring DHCP**: You're on the right track :)
+**Feedback:** You're on the right track :)
 </details>
+
 ---
+
 
 [Prev](02_getting-started.md) | [Home](README.md) | [Next](04_configuring-dhcp-ipv4.md)

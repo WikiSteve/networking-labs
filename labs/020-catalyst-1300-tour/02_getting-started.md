@@ -4,19 +4,9 @@
 
 ![Image](assets/images/file-6733ba49c1eb5.jpg)
 
-1.
-
-**Connected? Check!**
-
- You’re in the console port! If you were looking for a good view, well, this is it. Enjoy the CLI, the blank slate of possibilities.
-
-1.
-
-**No Idea on the Username or Password?** We've all been there. If you can't guess your way in (admin/admin isn't magic), don’t worry.
-
-1.
-
-**Put Hands in the Air?** You could, but let’s not get too dramatic. We’ve got solutions.
+1. **Connected? Check!** You’re in the console port! If you were looking for a good view, well, this is it. Enjoy the CLI, the blank slate of possibilities.
+2. **No Idea on the Username or Password?** We've all been there. If you can't guess your way in (admin/admin isn't magic), don’t worry.
+3. **Put Hands in the Air?** You could, but let’s not get too dramatic. We’ve got solutions.
 
 Below is the official guide by Cisco on a how to [Factory Reset a Catalyst 1300 Switch](http://www.cisco.com/c/en/us/support/docs/smb/switches/Catalyst-switches/kmgmt3620-reboot-factory-reset-catalyst-1200-1300-switches.html)
 
@@ -26,37 +16,15 @@ Below is the official guide by Cisco on a how to [Factory Reset a Catalyst 1300 
 
 Cisco’s official instructions are great, but experience speaks louder! Here’s the trick:
 
-1.
-
-**Unplug All Ethernet Cables**
-
- For the factory reset to work, make sure *all* Ethernet cables are unplugged from the switch. The console port can stay connected, but every other cable must go!
-
-1.
-
-**Hold the Reset Button for 18 Seconds (Trust Us, It’s the Sweet Spot)**
-
- Cisco mentions a timing range of 16 to 20 seconds, but we’ve found that **holding the reset button for 18 seconds** hits the mark perfectly. Think of it as the “Goldilocks zone”—not too short, not too long. If you’re a second or two off, the switch might just reboot instead of fully resetting.
-
-1.
-
-**Expect Some Console Jargon**
-
- Once you let go, you should see messages like:
+1. **Unplug All Ethernet Cables** For the factory reset to work, make sure *all* Ethernet cables are unplugged from the switch. The console port can stay connected, but every other cable must go!
+2. **Hold the Reset Button for 18 Seconds (Trust Us, It’s the Sweet Spot)** Cisco mentions a timing range of 16 to 20 seconds, but we’ve found that **holding the reset button for 18 seconds** hits the mark perfectly. Think of it as the “Goldilocks zone”—not too short, not too long. If you’re a second or two off, the switch might just reboot instead of fully resetting.
+3. **Expect Some Console Jargon** Once you let go, you should see messages like:
 
 ![Image](assets/images/file-6733c9a187dca.png)
 
--
-
-  -
-
 The garbled output is just the switch dumping data as it resets; it’s normal and nothing to worry about.
 
--
-
-**Reconnect and Confirm**
-
- After the reset completes, reconnect to confirm the device is back to its default settings. You’re now ready to configure from scratch!
+4. **Reconnect and Confirm** After the reset completes, reconnect to confirm the device is back to its default settings. You’re now ready to configure from scratch!
 
 If you don’t hit that 18-second Goldilocks zone exactly, the switch will only reboot instead of resetting to factory defaults. Here’s what that looks like:
 
@@ -68,35 +36,41 @@ and then standard initialization messages before arriving at the familiar login 
 
 **Pro Tip**: Use a timer to ensure you’re holding the reset button for precisely 18 seconds! One second off, and it’s back to square one with just a regular reboot.
 
-🎥 **Video:** https://youtu.be/9l0VK863DVU
+### 🎥 Factory reset Cisco Catalyst 1300
+[Watch Video](https://youtu.be/9l0VK863DVU)
 
-## 🧠 Knowledge Check
+---
+### 🧠 Resetting device
 
-I successfully reset the password!!
-
-- [x] True
-- [x] False
+> [!NOTE]
+> **Statement:** I successfully reset the password!!
+> 
+> - [ ] True
+> - [ ] False
 
 <details>
-<summary><b>Reveal answer</b></summary>
+<summary>👉 <b>Reveal answer</b></summary>
 
-**Answer:** True
+**Correct:** True
 </details>
+
+---
+
+
 
 
 ## Setting Up Your Login Credentials
 
 After the factory reset, you’ll be able to log in using the default credentials:
 
-- **Username:** `cisco`
-
-- **Password:** `cisco`
+- **Username:** **`cisco`**
+- **Password:** **`cisco`**
 
 Once logged in, you’ll be prompted to create a new username and password. While Cisco’s C1300 platform has its own minimum password requirements, we recommend the following to make your life easier:
 
-- **Username:** `admin`
+- **Username:** **`admin`**
+- **Password:** **`Don'tpanic`**
 
-- **Password:** `Don'tpanic`
 
 This combo meets the minimum requirements and is simple to type. But, if you’re feeling adventurous, feel free to create the most complex password you’d like—just remember it for future logins!
 

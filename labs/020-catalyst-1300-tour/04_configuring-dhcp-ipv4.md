@@ -24,17 +24,17 @@ Change the 2811 router hostname to `LastNameR1`.
 
 **Enable the Interface on the Router**
 
-On the 2811 router, go to the FastEthernet 0/0 interface and run the `no shutdown` command to activate the port. This allows the router and switch to begin exchanging CDP (Cisco Discovery Protocol) messages.
+On the 2811 router, go to the FastEthernet 0/0 interface and run the **`no shutdown`** command to activate the port. This allows the router and switch to begin exchanging CDP (Cisco Discovery Protocol) messages.
 
-`LastNameR1#configure terminal
-
+```bash
+LastNameR1#configure terminal
 LastNameR1(config)#interface FastEthernet0/0
-
-LastNameR1(config-if)#no shutdown`` `
+LastNameR1(config-if)#no shutdown
+```
 
 **Verify the Connection with CDP**
 
-Use the `show cdp neighbors` command on both the router and switch to confirm that they’re connected through the correct ports. You should see each device listed as a neighbor, with the corresponding ports (Gigabit 1 on the switch and FastEthernet 0/0 on the router).
+Use the **`show cdp neighbors`** command on both the router and switch to confirm that they’re connected through the correct ports. You should see each device listed as a neighbor, with the corresponding ports (Gigabit 1 on the switch and FastEthernet 0/0 on the router).
 
 By following these steps, you’ll establish a trunk connection between the Catalyst 1300 and the 2811 router, ready for DHCP and DNS setup on the 2811.
 
@@ -54,45 +54,44 @@ Steps to Configure the Blackhole VLAN as the Native VLAN
 
 Configure VLAN 999 as the blackhole VLAN on the Catalyst 1300:
 
-`LastNameSW1#configure terminal
-
+```bash
+LastNameSW1#configure terminal
 LastNameSW1(config)#vlan 999
-
 LastNameSW1(config)#interface vlan 999
-
-LastNameSW1(config-if)#name blackhole`
+LastNameSW1(config-if)#name blackhole
+```
 
 **Set Gigabit 1 to Trunk Mode**
 
 Configure Gigabit 1 as a trunk port to carry traffic for multiple VLANs, allowing communication with the 2811 router’s sub-interfaces for VLANs:
 
-`LastNameSW1#configure terminal
-
+```bash
+LastNameSW1#configure terminal
 LastNameSW1(config)#interface gigabitEthernet 1
-
-LastNameSW1(config-if)#switchport mode trunk `
+LastNameSW1(config-if)#switchport mode trunk
+```
 
 **Set VLAN 999 as the Native VLAN on the Trunk**
 
 Assign VLAN 999 as the native VLAN for the trunk port. This ensures any untagged traffic is sent to VLAN 999 (the blackhole VLAN) and doesn’t interfere with active VLAN traffic:
 
-`LastNameSW1(config-if)#switchport trunk native vlan 999`
+**`LastNameSW1(config-if)#switchport trunk native vlan 999`**
 
 **Configure Sub-Interface on the 2811 for Native VLAN 999**
 
 On the 2811 router, create a sub-interface on FastEthernet 0/0 for VLAN 999. This sub-interface will act as the "native" VLAN for untagged traffic:
 
+```bash
 LastNameR1#configure terminal
-
 LastNameR1(config)#interface FastEthernet0/0.999
-
 LastNameR1(config-subif)#encapsulation dot1q 999 native
-
 LastNameR1(config-subif)#exit
+```
 
 **Verify the Configuration with CDP**
 
-Use the `show cdp neighbors detail` command on both devices to confirm the connection is established with the native VLAN 999 as expected.
+Use the **`show cdp neighbors detail`** command on both devices to confirm the connection is established with the native VLAN 999 as expected.
+
 
 ![Image](assets/images/file-6734e16058c47.png)
 
@@ -100,57 +99,43 @@ Use the `show cdp neighbors detail` command on both devices to confirm the conne
 
 Now that we have our trunk port configured on the Catalyst 1300, let’s set up a corresponding sub-interface on the 2811 router for **VLAN 1**. This will allow the router to handle IP addressing for VLAN 1.
 
-1.
+1. **Access the Sub-Interface for VLAN 1 on the 2811**
+   ```bash
+   LastNameR1#configure terminal
+   LastNameR1(config)#interface FastEthernet0/0.1
+   ```
+   Start by creating a sub-interface on **FastEthernet0/0** specifically for VLAN 1. This sub-interface will handle all traffic tagged with VLAN 1 on the trunk link.
 
-**Access the Sub-Interface for VLAN 1 on the 2811**
+2. **Configure VLAN Encapsulation for VLAN 1**
+   ```bash
+   LastNameR1(config-subif)#encapsulation dot1Q 1
+   ```
+   Use the `encapsulation dot1Q 1` command to tag this sub-interface with VLAN 1. This tells the router to expect traffic for VLAN 1 on this sub-interface.
 
- LastNameR1#configure terminal
+3. **Assign an IPv4 Address**
+   ```bash
+   LastNameR1(config-subif)#ip address 192.168.100.254 255.255.255.0
+   ```
+   Configure an IPv4 address for this sub-interface within the VLAN 1 subnet. This address will later be used as part of the DHCP scope for VLAN 1.
 
- LastNameR1(config)#interface FastEthernet0/0.1
+4. **Configure IPv6 Addresses**
+   ```bash
+   LastNameR1(config-subif)#ipv6 address fe80::1 link-local
+   LastNameR1(config-subif)#ipv6 address 2001:dead:beef:cafe::2/64
+   ```
+   - Add a **link-local IPv6 address** (`fe80::1`) to the sub-interface for local IPv6 communication.
+   - Configure a **global IPv6 address** (`2001:dead:beef:cafe::2/64`) on the sub-interface, which will allow broader IPv6 connectivity on VLAN 1.
 
-Start by creating a sub-interface on **FastEthernet0/0** specifically for VLAN 1. This sub-interface will handle all traffic tagged with VLAN 1 on the trunk link.
+5. **Important Note: IPv6 Addressing**
+   Pay close attention to the IPv6 addressing here. The Catalyst 1300 switch has the global IPv6 address `2001:dead:beef:cafe::1/64` on VLAN 1, while the 2811 router sub-interface for VLAN 1 is configured with `2001:dead:beef:cafe::2/64`. The difference between `::1` (on the switch) and `::2` (on the router) is essential to ensure unique addresses for each device within the same subnet.
 
-1.
+6. **Verify the Configuration**
+   ```bash
+   LastNameR1#show ip interface brief
+   LastNameR1#show ipv6 interface FastEthernet0/0.1
+   ```
+   Use these commands to verify that the sub-interface `FastEthernet0/0.1` is up and has both the IPv4 and link-local IPv6 addresses assigned correctly.
 
-**Configure VLAN Encapsulation for VLAN 1**
-
- `LastNameR1(config-subif)#encapsulation dot1Q 1 `
-
-Use the `encapsulation dot1Q 1` command to tag this sub-interface with VLAN 1. This tells the router to expect traffic for VLAN 1 on this sub-interface.
-
-1.
-
-**Assign an IPv4 Address**
-
- `LastNameR1(config-subif)#ip address 192.168.100.254 255.255.255.0 `
-
-Configure an IPv4 address for this sub-interface within the VLAN 1 subnet. This address will later be used as part of the DHCP scope for VLAN 1.
-
-1.
-
-**Configure IPv6 Addresses**
-
- `LastNameR1(config-subif)#ipv6 address fe80::1 link-local
-
- LastNameR1(config-subif)#ipv6 address 2001:dead:beef:cafe::2/64 `
-
-  - Add a **link-local IPv6 address** (`fe80::1`) to the sub-interface for local IPv6 communication.
-
-  - Configure a **global IPv6 address** (`2001:dead:beef:cafe::2/64`) on the sub-interface, which will allow broader IPv6 connectivity on VLAN 1.
-
-1.
-
-**Important Note: IPv6 Addressing** Pay close attention to the IPv6 addressing here. The Catalyst 1300 switch has the global IPv6 address `2001:dead:beef:cafe::1/64` on VLAN 1, while the 2811 router sub-interface for VLAN 1 is configured with `2001:dead:beef:cafe::2/64`. The difference between `::1` (on the switch) and `::2` (on the router) is essential to ensure unique addresses for each device within the same subnet.
-
-1.
-
-**Verify the Configuration**
-
- `LastNameR1#show ip interface brief
-
- LastNameR1#show ipv6 interface FastEthernet0/0.1 `
-
-Use these commands to verify that the sub-interface `FastEthernet0/0.1` is up and has both the IPv4 and link-local IPv6 addresses assigned correctly.
 
 ![Image](assets/images/file-6734e7a95c6a7.png)
 
@@ -186,31 +171,27 @@ This level of control is essential when dealing with IPv6 link-local addresses t
 
 Now that we’ve set up the VLAN and IP configurations, let’s configure a DHCP scope on the 2811 router to automatically assign IP addresses within the `192.168.100.0/24` range.
 
-1.
+1. **Exclude Reserved IP Addresses**
+   Start by excluding any IP addresses that should not be handed out by the DHCP server. Here, we’re excluding `192.168.100.1` (typically the switch IP) and `192.168.100.254` (the router’s IP address).
+   ```bash
+   LastNameR1#configure terminal
+   LastNameR1(config)#ip dhcp excluded-address 192.168.100.1 192.168.100.1
+   LastNameR1(config)#ip dhcp excluded-address 192.168.100.254 192.168.100.254
+   ```
 
-**Exclude Reserved IP Addresses** Start by excluding any IP addresses that should not be handed out by the DHCP server. Here, we’re excluding `192.168.100.1` (typically the switch IP) and `192.168.100.254` (the router’s IP address).
+2. **Define the DHCP Pool**
+   Next, create a DHCP pool for the `192.168.100.0/24` network. This will define the range of addresses that can be assigned to devices on VLAN 1.
+   ```bash
+   LastNameR1(config)#ip dhcp pool VLAN1_POOL
+   ```
 
- `LastNameR1#configure terminal
+3. **Specify the Network and Subnet Mask**
+   Define the network range and subnet mask for the pool. This ensures that only addresses within `192.168.100.0/24` are assigned.
+   ```bash
+   LastNameR1(dhcp-config)#network 192.168.100.0 255.255.255.0
+   LastNameR1(dhcp-config)#domain-name LastName.com
+   ```
 
- LastNameR1(config)#ip dhcp excluded-address 192.168.100.1 192.168.100.1
-
- LastNameR1(config)#ip dhcp excluded-address 192.168.100.254 192.168.100.254`
-
-  
-
-1.
-
-**Define the DHCP Pool** Next, create a DHCP pool for the `192.168.100.0/24` network. This will define the range of addresses that can be assigned to devices on VLAN 1.
-
- `LastNameR1(config)#ip dhcp pool VLAN1_POOL `
-
-1.
-
-**Specify the Network and Subnet Mask** Define the network range and subnet mask for the pool. This ensures that only addresses within `192.168.100.0/24` are assigned.
-
- `LastNameR1(dhcp-config)#network 192.168.100.0 255.255.255.0
-
- LastNameR1(dhcp-config)#domain-name LastName.com`
 
 ![Image](assets/images/file-6734ec59dab50.png)
 ---

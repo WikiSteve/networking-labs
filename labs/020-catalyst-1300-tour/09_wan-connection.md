@@ -40,45 +40,31 @@ We will configure the **FastEthernet0/1** interface on the Cisco 2811 router to 
 
 **Steps for Configuration**
 
-1.
+1. **Access the Interface Configuration Mode**
+   Access the FastEthernet0/1 interface:
+   ```bash
+   LastNameR1(config)# interface FastEthernet0/1
+   ```
 
-**Access the Interface Configuration Mode**
+2. **Set the Interface to Use DHCP**
+   Configure the interface to dynamically obtain an IP address from the college’s DHCP server:
+   ```bash
+   LastNameR1(config-if)# ip address dhcp
+   ```
 
-1.
+3. **Bring the Interface Online**
+   Enable the interface to ensure it is operational:
+   ```bash
+   LastNameR1(config-if)# no shutdown
+   ```
 
-Access the FastEthernet0/1 interface:
+4. **Verify the Configuration**
+   Check if the interface has successfully obtained an IP address:
+   ```bash
+   LastNameR1# show ip interface brief
+   ```
+   Confirm that an IP address from the CCN network (VLAN 172) is assigned to **FastEthernet0/1**.
 
- LastNameR1(config)# interface FastEthernet0/1
-
-1.
-
-**Set the Interface to Use DHCP**
-
-  - Configure the interface to dynamically obtain an IP address from the college’s DHCP server:
-
-```
-LastNameR1(config-if)# ip address dhcp
-```
-
-1.
-
-**Bring the Interface Online**
-
-  - Enable the interface to ensure it is operational:
-
-`LastNameR1(config-if)# no shutdown `
-
-1.
-
-**Verify the Configuration**
-
-  - Check if the interface has successfully obtained an IP address:
-
-```
-LastNameR1# show ip interface brief
-```
-
-  - Confirm that an IP address from the CCN network (VLAN 172) is assigned to **FastEthernet0/1**.
 
 ### **2. Verification and Testing**
 
@@ -112,15 +98,11 @@ If IPv6 routing isn’t functional, the ping will fail, even though DNS resoluti
 
 **DNS Record Types**
 
-1.
-
 **A Record**
 
   - Maps a domain name to an IPv4 address (e.g., `199.166.6.2`).
 
   - Used for communication over IPv4.
-
-1.
 
 **AAAA Record**
 
@@ -224,41 +206,28 @@ Now that we’ve created the **NAT_TRAFFIC** ACL, we’ll use it to define the t
 
 ### **Steps to Configure NAT Using the ACL**
 
-1.
+1. **Enter NAT Configuration Mode:**
+   ```bash
+   LastNameR1(config)# ip nat inside source list NAT_TRAFFIC interface FastEthernet0/1 overload
+   ```
+   - `inside source list NAT_TRAFFIC`: Specifies the **ACL** (`NAT_TRAFFIC`) to match interesting traffic for NAT.
+   - `interface FastEthernet0/1`: Identifies the **WAN interface** where traffic will be translated.
+   - `overload`: Enables **PAT (Port Address Translation)**, which allows multiple devices to share a single public IP.
 
-**Enter NAT Configuration Mode:**
+2. **Mark Interfaces for NAT:**
+   Assign the **inside NAT** role to the LAN-facing interface:
+   ```bash
+   LastNameR1(config)# interface FastEthernet0/0.1
+   LastNameR1(config-if)# ip nat inside
+   LastNameR1(config-if)# exit
+   ```
+   Assign the **outside NAT** role to the WAN-facing interface:
+   ```bash
+   LastNameR1(config)# interface FastEthernet0/1
+   LastNameR1(config-if)# ip nat outside
+   LastNameR1(config-if)# exit
+   ```
 
- `LastNameR1(config)# ip nat inside source list NAT_TRAFFIC interface FastEthernet0/1 overload `
-
-  - `inside source list NAT_TRAFFIC`: Specifies the **ACL** (`NAT_TRAFFIC`) to match interesting traffic for NAT.
-
-  - `interface FastEthernet0/1`: Identifies the **WAN interface** where traffic will be translated.
-
-  - `overload`: Enables **PAT (Port Address Translation)**, which allows multiple devices to share a single public IP.
-
-1.
-
-**Mark Interfaces for NAT:**
-
-  -
-
-Assign the **inside NAT** role to the LAN-facing interface:
-
- `LastNameR1(config)# interface FastEthernet0/0.1
-
- LastNameR1(config-if)# ip nat inside
-
- LastNameR1(config-if)# exit `
-
-  -
-
-Assign the **outside NAT** role to the WAN-facing interface:
-
- `LastNameR1(config)# interface FastEthernet0/1
-
- LastNameR1(config-if)# ip nat outside
-
- LastNameR1(config-if)# exit `
 
 ### **Verify NAT Configuration**
 

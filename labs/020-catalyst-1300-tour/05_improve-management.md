@@ -24,17 +24,15 @@ Using a loopback interface makes it easier to apply **Access Control Lists (ACLs
 
 ## Configurations on C1300 Switch
 
-1.
-
-**Create and Configure Loopback 1**
-
- `LastNameSW1(config)#interface loopback 1
-
- LastNameSW1(config-if)#ipv6 address 2001:cafe::1/128
-
- LastNameSW1(config-if)#ip address 10.10.10.1 255.255.255.255`
+1. **Create and Configure Loopback 1**
+   ```bash
+   interface loopback 1
+     ipv6 address 2001:cafe::1/128
+     ip address 10.10.10.1 255.255.255.255
+   ```
 
 This configuration adds `2001:cafe::1/128` as a stable, easy-to-remember IPv6 address for management on **Loopback 1**. This address will remain reachable as long as the device is active, independent of any physical interface status.
+
 
 ![Image](assets/images/file-6736941b6a214.png)
 
@@ -44,23 +42,33 @@ This configuration adds `2001:cafe::1/128` as a stable, easy-to-remember IPv6 ad
 
 ![Image](assets/images/file-67377bd708726.png)
 
-## 🧠 Knowledge Check
+---
+### 🧠 Why Did IPv4 Fail?
 
-Your Catalyst 1300 is unable to reach 10.10.10.1. What’s causing the issue?
-
-- [ ] The IP address of the switch is on a different subnet, and there's no **default gateway** configured to guide the packets.
-- [ ] **IPv6 unicast routing** is disabled, so the switch won’t attempt to route any traffic.
-- [ ] The **subnet mask** is misconfigured, so the switch thinks it’s directly connected to 10.10.10.1 when it isn’t.
-- [ ] Someone forgot to enable **IPv4 routing**, so the switch doesn’t know how to forward packets.
+> [!NOTE]
+> **Question:** Your Catalyst 1300 is unable to reach 10.10.10.1. What’s causing the issue?
+> 
+> - [ ] **A.** The IP address of the switch is on a different subnet, and there's no **default gateway** configured to guide the packets.
+> - [ ] **B.** **IPv6 unicast routing** is disabled, so the switch won’t attempt to route any traffic.
+> - [ ] **C.** The **subnet mask** is misconfigured, so the switch thinks it’s directly connected to 10.10.10.1 when it isn’t.
+> - [ ] **D.** Someone forgot to enable **IPv4 routing**, so the switch doesn’t know how to forward packets.
 
 <details>
-<summary><b>Reveal answer</b></summary>
+<summary>👉 <b>Check your answer</b></summary>
 
-**Answer:** The IP address of the switch is on a different subnet, and there's no **default gateway** configured to guide the packets.
+**Correct Option: A**
 
 **Feedback:**
-- The IP address of the switch is on a different subnet, and there's no **default gateway** configured to guide the packets.: *Correct!* Without a default gateway, the switch can’t send packets to networks outside its own subnet. IPv4 routing doesn’t need to be enabled for this—it just needs the gateway address.
+- **A:** *Correct!* Without a default gateway, the switch can’t send packets to networks outside its own subnet. IPv4 routing doesn’t need to be enabled for this—it just needs the gateway address.
+- **B:** *Not quite!* While **IPv6 unicast routing** does need to be manually enabled for IPv6 to work, this question is about IPv4. Keep thinking!
+- **C:** *Close, but no dice!* A misconfigured **subnet mask** can cause issues, but here the problem is the missing default gateway.
+- **D:** *Nope!* The Catalyst 1300 automatically handles **IPv4 routing** for packets destined for the default gateway, as long as the gateway is configured.
 </details>
+
+
+---
+
+
 
 
 ## Configurations on 2811 Router
@@ -71,31 +79,13 @@ By default, the Cisco 2811’s HTTP server is disabled. Follow these steps to en
 
 **a. Access Global Configuration Mode**
 
-1.
-
-**Enter Privileged EXEC Mode:**
-
- `enable `
-
-1.
-
-**Enter Global Configuration Mode:**
-
- `configure terminal `
+1. **Enter Privileged EXEC Mode:** **`enable`**
+2. **Enter Global Configuration Mode:** **`configure terminal`**
 
 **b. Enable the HTTP Server**
 
-1.
-
-**Enable the Standard HTTP Server:**
-
- `ip http server `
-
-1.
-
-**Enable the Secure HTTP Server:**
-
- `ip http secure-server `
+1. **Enable the Standard HTTP Server:** **`ip http server`**
+2. **Enable the Secure HTTP Server:** **`ip http secure-server`**
 
 **Note:** Although the Cisco 2811's `ip http secure-server` uses older crypto suites that may not be compatible with modern browsers, we are enabling it to allow verification of the HTTP ports using tools like **nmap**.
 
@@ -103,27 +93,23 @@ By default, the Cisco 2811’s HTTP server is disabled. Follow these steps to en
 
 **Configure Loopback Interface with IPv4 and IPv6 Addresses**
 
--
+- **Access Loopback Interface Configuration**
+  ```bash
+  interface loopback 1
+  ```
 
-**Access Loopback Interface Configuration**
+- **Configure the IPv4 Address** Assign an IPv4 address to the loopback interface:
+  ```bash
+  ip address 10.10.10.2 255.255.255.255
+  ```
+  **Note:** The `/32` (or `255.255.255.255`) subnet mask designates this as a single-host IP address. This means `10.10.10.2` is treated as an individual endpoint.
 
- `LastNameR1(config)#interface loopback 1 `
+- **Configure the IPv6 Address** Assign an IPv6 address to the loopback interface:
+  ```bash
+  ipv6 address 2001:cafe::2/128
+  ```
+  **Note:** The `/128` prefix ensures the IPv6 address is treated as a unique single interface, just like the `/32` for IPv4.
 
--
-
-**Configure the IPv4 Address** Assign an IPv4 address to the loopback interface:
-
- `LastNameR1(config-if)#ip address 10.10.10.2 255.255.255.255 `
-
-**Note:** The `/32` (or `255.255.255.255`) subnet mask designates this as a single-host IP address. This means `10.10.10.2` is treated as an individual endpoint.
-
--
-
-**Configure the IPv6 Address** Assign an IPv6 address to the loopback interface:
-
- `LastNameR1(config-if)#ipv6 address 2001:cafe::2/128 `
-
-**Note:** The `/128` prefix ensures the IPv6 address is treated as a unique single interface, just like the `/32` for IPv4.
 
 **Notes:**
 
@@ -141,41 +127,28 @@ Even though the Cisco 2811 supports **Loopback0**, we are using **Loopback1** to
 
 **Telnet to the HTTP Server**
 
-1.
+1. **Establish a Telnet session to the IPv6 loopback interface**:
+   **`telnet [2001:cafe::2] 80`**
+   **Note:** Use square brackets (`[ ]`) to indicate the IPv6 address when specifying a port number.
 
-**Establish a Telnet session to the IPv6 loopback interface**:
+2. **Send an HTTP GET Request**:
+   ```http
+   GET / HTTP/1.1
+   Host: [2001:cafe::2]
+   ```
+   **Important:** Press **Enter** twice after typing the command to properly send the request.
 
- `telnet [2001:cafe::2] 80 `
+3. **Observe the HTTP Response**: You should see a response like this:
+   ```plaintext
+   HTTP/1.1 401 Unauthorized
+   Date: <timestamp>
+   Server: cisco-IOS
+   Connection: close
+   Accept-Ranges: none
+   WWW-Authenticate: Basic realm="level_15_access"
+   ```
+   This response indicates that the HTTP server is active and responding, but requires authentication to access its resources.
 
-**Note:** Use square brackets (`[ ]`) to indicate the IPv6 address when specifying a port number.
-
-1.
-
-**Send an HTTP GET Request**:
-
- `GET / HTTP/1.1
-
- Host: [2001:cafe::2] `
-
-**Important:** Press **Enter** twice after typing the command to properly send the request.
-
-1.
-
-**Observe the HTTP Response**: You should see a response like this:
-
- `HTTP/1.1 401 Unauthorized
-
- Date: <timestamp>
-
- Server: cisco-IOS
-
- Connection: close A
-
- ccept-Ranges: none
-
- WWW-Authenticate: Basic realm="level_15_access" `
-
-This response indicates that the HTTP server is active and responding, but requires authentication to access its resources.
 
 ![Image](assets/images/file-67393f56b05ff.png)
 
