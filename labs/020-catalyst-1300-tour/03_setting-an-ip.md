@@ -4,9 +4,10 @@
 
 Before we dive into configuring the IP address for your Catalyst 1300 switch, here are some key ground rules:
 
-1. **No Static IPs on College Computers** Do not set a static IP address on any college-provided computer. We’ll guide you through configuring a DHCP server and connecting via both IPv4 and IPv6. College computers must connect using **DHCP ONLY** for IPv4 or through **IPv6 router advertisements**.
-2. **Personal Virtual Machines on College Computers? Static IPs Allowed** If you’re running virtual machines on a college computer, you may set static IPs on your **personal virtual machines** as long as they’re in **bridge mode**. However, **do not set a static IP on the college’s physical host machine**—stick to DHCP or IPv6 to avoid any network issues.
-3. **Bring Your Own Device (BYOD)** If you’re using your own device on the college network, you have full control—feel free to configure IPs however you prefer!
+- **No Static IPs on College Computers:** Do not set a static IP address on any college-provided computer. We’ll guide you through configuring a DHCP server and connecting via both IPv4 and IPv6. College computers must connect using **DHCP ONLY** for IPv4 or through **IPv6 router advertisements**.
+- **Personal Virtual Machines on College Computers? Static IPs Allowed:** If you’re running virtual machines on a college computer, you may set static IPs on your **personal virtual machines** as long as they’re in **bridge mode**. However, **do not set a static IP on the college’s physical host machine**—stick to DHCP or IPv6 to avoid any network issues.
+- **Bring Your Own Device (BYOD):** If you’re using your own device on the college network, you have full control—feel free to configure IPs however you prefer!
+
 
 Before we get into setting up the IP address, here’s a quick reminder of the default login details:
 

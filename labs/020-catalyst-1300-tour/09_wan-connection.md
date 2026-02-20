@@ -8,27 +8,13 @@ You’ll be using the coupler to extend the length of the Ethernet cable, allowi
 
 ![Image](assets/images/file-673e24ab52eb7.jpg)
 
-1. Locate the Existing Ethernet Cable
+1. **Locate the Existing Ethernet Cable:** Find the Ethernet cable that is currently plugged into your workstation.
 
-- Find the Ethernet cable that is currently plugged into your workstation.
+2. **Use the Coupler to Extend the Cable**
+   - **Connect the Cable to the Coupler:** Unplug the Ethernet cable from your workstation and plug it into one side of the coupler.
+   - **Add an Extension Cable:** Take a second Ethernet cable and plug one end into the other side of the coupler.
 
-2. Use the Coupler to Extend the Cable
-
-1. **Connect the Cable to the Coupler**:
-
-  - Unplug the Ethernet cable from your workstation.
-
-  - Plug the male connector of the Ethernet cable into one side of the coupler (any female port will do).
-
-1. **Add an Extension Cable**:
-
-  - Take a second Ethernet cable and plug one end into the other female side of the coupler.
-
-3. Connect to the Cisco 2811 WAN Port (Fa0/1)
-
-- Plug the other end of the second Ethernet cable into the **FastEthernet 0/1 (Fa0/1)** port on the back of the Cisco 2811 router.
-
-  - Refer to the labeled photo provided for the exact port location.
+3. **Connect to the Cisco 2811 WAN Port (Fa0/1):** Plug the other end of the second Ethernet cable into the **FastEthernet 0/1 (Fa0/1)** port on the back of the Cisco 2811 router. Refer to the labeled photo provided for the exact port location.
 
 ![Image](assets/images/file-673df075902cd.png)
 
@@ -40,30 +26,27 @@ We will configure the **FastEthernet0/1** interface on the Cisco 2811 router to 
 
 **Steps for Configuration**
 
-1. **Access the Interface Configuration Mode**
-   Access the FastEthernet0/1 interface:
+- **Access the Interface Configuration Mode:**
    ```bash
    LastNameR1(config)# interface FastEthernet0/1
    ```
 
-2. **Set the Interface to Use DHCP**
-   Configure the interface to dynamically obtain an IP address from the college’s DHCP server:
+- **Set the Interface to Use DHCP:** Configure the interface to dynamically obtain an IP address from the college’s DHCP server:
    ```bash
    LastNameR1(config-if)# ip address dhcp
    ```
 
-3. **Bring the Interface Online**
-   Enable the interface to ensure it is operational:
+- **Bring the Interface Online:** Enable the interface to ensure it is operational:
    ```bash
    LastNameR1(config-if)# no shutdown
    ```
 
-4. **Verify the Configuration**
-   Check if the interface has successfully obtained an IP address:
+- **Verify the Configuration:** Check if the interface has successfully obtained an IP address:
    ```bash
    LastNameR1# show ip interface brief
    ```
    Confirm that an IP address from the CCN network (VLAN 172) is assigned to **FastEthernet0/1**.
+
 
 
 ### **2. Verification and Testing**
@@ -142,67 +125,35 @@ By disabling IPv6 on **FastEthernet0/1**, we will ensure the router only relies 
 
 An Access Control List is a set of rules applied to network traffic to control or define what packets can pass through a device. ACLs are a fundamental feature in Cisco devices and come in two main types:
 
-1.
-
-**Standard ACLs**:
-
-  - Focus on filtering based solely on **source IP addresses**.
-
-  - Simple and efficient, but lack granularity.
-
-1.
-
-**Extended ACLs**:
-
-  - Allow filtering based on multiple parameters (e.g., source/destination IP, protocol, port numbers).
-
-  - Not covered yet—we’ll introduce these later when we need them
+- **Standard ACLs:** Focus on filtering based solely on **source IP addresses**. Simple and efficient, but lack granularity.
+- **Extended ACLs:** Allow filtering based on multiple parameters (e.g., source/destination IP, protocol, port numbers). Not covered yet—we’ll introduce these later.
 
 **Why Use a Named ACL?**
 
 While Cisco supports both **numbered** and **named** ACLs, named ACLs offer the following advantages:
 
-- **Descriptive Names**: A name like `NAT_TRAFFIC` is easier to understand than a number like `10`.
+- **Descriptive Names:** A name like `NAT_TRAFFIC` is easier to understand than a number like `10`.
+- **Easier Management:** Named ACLs are simpler to edit and organize in complex configurations.
 
-- **Easier Management**: Named ACLs are simpler to edit and organize in complex configurations.
-
-In this example, we will configure a **named standard ACL** to define traffic for Network Address Translation (NAT). This will later determine which internal traffic gets translated when exiting the WAN interface (`FastEthernet 0/1`).
+In this example, we will configure a **named standard ACL** to define traffic for Network Address Translation (NAT).
 
 Create a **named standard ACL** called `NAT_TRAFFIC`:
+**`ip access-list standard NAT_TRAFFIC`**
 
-`LastNameR1(config)# ip access-list standard NAT_TRAFFIC `
+Permit traffic for NAT translation (e.g., all traffic from the **192.168.100.0/24** network):
+**`permit 192.168.100.0 0.0.0.255`**
 
-Permit traffic for NAT translation:
-
-For example, permit all traffic from the **192.168.100.0/24** internal network:
-
-`LastNameR1(config-std-nacl)# permit 192.168.100.0 0.0.0.255`
-
-**Verify the ACL**
-
-To check your ACL, use:
-
-`LastNameR1# show access-lists NAT_TRAFFIC `
+**Verify the ACL:**
+**`show access-lists NAT_TRAFFIC`**
 
 You should see an entry like:
+```plaintext
+Standard IP access list NAT_TRAFFIC 10
+ permit 192.168.100.0, wildcard bits 0.0.0.255
+```
 
-`Standard IP access list NAT_TRAFFIC 10
+**Apply the ACL for NAT:** Now that we’ve created the **NAT_TRAFFIC** ACL, we’ll use it to define the traffic eligible for Network Address Translation (NAT).
 
-permit 192.168.100.0, wildcard bits 0.0.0.255`
-
-We’ll use this ACL in the next step to define **interesting traffic** for NAT. This traffic will be translated when leaving the **WAN interface (`FastEthernet 0/1`)**.
-
-1. **Assign the ACL to NAT:**
-
-  - This will be done when configuring NAT rules
-
-1. **Important note:**
-
-The standard ACL focuses only on **source IPs**, so ensure that the source network aligns with the traffic you want to translate.
-
-**Apply the ACL for NAT**
-
-Now that we’ve created the **NAT_TRAFFIC** ACL, we’ll use it to define the traffic eligible for Network Address Translation (NAT). This traffic will be translated when leaving the **WAN interface (`FastEthernet 0/1`)**.
 
 ### **Steps to Configure NAT Using the ACL**
 

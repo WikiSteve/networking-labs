@@ -4,9 +4,11 @@
 
 ![Image](assets/images/file-6733ba49c1eb5.jpg)
 
-1. **Connected? Check!** You’re in the console port! If you were looking for a good view, well, this is it. Enjoy the CLI, the blank slate of possibilities.
-2. **No Idea on the Username or Password?** We've all been there. If you can't guess your way in (admin/admin isn't magic), don’t worry.
-3. **Put Hands in the Air?** You could, but let’s not get too dramatic. We’ve got solutions.
+**Connected? Check!** You’re in the console port! If you were looking for a good view, well, this is it. Enjoy the CLI, the blank slate of possibilities.
+
+**No Idea on the Username or Password?** We've all been there. If you can't guess your way in (admin/admin isn't magic), don’t worry.
+
+**Put Hands in the Air?** You could, but let’s not get too dramatic. We’ve got solutions.
 
 Below is the official guide by Cisco on a how to [Factory Reset a Catalyst 1300 Switch](http://www.cisco.com/c/en/us/support/docs/smb/switches/Catalyst-switches/kmgmt3620-reboot-factory-reset-catalyst-1200-1300-switches.html)
 
@@ -16,15 +18,11 @@ Below is the official guide by Cisco on a how to [Factory Reset a Catalyst 1300 
 
 Cisco’s official instructions are great, but experience speaks louder! Here’s the trick:
 
-1. **Unplug All Ethernet Cables** For the factory reset to work, make sure *all* Ethernet cables are unplugged from the switch. The console port can stay connected, but every other cable must go!
-2. **Hold the Reset Button for 18 Seconds (Trust Us, It’s the Sweet Spot)** Cisco mentions a timing range of 16 to 20 seconds, but we’ve found that **holding the reset button for 18 seconds** hits the mark perfectly. Think of it as the “Goldilocks zone”—not too short, not too long. If you’re a second or two off, the switch might just reboot instead of fully resetting.
-3. **Expect Some Console Jargon** Once you let go, you should see messages like:
+- **Unplug All Ethernet Cables:** For the factory reset to work, make sure *all* Ethernet cables are unplugged from the switch. The console port can stay connected, but every other cable must go!
+- **Hold the Reset Button for 18 Seconds:** Cisco mentions a timing range of 16 to 20 seconds, but we’ve found that **holding the reset button for 18 seconds** hits the mark perfectly. Think of it as the “Goldilocks zone.”
+- **Expect Some Console Jargon:** Once you let go, you should see garbled output as the switch dumps data; it’s normal and nothing to worry about.
+- **Reconnect and Confirm:** After the reset completes, reconnect to confirm the device is back to its default settings. You’re now ready to configure from scratch!
 
-![Image](assets/images/file-6733c9a187dca.png)
-
-The garbled output is just the switch dumping data as it resets; it’s normal and nothing to worry about.
-
-4. **Reconnect and Confirm** After the reset completes, reconnect to confirm the device is back to its default settings. You’re now ready to configure from scratch!
 
 If you don’t hit that 18-second Goldilocks zone exactly, the switch will only reboot instead of resetting to factory defaults. Here’s what that looks like:
 

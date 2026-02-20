@@ -6,45 +6,40 @@
 
 To enable SSH on the Cisco 2811 router, follow these steps. Make sure to replace fields with personalized values where indicated.
 
-1. **Set a Hostname and Domain Name**
-   SSH requires a hostname and domain name to generate encryption keys. Use your last name as the domain.
+- **Set a Hostname and Domain Name:** SSH requires a hostname and domain name to generate encryption keys. Use your last name as the domain.
    ```bash
    LastNameR1#configure terminal
    LastNameR1(config)#hostname LastNameR1
    LastNameR1(config)#ip domain-name lastname.com
    ```
 
-2. **Generate RSA Encryption Keys**
-   Create RSA keys for SSH with a key size of 2048 bits for stronger encryption.
+- **Generate RSA Encryption Keys:** Create RSA keys for SSH with a key size of 2048 bits for stronger encryption.
    ```bash
    LastNameR1(config)#crypto key generate rsa modulus 2048
    ```
 
-3. **Enable SSH Version 2**
-   Set the router to use SSH version 2, which is more secure than version 1.
+- **Enable SSH Version 2:** Set the router to use SSH version 2, which is more secure than version 1.
    ```bash
    LastNameR1(config)#ip ssh version 2
    ```
 
-4. **Configure User Authentication**
-   Create a local user account with your first name for SSH login.
+- **Configure User Authentication:** Create a local user account with your first name for SSH login.
    ```bash
    LastNameR1(config)#username FirstName privilege 15 secret your_password
    ```
 
-5. **Enable SSH on the VTY Lines**
-   Configure the VTY lines to accept only SSH connections, restricting other access methods.
+- **Enable SSH on the VTY Lines:** Configure the VTY lines to accept only SSH connections, restricting other access methods.
    ```bash
    LastNameR1(config)#line vty 0 4
    LastNameR1(config-line)#transport input ssh
    LastNameR1(config-line)#login local
    ```
 
-6. **Verify SSH Configuration**
-   Exit configuration mode and verify that SSH is enabled and working.
+- **Verify SSH Configuration:** Exit configuration mode and verify that SSH is enabled and working.
    ```bash
    LastNameR1#show ip ssh
    ```
+
 
 
 ## 2811 Test connection
@@ -106,32 +101,29 @@ The Cisco Catalyst 1300 switch simplifies SSH setup by automatically generating 
 
 Steps to Enable SSH
 
-1. **Enter Global Configuration Mode**
-   Start by accessing the Catalyst 1300 switch and entering configuration mode:
+- **Enter Global Configuration Mode:** Start by accessing the Catalyst 1300 switch and entering configuration mode:
    ```bash
    enable
    configure terminal
    ```
 
-2. **Enable the SSH Server**
-   To turn on the SSH server functionality and allow SSH connections, enter:
+- **Enable the SSH Server:** To turn on the SSH server functionality and allow SSH connections, enter:
    ```bash
    ip ssh server
    ```
 
-3. **Enable Password Authentication**
-   Ensure that password-based authentication is enabled for SSH sessions:
+- **Enable Password Authentication:** Ensure that password-based authentication is enabled for SSH sessions:
    ```bash
    ip ssh password-auth
    ```
    This setting allows you to log in using the configured username and password.
 
-4. **Create a User for SSH Login**
-   Create a new user account using your **first name** with privilege level 15 and a password:
+- **Create a User for SSH Login:** Create a new user account using your **first name** with privilege level 15 and a password:
    ```bash
    username FirstName privilege 15 password Don'tpanic
    ```
    Replace `FirstName` with your actual first name. The password is set to `Don'tpanic` to keep things consistent.
+
 
 
 ### Important Insights about SSH and RSA Keys on the Catalyst 1300

@@ -137,25 +137,9 @@ ip name-server 8.8.8.8`
 
 **Important Notes**
 
-1.
-
-**DNS Server Behavior:**
-
-  - The Cisco 2811’s DNS server supports only **A records** for local name resolution.
-
-  - Use external DNS servers (`1.1.1.1` and `8.8.8.8`) for resolving public domains.
-
-1.
-
-**Why Use a Loopback Address for Internal DNS?**
-
-  - The loopback interface (`10.10.10.2`) ensures reliability. As long as the router is operational, the loopback address remains reachable.
-
-1.
-
-**Limitations of IPv6 DNS on the 2811:**
-
-  - While `ipv6 host` commands allow local resolution for IPv6 addresses, they introduce bugs in the DNS server. For this lab, stick to A records for internal devices.
+- **DNS Server Behavior:** The Cisco 2811’s DNS server supports only **A records** for local name resolution. Use external DNS servers (`1.1.1.1` and `8.8.8.8`) for resolving public domains.
+- **Why Use a Loopback Address for Internal DNS?** The loopback interface (`10.10.10.2`) ensures reliability. As long as the router is operational, the loopback address remains reachable.
+- **Limitations of IPv6 DNS on the 2811:** While `ipv6 host` commands allow local resolution for IPv6 addresses, they introduce bugs in the DNS server. For this lab, stick to A records for internal devices.
 
 ## Configuring the Catalyst 1300 to Use the Cisco 2811 as its DNS Server
 
@@ -163,47 +147,30 @@ To streamline DNS resolution in the lab, the Catalyst 1300 switch will be config
 
 **Steps to Set the Nameserver on the Catalyst 1300**
 
-**Access Global Configuration Mode**
+- **Access Global Configuration Mode:** Log into the Catalyst 1300 and enter global configuration mode:
+   ```bash
+   LastNameSW1# configure terminal
+   ```
 
-Log into the Catalyst 1300 and enter global configuration mode:
+- **Set the DNS Server:** Configure the Cisco 2811 loopback address as the primary and only DNS server:
+   ```bash
+   LastNameSW1(config)# ip name-server 10.10.10.2
+   ```
 
-`LastNameSW1# configure terminal `
-
-**Set the DNS Server**
-
-Configure the Cisco 2811 loopback address as the primary and only DNS server:
-
-`LastNameSW1(config)# ip name-server 10.10.10.2 `
-
-**Verify the Configuration**
-
-Check that the nameserver is correctly configured:
-
-`LastNameSW1# show running-config | include ip name-server `
-
-You should see:
-
-`ip name-server 10.10.10.2 `
+- **Verify the Configuration:** Check that the nameserver is correctly configured:
+   ```bash
+   LastNameSW1# show running-config | include ip name-server
+   ```
+   You should see: **`ip name-server 10.10.10.2`**
 
 **Testing the Configuration**
 
-1.
+1. **Ping an Internal Host by Name:** Verify that the Catalyst 1300 can resolve internal hostnames through the Cisco 2811:
+   **`LastNameSW1# ping LastNameR1.LastName.com`**
 
-**Ping an Internal Host by Name**
+2. **Resolve an External Domain:** Ensure that external lookups are also functional:
+   **`LastNameSW1# ping google.com`**
 
- Verify that the Catalyst 1300 can resolve internal hostnames through the Cisco 2811:
-
- `LastNameSW1# ping LastNameR1.LastName.com `
-
-1.
-
-**Resolve an External Domain**
-
- Ensure that external lookups are also functional:
-
-```plaintext
-LastNameSW1# ping google.com
-```
 
 **Explanation**
 

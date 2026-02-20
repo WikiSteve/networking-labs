@@ -97,77 +97,32 @@ LastNameR1#undebug all
 
 ### **Pro Tips for Success**
 
-1.
-
-**Be Quick!**
-
-  - The RA is processed within seconds of the link coming back up. If you miss it, you’ll need to repeat the process.
-
-1.
-
-**Monitor Timing with Pings:**
-
-  - You can send a continuous ping to an IPv6 address (e.g., the loopback on the Catalyst 1300) while resetting the link. This helps gauge when the RA has been processed based on the success of the pings.
-
-1.
-
-**Double-Check RA Behavior:**
-
-  - If you don’t see the RA, ensure that the Catalyst 1300 is configured to send RAs on the VLAN interface (`ipv6 unicast-routing` must be enabled).
+- **Be Quick!** The RA is processed within seconds of the link coming back up. If you miss it, you’ll need to repeat the process.
+- **Monitor Timing with Pings:** You can send a continuous ping to an IPv6 address (e.g., the loopback on the Catalyst 1300) while resetting the link. This helps gauge when the RA has been processed based on the success of the pings.
+- **Double-Check RA Behavior:** If you don’t see the RA, ensure that the Catalyst 1300 is configured to send RAs on the VLAN interface (`ipv6 unicast-routing` must be enabled).
 
 ### show ipv6 routers
 
 ![Image](assets/images/file-673bdd7baf6a1.png)
 
-The `show ipv6 routers` command is used to display information about IPv6 Router Advertisements (RAs) received by the device. This command is particularly useful for:
+The **`show ipv6 routers`** command is used to display information about IPv6 Router Advertisements (RAs) received by the device. This command is particularly useful for:
 
-1.
-
-**Verifying Router Advertisements (RAs):**
-
-  - It shows which routers are advertising themselves as default gateways.
-
-  - In this case, the Catalyst 1300 (FE80::BEEF:1234) is sending RAs to the 2811.
-
-1.
-
-**Checking Prefix Information:**
-
-  - The command also lists advertised prefixes (e.g., `2001:DEAD:BEEF:CAFE::/64`) and their associated properties, such as:
-
-    - **Onlink:** Indicates that this prefix can be used directly on this network segment.
-
-    - **Autoconfig:** Suggests that devices can use this prefix to configure their IPv6 addresses automatically.
-
-1.
-
-**Monitoring RA Timers:**
-
+- **Verifying Router Advertisements (RAs):** It shows which routers are advertising themselves as default gateways. In this case, the Catalyst 1300 (`FE80::BEEF:1234`) is sending RAs to the 2811.
+- **Checking Prefix Information:** The command also lists advertised prefixes (e.g., `2001:DEAD:BEEF:CAFE::/64`) and their associated properties, such as:
+  - **Onlink:** Indicates that this prefix can be used directly on this network segment.
+  - **Autoconfig:** Suggests that devices can use this prefix to configure their IPv6 addresses automatically.
+- **Monitoring RA Timers:**
   - **Lifetime:** Indicates how long the default route remains valid without receiving another RA.
-
-  - **Reachable Time & Retransmit Time:** Specifies timing parameters for Neighbor Discovery Protocol (NDP) operations, though they may be unspecified if the advertising router does not provide them.
+  - **Reachable Time & Retransmit Time:** Specifies timing parameters for Neighbor Discovery Protocol (NDP) operations.
 
 ### **Why It’s Relevant Here**
 
 This output confirms that:
 
--
+- **Catalyst 1300 Is Sending RAs:** The link-local address (`FE80::BEEF:1234`) and advertised prefix (`2001:DEAD:BEEF:CAFE::/64`) are being received by the 2811.
+- **Default Route Validity:** The `Lifetime` field of 1800 seconds (30 minutes) shows how long the 2811 will keep the advertised default route unless it receives another RA.
+- **IPv6 Addressing Behavior:** The advertised prefix allows devices on the network to autoconfigure their IPv6 addresses without the need for DHCPv6.
 
-**Catalyst 1300 Is Sending RAs:**
-
-  - The link-local address (FE80::BEEF:1234) and advertised prefix (`2001:DEAD:BEEF:CAFE::/64`) are being received by the 2811.
-
--
-
-**Default Route Validity:**
-
-  - The `Lifetime` field of 1800 seconds (30 minutes) shows how long the 2811 will keep the advertised default route unless it receives another RA.
-
--
-
-**IPv6 Addressing Behavior:**
-
-  - The advertised prefix allows devices on the network to autoconfigure their IPv6 addresses without the need for DHCPv6.
 
 By using this command, you can verify RA behavior and understand how default routes and prefixes are dynamically propagated in an IPv6-enabled network.
 
