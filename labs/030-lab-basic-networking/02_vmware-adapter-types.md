@@ -36,7 +36,7 @@ There are several adapters available for use in Workstation that you may use in 
 
 **Correct Option: A**
 
-**Feedback:** **NAT** (Network Address Translation) is the default mode. VMware creates a private internal network and "naps" the traffic to your host's IP to get out to the internet.
+**Feedback:** **NAT** (Network Address Translation) is the default mode. VMware creates a private internal network and **NATs** (translates) the traffic to your host's IP to get out to the internet.
 </details>
 
 **Scenario 3: Connectivity vs. Isolation**
