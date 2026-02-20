@@ -22,7 +22,7 @@ The second line breakdown:
 
 We're going to set this to a static IP. I've blurred out the IP addresses but left everything else; make sure to use your spreadsheet to sub in the correct values. Set the HOST portion to `.200`.
 
-![Image](assets/images/file-62d03629466a0.png)
+![Image](assets/images/file-62d0362946ba0.png)
 
 Since we're not using DHCP, you'll need to set the nameserver (DNS) manually. Go to **`/etc/resolv.conf`** and update the record to be the correct nameserver. If DNS fails upon restart, this will be your first place to check!
 
