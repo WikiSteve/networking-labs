@@ -2,9 +2,9 @@
 
 [Our exact model in B526](https://www.cisco.com/c/r/qrportal/home.html/?PI=C1300-24T-4G&amp;VI=V01&amp;SN=DNI274301CF&amp;MA=84:5A:3E:8A:76:38)
 
-![[assets/images/file-673155e2cd5fd.png]]
+![Image](assets/images/file-673155e2cd5fd.png)
 
-![[assets/images/file-67337402746c2.jpg]]
+![Image](assets/images/file-67337402746c2.jpg)
 
 The Cisco Catalyst 1300 Series is purpose-built for small to medium-sized businesses (SMBs) as a **switch** that offers essential Layer 2 switching with basic Layer 3 routing capabilities. Unlike Cisco’s traditional enterprise-grade devices, the Catalyst 1300 operates on a customized Linux-based OS rather than Cisco’s IOS or IOS-XE platforms. This OS is optimized for core networking functions in simpler environments, where ease of use and stability are the primary requirements.
 
