@@ -42,7 +42,7 @@ def dragtext_to_md(params: dict) -> str:
     """
     H5P DragText stores a single text field with * markers around draggable words.
     """
-    text = params.get("text", "") or ""
+    text = params.get("textField", params.get("text", "")) or ""
     text = unescape(text)
 
     # Extract answers between asterisks
@@ -82,7 +82,7 @@ def clean_html(html: str) -> str:
     s = re.sub(r"<(?:h3|h4)[^>]*>(.*?)</(?:h3|h4)>", r"### \1", s, flags=re.IGNORECASE)
     
     # Replace bold/italic
-    s = re.sub(r"<(?:strong|b)[^>]*>(.*?)</?:strong|b)>", r"**\1**", s, flags=re.IGNORECASE)
+    s = re.sub(r"<(?:strong|b)[^>]*>(.*?)</(?:strong|b)>", r"**\1**", s, flags=re.IGNORECASE)
     s = re.sub(r"<(?:em|i)[^>]*>(.*?)</(?:em|i)>", r"*\1*", s, flags=re.IGNORECASE)
     
     # Replace paragraphs with newlines
