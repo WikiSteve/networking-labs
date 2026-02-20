@@ -8,13 +8,13 @@ You’ll be using the coupler to extend the length of the Ethernet cable, allowi
 
 ![Image](assets/images/file-673e24ab52eb7.jpg)
 
-1. **Locate the Existing Ethernet Cable:** Find the Ethernet cable that is currently plugged into your workstation.
+- **Locate the Existing Ethernet Cable:** Find the Ethernet cable that is currently plugged into your workstation.
 
-2. **Use the Coupler to Extend the Cable**
+**Use the Coupler to Extend the Cable**
    - **Connect the Cable to the Coupler:** Unplug the Ethernet cable from your workstation and plug it into one side of the coupler.
    - **Add an Extension Cable:** Take a second Ethernet cable and plug one end into the other side of the coupler.
 
-3. **Connect to the Cisco 2811 WAN Port (Fa0/1):** Plug the other end of the second Ethernet cable into the **FastEthernet 0/1 (Fa0/1)** port on the back of the Cisco 2811 router. Refer to the labeled photo provided for the exact port location.
+- **Connect to the Cisco 2811 WAN Port (Fa0/1):** Plug the other end of the second Ethernet cable into the **FastEthernet 0/1 (Fa0/1)** port on the back of the Cisco 2811 router. Refer to the labeled photo provided for the exact port location.
 
 ![Image](assets/images/file-673df075902cd.png)
 
@@ -157,7 +157,7 @@ Standard IP access list NAT_TRAFFIC 10
 
 ### **Steps to Configure NAT Using the ACL**
 
-1. **Enter NAT Configuration Mode:**
+**Enter NAT Configuration Mode:**
    ```bash
    LastNameR1(config)# ip nat inside source list NAT_TRAFFIC interface FastEthernet0/1 overload
    ```
@@ -165,7 +165,7 @@ Standard IP access list NAT_TRAFFIC 10
    - `interface FastEthernet0/1`: Identifies the **WAN interface** where traffic will be translated.
    - `overload`: Enables **PAT (Port Address Translation)**, which allows multiple devices to share a single public IP.
 
-2. **Mark Interfaces for NAT:**
+**Mark Interfaces for NAT:**
    Assign the **inside NAT** role to the LAN-facing interface:
    ```bash
    LastNameR1(config)# interface FastEthernet0/0.1
@@ -182,9 +182,7 @@ Standard IP access list NAT_TRAFFIC 10
 
 ### **Verify NAT Configuration**
 
-1.
-
-Check the NAT configuration:
+- Check the NAT configuration:
 
  `LastNameR1# show ip nat translations`
 

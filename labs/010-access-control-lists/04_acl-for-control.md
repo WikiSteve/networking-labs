@@ -6,7 +6,7 @@ So far, you've configured secure management access and optimized NAT configurati
 
 **What You've Done So Far:**
 
-1. **Secure Management Access Using Extended ACLs:**
+**Secure Management Access Using Extended ACLs:**
 
   - Blocked device management protocols (e.g., SSH, HTTP, HTTPS) on all physical interface ports.
 
@@ -14,7 +14,7 @@ So far, you've configured secure management access and optimized NAT configurati
 
   - Gained insights into how extended ACLs enhance security by controlling management traffic.
 
-1. **Configured Standard ACLs for NAT Traffic Matching:**
+**Configured Standard ACLs for NAT Traffic Matching:**
 
   - Defined "interesting" traffic for NAT using standard ACLs.
 
@@ -26,9 +26,9 @@ So far, you've configured secure management access and optimized NAT configurati
 
 In this final section, you'll implement and verify a named standard ACL to control traffic on VLAN 1. Specifically, you will:
 
-1. Block Facebook resources for VLAN 1.
+- Block Facebook resources for VLAN 1.
 
-1. Permit all other traffic, ensuring smooth operation for non-Facebook services.
+- Permit all other traffic, ensuring smooth operation for non-Facebook services.
 
 Verify and test your configuration to confirm expected behavior.
 
@@ -38,13 +38,13 @@ When deciding where to apply a standard ACL like `BLOCK_FB`, keep these key poin
 
 ### **Mnemonic Explanation:**
 
-1. **Standard Stays Back (Destination):**
+**Standard Stays Back (Destination):**
 
   - Standard ACLs are best applied **as close to the destination as possible**.
 
   - Since standard ACLs only filter traffic based on the **source address**, placing them closer to the destination avoids unnecessary blocking of legitimate traffic.
 
-1. **BLOCK_FB Placement:**
+**BLOCK_FB Placement:**
 
   - The `BLOCK_FB` ACL is applied **outbound** on the VLAN 1 interface (`fa0/0.1`) because:
 
@@ -103,19 +103,19 @@ interface fa0/0.1
 
 ### **Test Blocking Facebook**
 
-1. From a VLAN 1 device:
+- From a VLAN 1 device:
    - Open a browser and try accessing `facebook.com`.
    - Use the `ping` command to test Facebook’s known IP addresses (e.g., **`31.13.64.0`**).
 
 ### **Test Other Traffic**
 
-1. From a VLAN 1 device:
+- From a VLAN 1 device:
    - Verify access to other websites (e.g., `google.com`, `example.com`).
    - Confirm DNS functionality remains unaffected.
 
 ### **Check ACL Statistics**
 
-1. View the ACL to confirm matches on the `deny` statements:
+- View the ACL to confirm matches on the `deny` statements:
    **`show access-lists BLOCK_FB`**
 
 Example output:
@@ -126,7 +126,7 @@ Standard IP access list BLOCK_FB
     30 permit any (zz matches)
 ```
 
-2. **Note:** Hit counts are displayed next to the rules, showing how many packets matched each statement.
+- **Note:** Hit counts are displayed next to the rules, showing how many packets matched each statement.
 
 
 ## **Screenshot 9 Testing VLAN 1 IPv4 ACLs**
@@ -137,7 +137,7 @@ This screenshot must include all the elements listed below. Each part is critica
 
 ### **Required Elements for Screenshot 9**
 
-1. **Use `ping4` for Facebook**
+**Use `ping4` for Facebook**
    - Use the **`ping4`** command to ensure IPv4 is explicitly used. Regular `ping` defaults to IPv6, which is unsupported by the college WAN, leading to failure.
    - Command: **`ping4 facebook.com -c 1`**
    - The output must:
@@ -145,16 +145,16 @@ This screenshot must include all the elements listed below. Each part is critica
      - Confirm that the source is the **192.168.100.0/24** network, verifying that it originates from VLAN 1.
      - Show **100% packet loss**, confirming that Facebook traffic is successfully blocked by the ACL.
 
-2. **Source Address Confirmation**
+**Source Address Confirmation**
    - The output must explicitly show the source address (e.g., **`192.168.100.1`**).
    - This ensures the traffic originates from VLAN 1 and is being filtered by the ACL.
 
-3. **Ping Results for Facebook**
+**Ping Results for Facebook**
    - Confirm that the `ping4` output for Facebook shows:
      - **0 packets received**.
      - **100% packet loss**, validating the ACL block.
 
-4. **Use `ping4` for Google**
+**Use `ping4` for Google**
    - Test connectivity to Google to confirm that other traffic is permitted:
      **`ping4 google.ca -c 1`**
    - The output must:
@@ -162,10 +162,10 @@ This screenshot must include all the elements listed below. Each part is critica
      - Confirm **0% packet loss** and a valid round-trip time (RTT), such as:
        **`64 bytes from 142.250.69.99: icmp_seq=1 ttl=111 time=22.2 ms`**
 
-5. **Successful Response for Google**
+**Successful Response for Google**
    - The results must show that traffic to Google is successfully permitted by the ACL, validating that only Facebook is blocked.
 
-6. **Prompt Requirements**
+**Prompt Requirements**
    - Configure the terminal prompt to include:
      - The correct hostname format: **`FirstInitialLastName-acllab`**. Example: If your name is John Smith, the hostname must be `JSmith-acllab`.
      - Your login name (e.g., `steve` in the example screenshot).
@@ -176,21 +176,21 @@ This screenshot must include all the elements listed below. Each part is critica
 
 Ensure the following are included:
 
-1. **Ping4 for Facebook:**
+**Ping4 for Facebook:**
 
   - Command and output showing 100% packet loss.
 
   - Source IP address in the **192.168.100.0/24** range.
 
-1. **Ping4 for Google:**
+**Ping4 for Google:**
 
   - Command and output showing a successful reply with 0% packet loss.
 
-1. **Source Address Confirmation:**
+**Source Address Confirmation:**
 
   - Output explicitly showing the originating address (e.g., `192.168.100.1`).
 
-1. **Prompt Configuration:**
+**Prompt Configuration:**
 
   - Correct hostname, login name, and date/time format.
 ---

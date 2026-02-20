@@ -44,13 +44,13 @@ interface vlan 1
 
 In addition to IPv4, we can configure IPv6 addresses on VLAN 1. Here’s a breakdown of the commands:
 
-1. **Link-Local Address**
+**Link-Local Address**
    ```bash
    ipv6 address fe80::beef:1234 link-local
    ```
    This command assigns a **link-local IPv6 address** to VLAN 1. Link-local addresses, which start with `fe80::`, are automatically available on each IPv6-enabled interface and are used for communication within the local network segment. This type of address isn’t routable outside the local link, meaning it won’t go beyond this specific network. The `link-local` keyword specifies that this address is for local communication only.
 
-2. **Global Unicast Address**
+**Global Unicast Address**
    ```bash
    ipv6 address 2001:dead:beef:cafe::1/64
    ```
@@ -174,8 +174,8 @@ This is because **IPv6 routing** and **global address configuration** aren’t a
 
 When we enable IPv6 unicast routing, a few things happen:
 
-1. **Router Advertisements (RAs)**: The switch begins sending router advertisements to connected devices. These advertisements allow devices on the network to automatically configure their own global IPv6 addresses without needing DHCP.
-2. **IPv6’s Magic Without DHCP**: Unlike IPv4, IPv6 doesn’t require DHCP to function. Devices can configure themselves using information from the router advertisements, allowing them to access the internet or other networks seamlessly. DHCP is entirely optional in the IPv6 world, primarily used only when additional configuration details (like DNS servers) are needed.
+- **Router Advertisements (RAs)**: The switch begins sending router advertisements to connected devices. These advertisements allow devices on the network to automatically configure their own global IPv6 addresses without needing DHCP.
+- **IPv6’s Magic Without DHCP**: Unlike IPv4, IPv6 doesn’t require DHCP to function. Devices can configure themselves using information from the router advertisements, allowing them to access the internet or other networks seamlessly. DHCP is entirely optional in the IPv6 world, primarily used only when additional configuration details (like DNS servers) are needed.
 
 Once **`ipv6 unicast-routing`** is enabled, the switch and connected devices can automatically assign global addresses and discover the default gateway, enabling full connectivity beyond the local network.
 

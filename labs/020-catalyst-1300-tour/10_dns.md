@@ -107,27 +107,27 @@ ip name-server 8.8.8.8`
 
 **Step 4: Test DNS Resolution**
 
-1. **Test Internal DNS on the Router**
+**Test Internal DNS on the Router**
    Verify internal name resolution works:
    ```bash
    LastNameR1# ping LastNameR1.LastName.com
    LastNameR1# ping LastNameSW1.LastName.com
    ```
 
-2. **Test External DNS on the Router**
+**Test External DNS on the Router**
    Verify external name resolution: 
    ```bash
    LastNameR1# ping google.com
    ```
 
-3. **Test DHCP Clients**
+**Test DHCP Clients**
    - **Windows Clients:** Use `ipconfig /all` to confirm `10.10.10.2` is assigned as the DNS server.
    - **Linux Clients:**
      - On systems with Network Manager, use: `nmcli dev show`
      - For barebones Debian systems, check `/etc/resolv.conf`: `cat /etc/resolv.conf`
      - Ensure `nameserver 10.10.10.2` is listed.
 
-4. **Test Name Resolution from Clients**
+**Test Name Resolution from Clients**
    Test internal and external resolution:
    ```bash
    ping LastNameR1.LastName.com
@@ -165,10 +165,10 @@ To streamline DNS resolution in the lab, the Catalyst 1300 switch will be config
 
 **Testing the Configuration**
 
-1. **Ping an Internal Host by Name:** Verify that the Catalyst 1300 can resolve internal hostnames through the Cisco 2811:
+- **Ping an Internal Host by Name:** Verify that the Catalyst 1300 can resolve internal hostnames through the Cisco 2811:
    **`LastNameSW1# ping LastNameR1.LastName.com`**
 
-2. **Resolve an External Domain:** Ensure that external lookups are also functional:
+- **Resolve an External Domain:** Ensure that external lookups are also functional:
    **`LastNameSW1# ping google.com`**
 
 

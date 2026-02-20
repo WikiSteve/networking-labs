@@ -12,7 +12,7 @@ On **LastNameSW1**, you’ll name VLAN 42, assign IP addressing, and configure *
 
 **Step 1.1: Create and Name VLAN 42**
 
-1. Enter VLAN configuration mode and name the VLAN:
+- Enter VLAN configuration mode and name the VLAN:
    ```bash
    vlan 42
    name AnswerToEverything
@@ -20,7 +20,7 @@ On **LastNameSW1**, you’ll name VLAN 42, assign IP addressing, and configure *
 
 **Step 1.2: Assign IPv4 and IPv6 Addresses**
 
-1. Configure the Layer 3 interface for VLAN 42:
+- Configure the Layer 3 interface for VLAN 42:
    ```bash
    interface vlan 42
    ip address 192.168.42.1 255.255.255.0
@@ -50,7 +50,7 @@ On **LastNameR1**, configure the subinterface for VLAN 42 with the appropriate a
 
 **Step 2.1: Configure Subinterface for VLAN 42**
 
-1. Create and configure the subinterface:
+- Create and configure the subinterface:
    ```bash
    interface fa0/0.42
    encapsulation dot1q 42
@@ -101,13 +101,13 @@ Bring a system online, plug into port 21, and check if it found the DHCP server:
 
 Expand the `NAT_TRAFFIC` ACL on **LastNameR1** to include traffic from VLAN 42:
 
-1. Add VLAN 42’s subnet to the existing ACL:
+- Add VLAN 42’s subnet to the existing ACL:
    ```bash
    ip access-list standard NAT_TRAFFIC
    permit 192.168.42.0 0.0.0.255
    ```
 
-2. Verify the updated ACL:
+- Verify the updated ACL:
    ```bash
    show access-lists NAT_TRAFFIC
    ```
@@ -160,13 +160,13 @@ The screenshot must include the output of the following commands and elements in
 **4. Host Naming and Customized Prompt**
 Your Debian machine must meet the following requirements:
 
-1. **Hostname:** Must follow the format: **`FirstInitialLastName-acllab`**
+**Hostname:** Must follow the format: **`FirstInitialLastName-acllab`**
    - Example: If your name is John Smith, the hostname must be: **`JSmith-acllab`**
 
-2. **Login Name:** You must be logged in as your **first name**, visible in the prompt.
+- **Login Name:** You must be logged in as your **first name**, visible in the prompt.
    - Example: `steve@...`
 
-3. **Prompt:** The shell prompt must include **Date and Time**, formatted as shown in the example:
+- **Prompt:** The shell prompt must include **Date and Time**, formatted as shown in the example:
    **`[steve@sharpe-acllab 2024-11-26 11:09:55]`**
 
 ---

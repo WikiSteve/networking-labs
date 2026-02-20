@@ -99,26 +99,26 @@ Use the **`show cdp neighbors detail`** command on both devices to confirm the c
 
 Now that we have our trunk port configured on the Catalyst 1300, let’s set up a corresponding sub-interface on the 2811 router for **VLAN 1**. This will allow the router to handle IP addressing for VLAN 1.
 
-1. **Access the Sub-Interface for VLAN 1 on the 2811**
+**Access the Sub-Interface for VLAN 1 on the 2811**
    ```bash
    LastNameR1#configure terminal
    LastNameR1(config)#interface FastEthernet0/0.1
    ```
    Start by creating a sub-interface on **FastEthernet0/0** specifically for VLAN 1. This sub-interface will handle all traffic tagged with VLAN 1 on the trunk link.
 
-2. **Configure VLAN Encapsulation for VLAN 1**
+**Configure VLAN Encapsulation for VLAN 1**
    ```bash
    LastNameR1(config-subif)#encapsulation dot1Q 1
    ```
    Use the `encapsulation dot1Q 1` command to tag this sub-interface with VLAN 1. This tells the router to expect traffic for VLAN 1 on this sub-interface.
 
-3. **Assign an IPv4 Address**
+**Assign an IPv4 Address**
    ```bash
    LastNameR1(config-subif)#ip address 192.168.100.254 255.255.255.0
    ```
    Configure an IPv4 address for this sub-interface within the VLAN 1 subnet. This address will later be used as part of the DHCP scope for VLAN 1.
 
-4. **Configure IPv6 Addresses**
+**Configure IPv6 Addresses**
    ```bash
    LastNameR1(config-subif)#ipv6 address fe80::1 link-local
    LastNameR1(config-subif)#ipv6 address 2001:dead:beef:cafe::2/64
@@ -126,10 +126,10 @@ Now that we have our trunk port configured on the Catalyst 1300, let’s set up 
    - Add a **link-local IPv6 address** (`fe80::1`) to the sub-interface for local IPv6 communication.
    - Configure a **global IPv6 address** (`2001:dead:beef:cafe::2/64`) on the sub-interface, which will allow broader IPv6 connectivity on VLAN 1.
 
-5. **Important Note: IPv6 Addressing**
+**Important Note: IPv6 Addressing**
    Pay close attention to the IPv6 addressing here. The Catalyst 1300 switch has the global IPv6 address `2001:dead:beef:cafe::1/64` on VLAN 1, while the 2811 router sub-interface for VLAN 1 is configured with `2001:dead:beef:cafe::2/64`. The difference between `::1` (on the switch) and `::2` (on the router) is essential to ensure unique addresses for each device within the same subnet.
 
-6. **Verify the Configuration**
+**Verify the Configuration**
    ```bash
    LastNameR1#show ip interface brief
    LastNameR1#show ipv6 interface FastEthernet0/0.1
@@ -155,11 +155,11 @@ With an extended ping, you can explicitly specify the **output interface** to en
 
 Here’s how you can perform an extended ping:
 
-1. Enter `ping ipv6` at the prompt.
+- Enter `ping ipv6` at the prompt.
 
-1. Provide the target IPv6 address (e.g., `fe80::beef:1234`).
+- Provide the target IPv6 address (e.g., `fe80::beef:1234`).
 
-1. When prompted for the **Output Interface**, specify the exact interface (e.g., `fastEthernet0/0.1`).
+- When prompted for the **Output Interface**, specify the exact interface (e.g., `fastEthernet0/0.1`).
 
 This level of control is essential when dealing with IPv6 link-local addresses to ensure the correct path is used for the ping test.
 
@@ -171,7 +171,7 @@ This level of control is essential when dealing with IPv6 link-local addresses t
 
 Now that we’ve set up the VLAN and IP configurations, let’s configure a DHCP scope on the 2811 router to automatically assign IP addresses within the `192.168.100.0/24` range.
 
-1. **Exclude Reserved IP Addresses**
+**Exclude Reserved IP Addresses**
    Start by excluding any IP addresses that should not be handed out by the DHCP server. Here, we’re excluding `192.168.100.1` (typically the switch IP) and `192.168.100.254` (the router’s IP address).
    ```bash
    LastNameR1#configure terminal
@@ -179,13 +179,13 @@ Now that we’ve set up the VLAN and IP configurations, let’s configure a DHCP
    LastNameR1(config)#ip dhcp excluded-address 192.168.100.254 192.168.100.254
    ```
 
-2. **Define the DHCP Pool**
+**Define the DHCP Pool**
    Next, create a DHCP pool for the `192.168.100.0/24` network. This will define the range of addresses that can be assigned to devices on VLAN 1.
    ```bash
    LastNameR1(config)#ip dhcp pool VLAN1_POOL
    ```
 
-3. **Specify the Network and Subnet Mask**
+**Specify the Network and Subnet Mask**
    Define the network range and subnet mask for the pool. This ensures that only addresses within `192.168.100.0/24` are assigned.
    ```bash
    LastNameR1(dhcp-config)#network 192.168.100.0 255.255.255.0

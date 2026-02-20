@@ -55,9 +55,9 @@ With advancements in network hardware, switches like the **Cisco Catalyst 1300**
 
 Leveraging the Catalyst 1300's internal routing capabilities offers significant advantages over the traditional ROS approach:
 
-1. **Avoiding Bottlenecks**: In ROS, all inter-VLAN traffic must traverse the router's single trunk interface, creating a potential bottleneck limited to that interface's speed (e.g., 1 Gbps). In contrast, the Catalyst 1300 can route traffic internally at wire-speed, eliminating this chokepoint.
-2. **Reducing Latency**: Since ROS requires traffic to exit the switch, be processed by the router, and then return to the switch, it introduces additional latency. The Catalyst 1300's internal routing streamlines this process, minimizing delays.
-3. **Optimizing Bandwidth**: With ROS, the single trunk link's bandwidth becomes a limiting factor for inter-VLAN traffic. The Catalyst 1300 can handle multiple VLANs simultaneously without constraining throughput to a single link's capacity.
+- **Avoiding Bottlenecks**: In ROS, all inter-VLAN traffic must traverse the router's single trunk interface, creating a potential bottleneck limited to that interface's speed (e.g., 1 Gbps). In contrast, the Catalyst 1300 can route traffic internally at wire-speed, eliminating this chokepoint.
+- **Reducing Latency**: Since ROS requires traffic to exit the switch, be processed by the router, and then return to the switch, it introduces additional latency. The Catalyst 1300's internal routing streamlines this process, minimizing delays.
+- **Optimizing Bandwidth**: With ROS, the single trunk link's bandwidth becomes a limiting factor for inter-VLAN traffic. The Catalyst 1300 can handle multiple VLANs simultaneously without constraining throughput to a single link's capacity.
 
 
 You already have a DHCP pool named `VLAN1_POOL` configured with the excluded addresses and network. Now, follow these steps to add the default gateway for devices in VLAN 1.
@@ -85,12 +85,12 @@ exit
 
 To ensure the default gateway is correctly applied:
 
-1. ### **Check DHCP Pool Configuration with Default Gateway**
+### **Check DHCP Pool Configuration with Default Gateway**
 
 Run this command:
 **`show running-config | section ip dhcp pool`**
 
-2. **What This Displays**
+**What This Displays**
 
 This will show the configuration of your DHCP pool, including the `default-router` (default gateway) setting, like this:
 ```plaintext
@@ -100,9 +100,7 @@ ip dhcp pool VLAN1_POOL
 ```
 
 
-1.
-
-**Test DHCP on a Device**:
+- **Test DHCP on a Device**:
 
   - Connect a device in VLAN 1 and verify it receives the correct default gateway (192.168.100.1).
 
@@ -118,12 +116,12 @@ This Linux screenshot has two default routes because I am connected both to this
 
 ### **Round 1: Pinging the C1300 (Successful Tests)**
 
-1. **IPv6 Ping**:
+- **IPv6 Ping**:
    **`ping -c 1 2001:cafe::1`**
    **Expected Output**: Success
    - This works because `2001:cafe::1` is the IPv6 loopback address of the directly connected Catalyst 1300.
 
-2. **IPv4 Ping**:
+- **IPv4 Ping**:
    **`ping -c 1 10.10.10.1`**
    **Expected Output**: Success
    - Similarly, `10.10.10.1` is the IPv4 loopback address of the directly connected Catalyst 1300.
@@ -211,39 +209,27 @@ The screenshot above shows a successful ping to the 2811 router's IPv4 loopback 
 
 ### **Why Link-Local Addresses are Best Practice for Next Hops**
 
-1.
-
 **Scope Limitation**
 
   - **IPv6 Link-Local Addresses** (`fe80::/10`) are confined to a single link. This ensures that the next-hop is always reachable on the directly connected interface, regardless of changes to the global unicast addressing scheme.
 
   - This provides stability since link-local addresses are automatically assigned to every IPv6-enabled interface and remain consistent even if the global unicast addresses are changed.
 
-1.
-
 **Automatic Configuration**
 
   - Link-local addresses are automatically configured on every IPv6-enabled interface. This eliminates the need for additional address configuration and ensures there is always a functional address for routing between directly connected devices.
-
-1.
 
 **Protocol Independence**
 
   - Many routing protocols, such as OSPFv3 and EIGRP for IPv6, use link-local addresses to communicate between neighbors. This consistency aligns with best practices in IPv6 network design.
 
-1.
-
 **Simplified Troubleshooting**
 
   - When using link-local addresses for next-hop configuration, routing issues are easier to isolate. Since link-local addresses are unique per link, there is no ambiguity about which interface is being used for routing.
 
-1.
-
 **Avoiding Dependency on Global Unicast Addresses**
 
   - While IPv6 does not face an address shortage, relying on global unicast addresses for next-hop routing introduces unnecessary dependencies. For instance, renumbering global IPv6 addresses (e.g., during network redesigns) can break next-hop configurations. Using link-local addresses avoids this issue entirely.
-
-1.
 
 **Interoperability**
 

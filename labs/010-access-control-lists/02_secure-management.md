@@ -4,9 +4,9 @@
 
 The goal is to:
 
-1. Allow general web traffic **through** the switch without restriction.
-2. Block **only SSH, HTTP, and HTTPS management traffic** targeting the Catalyst 1300 physical interface addresses.
-3. Permit SSH and HTTPS access to the Catalyst 1300 **only via loopback interfaces**.
+- Allow general web traffic **through** the switch without restriction.
+- Block **only SSH, HTTP, and HTTPS management traffic** targeting the Catalyst 1300 physical interface addresses.
+- Permit SSH and HTTPS access to the Catalyst 1300 **only via loopback interfaces**.
 
 I do not evaluate blocking HTTP toward the loopback, but unencrypted HTTP should still be blocked.
 
@@ -50,14 +50,14 @@ ip access-list extended MGMT_ACL_V4
 
 **`deny tcp any any 192.168.100.1 0.0.0.0 22 ace-priority 15`**
 
-1. **Command Breakdown:**
+**Command Breakdown:**
    - **`deny tcp`**: Denies all traffic using the TCP protocol.
    - **`any any`**: Applies the rule to any source and destination IP addresses.
    - **`192.168.100.1 0.0.0.0`**: Targets traffic specifically destined for `192.168.100.1`, as the wildcard mask `0.0.0.0` specifies an exact match.
    - **`22`**: Specifies the destination port for SSH traffic.
    - **`ace-priority 15`**: Assigns this rule a priority of `15`, determining its order of evaluation.
 
-2. **What This Rule Does:** This rule blocks all SSH traffic destined for `192.168.100.1`. By explicitly denying SSH to this interface, it ensures unauthorized management access is prevented.
+- **What This Rule Does:** This rule blocks all SSH traffic destined for `192.168.100.1`. By explicitly denying SSH to this interface, it ensures unauthorized management access is prevented.
 
 
 ### Why Use `ace-priority`?
@@ -78,15 +78,15 @@ In this case, the **`ace-priority`** is used to control the order in which the r
 
 ### Best Practices for `ace-priority`:
 
-1. **Incremental Gaps:**
+**Incremental Gaps:**
 
  Use increments (e.g., 5) to provide flexibility for future additions.
 
-1. **Restrictive First, Permissive Last:**
+**Restrictive First, Permissive Last:**
 
  Place restrictive rules (e.g., `deny`) with **lower priorities** so they are processed before broader permissive rules (e.g., `permit ip any any`).
 
-1. **Plan for Growth:**
+**Plan for Growth:**
 
  Leave gaps in your numbering to accommodate changes, especially in dynamic environments.
 
@@ -105,12 +105,12 @@ ipv6 access-list MGMT_ACL_V6
 
 **The Two SSH Deny Rules**
 
-1. **`deny tcp any any fe80::beef:1234/128 22 ace-priority 15`**
+**`deny tcp any any fe80::beef:1234/128 22 ace-priority 15`**
    - This rule blocks SSH traffic to the **link-local address** `fe80::beef:1234`.
    - **Link-local addresses** are automatically assigned to all IPv6-enabled interfaces and are valid only within the same link (e.g., LAN or VLAN).
    - Since link-local addresses are always active, they can serve as an unintended backdoor for management access. This rule explicitly denies SSH traffic to the link-local address, enhancing security.
 
-2. **`deny tcp any any 2001:dead:beef:cafe::1/128 22 ace-priority 21`**
+**`deny tcp any any 2001:dead:beef:cafe::1/128 22 ace-priority 21`**
    - This rule blocks SSH traffic to the **global unicast address** `2001:dead:beef:cafe::1`.
    - **Global unicast addresses** are routable across the internet or a larger network. This address might represent a VLAN's management interface, making it a critical target to secure.
    - This rule ensures that SSH access to the global interface is blocked, even from external sources, to reduce exposure to potential attacks.
@@ -154,15 +154,15 @@ The **`ace-priority`** value of `21` reflects a **practical shortcut** during th
 
 **Best Practices for Handling Similar Situations:**
 
-1. **Use Incremental Priority Gaps:**
+**Use Incremental Priority Gaps:**
 
   - Always leave room (e.g., increments of 5) for future edits to minimize disruption.
 
-1. **Preserve Processing Order:**
+**Preserve Processing Order:**
 
   - Avoid renumbering unless absolutely necessary, as this can inadvertently change how the ACL behaves.
 
-1. **Document Adjustments:**
+**Document Adjustments:**
 
   - Clearly explain why specific priorities deviate from the standard increment.
 
@@ -284,9 +284,9 @@ Your Debian machine must meet the following requirements in all screenshots:
 
 Your screenshot must match the following:
 
-1. Correct DNS resolution (both forward and reverse).
-2. Accurate hostname, login name, and prompt (with date and time).
-3. The expected port status results for `10.10.10.1` and `192.168.100.1`.
+- Correct DNS resolution (both forward and reverse).
+- Accurate hostname, login name, and prompt (with date and time).
+- The expected port status results for `10.10.10.1` and `192.168.100.1`.
 
 **Any deviation will result in a zero for this slide.** If anything is unclear, make sure to ask for assistance!
 
@@ -411,15 +411,15 @@ Your Debian machine must meet the following requirements:
 
 ### **Key Submission Notes**
 
-1. **All ports for `10.10.10.1` must be open.**
+**All ports for `10.10.10.1` must be open.**
 
-1. **All ports for `192.168.100.1` must be filtered** for full marks.
+- **All ports for `192.168.100.1` must be filtered** for full marks.
 
-1. Ensure DNS is configured correctly to resolve forward and reverse lookups automatically.
+- Ensure DNS is configured correctly to resolve forward and reverse lookups automatically.
 
-1. Follow naming and prompt requirements exactly.
+- Follow naming and prompt requirements exactly.
 
-1. Any deviation will result in a deduction or a zero for this slide.
+- Any deviation will result in a deduction or a zero for this slide.
 
 Ask questions if you need clarification!
 
@@ -469,13 +469,13 @@ Your Debian machine must meet the following requirements:
 
 ### Summary of Requirements
 
-1. Use the `-6` flag to scan the IPv6 global loopback address.
+- Use the `-6` flag to scan the IPv6 global loopback address.
 
-1. All listed ports (**22**, **80**, **443**) must show as **open**.
+- All listed ports (**22**, **80**, **443**) must show as **open**.
 
-1. DNS is **not required** for this screenshot; the IPv6 address is sufficient.
+- DNS is **not required** for this screenshot; the IPv6 address is sufficient.
 
-1. Ensure your hostname, login name, and prompt formatting are correct and include the date and time.
+- Ensure your hostname, login name, and prompt formatting are correct and include the date and time.
 
 **Deviations will result in a zero for this slide.** If unsure, ask for clarification!
 
@@ -527,11 +527,11 @@ Your Debian machine must meet the following requirements:
 
 ### Key Notes:
 
-1. Use the **`-6` flag** for scanning IPv6 addresses.
+- Use the **`-6` flag** for scanning IPv6 addresses.
 
-1. Confirm the address `2001:dead:beef:cafe::1` is correct and matches the VLAN 1 global address.
+- Confirm the address `2001:dead:beef:cafe::1` is correct and matches the VLAN 1 global address.
 
-1. Ensure ports:
+- Ensure ports:
 
   - **22 (SSH):** Filtered.
 
@@ -539,7 +539,7 @@ Your Debian machine must meet the following requirements:
 
   - **80 (HTTP):** Open.
 
-1. Ensure your hostname, login name, and prompt (with date and time) are correctly displayed.
+- Ensure your hostname, login name, and prompt (with date and time) are correctly displayed.
 
 **Deviations from these requirements will result in deductions or a zero for this slide.** Ask questions if needed!
 
@@ -595,13 +595,13 @@ Your Debian machine must meet the following requirements:
 
 ### Key Notes:
 
-1. Use the **`-6` flag** for scanning IPv6 addresses.
+- Use the **`-6` flag** for scanning IPv6 addresses.
 
-1. Confirm the scanned IPv6 address is `2001:dead:beef:cafe::1`, matching the VLAN 1 global address.
+- Confirm the scanned IPv6 address is `2001:dead:beef:cafe::1`, matching the VLAN 1 global address.
 
-1. Ensure all ports (**22**, **80**, **443**) are **filtered** to verify that the ACL is properly applied.
+- Ensure all ports (**22**, **80**, **443**) are **filtered** to verify that the ACL is properly applied.
 
-1. Follow all prompt and hostname requirements.
+- Follow all prompt and hostname requirements.
 
 **Any deviation from these requirements will result in deductions or a zero for this slide.** Be sure to double-check your setup!
 
@@ -663,11 +663,11 @@ Your Debian machine must meet the following requirements:
 
 ### Key Notes:
 
-1. Use the **`-6` flag** for IPv6 scanning.
+- Use the **`-6` flag** for IPv6 scanning.
 
-1. Include the **`%interface-name`** for link-local addresses to resolve ambiguity.
+- Include the **`%interface-name`** for link-local addresses to resolve ambiguity.
 
-1. Ensure:
+- Ensure:
 
   - **Port 22 (SSH):** Filtered.
 
@@ -675,7 +675,7 @@ Your Debian machine must meet the following requirements:
 
   - **Port 80 (HTTP):** Open.
 
-1. Follow all hostname, login name, and prompt requirements.
+- Follow all hostname, login name, and prompt requirements.
 
 **Failure to meet these requirements will result in a deduction or zero for this slide.** If you’re unsure about your interface name or the configuration, ask for assistance!
 
@@ -731,13 +731,13 @@ Your Debian machine must meet the following requirements:
 
 ### Key Notes:
 
-1. Use the **`-6` flag** for IPv6 scanning.
+- Use the **`-6` flag** for IPv6 scanning.
 
-1. Include the **`%interface-name`** for link-local addresses to resolve ambiguity.
+- Include the **`%interface-name`** for link-local addresses to resolve ambiguity.
 
-1. Ensure all ports (**22**, **80**, **443**) are filtered to verify complete ACL blocking.
+- Ensure all ports (**22**, **80**, **443**) are filtered to verify complete ACL blocking.
 
-1. Follow all hostname, login name, and prompt requirements.
+- Follow all hostname, login name, and prompt requirements.
 
 **Deviations from these requirements will result in deductions or a zero for this slide.** Make sure your configuration matches exactly!
 ---

@@ -48,20 +48,20 @@ To enable SSH on the Cisco 2811 router, follow these steps. Make sure to replace
 
 ### Connecting to the Cisco 2811 Router Using SSH in a Linux VM
 
-1. **Step 1: Attempt to Connect Using SSH**
+**Step 1: Attempt to Connect Using SSH**
    In your Linux virtual machine, try connecting to the router using SSH with the following command. Replace `FirstName` with your assigned username and use the correct IP address for the router (in this example, `2001:dead:beef:cafe::2`):
    ```bash
    ssh FirstName@2001:dead:beef:cafe::2
    ```
 
-2. **Expected Error: Key Exchange Compatibility Issue**
+**Expected Error: Key Exchange Compatibility Issue**
    When you try to connect, you’ll likely see an error message similar to this:
 
 ![Image](assets/images/file-6737802e2016d.png)
 
 - **Explanation of the Error**: This error occurs because the SSH client on your modern Linux system cannot find a **compatible key exchange algorithm** with the router. The Cisco 2811 router is using older algorithms like `diffie-hellman-group14-sha1`, which are considered outdated and are disabled by default on newer SSH clients due to security concerns.
 
-3. **Attempt 2: Add Support for Older Key Exchange Algorithms**
+**Attempt 2: Add Support for Older Key Exchange Algorithms**
    To connect, lets try to allow these older key exchange algorithms in our SSH command:
    ```bash
    ssh -oKexAlgorithms=+diffie-hellman-group14-sha1 -oHostKeyAlgorithms=+ssh-rsa FirstName@2001:dead:beef:cafe::2
@@ -74,7 +74,7 @@ To enable SSH on the Cisco 2811 router, follow these steps. Make sure to replace
 
   **Explanation of the Errors**: The Cisco 2811 router uses older key exchange algorithms and ciphers that modern SSH clients disable by default for security reasons. These include `diffie-hellman-group14-sha1` for key exchange and **CBC ciphers** like `aes128-cbc`. Since modern SSH clients prioritize stronger encryption, we need to explicitly enable these older algorithms to connect.
 
-4. **Solution: The Complete Command to Connect**
+**Solution: The Complete Command to Connect**
    To establish the SSH connection, we used the following command:
    ```bash
    ssh -oKexAlgorithms=+diffie-hellman-group14-sha1 -oHostKeyAlgorithms=+ssh-rsa -oCiphers=+aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc LastName@2001:dead:beef:cafe::2
@@ -180,9 +180,9 @@ However, Cisco provides a helpful **video tutorial** that walks through configur
 
 ### What You’ll Learn in the Video:
 
-1. Accessing the Catalyst 1300's web-based GUI.
-2. Navigating to the SSH configuration section.
-3. Uploading and assigning public keys for specific users.
+- Accessing the Catalyst 1300's web-based GUI.
+- Navigating to the SSH configuration section.
+- Uploading and assigning public keys for specific users.
 
 
 Since the GUI appears to be the only documented method for configuring public key authentication on the Catalyst 1300, this will be the approach for setting it up for key-based authentication. The CLI may be limited in this area due to the device’s focus on simplified operations.

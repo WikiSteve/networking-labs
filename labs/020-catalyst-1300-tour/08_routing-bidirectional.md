@@ -28,11 +28,11 @@ Let’s begin with a brain teaser: Why does IPv4 fail in this scenario? The answ
 
 To fix this issue:
 
-1. Add a **static route** on the 2811 to reach the C1300’s loopback address (**`10.10.10.1`**):
+- Add a **static route** on the 2811 to reach the C1300’s loopback address (**`10.10.10.1`**):
    ```bash
    ip route 10.10.10.1 255.255.255.255 192.168.100.1
    ```
-2. Test the ping again to confirm bidirectional connectivity.
+- Test the ping again to confirm bidirectional connectivity.
 
 
 ![Image](assets/images/file-673c97d98eb44.png)
@@ -57,14 +57,14 @@ This is one of the powerful features of IPv6—automatic discovery and configura
 
 ### **Observing RAs and Routing Table Changes on the 2811**
 
-1. **Enable Debugging First**
+**Enable Debugging First**
    Before resetting the interface, enable `debug ipv6 nd` to capture the incoming RA in real time:
    ```bash
    LastNameR1#debug ipv6 nd
    ```
    This ensures you don’t miss the RA message, which happens almost immediately after the link comes back up.
 
-2. **Reset the Interface**
+**Reset the Interface**
    Use one of the following methods to trigger the RA:
    
    **Option A: Shut Down and Re-enable the Interface**
@@ -78,7 +78,7 @@ This is one of the powerful features of IPv6—automatic discovery and configura
    **Option B: Physically Unplug and Replug the Cable**
    - Disconnect and reconnect the Ethernet cable to the FastEthernet0/0.1 interface.
 
-3. **Quickly Check the Routing Table**
+**Quickly Check the Routing Table**
    RAs are processed rapidly, so as soon as the link is back up:
    - Use the `show ipv6 route` command to capture the routing table **before** the RA is processed:
 
@@ -155,7 +155,7 @@ Enable IPv6 CEF:
 
 When **`ipv6 unicast-routing`** is off, the router behaves more like an **IPv6 host** than an actual router. Here’s what happens:
 
-1. **Limited IPv6 Functionality**:
+- **Limited IPv6 Functionality**:
    - Interfaces can still have IPv6 addresses and use Neighbor Discovery (ND) to communicate with devices on the same network.
    - The router can process **local traffic** (e.g., pings to its own IPv6 addresses) and manage directly connected routes (you'll see them in the routing table).
    - However, the router won’t:
@@ -163,7 +163,7 @@ When **`ipv6 unicast-routing`** is off, the router behaves more like an **IPv6 h
      - Generate Router Advertisements (RA) to share IPv6 routes.
      - Participate in IPv6 multicast groups designed for routers.
 
-2. **Why You Saw Known Routes and Traffic Working**:
+- **Why You Saw Known Routes and Traffic Working**:
    - The magic you saw earlier was from the **Catalyst 1300** injecting static routes into the 2811 via RAs (Router Advertisements).
    - This worked because the 2811 acted as an IPv6 host and listened for RAs, accepting the injected routes. However, the 2811 wasn’t actively behaving as a router—more like a “listener.”
 
@@ -202,11 +202,11 @@ This re-enables Cisco Express Forwarding for IPv6 traffic, ensuring efficient pa
 
 To confirm everything is working:
 
-1. **Check if IPv6 Unicast Routing is Enabled**:
+- **Check if IPv6 Unicast Routing is Enabled**:
    **`show running-config | include ipv6 unicast-routing`**
    - You should see the `ipv6 unicast-routing` command in the output.
 
-2. **Verify IPv6 CEF**:
+- **Verify IPv6 CEF**:
    **`show ipv6 cef`**
    - Look for CEF entries for IPv6 prefixes, showing the router is forwarding IPv6 traffic efficiently.
 

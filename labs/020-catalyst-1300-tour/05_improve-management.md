@@ -13,7 +13,7 @@ When configuring network devices, using a **loopback interface** for management 
 
 ## Configurations on C1300 Switch
 
-1. **Create and Configure Loopback 1**
+**Create and Configure Loopback 1**
    ```bash
    interface loopback 1
      ipv6 address 2001:cafe::1/128
@@ -68,13 +68,13 @@ By default, the Cisco 2811’s HTTP server is disabled. Follow these steps to en
 
 **a. Access Global Configuration Mode**
 
-1. **Enter Privileged EXEC Mode:** **`enable`**
-2. **Enter Global Configuration Mode:** **`configure terminal`**
+**Enter Privileged EXEC Mode:** **`enable`**
+**Enter Global Configuration Mode:** **`configure terminal`**
 
 **b. Enable the HTTP Server**
 
-1. **Enable the Standard HTTP Server:** **`ip http server`**
-2. **Enable the Secure HTTP Server:** **`ip http secure-server`**
+**Enable the Standard HTTP Server:** **`ip http server`**
+**Enable the Secure HTTP Server:** **`ip http secure-server`**
 
 **Note:** Although the Cisco 2811's `ip http secure-server` uses older crypto suites that may not be compatible with modern browsers, we are enabling it to allow verification of the HTTP ports using tools like **nmap**.
 
@@ -116,18 +116,18 @@ Even though the Cisco 2811 supports **Loopback0**, we are using **Loopback1** to
 
 **Telnet to the HTTP Server**
 
-1. **Establish a Telnet session to the IPv6 loopback interface**:
+- **Establish a Telnet session to the IPv6 loopback interface**:
    **`telnet [2001:cafe::2] 80`**
    **Note:** Use square brackets (`[ ]`) to indicate the IPv6 address when specifying a port number.
 
-2. **Send an HTTP GET Request**:
+- **Send an HTTP GET Request**:
    ```http
    GET / HTTP/1.1
    Host: [2001:cafe::2]
    ```
    **Important:** Press **Enter** twice after typing the command to properly send the request.
 
-3. **Observe the HTTP Response**: You should see a response like this:
+- **Observe the HTTP Response**: You should see a response like this:
    ```plaintext
    HTTP/1.1 401 Unauthorized
    Date: <timestamp>
