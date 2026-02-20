@@ -1,22 +1,23 @@
 # Live tools: net-tools
 
-There are two live sections.  Net-tools & iproute2. Live means you can see the status of the system and make non-permanent changes to the system that are lost on system restart.    
+There are two live sections: **`net-tools`** and **`iproute2`**. "Live" means you can see the status of the system and make non-permanent changes that are lost upon restart.
 
-Net-tools is deprecated, however it's important to know the usage because your older peers think, breath and speak net-tools and may look like a deer in headlights when you speak iproute2.  Imagine how long it's taken us to migrate to IPv6, that is how long it's going to take net-tools veterans to retire.
+**`net-tools`** is deprecated; however, it's important to know its usage because many experienced administrators still "think, breathe, and speak" **`net-tools`**. They may look like a deer in headlights when you mention **`iproute2`**. Imagine how long it's taken the industry to migrate to IPv6—that is how long it's going to take **`net-tools`** veterans to retire.
 
-**Note: **Because some commands will intentionally disrupt your connection I'd suggest just connecting straight to VMware for the live tools sections as your connection to PuTTY may drop unexpectedly.
+> [!NOTE]
+> Because some commands will intentionally disrupt your connection, I suggest connecting directly to the VMware console for the live tools sections, as your PuTTY connection may drop unexpectedly.
 
-Start by installing net-tools:
+Start by installing **`net-tools`**:
 **`sudo apt install net-tools`**
 
 Begin a spreadsheet with the following columns:
-- IP address
-- MAC address
-- Vendor
-- Network
-- Description
+- **IP address**
+- **MAC address**
+- **Vendor**
+- **Network**
+- **Description**
 
-Set your VM to **bridged mode**. The behaviour you may experience may differ between if you are hard wired vs wireless and your chipset (Broadcomm, Realtek, Intel, etc). This is because some drivers allow multiple MACs per connection and support MAC address cloning while others do not. Bridged works in both environments but the behaviour is different.
+Set your VM to **bridged mode**. The behaviour you experience may differ depending on whether you are using a wired or wireless connection and your specific chipset (Broadcom, Realtek, Intel, etc.). This is because some drivers allow multiple MACs per connection and support MAC address cloning while others do not. Bridged works in both environments, but the results vary.
 
 ![Image](assets/images/file-62d00275d704f.png)
 
@@ -84,29 +85,28 @@ The second one tells route not to do reverse lookups.
 
 ![Image](assets/images/file-62d0148fce1c1.png)
 
-So we can tell this router provides NAT, this is our default gateway.  So on your spreadsheet modify the description for router to state that it does NAT so the description should say router: NAT
+So we can tell this router provides NAT; this is our default gateway. On your spreadsheet, modify the description for the router to state that it performs NAT. The description should say **`router: NAT`**.
 
-Note: This part is not part of net-tools, but part of our discovery phase
+> [!NOTE]
+> This part is not strictly a feature of **`net-tools`**, but is an essential part of our discovery phase.
 
-Now let's see who handles DNS for your network.  view your resolver /etc/resolv.conf
+Now let's see who handles DNS for your network. View your resolver configuration in **`/etc/resolv.conf`**:
 
-**cat /etc/resolv.conf**
+**`cat /etc/resolv.conf`**
 
 ![Image](assets/images/file-62d0166fd5b85.png)
 
-If the nameserver portion is the same as your router change your description now to router: NAT, DNS
+If the nameserver portion is the same as your router, change your description now to **`router: NAT, DNS`**.
 
-If it is NOT the same as your router leave it as router: NAT, then add a new line with your nameserver IP.  Leave MAC address and Vendor blank and put DNS under description.
+If it is NOT the same as your router, leave it as **`router: NAT`**, then add a new line with your nameserver IP. Leave the MAC address and Vendor columns blank and put **`DNS`** under the description.
 
-Last we need to see who handles your DHCP
-
-turn the interface off again and note whom your system is communicating this lease with.
+Last, we need to see who handles your DHCP. Turn the interface off again and note which device your system is communicating with to obtain this lease.
 
 ![Image](assets/images/file-62d01825c639c.png)
 
-If the IP address is the same as the router now update the description to router: NAT, DNS, DHCP is it does all three.
+If the IP address is the same as the router, update the description to **`router: NAT, DNS, DHCP`** if it performs all three roles.
 
-If DHCP is different you're likely at campus or a corporate office, and because of the nature of DHCP relay it may be on a different network.  If it's on a **different network** state the IP address and leave MAC and vendor blank. If you're unsure see if it appears in arp. If it does it's on your network.
+If the DHCP server is different, you're likely on a campus or corporate network. Due to the nature of DHCP relay, it may be on a different network. If it's on a **different network**, state the IP address and leave the MAC and vendor columns blank. If you're unsure, see if it appears in ARP; if it does, it's on your local network.
 
 Next part is traceroute which also isn't part of net-tools but we're doing all the discovery needed while bridged. Remember your interface is down, bring it up first.
 
