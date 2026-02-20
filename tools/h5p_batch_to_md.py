@@ -47,21 +47,31 @@ def dragtext_to_md(params: dict) -> str:
 
     # Extract answers between asterisks
     answers = re.findall(r"\*([^*]+)\*", text)
-    prompt = re.sub(r"\*([^*]+)\*", "**[ ... ]**", text)
+    
+    # Create word bank (shuffled for extra challenge if desired, but here just listed)
+    word_bank = sorted(list(set(answers)))
+    word_bank_str = " | ".join(f"`{a}`" for a in word_bank)
+
+    # Replace each *...* with a numbered placeholder ( 1 ), ( 2 ), etc.
+    prompt = text
+    for i in range(len(answers)):
+        prompt = prompt.replace(f"*{answers[i]}*", f"**( {i+1} )**", 1)
 
     lines = [
         "---",
         "### 🧠 Knowledge Check: Fill in the Blanks",
         "",
+        f"**Word Bank:** {word_bank_str}",
+        "",
         "> [!IMPORTANT]",
-        "> *Fill in the missing terms, then reveal the answers below.*",
+        "> *Match the correct terms from the word bank to the numbered placeholders below.*",
         "> ",
         f"> {prompt.strip()}",
         "",
         "<details>",
         "<summary>👉 <b>Reveal answers</b></summary>",
         "",
-        "**Answers (in order):** " + ", ".join(f"`{md_escape(a)}`" for a in answers),
+        "\n".join(f"{i+1}. **{a}**" for i, a in enumerate(answers)),
         "</details>",
         "",
         "---"
