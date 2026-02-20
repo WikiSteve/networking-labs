@@ -4,9 +4,9 @@
 
 You’ll be using the coupler to extend the length of the Ethernet cable, allowing it to connect to the FastEthernet 0/1 (Fa0/1) port on the Cisco 2811 router, which will serve as the WAN interface.
 
-![Image](assets/images/file-673e0bfb1ebd6.jpg)
+![[assets/images/file-673e0bfb1ebd6.jpg]]
 
-![Image](assets/images/file-673e24ab52eb7.jpg)
+![[assets/images/file-673e24ab52eb7.jpg]]
 
 - **Locate the Existing Ethernet Cable:** Find the Ethernet cable that is currently plugged into your workstation.
 
@@ -16,7 +16,7 @@ You’ll be using the coupler to extend the length of the Ethernet cable, allowi
 
 - **Connect to the Cisco 2811 WAN Port (Fa0/1):** Plug the other end of the second Ethernet cable into the **FastEthernet 0/1 (Fa0/1)** port on the back of the Cisco 2811 router. Refer to the labeled photo provided for the exact port location.
 
-![Image](assets/images/file-673df075902cd.png)
+![[assets/images/file-673df075902cd.png]]
 
 ### **Configuring FastEthernet0/1 for CCN Network and Testing DNS**
 
@@ -181,7 +181,7 @@ Standard IP access list NAT_TRAFFIC 10
 
  `LastNameR1# show ip nat translations`
 
-![Image](assets/images/file-673de5886a928.png)
+![[assets/images/file-673de5886a928.png]]
 
 **Important:** NAT entries will only appear after traffic matching the ACL (`NAT_TRAFFIC`) is generated.
  
@@ -203,7 +203,7 @@ Here’s what each column means:
 
 You’ll be using the coupler to extend the length of the Ethernet cable, allowing it to connect to the FastEthernet 0/1 (Fa0/1) port on the Cisco 2811 router, which will serve as the WAN interface.
 
-![Image](assets/images/file-673de7ce10ea1.png)
+![[assets/images/file-673de7ce10ea1.png]]
 
 **Generate Test Traffic:**
 

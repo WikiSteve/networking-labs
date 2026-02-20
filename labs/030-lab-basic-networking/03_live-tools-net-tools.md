@@ -18,11 +18,11 @@ Begin a spreadsheet with the following columns:
 
 Set your VM to **bridged mode**. The behaviour you may experience may differ between if you are hard wired vs wireless and your chipset (Broadcomm, Realtek, Intel, etc). This is because some drivers allow multiple MACs per connection and support MAC address cloning while others do not. Bridged works in both environments but the behaviour is different.
 
-![Image](assets/images/file-62d00275d704f.png)
+![[assets/images/file-62d00275d704f.png]]
 
 Open the **Virtual Network Editor** by going edit > Virtual Network Editor in Workstation.
 
-![Image](assets/images/file-62d0031cd0b6e.png)
+![[assets/images/file-62d0031cd0b6e.png]]
 
 By default VMNet0, which is also set to bridge by default, is set to select the adapter automatically. It selects the interface that is up and has at least passed layer 1/2 connectivity. If you have multiple adapters in the up state, such as connected via wired and wireless, you may get unexpected behaviour. If you have a single active connection right now, leave it as automatic.
 
@@ -34,7 +34,7 @@ Knowing this information, you may close this window.
 
 Start by looking at the interfaces you have available by issuing **`ifconfig`**. Because this file is not in the users path, you'll need to use **`sudo`**, even though just viewing this information isn't privileged.
 
-![Image](assets/images/file-62d0087fab73e.png)
+![[assets/images/file-62d0087fab73e.png]]
 
 You should recognize the adapter with 127.0.0.1, this is your loopback.  The adapter we're interested in however is the adapter that will look similar to ens32, yours may be different but as long as you're not looked at the loopback adapter we're good!
 
@@ -47,21 +47,21 @@ To make sure this is the correct address, just turn the interface OFF then back 
 
 Wait at least 60 seconds for ARP to age out. ARP cache life is configurable; on this system it's 60 seconds, and yours is likely the same. The screenshot below is the output of my current ARP cache timeout.
 
-![Image](assets/images/file-62d009bd4c6dd.png)
+![[assets/images/file-62d009bd4c6dd.png]]
 
 Once a whole minute or two goes by, run **`sudo arp -a`**. It should be blank!
 
-![Image](assets/images/file-62d00a3062819.png)
+![[assets/images/file-62d00a3062819.png]]
 
 Now run a ping to `google.ca`. If you have one of those NICs that don't support cloning and multiple MACs, you'll get a flood of `DUP!` messages. To make the output more useful, I've limited the ping to 2; because the duplicate is on the same system and I have promiscuous mode enabled, my system detected a ton of duplicates.
 
 **`ping -c 2 google.ca | head`**
 
-![Image](assets/images/file-62d00e659d777.png)
+![[assets/images/file-62d00e659d777.png]]
 
 Because your ARP cache is aging, run **`sudo arp -a`** quick like a bunny.
 
-![Image](assets/images/file-62d00f28e3132.png)
+![[assets/images/file-62d00f28e3132.png]]
 
 In this example I have both my host at 192.168.2.134 & my router at 192.168.2.254.  This is because my Intel Wireless NIC does not support cloning so to get to Google I had to 'borrow' the hosts MAC to get out.  If your NIC supports cloning you likely will not see your host and just your router.
 
@@ -73,7 +73,7 @@ Use this information to populate your spreadsheet.
 
 [MAC OU lookup](https://aruljohn.com/mac.pl)
 
-![Image](assets/images/file-62d0133673d74.png)
+![[assets/images/file-62d0133673d74.png]]
 
 I just happened to know that 192.168.2.254 is my router. Do not assume, let's find out.
 
@@ -82,7 +82,7 @@ Run both **`sudo route`** then **`sudo route -n`**.
 The first one does a reverse DNS lookup using your home router for its name; in my case, it's `squrrelHQ.wikisteve.com`.
 The second one tells route not to do reverse lookups.
 
-![Image](assets/images/file-62d0148fce1c1.png)
+![[assets/images/file-62d0148fce1c1.png]]
 
 So we can tell this router provides NAT, this is our default gateway.  So on your spreadsheet modify the description for router to state that it does NAT so the description should say router: NAT
 
@@ -92,7 +92,7 @@ Now let's see who handles DNS for your network.  view your resolver /etc/resolv
 
 **cat /etc/resolv.conf**
 
-![Image](assets/images/file-62d0166fd5b85.png)
+![[assets/images/file-62d0166fd5b85.png]]
 
 If the nameserver portion is the same as your router change your description now to router: NAT, DNS
 
@@ -102,7 +102,7 @@ Last we need to see who handles your DHCP
 
 turn the interface off again and note whom your system is communicating this lease with.
 
-![Image](assets/images/file-62d01825c639c.png)
+![[assets/images/file-62d01825c639c.png]]
 
 If the IP address is the same as the router now update the description to router: NAT, DNS, DHCP is it does all three.
 
@@ -112,13 +112,13 @@ Next part is traceroute which also isn't part of net-tools but we're doing all t
 
 **`traceroute google.ca | head`**
 
-![Image](assets/images/file-62d01b36e19c3.png)
+![[assets/images/file-62d01b36e19c3.png]]
 
 In my example I have two routers that are internal because both 192.168.2.0/24 and 192.168.1.0/24 are private IP addresses. If you're unsure what is a private IP address make sure to review them. If you have a single router just leave the description as router. If you have two determine which one is inside, and which is outside.
 
 The first one will be inside which in my case is 192.168.2.254 is inside router and 192.168.1.1 is the outside router. We're not concerned about what services it has, just make a note of it in the spreadsheet, see the example below.
 
-![Image](assets/images/file-62d01cce6ff6c.png)
+![[assets/images/file-62d01cce6ff6c.png]]
 
 Lastly set a static IP address to anything you desire then test with your Windows 11 computer that you can reach it with PuTTY.
 
@@ -126,7 +126,7 @@ To set a static IP with net-tools is crazy easy with **`ifconfig [interface] IP/
 
 As an example if I want to set 192.168.2.202/24 it is **`sudo ifconfig ens32 192.168.2.202/24`**
 
-![Image](assets/images/file-62d01de8f3498.png)
+![[assets/images/file-62d01de8f3498.png]]
 
 Reboot the system before proceeding to the next step.
 

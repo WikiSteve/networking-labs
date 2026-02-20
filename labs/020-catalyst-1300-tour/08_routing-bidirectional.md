@@ -16,7 +16,7 @@ In this test, we are initiating a **ping** from the Catalyst 1300 switch (C1300)
 - **Why Bind the Source IP?**
   - **Simulating Loopback-to-Loopback Communication:** This ensures we're testing the routing path between two loopback interfaces, which are commonly used for management and testing purposes.
   - **Controlled Testing:** It helps identify if routing is working correctly for specific source-destination pairs. This is especially useful in multi-path networks or when troubleshooting route asymmetry.
-![Image](assets/images/file-673c978662c2d.png)
+![[assets/images/file-673c978662c2d.png]]
 
 **IPv4: Why It Fails Without a Return Path**
 
@@ -33,15 +33,15 @@ To fix this issue:
    ```
 - Test the ping again to confirm bidirectional connectivity.
 
-![Image](assets/images/file-673c97d98eb44.png)
+![[assets/images/file-673c97d98eb44.png]]
 
 ### Testing IPv6
 
 In this test, we are verifying **IPv6 bidirectional routing** by pinging the Cisco 2811 router’s loopback address (`2001:cafe::2`) from the Catalyst 1300 switch’s loopback (`2001:cafe::1`). Unlike the IPv4 test, this one **succeeded** with 0% packet loss. Let’s break down why:
 
-![Image](assets/images/file-673c9edd5604b.png)
+![[assets/images/file-673c9edd5604b.png]]
 
-![Image](assets/images/file-673bcb9da3a99.gif)
+![[assets/images/file-673bcb9da3a99.gif]]
 
 **IPv6: Magic with Router Advertisements**
 
@@ -80,11 +80,11 @@ This is one of the powerful features of IPv6—automatic discovery and configura
    RAs are processed rapidly, so as soon as the link is back up:
    - Use the `show ipv6 route` command to capture the routing table **before** the RA is processed:
 
-![Image](assets/images/file-673bd8a400046.png)
+![[assets/images/file-673bd8a400046.png]]
 
    - Wait briefly, and then rerun the same command to capture the updated routing table **after** the RA has added the default route:
 
-![Image](assets/images/file-673bd9b234bcd.png)
+![[assets/images/file-673bd9b234bcd.png]]
 
 **Stop Debugging**
 Once you’ve captured the debug output, disable debugging to avoid unnecessary system overhead:
@@ -98,7 +98,7 @@ LastNameR1#undebug all
 - **Double-Check RA Behavior:** If you don’t see the RA, ensure that the Catalyst 1300 is configured to send RAs on the VLAN interface (`ipv6 unicast-routing` must be enabled).
 ### show ipv6 routers
 
-![Image](assets/images/file-673bdd7baf6a1.png)
+![[assets/images/file-673bdd7baf6a1.png]]
 
 The **`show ipv6 routers`** command is used to display information about IPv6 Router Advertisements (RAs) received by the device. This command is particularly useful for:
 
@@ -122,7 +122,7 @@ By using this command, you can verify RA behavior and understand how default rou
 
 ## IPv6 CEF
 
-![Image](assets/images/file-67407fbeb05c0.png)
+![[assets/images/file-67407fbeb05c0.png]]
 
 ### What’s up with `no ipv6 cef`?
 
@@ -141,7 +141,7 @@ Get into configuration mode:
 Enable IPv6 CEF:
 **`ipv6 cef`**
 
-![Image](assets/images/file-674085c730421.png)
+![[assets/images/file-674085c730421.png]]
 
 ## ipv6 unicast-routing
 
@@ -173,7 +173,7 @@ By turning on **`ipv6 unicast-routing`**, the router changes behavior:
 **Why We Waited Until Now**:
 We left this “magic” disabled from the start to focus on IPv6 fundamentals. By not enabling automatic route injection and other automated behavior, we had more control over the learning process.
 
-![Image](assets/images/file-6740a0fe52959.gif)
+![[assets/images/file-6740a0fe52959.gif]]
 
 ### Turning on IPv6 Unicast Routing and CEF
 
@@ -191,7 +191,7 @@ This tells the router to behave as an IPv6 router, not just a host.
 This re-enables Cisco Express Forwarding for IPv6 traffic, ensuring efficient packet forwarding.
 ## Verification
 
-![Image](assets/images/file-67408cd320e5a.png)
+![[assets/images/file-67408cd320e5a.png]]
 
 To confirm everything is working:
 

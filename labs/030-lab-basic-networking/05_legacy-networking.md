@@ -8,7 +8,7 @@ For this edition of Securing Linux we'll just be looking at the legacy networkin
 
 All the IP configurations are stored in **`/etc/network/interfaces`**. Start by taking a look at these:
 
-![Image](assets/images/file-62d0338a165da.png)
+![[assets/images/file-62d0338a165da.png]]
 
 The first line reads `allow-hotplug`, which does two things:
 - The system should run the directive below whenever the cable status changes (plugged in, unplugged).
@@ -22,19 +22,19 @@ The second line breakdown:
 
 We're going to set this to a static IP. I've blurred out the IP addresses but left everything else; make sure to use your spreadsheet to sub in the correct values. Set the HOST portion to `.200`.
 
-![Image](assets/images/file-62d0362946ba0.png)
+![[assets/images/file-62d0362946ba0.png]]
 
 Since we're not using DHCP, you'll need to set the nameserver (DNS) manually. Go to **`/etc/resolv.conf`** and update the record to be the correct nameserver. If DNS fails upon restart, this will be your first place to check!
 
-![Image](assets/images/file-62d037110dd5b.png)
+![[assets/images/file-62d037110dd5b.png]]
 
-![Image](assets/images/file-62d037f91503f.png)
+![[assets/images/file-62d037f91503f.png]]
 
 If it doesn't work, re-enable hotplug (I previously commented it out) and restart the whole VM.
 
 ## **Screen shot 2 must contain all three parts highlighted in red on a single screenshot. Restarting the service must produce zero errors.**
 
-![Image](assets/images/file-62d03a728b007.png)
+![[assets/images/file-62d03a728b007.png]]
 
 ## **Screen shot 3 Prove connection works with PuTTY. Capture your servers IP and a successful ping.**
 
