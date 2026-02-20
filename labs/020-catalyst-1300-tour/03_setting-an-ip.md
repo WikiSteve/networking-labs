@@ -101,6 +101,7 @@ In addition to IPv4, we can configure IPv6 addresses on VLAN 1. Here’s a break
 
 
 
+
 ![Image](assets/images/file-6733f2c03b558.png)
 
 **Pro Tip**: Quick Refresh for Network Changes
