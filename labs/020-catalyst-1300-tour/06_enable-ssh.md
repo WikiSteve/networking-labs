@@ -39,9 +39,6 @@ To enable SSH on the Cisco 2811 router, follow these steps. Make sure to replace
    ```bash
    LastNameR1#show ip ssh
    ```
-
-
-
 ## 2811 Test connection
 
 [2811 is End Of Life](https://www.cisco.com/c/en/us/products/collateral/routers/2800-series-integrated-services-routers-isr/eos-eol-notice-c51-735924.html)
@@ -53,10 +50,8 @@ To enable SSH on the Cisco 2811 router, follow these steps. Make sure to replace
    ```bash
    ssh FirstName@2001:dead:beef:cafe::2
    ```
-
 **Expected Error: Key Exchange Compatibility Issue**
    When you try to connect, you’ll likely see an error message similar to this:
-
 ![Image](assets/images/file-6737802e2016d.png)
 
 - **Explanation of the Error**: This error occurs because the SSH client on your modern Linux system cannot find a **compatible key exchange algorithm** with the router. The Cisco 2811 router is using older algorithms like `diffie-hellman-group14-sha1`, which are considered outdated and are disabled by default on newer SSH clients due to security concerns.
@@ -79,14 +74,11 @@ To enable SSH on the Cisco 2811 router, follow these steps. Make sure to replace
    ```bash
    ssh -oKexAlgorithms=+diffie-hellman-group14-sha1 -oHostKeyAlgorithms=+ssh-rsa -oCiphers=+aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc LastName@2001:dead:beef:cafe::2
    ```
-
    - `-oKexAlgorithms=+diffie-hellman-group14-sha1`: Enables an older key exchange method.
    - `-oHostKeyAlgorithms=+ssh-rsa`: Allows the SSH client to use the RSA algorithm supported by the router.
    - `-oCiphers=+aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc`: Enables the CBC ciphers supported by the router.
 
 - **Explanation of the Solution**: Each part of this command temporarily allows the older protocols and ciphers needed to connect to the router. These options help us work around compatibility limitations due to the device’s age.
-
-
 ### Why This Solution Was Necessary: Legacy Hardware and Modern Security Standards
 
 The Cisco 2811 router was introduced two decades ago and went **end-of-life in 2016**. Over the years, many security vulnerabilities have been discovered in SSH protocols, and the strongest encryption the 2811 supports has since been deprecated.
@@ -106,12 +98,10 @@ Steps to Enable SSH
    enable
    configure terminal
    ```
-
 - **Enable the SSH Server:** To turn on the SSH server functionality and allow SSH connections, enter:
    ```bash
    ip ssh server
    ```
-
 - **Enable Password Authentication:** Ensure that password-based authentication is enabled for SSH sessions:
    ```bash
    ip ssh password-auth
@@ -123,20 +113,11 @@ Steps to Enable SSH
    username FirstName privilege 15 password Don'tpanic
    ```
    Replace `FirstName` with your actual first name. The password is set to `Don'tpanic` to keep things consistent.
-
-
-
 ### Important Insights about SSH and RSA Keys on the Catalyst 1300
-
--
 
 **Automatic RSA Key Generation**: Upon initial setup or after a factory reset, the Catalyst 1300 automatically generates RSA keys. This allows SSH access without the need for the `crypto key generate rsa` command.
 
--
-
 **No Options for Key Customization**: The Catalyst 1300 has no settings to adjust key size, type, or encryption algorithms. The device uses a fixed RSA key size and type with no ability to switch to newer key types (like ECDSA or ED25519). This limitation reflects the Catalyst 1300’s focus on simplicity and small-to-medium business use rather than extensive security customization.
-
--
 
 **Regenerating RSA Keys**: If you re-run the `crypto key generate rsa` command, it will overwrite the existing RSA keys. This process can disrupt ongoing SSH sessions and may cause SSH clients to prompt for reauthorization of the device, as the SSH fingerprint will change. Only regenerate keys if absolutely necessary.
 
@@ -148,11 +129,7 @@ To connect, you’ll need to adjust the cipher-suite settings on your SSH client
 
 ### Explanation
 
--
-
 **Why This is Necessary**: The Catalyst 1300’s SSH implementation relies on older algorithms like `ssh-rsa`, which are no longer default in modern SSH clients due to updated security practices. As a result, your SSH client needs explicit instructions to enable these older algorithms.
-
--
 
 **Command Breakdown**:
 
@@ -161,7 +138,6 @@ To connect, you’ll need to adjust the cipher-suite settings on your SSH client
   - `FirstName@2001:cafe::1`: Replace `FirstName` with your actual SSH username and `2001:cafe::1` with the IP address of the Catalyst 1300.
 
 This workaround may seem unexpected for a new device, but it’s a reflection of the Catalyst 1300’s focus on simplicity and basic compatibility rather than support for the latest cryptographic standards. By using this command, you’ll be able to securely access the Catalyst 1300, even with its older SSH settings.
-
 ## Firmware version
 
 ![Image](assets/images/file-6737e5dca03a0.png)

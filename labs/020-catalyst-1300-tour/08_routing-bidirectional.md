@@ -16,7 +16,6 @@ In this test, we are initiating a **ping** from the Catalyst 1300 switch (C1300)
 - **Why Bind the Source IP?**
   - **Simulating Loopback-to-Loopback Communication:** This ensures we're testing the routing path between two loopback interfaces, which are commonly used for management and testing purposes.
   - **Controlled Testing:** It helps identify if routing is working correctly for specific source-destination pairs. This is especially useful in multi-path networks or when troubleshooting route asymmetry.
-
 ![Image](assets/images/file-673c978662c2d.png)
 
 **IPv4: Why It Fails Without a Return Path**
@@ -33,8 +32,6 @@ To fix this issue:
    ip route 10.10.10.1 255.255.255.255 192.168.100.1
    ```
 - Test the ping again to confirm bidirectional connectivity.
-
-
 ![Image](assets/images/file-673c97d98eb44.png)
 
 ### Testing IPv6
@@ -93,14 +90,11 @@ Once you’ve captured the debug output, disable debugging to avoid unnecessary 
 ```bash
 LastNameR1#undebug all
 ```
-
-
 ### **Pro Tips for Success**
 
 - **Be Quick!** The RA is processed within seconds of the link coming back up. If you miss it, you’ll need to repeat the process.
 - **Monitor Timing with Pings:** You can send a continuous ping to an IPv6 address (e.g., the loopback on the Catalyst 1300) while resetting the link. This helps gauge when the RA has been processed based on the success of the pings.
 - **Double-Check RA Behavior:** If you don’t see the RA, ensure that the Catalyst 1300 is configured to send RAs on the VLAN interface (`ipv6 unicast-routing` must be enabled).
-
 ### show ipv6 routers
 
 ![Image](assets/images/file-673bdd7baf6a1.png)
@@ -122,7 +116,6 @@ This output confirms that:
 - **Catalyst 1300 Is Sending RAs:** The link-local address (`FE80::BEEF:1234`) and advertised prefix (`2001:DEAD:BEEF:CAFE::/64`) are being received by the 2811.
 - **Default Route Validity:** The `Lifetime` field of 1800 seconds (30 minutes) shows how long the 2811 will keep the advertised default route unless it receives another RA.
 - **IPv6 Addressing Behavior:** The advertised prefix allows devices on the network to autoconfigure their IPv6 addresses without the need for DHCPv6.
-
 
 By using this command, you can verify RA behavior and understand how default routes and prefixes are dynamically propagated in an IPv6-enabled network.
 
@@ -195,7 +188,6 @@ This tells the router to behave as an IPv6 router, not just a host.
 **Enable IPv6 CEF**:
 **`ipv6 cef`**
 This re-enables Cisco Express Forwarding for IPv6 traffic, ensuring efficient packet forwarding.
-
 ## Verification
 
 ![Image](assets/images/file-67408cd320e5a.png)

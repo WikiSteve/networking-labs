@@ -28,7 +28,6 @@ On **LastNameSW1**, you’ll name VLAN 42, assign IP addressing, and configure *
    ipv6 address 2001:db8:42:beef::1/64
    ```
 
-
  **Step 1.3: Assign Port Gi21 to VLAN 42**
 
 Configure **GigabitEthernet 21** as an access port and associate it with VLAN 42:
@@ -37,7 +36,6 @@ interface gigabitEthernet 21
 switchport mode access
 switchport access vlan 42
 ```
-
 Verify the port is correctly assigned:
 
 ![Screenshot](assets/images/file-67451301aed6e.png)
@@ -58,8 +56,6 @@ On **LastNameR1**, configure the subinterface for VLAN 42 with the appropriate a
    ipv6 address fe80::42:1 link-local
    ipv6 address 2001:db8:42:beef::254/64
    ```
-
-
 ### **3. Configure the DHCP Pool for VLAN 42**
 
 On **LastNameR1**, set up a DHCP pool for VLAN 42:
@@ -84,7 +80,6 @@ ip dhcp pool VLAN42_POOL
   dns-server 10.10.10.2
   domain-name answer.local
 ```
-
 **Key Features:**
 - The exclusions ensure the gateway and router IPs are safe.
 - The `default-router` is set to the VLAN 42 gateway.
@@ -95,7 +90,6 @@ Bring a system online, plug into port 21, and check if it found the DHCP server:
 **`show ip dhcp binding`**
 
 ![Screenshot](assets/images/file-6745e11d24eb8.png)
-
 
 ### **4. Modify the NAT ACL**
 

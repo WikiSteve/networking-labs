@@ -46,9 +46,6 @@ We will configure the **FastEthernet0/1** interface on the Cisco 2811 router to 
    LastNameR1# show ip interface brief
    ```
    Confirm that an IP address from the CCN network (VLAN 172) is assigned to **FastEthernet0/1**.
-
-
-
 ### **2. Verification and Testing**
 
 **2.1. Verify IPv4 Connectivity**
@@ -105,9 +102,9 @@ If IPv6 routing isn’t functional, the ping will fail, even though DNS resoluti
 
 - To address this limitation:
 
-  1. We will disable IPv6 on the WAN interface (**FastEthernet0/1**) in a future step.
+   * We will disable IPv6 on the WAN interface (**FastEthernet0/1**) in a future step.
 
-  1. Later, we will configure a routable IPv6 address block using Cloudflare.
+   * Later, we will configure a routable IPv6 address block using Cloudflare.
 
 ### **4. Why IPv6 Is Causing Problems**
 
@@ -178,8 +175,6 @@ Standard IP access list NAT_TRAFFIC 10
    LastNameR1(config-if)# ip nat outside
    LastNameR1(config-if)# exit
    ```
-
-
 ### **Verify NAT Configuration**
 
 - Check the NAT configuration:
@@ -189,9 +184,7 @@ Standard IP access list NAT_TRAFFIC 10
 ![Image](assets/images/file-673de5886a928.png)
 
 **Important:** NAT entries will only appear after traffic matching the ACL (`NAT_TRAFFIC`) is generated.
-
  
-
 After running `show ip nat translations` and generating traffic, your output might look like this:
 
 `Pro Inside global Inside local Outside local Outside global

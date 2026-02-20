@@ -21,17 +21,12 @@ When configuring network devices, using a **loopback interface** for management 
    ```
 
 This configuration adds `2001:cafe::1/128` as a stable, easy-to-remember IPv6 address for management on **Loopback 1**. This address will remain reachable as long as the device is active, independent of any physical interface status.
-
-
 ![Image](assets/images/file-6736941b6a214.png)
-
 ![Image](assets/images/file-6737787c1d35c.png)
-
 ### Test connection on host (Windows or Linux)
 
 ![Image](assets/images/file-67377bd708726.png)
 
----
 ### 🧠 Why Did IPv4 Fail?
 
 > [!NOTE]
@@ -53,12 +48,6 @@ This configuration adds `2001:cafe::1/128` as a stable, easy-to-remember IPv6 ad
 - **C:** *Close, but no dice!* A misconfigured **subnet mask** can cause issues, but here the problem is the missing default gateway.
 - **D:** *Nope!* The Catalyst 1300 automatically handles **IPv4 routing** for packets destined for the default gateway, as long as the gateway is configured.
 </details>
-
-
----
-
-
-
 
 ## Configurations on 2811 Router
 
@@ -86,7 +75,6 @@ By default, the Cisco 2811’s HTTP server is disabled. Follow these steps to en
   ```bash
   interface loopback 1
   ```
-
 - **Configure the IPv4 Address** Assign an IPv4 address to the loopback interface:
   ```bash
   ip address 10.10.10.2 255.255.255.255

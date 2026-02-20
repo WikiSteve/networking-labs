@@ -125,10 +125,7 @@ Standard IP access list BLOCK_FB
     20 deny 157.240.0.0 0.0.255.255 (yy matches)
     30 permit any (zz matches)
 ```
-
 - **Note:** Hit counts are displayed next to the rules, showing how many packets matched each statement.
-
-
 ## **Screenshot 9 Testing VLAN 1 IPv4 ACLs**
 
 ![Screenshot](assets/images/file-6745f4662301f.png)

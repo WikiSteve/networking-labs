@@ -45,7 +45,6 @@ ip access-list extended MGMT_ACL_V4
   deny tcp any any 192.168.100.1 0.0.0.0 443 ace-priority 25 # Deny HTTPS to VLAN1
   permit ip any any ace-priority 50 # Allow all other traffic
 ```
-
 ### Explanation of the Line:
 
 **`deny tcp any any 192.168.100.1 0.0.0.0 22 ace-priority 15`**
@@ -59,18 +58,13 @@ ip access-list extended MGMT_ACL_V4
 
 - **What This Rule Does:** This rule blocks all SSH traffic destined for `192.168.100.1`. By explicitly denying SSH to this interface, it ensures unauthorized management access is prevented.
 
-
 ### Why Use `ace-priority`?
 
 In this case, the **`ace-priority`** is used to control the order in which the rules are processed. ACLs are evaluated **top-to-bottom**, and the first matching rule determines the action taken. Assigning a specific priority allows precise control over this order.
 
--
-
 **Incremental Organization:**
 
  Rules are prioritized in **increments of 5**. This leaves space for adding additional rules later, such as one to block **HTTP** (hint, hint, full marks opportunity!).
-
--
 
 **Flexibility:**
 
@@ -120,8 +114,6 @@ ipv6 access-list MGMT_ACL_V6
 
 IPv6 assigns multiple types of addresses to interfaces, each serving a different purpose. In this case:
 
--
-
 **Link-local address (`fe80::/10`):**
 
   - Used for local communication within a link.
@@ -129,8 +121,6 @@ IPv6 assigns multiple types of addresses to interfaces, each serving a different
   - Mandatory on all IPv6 interfaces.
 
   - Allows access within the same VLAN or subnet, so securing it is crucial.
-
--
 
 **Global unicast address (`2001::/16` or similar):**
 
@@ -172,7 +162,7 @@ The **`ace-priority`** value of `21` reflects a **practical shortcut** during th
 
 Sometimes practicality wins over perfection. The priority `21` was chosen as a quick adjustment rather than renumbering the entire ACL, which wasn’t necessary for such a minor change.
 
-This approach highlights a real-world balance between efficiency and meticulousness. Renumbering can always be done later when time allows—or when you're feeling less lazy! 😉
+This approach highlights a real-world balance between efficiency and meticulousness. Renumbering can always be done later when time allows, or when you're feeling less lazy! 😉
 
 ### **Why Use Comments (`#`)?**
 
@@ -226,7 +216,6 @@ Once installed, use `nmap` to run the command provided in the guide and verify y
 - **`-sT`**: Specifies a TCP connect scan, which establishes a full TCP connection to determine if a port is open.
 - **`-p 22,80,443`**: Specifies the ports to scan: **22** (SSH), **80** (HTTP), and **443** (HTTPS).
 - **`10.10.10.1 192.168.100.1`**: The two target IP addresses to scan.
-
 
 ## Screenshot 1 Explanation and Requirements
 
@@ -309,7 +298,6 @@ LastNameSW1(config)# no ip access-list extended MGMT_ACL_V4
 This action may cause a brief interruption of ACL/policy services.
 Cannot delete/modify MGMT_ACL_V4, ACL is in use.
 ```
-
 The system prevents you from deleting an ACL that is actively bound to an interface.
 
 **Steps to Remove an ACL**
@@ -343,8 +331,6 @@ With the ACL unbound, you can now remove it safely:
 Once you've made the necessary changes to the ACLs, reapply them to the interface:
 
 **`LastNameSW1(config-if)# service-acl input MGMT_ACL_V4 MGMT_ACL_V6`**
-
-
 ### **Key Notes**
 
 - The Catalyst 1300's `no service-acl input` command differs from standard IOS syntax by requiring only the base `no service-acl input` to remove all ACL bindings from an interface.

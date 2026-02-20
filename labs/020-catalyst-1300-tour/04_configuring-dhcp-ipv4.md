@@ -87,11 +87,9 @@ LastNameR1(config)#interface FastEthernet0/0.999
 LastNameR1(config-subif)#encapsulation dot1q 999 native
 LastNameR1(config-subif)#exit
 ```
-
 **Verify the Configuration with CDP**
 
 Use the **`show cdp neighbors detail`** command on both devices to confirm the connection is established with the native VLAN 999 as expected.
-
 
 ![Image](assets/images/file-6734e16058c47.png)
 
@@ -191,8 +189,6 @@ Now that we’ve set up the VLAN and IP configurations, let’s configure a DHCP
    LastNameR1(dhcp-config)#network 192.168.100.0 255.255.255.0
    LastNameR1(dhcp-config)#domain-name LastName.com
    ```
-
-
 ![Image](assets/images/file-6734ec59dab50.png)
 ---
 

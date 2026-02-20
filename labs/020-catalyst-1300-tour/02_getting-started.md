@@ -23,7 +23,6 @@ Cisco’s official instructions are great, but experience speaks louder! Here’
 - **Expect Some Console Jargon:** Once you let go, you should see garbled output as the switch dumps data; it’s normal and nothing to worry about.
 - **Reconnect and Confirm:** After the reset completes, reconnect to confirm the device is back to its default settings. You’re now ready to configure from scratch!
 
-
 If you don’t hit that 18-second Goldilocks zone exactly, the switch will only reboot instead of resetting to factory defaults. Here’s what that looks like:
 
 In the screenshot, notice the absence of any “resetting device to factory defaults” message. Instead, you’ll just see the usual reboot sequence with lines like:

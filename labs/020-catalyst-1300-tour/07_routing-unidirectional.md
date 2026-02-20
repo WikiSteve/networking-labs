@@ -10,7 +10,6 @@ As organizations expand, their network infrastructures become increasingly compl
 
 While VLANs provide numerous benefits, they introduce a significant challenge: **inter-VLAN communication**. Devices on different VLANs cannot communicate directly because each VLAN functions as a separate broadcast domain. To enable communication between these VLANs, a routing mechanism is required. Traditionally, this is where the **Router on a Stick (ROS)** design comes into play.
 
----
 ### 🧠 Knowledge Check
 
 > [!NOTE]
@@ -28,12 +27,6 @@ While VLANs provide numerous benefits, they introduce a significant challenge: *
 - **A:** It would work, but would incur a performance penalty due to Router On a Stick.
 - **B:** *Correct!* Cisco advertises the C1300 as capable of routing at **wire speeds**. The Cisco 2811 cannot come even remotely close to that kind of routing speeds for inter-vlan routing.
 </details>
-
----
-
-
-
-
 
 **Introducing Router on a Stick (ROS)**
 
@@ -58,7 +51,6 @@ Leveraging the Catalyst 1300's internal routing capabilities offers significant 
 - **Avoiding Bottlenecks**: In ROS, all inter-VLAN traffic must traverse the router's single trunk interface, creating a potential bottleneck limited to that interface's speed (e.g., 1 Gbps). In contrast, the Catalyst 1300 can route traffic internally at wire-speed, eliminating this chokepoint.
 - **Reducing Latency**: Since ROS requires traffic to exit the switch, be processed by the router, and then return to the switch, it introduces additional latency. The Catalyst 1300's internal routing streamlines this process, minimizing delays.
 - **Optimizing Bandwidth**: With ROS, the single trunk link's bandwidth becomes a limiting factor for inter-VLAN traffic. The Catalyst 1300 can handle multiple VLANs simultaneously without constraining throughput to a single link's capacity.
-
 
 You already have a DHCP pool named `VLAN1_POOL` configured with the excluded addresses and network. Now, follow these steps to add the default gateway for devices in VLAN 1.
 
@@ -98,12 +90,9 @@ ip dhcp pool VLAN1_POOL
  network 192.168.100.0 255.255.255.0
  default-router 192.168.100.1
 ```
-
-
 - **Test DHCP on a Device**:
 
   - Connect a device in VLAN 1 and verify it receives the correct default gateway (192.168.100.1).
-
 ![Image](assets/images/file-673a8a406bfbe.png)
 
 This Linux screenshot has two default routes because I am connected both to this lab network and eduroam over wireless.
@@ -180,12 +169,9 @@ C 192.168.100.0/24 is directly connected, vlan 1
   ```bash
   ip route 0.0.0.0 0.0.0.0 192.168.100.254
   ```
-
 - **Verify the Configuration** After configuring the default route, verify it using:
   **`show ip route`**
-
 ![Image](assets/images/file-673b6dfa28f96.png)
-
 ![Image](assets/images/file-673c8cc672a60.png)
 
 ### **Ping Test to the 2811 Router's Loopback**
@@ -201,10 +187,7 @@ The screenshot above shows a successful ping to the 2811 router's IPv4 loopback 
 
 - **Verify the Configuration** Verify the IPv6 routing table:
   **`show ipv6 route`**
-
-
 ![Image](assets/images/file-673b713db1d21.png)
-
 ![Image](assets/images/file-673bcf4c58f9a.png)
 
 ### **Why Link-Local Addresses are Best Practice for Next Hops**

@@ -66,7 +66,6 @@ Enter global configuration mode and access the existing DHCP pool:
 LastNameR1# configure terminal
 LastNameR1(config)# ip dhcp pool VLAN1_POOL
 ```
-
 **Set the DNS Server**
 
 Add the Cisco 2811's loopback IP address (`10.10.10.2`) as the DNS server for the DHCP pool:
@@ -80,7 +79,6 @@ Confirm the DNS server is correctly added:
 ```plaintext
 LastNameR1# show running-config | section ip dhcp pool
 ```
-
 ![Image](assets/images/file-6740acfac7bf9.png)
 
 ## Set External DNS Servers
@@ -133,8 +131,6 @@ ip name-server 8.8.8.8`
    ping LastNameR1.LastName.com
    ping google.com
    ```
-
-
 **Important Notes**
 
 - **DNS Server Behavior:** The Cisco 2811’s DNS server supports only **A records** for local name resolution. Use external DNS servers (`1.1.1.1` and `8.8.8.8`) for resolving public domains.
@@ -174,13 +170,9 @@ To streamline DNS resolution in the lab, the Catalyst 1300 switch will be config
 
 **Explanation**
 
--
-
 **Centralized DNS:**
 
  By pointing the C1300 to the Cisco 2811 (`10.10.10.2`), all DNS resolution (internal and external) is handled by the 2811, providing consistency across the lab network.
-
--
 
 **Simplified Configuration:**
 

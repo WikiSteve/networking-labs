@@ -8,7 +8,6 @@ Before we dive into configuring the IP address for your Catalyst 1300 switch, he
 - **Personal Virtual Machines on College Computers? Static IPs Allowed:** If you’re running virtual machines on a college computer, you may set static IPs on your **personal virtual machines** as long as they’re in **bridge mode**. However, **do not set a static IP on the college’s physical host machine**—stick to DHCP or IPv6 to avoid any network issues.
 - **Bring Your Own Device (BYOD):** If you’re using your own device on the college network, you have full control—feel free to configure IPs however you prefer!
 
-
 Before we get into setting up the IP address, here’s a quick reminder of the default login details:
 
 - **Default Username:** `cisco`
@@ -34,12 +33,10 @@ Once the switch is officially configured with a specific IP, this default IP is 
 ## Setting an IP
 
 Configure VLAN 1 with an IPv4 address:
-
 ```bash
 interface vlan 1
   ip address 192.168.100.1 255.255.255.0
 ```
-
 ### IPv6 Address Configuration on VLAN 1
 
 In addition to IPv4, we can configure IPv6 addresses on VLAN 1. Here’s a breakdown of the commands:
@@ -56,8 +53,6 @@ In addition to IPv4, we can configure IPv6 addresses on VLAN 1. Here’s a break
    ```
    This command assigns a **global unicast IPv6 address** to VLAN 1. Global unicast addresses, like this one starting with `2001:`, are routable on the public internet and uniquely identify the device on the global IPv6 network. The `/64` at the end is the prefix length, indicating that the first 64 bits define the network portion, while the remaining bits are for host addresses. This address makes the switch reachable on networks outside the local link.
 
-
----
 ### 🧠 Rules Q1: Static IP
 
 > [!NOTE]
@@ -74,12 +69,6 @@ In addition to IPv4, we can configure IPv6 addresses on VLAN 1. Here’s a break
 **Feedback:** You're paying attention :)
 </details>
 
----
-
-
-
-
----
 ### 🧠 Status light blinking?
 
 > [!NOTE]
@@ -95,13 +84,6 @@ In addition to IPv4, we can configure IPv6 addresses on VLAN 1. Here’s a break
 
 **Feedback:** If only all of lifes problems could be solved by setting an IP address
 </details>
-
----
-
-
-
-
-
 
 ![Image](assets/images/file-6733f2c03b558.png)
 
