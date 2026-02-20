@@ -200,6 +200,40 @@ def video_to_md(params: dict, meta: dict) -> str:
         lines.append("*Video source missing*")
     return "\n".join(lines)
 
+def parse_presentation(params: dict, td_path: Path, img_dir: Path) -> list:
+    """Recursively parse CoursePresentation slides into a list of lines."""
+    lines = []
+    slides = params.get("presentation", {}).get("slides", [])
+    for s_idx, slide in enumerate(slides, start=1):
+        elements = slide.get("elements", [])
+        for element in elements:
+            action = element.get("action", {})
+            lib = (action.get("library") or "").split()[0]
+            p = action.get("params", {})
+            m = action.get("metadata", {}) or {}
+
+            if lib == "H5P.AdvancedText":
+                html = p.get("text", "").strip()
+                if html:
+                    lines.append(clean_html(html))
+                    lines.append("")
+            elif lib == "H5P.Image":
+                f = p.get("file", {}) or {}
+                rel_path = f.get("path")
+                if rel_path:
+                    src = td_path / "content" / rel_path
+                    if src.exists():
+                        dest_name = os.path.basename(rel_path)
+                        dest = img_dir / dest_name
+                        shutil.copy2(src, dest)
+                        alt = p.get("contentName") or m.get("title") or "image"
+                        lines.append(f"![{md_escape(alt)}](assets/images/{dest_name})")
+                        lines.append("")
+            elif lib == "H5P.CoursePresentation":
+                # Recursive call for nested presentations
+                lines.extend(parse_presentation(p, td_path, img_dir))
+    return lines
+
 def convert_one(h5p_path: Path, out_root: Path) -> Path:
     with tempfile.TemporaryDirectory() as td:
         td_path = Path(td)
@@ -288,6 +322,9 @@ def convert_one(h5p_path: Path, out_root: Path) -> Path:
                 elif lib == "H5P.Video":
                     lines.append(video_to_md(params, meta))
                     lines.append("")
+
+                elif lib == "H5P.CoursePresentation":
+                    lines.extend(parse_presentation(params, td_path, img_dir))
 
                 else:
                     lines.append(f"<!-- Unhandled H5P block: {lib} -->")
