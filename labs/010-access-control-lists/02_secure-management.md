@@ -166,7 +166,10 @@ This approach highlights a real-world balance between efficiency and meticulousn
 
 ### **Why Use Comments (`#`)?**
 
-The `#` symbol and accompanying text in the ACL commands are **comments for your reference only**. These **cannot be entered into the Cisco CLI**. When entering the commands, omit everything after and including the `#`. Best practice is the **`remark`** keyword for comments, which we will use on the Cisco 2811 router, but the Catalyst 1300 does not support the `remark` command.
+> [!IMPORTANT]
+> The `#` symbol and accompanying text in the ACL commands are **comments for your reference only**. These **cannot be entered into the Cisco CLI**.
+> 
+> When entering commands, you **must omit everything after and including the `#`**. While the **`remark`** keyword is best practice on other devices, the Catalyst 1300 does not support it.
 
 **Example:**
 
