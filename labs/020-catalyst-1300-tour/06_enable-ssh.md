@@ -72,7 +72,7 @@ To enable SSH on the Cisco 2811 router, follow these steps. Make sure to replace
 **Solution: The Complete Command to Connect**
    To establish the SSH connection, we used the following command:
    ```bash
-   ssh -oKexAlgorithms=+diffie-hellman-group14-sha1 -oHostKeyAlgorithms=+ssh-rsa -oCiphers=+aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc LastName@2001:dead:beef:cafe::2
+   ssh -oKexAlgorithms=+diffie-hellman-group14-sha1 -oHostKeyAlgorithms=+ssh-rsa -oCiphers=+aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc FirstName@2001:dead:beef:cafe::2
    ```
    - `-oKexAlgorithms=+diffie-hellman-group14-sha1`: Enables an older key exchange method.
    - `-oHostKeyAlgorithms=+ssh-rsa`: Allows the SSH client to use the RSA algorithm supported by the router.
