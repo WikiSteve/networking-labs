@@ -109,4 +109,4 @@ Map Q to TUX-RO
 
 ![Screenshot](./assets/images/file-5f300b3986add.png)
 
-[Home](README.md)
+[Prev: vsftpd](vsftpd.md) | [Home](README.md)

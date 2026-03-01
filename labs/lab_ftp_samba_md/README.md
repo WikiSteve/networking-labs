@@ -1,9 +1,11 @@
 # Lab FTP and Samba
 
-## Pick your path
+## Lab Flow
 
-- [vsftpd](vsftpd.md)
-- [samba](samba.md)
+Start with **vsftpd** and then continue to **samba**.
+
+1. [vsftpd](vsftpd.md)
+2. [samba](samba.md)
 
 ---
 
