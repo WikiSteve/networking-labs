@@ -1,6 +1,6 @@
 # vsftpd
 
-Configuring vsftp
+Configuring vsftpd
 
 *Very Secure FTP daemon*
 
@@ -94,7 +94,7 @@ Create a new RSA key using openSSL
 
 ![Screenshot](./assets/images/file-5f2f8891aaec5.png)
 
-**Screenshot 2:** Key Generation and Entered Information
+**Screenshot 3:** Key Generation and Entered Information
 
 ---
 
@@ -114,7 +114,7 @@ Download [Filezilla](https://filezilla-project.org)
 
 ---
 
-**Screenshot 3:** Certificate as displayed by FileZilla
+**Screenshot 4:** Certificate as displayed by FileZilla
 
 ![Screenshot](./assets/images/file-5f2f8d1833d63.png)
 

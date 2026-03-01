@@ -2,7 +2,7 @@
 
 ![Screenshot](./assets/images/file-5f2ff8729807f.png)
 
-*A file and printer sharing daemon the is fully active directory aware!*
+*A file and printer sharing daemon that is fully Active Directory aware!*
 
 Start by installing samba using apt-get (package name is samba)
 
@@ -27,23 +27,23 @@ Make the following changes to /share
 
 ### Knowledge Check
 
-What command using octal sets ssharpe directory to drwxrwx---?
+What command using octal sets your_username directory to drwxrwx---?
 
 <details>
 <summary>Answer</summary>
 
-`chmod 770 ssharpe`
+`chmod 770 your_username`
 
 </details>
 
 ### Knowledge Check
 
-What commands changes ssharpe group ownership to supersecret?
+What command changes your_username group ownership to supersecret?
 
 <details>
 <summary>Answer</summary>
 
-`chgrp supersecret ssharpe`
+`chgrp supersecret your_username`
 
 </details>
 
@@ -61,7 +61,7 @@ read only = no
 
 browsable = yes  
 
-valid user = @supersecret  
+valid users = @supersecret  
 
 create mask = 0770  
 

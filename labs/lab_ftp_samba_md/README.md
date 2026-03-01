@@ -1,7 +1,5 @@
 # Lab FTP and Samba
 
-Pick your path
-
 ## Pick your path
 
 - [vsftpd](vsftpd.md)
