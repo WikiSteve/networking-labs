@@ -4,8 +4,8 @@
 
 Start with **vsftpd** and then continue to **samba**.
 
-1. [vsftpd](vsftpd.md)
-2. [samba](samba.md)
+1. [vsftpd](01_vsftpd.md)
+2. [samba](02_samba.md)
 
 ---
 

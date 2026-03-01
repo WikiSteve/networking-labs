@@ -124,4 +124,4 @@ So I see there is an FTP group but we didn't use it? True! We need to [enable it
 
 See Ubuntu's guide on vsftpd for more [configuration examples.](https://help.ubuntu.com/community/vsftpd)
 
-[Home](README.md) | [Next: samba](samba.md)
+[Home](README.md) | [Next: samba](02_samba.md)
