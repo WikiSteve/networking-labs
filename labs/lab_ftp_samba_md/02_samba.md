@@ -7,7 +7,7 @@
 Start by installing samba using apt-get (package name is samba)
 
 We need a base directory for our shares plus a subdirectory your_username. Create one off of root **mkdir -p /share/your_username**
-==**your_username is First Initial + Last name**==
+> **Note:** `your_username` is first initial + last name.
 
 Create the group supersecret and add your_username to this group.  Add your_username to the sambashare group
 
