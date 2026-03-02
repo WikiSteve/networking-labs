@@ -1,5 +1,7 @@
 # Linux Static Routing
 
+> **Before you start:** Download the [Static Routing Submission Template](<./assets/Static routing SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
+
 ## Goal
 *(Add lab goal here)*
 
