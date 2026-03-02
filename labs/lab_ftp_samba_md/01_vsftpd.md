@@ -39,6 +39,7 @@ Open the vsftpd.conf file
 ![Screenshot](./assets/images/Pasted%20image%2020260228162621.png)
 
 Reconnect
+
 ![Screenshot](./assets/images/Pasted%20image%2020260228162725.png)
 
 
