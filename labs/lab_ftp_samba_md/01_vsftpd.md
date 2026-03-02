@@ -4,6 +4,8 @@ Configuring vsftpd
 
 *Very Secure FTP daemon*
 
+> **Before you start:** Download the [Lab FTP & Samba Submission Template](<./assets/Lab FTP & Samba SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
+
 NOTE: Make sure to clear your screen for every screenshot
 
 Install the package using apt-get, the package name is vsftpd then enable it on system startup with **systemctl enable vsftpd.**
@@ -94,7 +96,6 @@ Create a new RSA key using openSSL
 
 ![Screenshot](./assets/images/file-5f2f8891aaec5.png)
 
-**Screenshot 3:** Key Generation and Entered Information
 
 ---
 
@@ -114,7 +115,7 @@ Download [Filezilla](https://filezilla-project.org)
 
 ---
 
-**Screenshot 4:** Certificate as displayed by FileZilla
+**Screenshot 3:** Certificate as displayed by FileZilla
 
 ![Screenshot](./assets/images/file-5f2f8d1833d63.png)
 
