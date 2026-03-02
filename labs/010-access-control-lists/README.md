@@ -1,5 +1,7 @@
 # Access Control Lists
 
+> **Before you start:** Download the [ACL Lab Submission Template](<./assets/ACL Lab SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
+
 ## Goal
 Practice ACL design and validation for management-plane security, NAT matching, and VLAN-specific traffic control.
 
