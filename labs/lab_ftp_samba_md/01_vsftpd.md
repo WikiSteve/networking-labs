@@ -14,7 +14,7 @@ Before getting started make sure to backup the configuration in case you need to
 
 cp /etc/vsftpd.conf /etc/vsftpd.conf.original
 
-**Screenshot 1:** Directory listing show the backup file including the date created
+## **Screenshot 1: Directory listing show the backup file including the date created**
 
 ---
 
@@ -80,7 +80,7 @@ Once completed restart the ftp service.
 
 ---
 
-**Screenshot 2:** Show both connections (steve user, testuser) and their different access abilities.
+## **Screenshot 2: Show both connections (steve user, testuser) and their different access abilities.**
 
 ![Screenshot](./assets/images/file-5f2f817b66c01.png)
 
@@ -115,7 +115,7 @@ Download [Filezilla](https://filezilla-project.org)
 
 ---
 
-**Screenshot 3:** Certificate as displayed by FileZilla
+## **Screenshot 3: Certificate as displayed by FileZilla**
 
 ![Screenshot](./assets/images/file-5f2f8d1833d63.png)
 
