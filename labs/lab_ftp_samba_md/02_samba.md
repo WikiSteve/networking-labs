@@ -23,7 +23,7 @@ Make the following changes to /share
 
 ![Screenshot](./assets/images/Pasted%20image%2020260228164506.png)
 
-**Screenshot 4:** Showing the correct permissions on /share/your_username
+## <span style="color:#c62828;"><strong>Screenshot 4 Showing the correct permissions on /share/your_username</strong></span>
 
 ### Knowledge Check
 
@@ -75,7 +75,7 @@ After make sure to restart the samba service: **service smbd restart**
 
 ---
 
-**Screenshot 5:** your two shares created from smb.conf
+## <span style="color:#c62828;"><strong>Screenshot 5 Your two shares created from smb.conf</strong></span>
 
 ![Screenshot](./assets/images/file-5f3007b4a3c41.png)
 
@@ -95,7 +95,7 @@ SUCCESS!
 
 ---
 
-**Screenshot 6:** Show the two connected shares
+## <span style="color:#c62828;"><strong>Screenshot 6 Show the two connected shares</strong></span>
 
 ![Screenshot](./assets/images/file-5f300a5a0e591.png)
 
@@ -105,7 +105,7 @@ Map Q to TUX-RO
 
 ---
 
-**Screenshot 7:** Using the follow methods show that the shares have different write permissions.
+## <span style="color:#c62828;"><strong>Screenshot 7 Using the follow methods show that the shares have different write permissions.</strong></span>
 
 ![Screenshot](./assets/images/file-5f300b3986add.png)
 
