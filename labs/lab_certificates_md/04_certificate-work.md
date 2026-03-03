@@ -14,7 +14,7 @@ Extensions are only suggestive. Always inspect headers/footers with `cat`, check
 
 Normally, we would start with a root certificate authority, which would then sign certificates for subordinate certificate authorities. You would then take the root certificate offline to reduce risk.
 
-For this lab, we skip the root CA and use only a second-tier certificate authority.
+For this lab, we use a single self-signed CA (no separate offline root + intermediate chain).
 
 **For the remainder of this lab, you must be root.**
 
@@ -176,7 +176,7 @@ openssl req -text -noout -in www.your_username-ca.local.csr | less
 Move the private key to the SSL store:
 
 ```bash
-mv ~/www.your_username.local-apache.key /etc/ssl/private/cacert.pem
+mv ~/www.your_username.local-apache.key /etc/ssl/private/your_username-apache.your_username.local.key
 ```
 
 ![Screenshot](./assets/images/file-5f3218f573347_slide4_flat.png)

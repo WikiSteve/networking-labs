@@ -17,7 +17,7 @@ After `DocumentRoot`, add:
 ```apache
 SSLEngine on
 SSLCertificateFile /etc/ssl/certs/your_username-apache.your_username.local
-SSLCertificateKeyFile /etc/ssl/private/cacert.pem
+SSLCertificateKeyFile /etc/ssl/private/your_username-apache.your_username.local.key
 ```
 
 ## **Screenshot 6: Show changes to 000-default-ssl.conf**

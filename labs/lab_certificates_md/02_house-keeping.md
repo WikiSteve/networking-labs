@@ -48,7 +48,7 @@ This is because our hostname and the entry and /etc/hosts do not match.  This w
 
 ## Networking
 
-## House Keeping
+## Networking and Access Setup
 
 The next steps are required:
 
@@ -94,7 +94,7 @@ Repeat this process on the other VM
 
 ![Screenshot](./assets/images/file-5f31e57310ab4_slide7_flat.png)
 
-Add NOPASSWD: before the ALL statement for the sudo group.  You need a space between NOPASSWD: and ALL
+Use `visudo` to edit sudoers safely. Add `NOPASSWD:` before the `ALL` statement for the sudo group. You need a space between `NOPASSWD:` and `ALL`.
 
 Repeat this on any computer where you want to bypass the password prompt when using `sudo`.
 
