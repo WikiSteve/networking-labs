@@ -44,6 +44,7 @@ a2ensite 000-default-ssl.conf
 
 ![Screenshot](./assets/images/file-5f32347bc8931_slide4_flat.png)
 
+**a2enmod ssl**
 ![Screenshot](./assets/images/file-5f3234c402a88_slide4_flat.png)
 
 Restart Apache:
@@ -71,8 +72,7 @@ You should now be able to browse to the HTTPS version of your default Apache pag
 Windows needs to trust the certificate authority. The certificate file is `/etc/ssl/certs/cacert.pem` on `your_username-CA`.
 
 There are multiple ways to transfer the file, but we will use [FileZilla](https://filezilla-project.org/). Select `SFTP - SSH File Transfer Protocol`.
-
-![Screenshot](./assets/images/file-5f32414f24748_slide7_flat.png)
+![Screenshot](<./assets/images/Pasted image 20260304105309.png>)
 
 Accept the server fingerprint.
 
@@ -88,19 +88,23 @@ Step 1:
 
 ![Screenshot](<./assets/images/Pasted image 20260302121227.png>)
 
-![Screenshot](./assets/images/file-5f32448368e6e_slide12_flat.png)
-
-![Screenshot](./assets/images/file-5f3244d9288d2_slide13_flat.png)
+![Screenshot|582](./assets/images/file-5f32448368e6e_slide12_flat.png)
 
 Scroll to the bottom and select **View Certificates**.
 
+![Screenshot](./assets/images/file-5f3244d9288d2_slide13_flat.png)
+
+
+
 ![Screenshot](./assets/images/file-5f32453baeacb_slide14_flat.png)
 
-![Screenshot](./assets/images/file-5f3245f61c67b_slide15_flat.png)
+![Screenshot|465](./assets/images/file-5f3245f61c67b_slide15_flat.png)
+
+Select both trust options.
 
 ![Screenshot](./assets/images/file-5f32464e3b227_slide16_flat.png)
 
-Select both trust options.
+
 
 ## **Screenshot 8: authorities showing your imported certificate**
 
@@ -131,7 +135,9 @@ Add these two entries:
 
 ![Screenshot](./assets/images/file-5f324ca919a07_slide20_flat.png)
 
-![Screenshot](./assets/images/file-5f324d6150e52_slide21_flat.png)
+
+Try without the www and the certificate error returns because the common name was only for www.your-name.local and not a wildcard such as *.your-name.local.
+![Screenshot](<./assets/images/Pasted image 20260304105735.png>)
 
 https://www.youtube.com/watch?v=Pzv_7Bx1C-Y
 

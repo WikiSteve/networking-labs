@@ -1,4 +1,4 @@
-# Certificate Work
+O# Certificate Work
 
 ## Certificate Authority prep
 
@@ -46,18 +46,17 @@ Edit `/etc/ssl/openssl.cnf`:
 vi /etc/ssl/openssl.cnf
 ```
 
-In the `[ CA_default ]` section, set:
+In the `[ CA_default ]` section, change:
 
 ```ini
-dir = /etc/ssl
-
-database = $dir/CA/index.txt
-certificate = $dir/certs/cacert.pem
-serial = $dir/CA/serial
-private_key = $dir/private/cakey.pem
+dir = /etc/ssl # Where everything is kept
+database = $dir/CA/index.txt # database index file.
+certificate = $dir/certs/cacert.pem # The CA certificate
+serial = $dir/CA/serial # The current serial number
+private_key = $dir/private/cakey.pem # The private key
 ```
 
-Make sure there is a space on both sides of `#` in any inline comments.
+Make sure there is a space on both sides of `#` in inline comments.
 
 Video reference: https://www.youtube.com/watch?v=st6tee86zXQ
 
@@ -91,7 +90,7 @@ Certificate files, private keys, and CSRs usually include recognizable headers a
 
 ![Screenshot](./assets/images/file-5f3206b825097.png)
 
-Sometimes the `file` utility (based on magic numbers) is wrong or inconclusive, so verify thoroughly.
+Sometimes the `file` utility (based on [magic numbers](https://en.wikipedia.org/wiki/Magic_number_(programming))) is wrong or inconclusive, so verify thoroughly.
 
 ![Screenshot](./assets/images/file-5f3207412a006.png)
 
@@ -156,14 +155,14 @@ Create the certificate using:
 ```bash
 openssl req -new -sha256 -nodes -out www.your_username-ca.local.csr -newkey rsa:2048 -keyout www.your_username.local-apache.key -config <(cat csrdetails)
 ```
+![Screenshot](<./assets/images/Pasted image 20260304102842.png>)
 
-## **Screenshot 3: print the details of csrdetails**
+Two files will have been created
+![Screenshot](<./assets/images/Pasted image 20260304102934.png>)
 
-![Screenshot](./assets/images/file-5f3217ef189b1_slide2_flat.png)
 
-![Screenshot](./assets/images/file-5f32185d4eba4_slide2_flat.png)
-
-![Screenshot](./assets/images/file-5f3218a91c753_slide3_flat.png)
+Verify the files are as you would expect
+![Screenshot](<./assets/images/Pasted image 20260304103001.png>)
 
 Since this is a certificate **request**, use type `req`:
 
@@ -178,8 +177,8 @@ Move the private key to the SSL store:
 ```bash
 mv ~/www.your_username.local-apache.key /etc/ssl/private/your_username-apache.your_username.local.key
 ```
-
-![Screenshot](./assets/images/file-5f3218f573347_slide4_flat.png)
+## **Screenshot 3: print the details of csrdetails**
+![Screenshot](<./assets/images/Pasted image 20260304102815.png>)
 
 The CSR contains the public key and distinguished name for `your_username-LAMP` and is now ready to be signed by the certificate authority.
 
@@ -202,7 +201,7 @@ scp your_username@your_username-lamp:/tmp/www.your_username-ca.local.csr www.you
 
 ![Screenshot](./assets/images/file-5f321b57c2dd3.png)
 
-Discuss why we had this error on the next page.
+**Question**: Why we had this error?
 
 File should now be in the right location.
 
@@ -217,7 +216,13 @@ File should now be in the right location.
 > - [ ] **C.** No permission to read SSH keys.
 > - [ ] **D.** We only installed the keypairs in one direction.
 
-> Answer key is not embedded in this export, so this is a self-check.
+<details>
+<summary>👉 <b>Check your answer</b></summary>
+
+**Correct Option: A**
+
+When we setup the key pair we used a regular account, not root.
+</details>
 ---
 
 ## **Screenshot 4: CSR contents on the correct server in /etc/ssl/certs**
@@ -241,12 +246,11 @@ Say yes to signing and committing the new certificate.
 There should now be a new file, `/etc/ssl/newcerts/01.pem`, containing the certificate output. Subsequent certificates will be named `02.pem`, `03.pem`, and so on.
 
 The two CA tracking files we created earlier are also updated.
-
-![Screenshot](./assets/images/file-5f3226c5b156f_slide2_flat.png)
+![Screenshot](<./assets/images/Pasted image 20260304104846.png>)
 
 In the third column, you can see this certificate was assigned serial number `1`.
 
-This database recognizes duplicate certificate requests. Try it and observe the error.
+This database recognises duplicate certificate requests. Try it and observe the error.
 
 ![Screenshot](./assets/images/file-5f3227b7d9f5b_slide2_flat.png)
 
