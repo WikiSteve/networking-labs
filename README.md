@@ -7,6 +7,7 @@
 - [Linux Basic Routing](./labs/040-linux-basic-routing/README.md)
 - [Linux Static Routing](./labs/050-linux-static-routing/README.md)
 - [FTP and Samba](./labs/lab_ftp_samba_md/README.md)
+- [Lab Certificates](./labs/lab_certificates_md/README.md)
 
 ## Source
 - Original H5P files: `h5p_src/`
