@@ -46,18 +46,17 @@ Edit `/etc/ssl/openssl.cnf`:
 vi /etc/ssl/openssl.cnf
 ```
 
-In the `[ CA_default ]` section, set:
+In the `[ CA_default ]` section, change:
 
 ```ini
-dir = /etc/ssl
-
-database = $dir/CA/index.txt
-certificate = $dir/certs/cacert.pem
-serial = $dir/CA/serial
-private_key = $dir/private/cakey.pem
+dir = /etc/ssl # Where everything is kept
+database = $dir/CA/index.txt # database index file.
+certificate = $dir/certs/cacert.pem # The CA certificate
+serial = $dir/CA/serial # The current serial number
+private_key = $dir/private/cakey.pem # The private key
 ```
 
-Make sure there is a space on both sides of `#` in any inline comments.
+Make sure there is a space on both sides of `#` in inline comments.
 
 Video reference: https://www.youtube.com/watch?v=st6tee86zXQ
 
