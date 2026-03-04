@@ -9,7 +9,7 @@ This repo is a library of vendor-neutral networking labs.
 - **Robust Interactivity:** Use "Framed" knowledge checks that work reliably across platforms.
 
 ## Repository Layout
-- `labs/`: One folder per lab (e.g., `010-access-control-lists`).
+- `labs/`: One folder per lab (e.g., `010-catalyst-1300-tour`).
 - `h5p_src/`: Raw `.h5p` originals (source only).
 - `tools/`: Conversion scripts.
   - **Main Script:** `tools/h5p_batch_to_md.py` (Handles H5P -> MD conversion, image extraction, and formatting).
