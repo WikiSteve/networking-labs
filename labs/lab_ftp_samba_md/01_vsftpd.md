@@ -4,8 +4,6 @@ Configuring vsftpd
 
 *Very Secure FTP daemon*
 
-> **Before you start:** Download the [Lab FTP & Samba Submission Template](<./assets/Lab FTP & Samba SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
-
 NOTE: Make sure to clear your screen for every screenshot
 
 Install the package using apt-get, the package name is vsftpd then enable it on system startup with **systemctl enable vsftpd.**

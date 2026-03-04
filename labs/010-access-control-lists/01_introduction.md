@@ -2,8 +2,6 @@
 
 ## Lab Prerequisites
 
-Before you begin, download the submission template from the course module.
-
 Complete the following before starting this lab:
 
 **Catalyst 1300 Tour Guide**
