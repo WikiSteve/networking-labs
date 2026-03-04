@@ -1,4 +1,4 @@
-# Certificate Work
+O# Certificate Work
 
 ## Certificate Authority prep
 
@@ -155,14 +155,14 @@ Create the certificate using:
 ```bash
 openssl req -new -sha256 -nodes -out www.your_username-ca.local.csr -newkey rsa:2048 -keyout www.your_username.local-apache.key -config <(cat csrdetails)
 ```
-![[Pasted image 20260304102842.png]]
+![Screenshot](<./assets/images/Pasted image 20260304102842.png>)
 
 Two files will have been created
-![[Pasted image 20260304102934.png|562]]
+![Screenshot](<./assets/images/Pasted image 20260304102934.png>)
 
 
 Verify the files are as you would expect
-![[Pasted image 20260304103001.png]]
+![Screenshot](<./assets/images/Pasted image 20260304103001.png>)
 
 Since this is a certificate **request**, use type `req`:
 
@@ -178,7 +178,7 @@ Move the private key to the SSL store:
 mv ~/www.your_username.local-apache.key /etc/ssl/private/your_username-apache.your_username.local.key
 ```
 ## **Screenshot 3: print the details of csrdetails**
-![[Pasted image 20260304102815.png]]
+![Screenshot](<./assets/images/Pasted image 20260304102815.png>)
 
 The CSR contains the public key and distinguished name for `your_username-LAMP` and is now ready to be signed by the certificate authority.
 
@@ -246,7 +246,7 @@ Say yes to signing and committing the new certificate.
 There should now be a new file, `/etc/ssl/newcerts/01.pem`, containing the certificate output. Subsequent certificates will be named `02.pem`, `03.pem`, and so on.
 
 The two CA tracking files we created earlier are also updated.
-![[Pasted image 20260304104846.png]]
+![Screenshot](<./assets/images/Pasted image 20260304104846.png>)
 
 In the third column, you can see this certificate was assigned serial number `1`.
 

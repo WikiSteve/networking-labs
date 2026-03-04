@@ -72,7 +72,7 @@ You should now be able to browse to the HTTPS version of your default Apache pag
 Windows needs to trust the certificate authority. The certificate file is `/etc/ssl/certs/cacert.pem` on `your_username-CA`.
 
 There are multiple ways to transfer the file, but we will use [FileZilla](https://filezilla-project.org/). Select `SFTP - SSH File Transfer Protocol`.
-![[Pasted image 20260304105309.png]]
+![Screenshot](<./assets/images/Pasted image 20260304105309.png>)
 
 Accept the server fingerprint.
 
@@ -137,7 +137,7 @@ Add these two entries:
 
 
 Try without the www and the certificate error returns because the common name was only for www.your-name.local and not a wildcard such as *.your-name.local.
-![[Pasted image 20260304105735.png]]
+![Screenshot](<./assets/images/Pasted image 20260304105735.png>)
 
 https://www.youtube.com/watch?v=Pzv_7Bx1C-Y
 
