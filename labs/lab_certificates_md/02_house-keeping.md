@@ -94,7 +94,7 @@ Repeat this process on the other VM
 
 ![Screenshot](./assets/images/file-5f31e57310ab4_slide7_flat.png)
 
-Use `visudo` to edit sudoers safely. Add `NOPASSWD:` before the `ALL` statement for the sudo group. You need a space between `NOPASSWD:` and `ALL`.
+Use `visudo` to edit sudoers safely. Add `NOPASSWD:` before the `ALL` statement for the sudo group. A space is optional (`NOPASSWD:ALL` and `NOPASSWD: ALL` both work).
 
 Repeat this on any computer where you want to bypass the password prompt when using `sudo`.
 
