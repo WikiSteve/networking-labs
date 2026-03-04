@@ -1,3 +1,5 @@
+# Certificate Work
+
 ## Certificate Authority prep
 
 Before we begin, we will introduce a few key terms that appear throughout this lab.
