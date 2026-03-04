@@ -44,7 +44,10 @@ a2ensite 000-default-ssl.conf
 
 ![Screenshot](./assets/images/file-5f32347bc8931_slide4_flat.png)
 
-**a2enmod ssl**
+```bash
+a2enmod ssl
+```
+
 ![Screenshot](./assets/images/file-5f3234c402a88_slide4_flat.png)
 
 Restart Apache:
