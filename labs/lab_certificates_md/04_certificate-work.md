@@ -1,4 +1,4 @@
-O# Certificate Work
+# Certificate Work
 
 ## Certificate Authority prep
 
