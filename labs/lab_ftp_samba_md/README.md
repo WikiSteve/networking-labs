@@ -1,5 +1,7 @@
 # Lab FTP and Samba
 
+> **Before you start:** Download the [Lab FTP & Samba Submission Template](<./assets/Lab FTP & Samba SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
+
 ## Lab Flow
 
 Start with **vsftpd** and then continue to **samba**.
