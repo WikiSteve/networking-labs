@@ -4,11 +4,11 @@
 
 There are a few steps to renaming a computer.  We will cover the following files
 
-/etc/hostname 
+/etc/hostname <--- where the actual hostname resides
 
-/etc/hosts 
+/etc/hosts <-- the hostname requires an entry when the system tries to resolve its own name
 
-We should always keep our hostname consistent with the VMware VM name.
+We should always keep our hostname consistent with the VMware VM name
 
 **Step 1**
 
