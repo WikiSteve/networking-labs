@@ -1,6 +1,6 @@
 # Certificates
 
-> **Before you start:** Download the [Lab Certificates Submission Template](<./assets/Lab Certificates SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
+> **Before you start:** Download the [Lab Certificates Submission Template](./assets/Lab%20Certificates%20SUBMISSION%20TEMPLATE.pptx). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
 
 ## Pages
 

@@ -1,6 +1,6 @@
 # Lab Basic Networking
 
-> **Before you start:** Download the [Lab Basic Networking Submission Template](<./LAB Basic Networking SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
+> **Before you start:** Download the [Lab Basic Networking Submission Template](./LAB%20Basic%20Networking%20SUBMISSION%20TEMPLATE.pptx). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
 
 ## Goal
 *(Add lab goal here)*

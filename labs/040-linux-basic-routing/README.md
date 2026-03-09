@@ -1,6 +1,6 @@
 # Linux Basic routing
 
-> **Before you start:** Download the [Basic Routing Submission Template](<./assets/Basic routing SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
+> **Before you start:** Download the [Basic Routing Submission Template](./assets/Basic%20routing%20SUBMISSION%20TEMPLATE.pptx). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
 
 ## Goal
 *(Add lab goal here)*
