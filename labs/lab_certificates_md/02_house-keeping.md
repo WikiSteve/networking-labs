@@ -34,7 +34,7 @@ Open the file
 
 Select VM > Settings
 
-![Screenshot](<./assets/images/Pasted image 20260302114228.png>)
+![Screenshot](./assets/images/Pasted%20image%2020260302114228.png)
 
 ![Screenshot](./assets/images/file-5f31db23d7274_slide6_flat.png)
 
@@ -82,7 +82,7 @@ We will be using secure copy. This step is not required; however, it's always ni
 Make sure that both machines have a private and public keypair. The quickest way is to use the `ssh-keygen` script.
 
 Last step is to use the `ssh-copy-id` script, which will securely copy our public key to the opposite computer.
-![Screenshot](<./assets/images/Pasted image 20260302114904.png>)
+![Screenshot](./assets/images/Pasted%20image%2020260302114904.png)
 
 Verify that this worked and that the hostname has changed to the target computer.
 
