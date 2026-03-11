@@ -31,7 +31,7 @@ View Gunnar Wolf’s signatures using a mindmap
 
 [https://people.debian.org/~gwolf/dc17_ksp/](https://people.debian.org/~gwolf/dc17_ksp/)
 
-Find his name which to view who he is connected to
+Find his name to view who he is connected to.
 
 ![Screenshot](assets/images/image14.png)
 

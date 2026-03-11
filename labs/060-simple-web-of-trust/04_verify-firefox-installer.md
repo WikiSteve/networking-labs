@@ -31,13 +31,16 @@ Try the verification again
 
 ![Screenshot](assets/images/image31.png)
 
-Verification was successful, however because we have no [mutual trusted keys](https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key), we will [modify the level of trust for this particular subkey](https://security.stackexchange.com/questions/147447/gpg-why-is-my-trusted-key-not-certified-with-a-trusted-signature).
+Verification was successful, however because we have no [mutual trusted keys](https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key), we will change the trust setting for this key so the verification no longer reports trust warnings.
 
 You’ll see we don’t trust this key at all.
 
 ![Screenshot](assets/images/image38.png)
 
-From the prompt let’s change the trust. Type **trust** at the prompt and answer 5 **I trust ultimately**
+> [!WARNING]
+> This is a lab shortcut. In a real workflow, verify the key fingerprint from an official Mozilla source before assigning higher trust, and do not mark a key as ultimately trusted unless you control that key.
+
+From the prompt let’s change the trust. Type **trust** at the prompt and answer `5` for **I trust ultimately**.
 
 ![Screenshot](assets/images/image24.png)
 

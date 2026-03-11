@@ -4,7 +4,7 @@ Create your **2048 bit RSA** GPG key
 
 ![Screenshot](assets/images/image25.png)
 
-To prevent [plaque on the keyserver](https://en.wikipedia.org/wiki/Key_server_(cryptographic)#Problems_with_keyservers), make sure the key **expires in 5 weeks**.
+To prevent [keyserver plaque](https://en.wikipedia.org/wiki/Key_server_(cryptographic)#Problems_with_keyservers), make sure the key **expires in 5 weeks**.
 
 ![Screenshot](assets/images/image19.png)
 
