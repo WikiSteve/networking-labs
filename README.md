@@ -6,6 +6,7 @@
 - [Basic Networking](./labs/030-lab-basic-networking/README.md)
 - [Linux Basic Routing](./labs/040-linux-basic-routing/README.md)
 - [Linux Static Routing](./labs/050-linux-static-routing/README.md)
+- [Simple Web of Trust](./labs/060-simple-web-of-trust/README.md)
 - [FTP and Samba](./labs/lab_ftp_samba_md/README.md)
 - [Certificates](./labs/lab_certificates_md/README.md)
 
