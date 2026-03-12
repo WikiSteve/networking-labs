@@ -19,4 +19,4 @@
 
 ## Accessibility
 
-- [Screenshot OCR and alt text data](assets/screenshot-ocr.json)
+- [Screenshot alt text and OCR transcript data](assets/screenshot-ocr.json)
