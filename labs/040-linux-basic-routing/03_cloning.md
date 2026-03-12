@@ -66,7 +66,7 @@ It will take a moment for your computer to copy the contents.  Once finished yo
 
 Verify that the directories are both where you expect them to be and that they are correct.
 
-Cloning should always generate new MAC address but I have seen it miss the generation step. Verify that the two NICs have different MAC addressses.
+Cloning should always generate new MAC address but I have seen it miss the generation step. Verify that the two NICs have different MAC addresses.
 
 ![Advanced network adapter settings showing the MAC address of the server virtual machine.](assets/images/file-62d813da9b70e.png)
 
