@@ -93,15 +93,15 @@ ip dhcp pool VLAN1_POOL
 - **Test DHCP on a Device**:
 
   - Connect a device in VLAN 1 and verify it receives the correct default gateway (192.168.100.1).
-![Image](assets/images/file-673a8a406bfbe.png)
+![Linux ip route output showing two default routes, including the lab gateway on 192.168.100.1.](assets/images/file-673a8a406bfbe.png)
 
 This Linux screenshot has two default routes because I am connected both to this lab network and eduroam over wireless.
 
-![Image](assets/images/file-673a8b321652f.png)
+![Windows route print output listing interfaces and routes for the lab connection.](assets/images/file-673a8b321652f.png)
 
 ## Testing route
 
-![Image](assets/images/file-673b469f18e1e.png)
+![Terminal preparing a reachability test to the Catalyst loopback over IPv6.](assets/images/file-673b469f18e1e.png)
 
 ### **Round 1: Pinging the C1300 (Successful Tests)**
 
@@ -115,7 +115,7 @@ This Linux screenshot has two default routes because I am connected both to this
    **Expected Output**: Success
    - Similarly, `10.10.10.1` is the IPv4 loopback address of the directly connected Catalyst 1300.
 
-![Image](assets/images/file-673b4a3fbd836.png)
+![Linux terminal successfully pinging the Catalyst loopback addresses over IPv4 and IPv6.](assets/images/file-673b4a3fbd836.png)
 
 ## Round 2: Pinging the 2811 Router (Failed Tests)
 
@@ -123,7 +123,7 @@ This Linux screenshot has two default routes because I am connected both to this
 
 Based on the routing tables and the configuration of the Catalyst 1300 (`LastNameSW1`), the failed pings to the 2811 router are entirely expected. Let’s analyze why:
 
-![Image](assets/images/file-673b4d3867199.png)
+![Switch show ipv6 route output without a default route, explaining the failed ping to the 2811 loopback.](assets/images/file-673b4d3867199.png)
 
 **IPv6 Routing Table on Catalyst 1300**
 
@@ -142,7 +142,7 @@ C> 2001:dead:beef:cafe::/64 [0/0] via 2001:dead:beef:cafe::1 VLAN 1
   **`From 2001:dead:beef:cafe::1 icmp_seq=1 Destination unreachable: No route`**
   This confirms that the switch cannot find a route for `2001:cafe::2`.
 
-![Image](assets/images/file-673b4e768d0f7.png)
+![Switch show ip route output without a default route, explaining the failed IPv4 ping to the 2811 loopback.](assets/images/file-673b4e768d0f7.png)
 
 **IPv4 Routing Table on Catalyst 1300**
 
@@ -171,8 +171,8 @@ C 192.168.100.0/24 is directly connected, vlan 1
   ```
 - **Verify the Configuration** After configuring the default route, verify it using:
   **`show ip route`**
-![Image](assets/images/file-673b6dfa28f96.png)
-![Image](assets/images/file-673c8cc672a60.png)
+![Switch show ip route output after adding the IPv4 default route via 192.168.100.254.](assets/images/file-673b6dfa28f96.png)
+![Linux ping to 10.10.10.2 succeeding after the switch receives an IPv4 default route, with an ICMP redirect notice.](assets/images/file-673c8cc672a60.png)
 
 ### **Ping Test to the 2811 Router's Loopback**
 
@@ -187,8 +187,8 @@ The screenshot above shows a successful ping to the 2811 router's IPv4 loopback 
 
 - **Verify the Configuration** Verify the IPv6 routing table:
   **`show ipv6 route`**
-![Image](assets/images/file-673b713db1d21.png)
-![Image](assets/images/file-673bcf4c58f9a.png)
+![Switch show ipv6 route output after adding the IPv6 default route through fe80::1 on Vlan1.](assets/images/file-673b713db1d21.png)
+![Linux ping to 2001:cafe::2 succeeding after the switch receives an IPv6 default route.](assets/images/file-673bcf4c58f9a.png)
 
 ### **Why Link-Local Addresses are Best Practice for Next Hops**
 

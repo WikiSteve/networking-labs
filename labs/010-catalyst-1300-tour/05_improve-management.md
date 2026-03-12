@@ -21,11 +21,11 @@ When configuring network devices, using a **loopback interface** for management 
    ```
 
 This configuration adds `2001:cafe::1/128` as a stable, easy-to-remember IPv6 address for management on **Loopback 1**. This address will remain reachable as long as the device is active, independent of any physical interface status.
-![Image](assets/images/file-6736941b6a214.png)
-![Image](assets/images/file-6737787c1d35c.png)
+![Switch show ipv6 interface loopback 1 output with IPv6 enabled and a link-local address.](assets/images/file-6736941b6a214.png)
+![Switch show ip interface loopback 1 output confirming the IPv4 loopback management address.](assets/images/file-6737787c1d35c.png)
 ### Test connection on host (Windows or Linux)
 
-![Image](assets/images/file-67377bd708726.png)
+![Linux ping to 2001:cafe::1 succeeding against the Catalyst loopback management address.](assets/images/file-67377bd708726.png)
 
 ### 🧠 Why Did IPv4 Fail?
 
@@ -127,7 +127,7 @@ Even though the Cisco 2811 supports **Loopback0**, we are using **Loopback1** to
    This response indicates that the HTTP server is active and responding, but requires authentication to access its resources.
 
 
-![Image](assets/images/file-67393f56b05ff.png)
+![Telnet session to 2001:cafe::2 on port 80 returning HTTP/1.1 401 Unauthorized from the Cisco 2811 web server.](assets/images/file-67393f56b05ff.png)
 
 ### **Why Does It Say Unauthorized?**
 

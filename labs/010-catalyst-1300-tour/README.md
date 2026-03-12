@@ -27,3 +27,6 @@ Explore the physical and logical configuration of a Cisco Catalyst 1300 Series s
 - [10 DNS](10_dns.md)
 - [11 Changelog](11_changelog.md)
 
+## Accessibility
+
+- [Screenshot OCR and alt text data](assets/screenshot-ocr.json)
