@@ -1,0 +1,208 @@
+{
+  "Pasted image 20260228162621.png": {
+    "alt": "vsftpd.conf excerpt with chroot_local_user set to YES.",
+    "ocr": [
+      "You may specify an explicit list of local users to chroot ( ) their nome directory If chroot local user 15 YES then this list becomes list of users to NOT chrootu) (Marning chroot' ing can be very dangerous If using chroot, make sure tha the user does not have write access to the top Level directory within the chroot) #chroot Local_user-YEI] Uncomment and restart ftp daemon"
+    ]
+  },
+  "Pasted image 20260228162725.png": {
+    "alt": "Windows FTP login showing the writable-root-inside-chroot warning and the connection being closed.",
+    "ocr": [
+      "{Users Istevesharpe Desktops Ttp 192.168.90.10 Connected to 192.168.90_ 10 _ 220 (VSFTPd 3.0.3) 200 Always in UTF8 mode _ User (192.168.90 10: (none) ) : steve [password prompt redacted] 500 OOPS: vsftpd: refusing to run With Writable root inside chroot ( 500 OOPS priv_sock get cmd Connection closed by remote host",
+      "It's a configuration warning:",
+      "CilUsers SteveSharpe Desktopz"
+    ]
+  },
+  "Pasted image 20260228162859.png": {
+    "alt": "Directory listing of /home showing the steve home directory still writable before permissions are tightened.",
+    "ocr": [
+      "rootassharpe-Lamp /home# total 20 drwxr XrX root root dnuxr Xr-X 23 root root dnwxr steve steve",
+      "4096 Aug 8 21.39 4096 Jun 29 04:05 4096 Jul 5 15.43 steve/"
+    ]
+  },
+  "Pasted image 20260228163913.png": {
+    "alt": "vsftpd.conf excerpt with chroot_list_enable and chroot_list_file uncommented.",
+    "ocr": [
+      "B You may specify an explicit list of local users to chroot ( ) to their home directory _ If chroot_local user is YES then this list becomes a list of users to NOT chroot () (Mar rning chroot\" ing can be very dangerous If using chroot make sure that the user does not have Vrite access to the top Level directory Within the chroot) chroot local user-YES #chroot_list_enable-YES Uncomment (default follows #chroot_list_file-/etc/vsftpd. chroot_list Uncomment"
+    ]
+  },
+  "Pasted image 20260228164115.png": {
+    "alt": "FileZilla Site Manager configured to require explicit FTP over TLS for the vsftpd server.",
+    "ocr": [
+      "vsftpd lab Ftpes:/ /steve@192.168.90.10 FileZilla",
+      "File Edit Viewr Transfer Server Bookmarks Help",
+      "Host:",
+      "Username",
+      "[password field label redacted]",
+      "Port:",
+      "Quickconnect",
+      "Status: Status: Status: Status: Status: Status: Scatus: Status: Status: Status: Status:",
+      "Connerrina Fo Gio IereGmGee Conne Initiali Select entry: Verify TLS My Sites Senve Firewall INFO-3094 Logge Retrie info3099.wikisteve.com Calcub va3atc@freeshellorg Timez Vsftpd lab Direct",
+      "Site Manager",
+      "General",
+      "Advanced",
+      "Transfer Settings",
+      "Charset",
+      "Protocol:",
+      "FTP File Transfer Protocol",
+      "Host:",
+      "192.168.90.10",
+      "Port:",
+      "Encryption: Require explicit FTP over TLS",
+      "Logon Type: Normal",
+      "Loca site: Ihomefwc",
+      "User:",
+      "steve",
+      "[password field and masked value redacted]",
+      "bin boot cdrom dev",
+      "Background color: None",
+      "Slide"
+    ]
+  },
+  "Pasted image 20260228164506.png": {
+    "alt": "Long listing of /share showing the user directory owned by group supersecret with restricted group-write permissions.",
+    "ocr": [
+      "root@ssharpe-Lamp: / share# ll total 12 drwxr-Xr-X 3 root root 4096 Aug 9 09:08 1 drwxr-Xr-X 24 root root 4096 Aug 9 09:00 drwxrwx 2 root supersecret Aug 9 09:08 ssharpe/ root@ssharpe- Lamp: / share#"
+    ]
+  },
+  "file-5f2f6cb4e1d86.png": {
+    "alt": "vsftpd.conf showing write_enable set to YES.",
+    "ocr": [
+      "Uncomment this to enable any form of FTP write command Mrite_enable-YES"
+    ]
+  },
+  "file-5f2f6de43f71f.png": {
+    "alt": "Windows FTP session successfully logging in as steve and listing the home directory contents.",
+    "ocr": [
+      "Ixftp 192.168.90 Connected to 192 168.90 10 _ 220 (VSFTPd 0.3) 200 Always in UTF8 mode User (192.168.90 (none_ steve [password prompt redacted] Login successful. ftp> 200 PORT command successful_ Consider using PASV _ 150 Here comes the directory listing filel file2 226 Directory send ftp: bytes received 0OSeconds 17000. OOKbytes/sec ftp>"
+    ]
+  },
+  "file-5f2f70d315667.png": {
+    "alt": "Windows FTP session uploading ReadMe.txt and browsing /tmp as the regular steve user.",
+    "ocr": [
+      "IUsers  SteveSharpe| Desktop ftp 192.168.90.10 Connected to 192.168.90.10_ 220 (vsFTPd 3.0.3) 200 Always in UTF8 mode _ User (192.168.90.10: (none)) : steve [password prompt redacted] Login successful_ ftp> cd /tmp 250 Directory successfully changed_ tp> lcd ocal directory now C:lUsers  SteveSharpe | Desktop. ftp> send ReadMle txt PORT command successful. Consider using PASV_ 150 send data. 226 Transfer complete_ ftp: 3627 bytes sent in 0.O1Seconds 241.8OKbytes/sec. ftp> 200 PORT command successful. Consider using PASV _ 150 Here comes the directory listing. ReadMle txt files systemd-private-bdazef76deda4gb3azecSgoddadc3dba-systemd-timesyncd service 1JkZX4 vmuare root 226 Directory send OK _ ftp: 118 bytes received in 0.@OSeconds 118000.OOKbytes/sec. ftp>"
+    ]
+  },
+  "file-5f2f7421a8da1.png": {
+    "alt": "chmod command removing write permissions from steve's home directory and a long listing confirming the new mode.",
+    "ocr": [
+      "root tassharpe-Lamp: /home# chmod ugo-W steve/ rootassharpe-Lamp /home# ll total 20 drwxr-Xr-X root root 4096 Aug 8 21:39 drwxr-Xr-X 23 root root 4096 Jun 29 04:05 Xr-X steve steve 4096 Jul 5 15:43 steve/"
+    ]
+  },
+  "file-5f2f747355c16.png": {
+    "alt": "Windows FTP login succeeding again after write permissions are removed from the home directory.",
+    "ocr": [
+      "{Users IsteveSharpe Desktop ftp 192.168.90.10 Connected to 192.168.90 220 (VsFTPd 0.3) 200 Always in UTF8 mode User (192.168.90.10: (none) ) : steve [password prompt redacted] Login successful ftp> 200 PORT command successful Consider using PASV  150 Here comes the directory listing filel file2 226 Directory send OK ftp: bytes received in o0Seconds 17000.@OKbytes/sec ftoy"
+    ]
+  },
+  "file-5f2f74edc9289.png": {
+    "alt": "FTP session showing the chroot jail in effect, with cd / staying inside the jailed view and cd /tmp failing.",
+    "ocr": [
+      "ftp> 200 PORT command successful  Consider using PASV _ 150 Here comes the directory listing filel filez 226 Directory send ftp: bytes received 0.@OSeconds 17000. OOKbytes/sec ftp> 250 Directory successfully changed_ ftp> 200 PORT command successful Consider using PASV _ 150 Here comes the directory listing filel file2 226 Directory send ftp: bytes received in 0.O1Seconds 1.13Kbytes/sec ftp> cd /tmp 550 Failed change directory _ ftp> 200 PORT command successful Consider using PASV _ 150 Here comes the directory listing filel file2 226 Directory send ftp: bytes received 0.@OSeconds 17000. OOKbytes/sec ftp>"
+    ]
+  },
+  "file-5f2f76ea23340.jpg": {
+    "alt": "Decorative black-and-white jail photo illustrating the chroot jail concept.",
+    "ocr": []
+  },
+  "file-5f2f817b66c01.png": {
+    "alt": "Side-by-side Windows FTP sessions showing steve blocked from /tmp while testuser can access and list it.",
+    "ocr": [
+      "C:lWindowslsystem32 cmd exe ftp 192.168,90.10 Microsoft Nindous [Version 0.10240] (c) 2015 Microsoft Corporation All rights reserved",
+      "Command Prompt ftp 192, 68,90.10",
+      "C:lUsers  SteveSharpe  Desktop ftp 192.168.90.10 Connected to 192.168 90.10_ 220 (VSFTPd 0.3 200 Always in UTF8 mode User (192.168 90.10: (none)) : steve [password prompt redacted] Login successful. ftp> cd /tmp 550 Failed change directory. ftp>",
+      "IUsers  SteveSharpe ftp 192.168.90.10 Connected to 192.168.90.10 220 (vsFTPd 3.0.3) 200 Always in UTF8 mode User (192.168.90.10: (none)) : testuser [password prompt redacted] Login successful Iftp> cd /tmp 250 Directory successfully changed. ftp> 15 200 PORT command successful Consider using PASV  150 Here comes the directory listing VReadlle txt rfiles Isystemd-private-bd4zefz6eda4gb3azecsgedOaOc3dba-systemd-tim lesyncd. service-1JkZX4 muare- root 226 Directory send OK ftp: 118 bytes received in 0.02Seconds 38Kbytes/sec iftp>"
+    ]
+  },
+  "file-5f2f8891aaec5.png": {
+    "alt": "openssl req command generating a self-signed TLS certificate and private key for vsftpd.",
+    "ocr": [
+      "rootassharpe Lamp: /etc# openssl req X509 nodes keyout etc/ssl/private/vsSSharpe.key out /etc/ssl/private/vsSShar pem days 365 newkey rsa 4096 Generating 4096 bit RSA private key",
+      "lriting new private key",
+      "Tetc/ssl/private/vsSSharpe.key\"",
+      "You are about asked enter information that will incorporated into your certificate request Ihat you are about enter Wnat called Distinguished Nale Or DN _ There are quite few fields but you can Leave some blank For sole fields there will default value If you enter the field will left blank",
+      "Country Name letter code) [AU] :CA State Province Name (full name) [Some-State] :Ontario Locality Name eg, city) [J:London Organization Nale (eg company ) [Internet Widgits Pty Ltd] : SSharpe Organizational Unit Name (eg; section) Common Nale server FQDN YOUR name) [J:ssharpe local Email Address [J:ssharpedssharpe local rootassharpe-Lamp: /etc#"
+    ]
+  },
+  "file-5f2f8a75d1981.png": {
+    "alt": "vsftpd.conf TLS settings showing the certificate path, key path, ssl_enable, and related protocol options.",
+    "ocr": [
+      "This option specifies the location of the RSA certificate encrypted connections rsa_cert_file-/etc/ssl/private/vsSSharpe pem rsa_private key file-/etc/ssl/private/vsSSharpe key ss[ enable-YES ssl tlsvl-YES ssl_sslvz-NQ ssl_sslv3-Mg]",
+      "use for SSL"
+    ]
+  },
+  "file-5f2f8bb7f3177.png": {
+    "alt": "Plain FTP login rejected with a message that non-anonymous sessions must use encryption.",
+    "ocr": [
+      "Users  SteveSharpe ftp 192.168.90.10 Connected to 192.168.90.10. 220 (vsFTPd 0.3) 200 Always in UTF8 mode User (192.168.90.10: (none)) : testuser 530 Non-anonymous sessions must use encryption. Connection closed by remote host _",
+      "Wcens Stevesharney"
+    ]
+  },
+  "file-5f2f8d1833d63.png": {
+    "alt": "FileZilla certificate dialog showing the unknown server certificate details for the FTP service.",
+    "ocr": [
+      "Unknown certificate",
+      "The server'$ certificate is unknown: Please carefully examine the certificate to make sure the server can be trusted: Details Valid from: 2020-08-09 01.23.27 AM Valid to: 2021-08-09 01.23.27 AM Serial number: 00.80.5.86:12ef:d8.6cc0 Public key algorithm: RSA with 4096 bits Signature algorithm: RSA-SHA256 Fingerprint (SHA-256): a9 8cfb 8e c9 2fed:be:fo:1e.29.b5.43.2ecc42: 40.c2.6a.9a.5065.2a.51.d4.a6.8a.95.e0 d6 cf.7d Fingerprint (SHA-1): 8f.85.aeree Ob:67:bcoo Oe:2a:03:11.72.4b.0f.3afe.28.52.45",
+      "Subject of certificate Certificate issuer Common name: ssharpelocal Common name: ssharpelocal Organization: SSharpe Organization: SSharpe Country: Country: State or province: Ontario State or province: Ontario Locality: London Locality: London E-Mail: ssharpe@ssharpe local E-Mail: ssharpe@ssharpelocal",
+      "Session details Host: 192.168.90.10.21 Protocol: TLS1.2 Cipher: AES-256-GCM Key exchange: ECDHE-RSA MAC: AEAD",
+      "Trust this certificate and carry on connecting? Always trust certificate in future sessions:",
+      "Trust this certificate on the listed alternative hostnames.",
+      "Cancel",
+      "OK"
+    ]
+  },
+  "file-5f2ff8729807f.png": {
+    "alt": "Decorative Samba banner image with the slogan opening windows to a wider world.",
+    "ocr": [
+      "SAMBA opening windows t0 wider world"
+    ]
+  },
+  "file-5f3007b4a3c41.png": {
+    "alt": "smb.conf excerpt defining the TUX-RW and TUX-RO Samba shares.",
+    "ocr": [
+      "[TUX-RW] comment ssharpe path Ishare/ssharpe read only prowsable yes valid user @supersecret create mask 0770 lirectory mask 0770",
+      "[TUX-RO] comment ssharpe path /share/ ssharpe read only yes browsable yes valid user @supersecret create mask 0770 lirectory maskF 0770 smb.conf\" 277L , 9838C written"
+    ]
+  },
+  "file-5f30087ae7183.png": {
+    "alt": "Windows net use command attempting to map the TUX-RW share and failing with Access is denied.",
+    "ocr": [
+      "IUsers  SteveSharpe net use",
+      "1192.168.90 101 TUX-Rl /USER:ssharpe Hindous",
+      "System error 5 has occurred",
+      "Access i5 denied"
+    ]
+  },
+  "file-5f3008f39ced8.png": {
+    "alt": "smbpasswd command prompting for a new Samba password and reporting the user added.",
+    "ocr": [
+      "[samba password prompts redacted] Added user ssharpe",
+      "ssharpe"
+    ]
+  },
+  "file-5f30095171fae.png": {
+    "alt": "Windows net use command successfully mapping the TUX-RW share after the Samba password is set.",
+    "ocr": [
+      "C: Users ISteveSharpe net use",
+      "1192.168.90.101 TUX RI /USER:ssharpe Windows",
+      "The command completed successfully_"
+    ]
+  },
+  "file-5f300a5a0e591.png": {
+    "alt": "Windows commands showing both TUX-RW and TUX-RO shares mapped successfully to drive letters.",
+    "ocr": [
+      "(Users  SteveSharpe net use P: 1192.168.90.101 TUX-RI /USER:ssharpe Windows1 The command completed successfully _",
+      "(Users  SteveSharpe net use Q: 11192.168.90.101TUX-RO /USER:ssharpe Windows1 The command completed successfully -"
+    ]
+  },
+  "file-5f300b3986add.png": {
+    "alt": "Drive-letter test showing writing to the RW share works while writing to the RO share is denied.",
+    "ocr": [
+      "C: Users  SteveSharpe>P:",
+      "P:ldir",
+      "writetest txt",
+      "P:V>Q:",
+      "Q:Vdir writetest.txt Access 15 denied."
+    ]
+  }
+}
