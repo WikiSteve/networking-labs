@@ -1,0 +1,128 @@
+{
+  "file-6743bf4dc16fa.png": {
+    "alt": "Nmap scan comparing the loopback address and the VLAN 1 management address, with the management ports filtered on 192.168.100.1.",
+    "ocr": [
+      "[stevedssharpe-acllab 2024-11-24 19:59:10 ~]$ nmap p 22,80 443 10.10 Starting Nmap 7.93 nttos: / /nmad ora at 2024-11-24 9:59 AST Nmap scan report for sharpeswl. sharpe. com (10.10.10.1) Host is up (0.00275 latency)",
+      "1 192 168.100",
+      "PORT STATE SERVICE 22/tcp open ssn 80/tcp open http 443/tcp open https '3",
+      "Nmap can report for gateway (192.168.100 Host 15 up (0.00415 latency)",
+      "PORT STATE SERVICE 22/tcp filtered ssh 80/tcp open nttp 443/tcp filtered https",
+      "Changexo ltere  fok FULL mares Nman done: TP addresses hosts un ) scanne 29 seconds [stevedssharpe-acllab 2024-11-24 19:59:26"
+    ]
+  },
+  "file-6743c4bdea07c.png": {
+    "alt": "Follow-up Nmap scan showing SSH and HTTPS open on the loopback interface while the same ports remain filtered on the VLAN 1 interface.",
+    "ocr": [
+      "[stevedssharpe-acllab 2024-11-24 20:20:46 nmap ~Pn ~ST -p 22,80, 443 10.10.10.1 192.168 _ 100.1 Starting Nmap httos: / /nmad ora 2024-11-24 20:20 AST Nmap scan report for sharpeswl. sharpe.com 10.10.10_ Host up (0.00295 latency)",
+      "PORT STATE SERVICE 22/tcp open ssn 80/tcp open http 443/tcp open nttps",
+      "These must all be open for grading Nmap can report for gateway (192 168 100 Host Alfilteredeor (ull PORT STATE SERVICE 22/tcp filtered ssh 80/tcp filtered http marks: Parcmankedn22 Anc443 are 443/tcp filtered https filteked NmaDdone: 2 IP addresses hosts UD ) 4gannej5 1.27 seconds [stevedssharpe-acllab 2024-11-24 20:20:49"
+    ]
+  },
+  "file-6744b0937328f.png": {
+    "alt": "IPv6 Nmap scan of the loopback address showing all tested management ports open.",
+    "ocr": [
+      "[stevedssharpe-acllab 2024-11-25 11:45:57 nmap ~Pn ~ST Starting Nmap https Kinmap. org 2024-11-25 11.46 ASI Nmap scan report for 2001 cafe Host is up (0.00415 latency) For the global loopback PORT STATE SERVICE 22/tcp open ssh all must ba open B0/tcp open ittps 2 , 443/tcp open nttps",
+      "443 6 2001:cafe::1",
+      "Nmap done: IP address host UD ) scanned stevedssharpe-acllab 2024-11-25 11:46:30 ~]$",
+      "seconds"
+    ]
+  },
+  "file-6744b3e640859.png": {
+    "alt": "IPv6 Nmap scan of the VLAN 1 global address showing the tested management ports filtered.",
+    "ocr": [
+      "[stevedssharpe-acllab 2024-11-25 13:23:13  ]$ nmap -Pn -sT-p 22,80 443 -6 2001:dead:beef:cafe: Starting Nmap nttps: / /nmap ora 2024111-25 13:23 AST Nmap scan report for 2001:dead:beef:cafe::1 Host (0.00195 latency) Vlan | globa] address ontheye1300 PORT STATE SERVICE 22/tcp filtered ssh 80/tcp http 3)Part marks fok22 &443 filtered open 443/tcp filtered https tulmarks for althree fltered Nman done address host un ) scanned seconds [stevedssharpe-acllab 2024-11-25 13:23:20"
+    ]
+  },
+  "file-6744e925efd57.png": {
+    "alt": "ip a output used to identify the Linux interface name before testing an IPv6 link-local address.",
+    "ocr": [
+      "[stevedssharpe-acllab 2024-11-25 17:12:01 ~]s ip a lo: <LOOPBACK , UP , LOWER UP> mtu 65536 qdisc noqueue state UNKNOIIN group default qlen 1000 link/loopback 00: 00 00:00:00 brd 00:00 00: 00:00 inet 127.0.0.1/8 scope host lo valid_lft forever preferred_lft forever netb :1/128 scope host noprefixroute valid_lft forever preferred_lft forever ens192 ~BROADCAST , MULTICAST ,UP , LOWER UP> mtu 1500 qdisc state UP group default qlen 1000 Link/etner nn:Oc:29:a6:76:a4 brd ff:ff:ff:ff altname enpllso Lardortaoteanetcened O eeselin > Dral addresses inet 192.168.100. 3/24 brd 192.168.100.255 scope global dynamic ens192 valid ft 86394ser nreferred Ift 86394sec inetb 2001:dead:beef:cafe:2Oc:29ff:fea6:76a4/64 scope global dynami mngtmpaddr valid_lft 2591997sec preferred lft 6C 4797sec inetb fe80: :20C:29ff:feab: 76a4/64 scope nk valid_lft forever preferred lft forever [stevedssharpe-acllab 2024-11-25 17:12:06 Globaladdress"
+    ]
+  },
+  "file-6744edd1defb2.png": {
+    "alt": "Nmap scan of the VLAN 1 link-local address using an interface-qualified IPv6 target.",
+    "ocr": [
+      "[stevedssharpe-acllab 2024-11-25 17:25:18 ~Js nmap ~ST ~p 22,80 443 6 fe8o beef : 1234%en5192 Starting Nmap nttns inman ora 2024-11-25 17:25 AST Nmap scan report for fe8o beef : 1234 Mist specity Host i5 (0.00215 latency) the interfare PORT STATE SERVIC Linkelocalfor)VLAN 22/tcp fittered ssh 80/tcp open http Note: http Is open Rstill 443/tcp filtered https",
+      "Nman Cone",
+      "addrec",
+      "nnet",
+      "[ranner [stevedssharpe-acllab 2024-11-25 17:25:20",
+      "seconds"
+    ]
+  },
+  "file-6744f5daf01e0.png": {
+    "alt": "IPv6 Nmap scan confirming the global VLAN 1 address has all tested management ports filtered.",
+    "ocr": [
+      "[stevedssharpe-acllab 2024-11-25 17:59:28 nmap p 22,80 443 6 2001:dead:beef:cafe::1 Starting Nmap 7.93 https: / /nmap org at 2024-11-25 18:00 AST Nmap scan report for 2001:dead:beef:cafe::1 Host i5 VLAN PORT STATE SERVICE Global address on C1300 22/tcp filtered ssh 80/tcp filtered http ~lfiltered 443/tcp filtered https",
+      "Nman dnne TP Address hnst Mn Sranner [stevedssharpe-acllab_2024-11-2518:00:12",
+      "22 seconds"
+    ]
+  },
+  "file-6744f9f463f57.png": {
+    "alt": "Final Nmap scan of the VLAN 1 link-local address showing the tested management ports filtered.",
+    "ocr": [
+      "[steve@ssharpe-acllab 2024-11-25 18:22:11 nmap -Pn -sT ~p 22,80 443 -6 fe80::beef: 1234%en5192 Starting Nmap https: / /nmap orq 2024-11 -= 18:22 Nmap scan report for fe8o: :beef: 1234 'fincerfacename Host needed for link-local PORT STATE SERVICE adcrensese 22/tcp filtered 5sn 80/tcp filtered http 443/tcp filtered https",
+      "Nmap done: address host UD ) scanned [stevedssharpe-acllab 2024-11-25 18:22:21",
+      "seconds"
+    ]
+  },
+  "file-67451301aed6e.png": {
+    "alt": "Switch output showing VLAN 42 created, port Gigabit 21 assigned to it, and interface VLAN 42 configured with 192.168.42.1/24.",
+    "ocr": [
+      "SharpeSll#show vlan Created by: D-Default, 5-Static,",
+      "GVRP R-Radius Assigned VLAN , V-Voice VLAN",
+      "Vlan",
+      "Name",
+      "Tagged Ports",
+      "UnTagged Ports Created by ai2-20.ai22-28 AnswerToEverythin gil gi21 1 999 blackhole gil Port Gig21 is half SharpeSll#show ip interface vlan 42 mf eyerything  ) Address I/F Status Type Directed Prec Redirect Status admin/oper Broadcast",
+      "192.168.42.1/24",
+      "vlan 42",
+      "UP/UP",
+      "Static disable",
+      "enable Valid",
+      "SharpeSMl#"
+    ]
+  },
+  "file-674514283f70f.png": {
+    "alt": "Photo of the Catalyst switch front panel with port Gigabit 21 highlighted.",
+    "ocr": [
+      "Gigabit 21"
+    ]
+  },
+  "file-6745e11d24eb8.png": {
+    "alt": "show ip dhcp binding output showing a DHCP lease issued from the VLAN 42 subnet.",
+    "ocr": [
+      "SharpeRl#show ip dhcp binding Bindings from all pool not associated With VRF: IP address Client-ID_ ease expiration Hardware address/ User nalle Suedessl 192.168.42.2 Olbo.4f13.10e6.de Nov 27 2024 02:58 AM 192.168_ 100 01b0 4113 1035.to Nov 2024 12.49 AN 192.168. 100.3 ff29.a676.a400 0100 Nov 27 2024 02:42 AM 012e.92bf.4bo0.0c29_ 3970. 18 192.168 100 O1b0.4f13 _ 10e6 Nov 2024 02:54 192.168 100. 11 0100. 808a 8158. 90 Nov 27 2024 12:43 AM SharpeRl#",
+      "Type",
+      "Automatic Automatic Automatic",
+      "Automatic Automatic"
+    ]
+  },
+  "file-6745e3c9df9c3.png": {
+    "alt": "show ip nat translations output demonstrating NAT entries for a VLAN 42 host.",
+    "ocr": [
+      "SharpeRl#show 1p nat translations 192.168 . tcp 172.16.155.5:60806 192 168. 42.2:60806 172.172.255.216:443 172.172.255.216:44 tcp 172.16 155.5:60836 192.168. 42.2:60836 172.172.255.216 :443 172.172.255.216:4 tcp 172.16.155.5:60921 192.168.42.2:60921 34.107.243.93:443 34.107.243.93:443 tcp 172.16.155.5:60947 192.168.42.2:60947 52.96.88.194:443 52.96. 88. 194:443 tcp 172.16.155.5:60965 192.168.42.2:60965 149.112.122.10:443 149.112.122.10:443 tcp 172.16.155.5:60966 192.168.42.2:60966 172.16.155.56:7680 172.16.155.56:7680 SharpeRl#"
+    ]
+  },
+  "file-6745e5cdf2e95.png": {
+    "alt": "Terminal showing a VLAN 42 IPv4 address and a successful ping4 test to google.ca.",
+    "ocr": [
+      "[stevedssharpe acllab 2024-11-26 11:09:55 ~]$ 1p a lo: <LOOPBACK , UP , LOWER UP > mtu 65536 qdisc noquel ate UNKNOWN group default qlen 1000 link/loopback 00:00:00:00:00:00 brd O0:00:00:00:00:00 inet 127 1/8 scope host valid_lft forever preferred_lft forever inetb :1/128 scope host noprefixroute valid_lft forever preferred_lft forever ens192  <BROADCAST , MULTICAST , UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000 link/ether 00:Oc:29 6:a4 brd ff:ff:ff:ff:ff:ff altname enn]lsa Your new VLAN 42 inet 192.168. 42.4/24 192.168.42.255 scope global dynamic ens192 valid lft 86298sec preferred_lft 86298sec inetb 2001:db8:42:beef:20c:29ff:feab: 76a4/64 scope global dynamic mngtmpaddr valid_lft 2591897sec preferred_lft 604697sec inetb fe80: 20c : 29ff:fea6:76a4/64 scope link valid_lft forever preferred_lft foreve [stevedssharpe-acllab 2024-11-26 11:09:58 1s ping4 ~C 1 google ca PING (142.250.69.99) 56 ( 84 ) bvtes data 64 bytes from google.ca (142.250.69.99) : icmp_seq-1 ttl-112 time-22.2 ms",
+      "ping statistics 1 packets transmitted_ received 0% packet loss time Oms min/ava/max /mdev 22. 183/22. 183/22. 183/0 PJu 7 [stevedssharpe-acllab 2024-11-26 11:10:01 ~]s"
+    ]
+  },
+  "file-6745f4662301f.png": {
+    "alt": "Terminal showing ping4 to facebook.com failing with 100 percent packet loss and ping4 to google.ca succeeding, while the custom ACL lab prompt is visible.",
+    "ocr": [
+      "[stevedssharpe-acllab 2024-11-26 12:08:27 ~]$ ping4 facebook.com PTNG 13 R0 56 (84) bytes of data From 192.168.100.1 (192.168 100.1) : icmp_seq-1 Redirect Network(New nexthop: 192.168.100.254 (192.168.100.254) ) (2ping statistics packets transmitted, received 100% packet loss Elme Oms",
+      "[stevedssharpe-acllab 2024-11-26 12:08:42 Js ping4 google.ca PING 142.250.69.99) 56(84) bvtes of data From 192.168.100.1 (192.168. 100.1) = icmp_seq-1 Redirect Network(New nexthop: 192. 168. 100.254 (192 . 168. 100.254) ) 64 bytes from google (142.250.69.99) : icmp_seq-1 ttl-1ll time-22.2  mS",
+      "ping statistics packets transmitted, received, packet loss, time Oms rtt min/avd/max/dev 221/22 221/22.221/0 .UU= [stevedssharpe-acllab 2024-11-26 12:08:46 7176"
+    ]
+  },
+  "file-674628b50f369.png": {
+    "alt": "Router CLI showing the BLOCK_FB standard ACL in the running configuration and the corresponding show access-lists hit counters.",
+    "ocr": [
+      "SharpeRlt show run Ls access-list access-list standard BLOCK FB remark ACL to block Facebook traffic tor VLAN remark This ACL denies traffic known Facebook CIDR anges remark All other traffic 15 permitted deny 31.13.64 0.0.63.255 deny 157.240 0.0 0.0.255 255 permit any ip access list standard NAT TRAFFIC permit 192.168.100 0.0.0.255 It's workingu permit 192.168 0.0 0.255 SharpeRl#show access-lists BLOCK FB Standard IP access list BLOCK FB 10 deny 31.13.64 wildcard bits 0.0.63.255 (52 matches) 20 deny 157.240 wildcard bits 0.0 255.255 30 permit any (310 matches) SharpeRl#"
+    ]
+  }
+}

@@ -38,9 +38,9 @@ switchport access vlan 42
 ```
 Verify the port is correctly assigned:
 
-![Screenshot](assets/images/file-67451301aed6e.png)
+![Switch output showing VLAN 42 created, port Gigabit 21 assigned to it, and interface VLAN 42 configured with 192.168.42.1/24.](assets/images/file-67451301aed6e.png)
 
-![Screenshot](assets/images/file-674514283f70f.png)
+![Photo of the Catalyst switch front panel with port Gigabit 21 highlighted.](assets/images/file-674514283f70f.png)
 
 ### **2. Configure VLAN 42 on the Router**
 
@@ -89,7 +89,7 @@ Bring a system online, plug into port 21, and check if it found the DHCP server:
 
 **`show ip dhcp binding`**
 
-![Screenshot](assets/images/file-6745e11d24eb8.png)
+![show ip dhcp binding output showing a DHCP lease issued from the VLAN 42 subnet.](assets/images/file-6745e11d24eb8.png)
 
 ### **4. Modify the NAT ACL**
 
@@ -122,11 +122,11 @@ Expand the `NAT_TRAFFIC` ACL on **LastNameR1** to include traffic from VLAN 42:
 - **Test Internal IPv6:**
   - Ping **LastNameR1**’s IPv6 loopback (**`2001:cafe::2`**) from the VLAN 42 device to verify IPv6 connectivity.
 
-![Screenshot](assets/images/file-6745e3c9df9c3.png)
+![show ip nat translations output demonstrating NAT entries for a VLAN 42 host.](assets/images/file-6745e3c9df9c3.png)
 
 ## **Screenshot 8 Testing VLAN 42 IPv4 Connectivity**
 
-![Screenshot](assets/images/file-6745e5cdf2e95.png)
+![Terminal showing a VLAN 42 IPv4 address and a successful ping4 test to google.ca.](assets/images/file-6745e5cdf2e95.png)
 
 **1. The Command**
 

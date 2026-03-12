@@ -21,3 +21,7 @@ Practice ACL design and validation for management-plane security, NAT matching, 
 - [03 ACL for Matching](03_acl-for-matching.md)
 - [04 ACL for Control](04_acl-for-control.md)
 - [05 Submission Guide](05_submission-guide.md)
+
+## Accessibility
+
+- [Screenshot alt text and OCR transcript data](assets/screenshot-ocr.json)
