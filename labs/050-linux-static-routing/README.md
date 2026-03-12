@@ -16,3 +16,7 @@
 - [Walk-through videos](02_walk-through-videos.md)
 - [Routing](03_routing.md)
 - [Partnered routing](04_partnered-routing.md)
+
+## Accessibility
+
+- [Screenshot OCR and alt text data](assets/screenshot-ocr.json)
