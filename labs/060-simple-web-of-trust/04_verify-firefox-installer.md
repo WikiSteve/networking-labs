@@ -17,11 +17,11 @@ The `.asc` file is a signature for the Firefox archive.
 
 ![Screenshot](assets/images/image15.png)
 
-Let's try that to verify that the file really is from Mozilla or one of its developers.
+Let's try to verify that the file really is from Mozilla or one of its developers.
 
 ![Screenshot](assets/images/image3.png)
 
-Well it is in fact a signature but we’re missing Mozilla’s public key! They’ve given us the keyID above as 4360FE2109C49763186F8E21EBE41E90F6F12F6D
+Well, it is in fact a signature, but we’re missing Mozilla’s public key. They’ve given us the keyID above as 4360FE2109C49763186F8E21EBE41E90F6F12F6D.
 
 Let’s search for this key and see if we can find it.
 
@@ -31,7 +31,7 @@ Try the verification again
 
 ![Screenshot](assets/images/image31.png)
 
-Verification was successful, however because we have no [mutual trusted keys](https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key), we will change the trust setting for this key so the verification no longer reports trust warnings.
+Verification was successful, however because we have no [mutually trusted keys](https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key), we will change the trust setting for this key so the verification no longer reports trust warnings.
 
 You’ll see we don’t trust this key at all.
 

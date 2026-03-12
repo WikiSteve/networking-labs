@@ -6,7 +6,7 @@ This lab will require cooperation with **at least one**, but preferably multiple
 
 This lab will require a Linux virtual machine, the distribution used in these examples is Ubuntu Server so if your distribution is different then these commands may differ.
 
-In the original lab we used a public UNIX service called Freeshell, **however that is not required.** If you wish to still get a Freeshell account you can follow the instructions on sdf.org and contact me and I’ll validate your account. **In conclusion, we are using the Linux virtual machines you create instead.**
+In the original lab we used a public UNIX service called Freeshell; **however, that is not required.** If you wish to still get a Freeshell account you can follow the instructions on sdf.org and contact me and I’ll validate your account. **In conclusion, we are using the Linux virtual machines you create instead.**
 
 The evaluation section of this lab differs from my original lab in the following ways:
 
@@ -36,7 +36,7 @@ Consisted of only a quiz.
 
 ### Available Keyservers
 
-All good things must end so the Mozilla keyserver suffered a certificate spamming attack and was permanently closed. So far as of testing July 2021 all the keyservers in 2019 are down.
+All good things must come to an end. The Mozilla keyserver suffered a certificate spamming attack and was permanently closed. As of July 2021, all the keyservers that were available in 2019 are down.
 
 **Keyserver graveyard**
 
