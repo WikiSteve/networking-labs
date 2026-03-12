@@ -17,3 +17,7 @@
 - [Live tools: net-tools](03_live-tools-net-tools.md)
 - [Live tools: iproute2](04_live-tools-iproute2.md)
 - [Legacy networking](05_legacy-networking.md)
+
+## Accessibility
+
+- [Screenshot alt text and OCR transcript data](assets/screenshot-ocr.json)
