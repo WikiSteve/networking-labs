@@ -17,11 +17,11 @@ The `.asc` file is a signature for the Firefox archive.
 
 ![Screenshot](assets/images/image15.png)
 
-Let's try that to verify that the file really is from Mozilla or one of its developers.
+Let's try to verify that the file really is from Mozilla or one of its developers.
 
 ![Screenshot](assets/images/image3.png)
 
-Well it is in fact a signature but we’re missing Mozilla’s public key! They’ve given us the keyID above as 4360FE2109C49763186F8E21EBE41E90F6F12F6D
+Well, it is in fact a signature, but we’re missing Mozilla’s public key! They’ve given us the keyID above as 4360FE2109C49763186F8E21EBE41E90F6F12F6D
 
 Let’s search for this key and see if we can find it.
 

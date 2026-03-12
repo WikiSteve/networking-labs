@@ -24,13 +24,13 @@ List the keys
 
 ![Screenshot](assets/images/image9.png)
 
-Before proceeding it’s vital that the expiry date is only 5 weeks ahead.
+Before proceeding, it’s vital that the expiry date is only 5 weeks ahead.
 
 NOTE THE BELOW SCREENSHOT FROM 2019
 
 ![Screenshot](assets/images/image16.png)
 
-Note the output of the fingerprint in 2019 was shorter than 2021. [See this post about why the change.](https://unix.stackexchange.com/questions/613839/help-understanding-gpg-list-keys-output)
+Note the output of the fingerprint in 2019 was shorter than in 2021. [See this post about why the change.](https://unix.stackexchange.com/questions/613839/help-understanding-gpg-list-keys-output)
 
 ## Uploading Your Key to the Keyserver
 
