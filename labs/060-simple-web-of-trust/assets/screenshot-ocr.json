@@ -1,0 +1,334 @@
+{
+  "image1.png": {
+    "alt": "Terminal importing DonaldDuck.asc and reporting one new signature on Donald Duck's key.",
+    "ocr": [
+      "dduckessharpe- Lamp gpg import DonaldDuck.asc gpg key 0771700913050776 : Donald Duck <dduckawikisteve com> new signature gpg Total number processed: gpg new signatures: gpg marginals needed: completes needed: trust model: pgp gpg depth: valid: signed: trust: 0q, On , Om , Of , gpg next trustdb check due at 2021-08-30 dduckaecharne Amm"
+    ]
+  },
+  "image10.png": {
+    "alt": "Hex dump of DonaldDuck.asc.gpg showing binary encrypted data rather than readable text.",
+    "ocr": [
+      "sharpe@ssharpe- Lamp Xd Dona dDuck asc gpg head 0o000000 10000101 001 100 000 011 10100011 10101111 Oooc 00111110 110- 0110 101- 00 01101011 01111010 000 11003 100 11010100 10001010 1001 001 00111 1101 1111 00 01010001 11101000 10101111 0001101 10101010 11000101 00011011 11011001 00011111 11011010 10001011 11011100 10101001 10110110 11000111 11010000 10101100 00010100 01001011 01111010 11111010 01011101 01101111 01100010 10000100 z.]ob 01111110 01011001 01000100 10001000 01111110 O010oooo ~YD 036 00101001 01110111 00000111 10101000 01101110 11100100 Jw. ssharperssharpe Lamp"
+    ]
+  },
+  "image11.png": {
+    "alt": "Terminal output from gpg --list-sigs showing Donald Duck's public key now signed by Steve Sharpe.",
+    "ocr": [
+      "ssharpe@ssharpe-Lamp gpg list-sigs home sharpe/ . gnupg/pubring kbx",
+      "pub",
+      "rsa2048 2021-07-26 [SC] [expires: 2021-08-30] C8OFDBDD14E8C9C30306E4ECISSF8242BA4AEADI uid [ultimate] Steve Sharpe (tempory educational key) <Stevedikisteve com> sig 155F8242BA4AEADI 2021-07-26 Steve Sharpe (tempory educational key) <Stev edikisteve com> suD rsa2048 2021-07-26 [E] [expires: 2021-08-30] s1g 155F8242BA4AEAD1 2021-07-26 Steve Sharpe (tempory educational key) <Stev edikisteve com>",
+      "pub",
+      "rsa2048 2021-07-26 [SC] [expires: 2021-08-30] 4EDAD554346249DE04177F620771700913050776 uid full Donald Duck <dduckawikisteve com> 51g 07717009130507762021-07-26 Donald Duck <dduckawikisteve com> sig 155F8242BA4AEADI 2021-07-26 Steve Sharpe (tempory educational key) <Stev e@Wikisteve com> SuD rsazo48 2021-07-26 [E] [expires: 2021-08-30] s1g 0771700913050776 2021-07-26 Donald Duck <dduckawikisteve com>"
+    ]
+  },
+  "image12.png": {
+    "alt": "Terminal decrypting DonaldDuck.asc.gpg, reporting a good signature from Steve Sharpe, and warning that the signature is not trusted.",
+    "ocr": [
+      "dduckessharpe Lamp $ gpg decrypt Dona dDuck_ asc.gpg Dona dDuck_ asc gpg: encrypted With 2048-bit RSA key , ID ABAF3ED6O3B46B7A , created 2021- 07-26 \"Donald Duck <dduckawikisteve com> gpg: Signature made Mon Jul 2021 04:28:23 AN UTC gpg using RSA key C8OFDBDD14E8C9C30306E4EC1SSF8242BA4AEADI gpg Good signature from Steve Sharpe (tempory educational key) <Stevedikisteve_ com> [unkn Own gpg WARNING: This key i5 not certified with trusted signature! gpg There i5 no indication that the signature belongs to the owner Primary key fingerprint: C8OF DBDD 14E8 C9C3 0306 E4EC 155F 8242 BA4A EADI"
+    ]
+  },
+  "image13.png": {
+    "alt": "Terminal key listing showing Steve Sharpe's key plus Donald Duck's imported public key and fingerprint.",
+    "ocr": [
+      "ssharpe@ssharpe-Lamp gpg list-keys fingerprint /home/ ssharpe/ . gnupg/pubring.kbx",
+      "pub",
+      "rsa2048 2021-07-26 [SC] [expires: 2021 30] C8OF D8DD 14E8 (9C3 0306 E4EC 155F 8242 BA4A EADI [ultimate] Steve Sharpe (tempory educational key) <StevedikiSteve com> rsa2048 2021-07-26 [E] [expires: 2021-08-30]",
+      "uid sub",
+      "pub",
+      "ed25519 2019-11-22 [SC] [expires 2023 09-30] 4014 0506 5344 0207 3687 049D 2404 (954 6E14 5360 unknown ] Gunnar Wolf <gwolf@gwolf.org> unknown] Gunnal Wolf <gwolfadebian org? unknown]  Gunnar Eyal Wolf Iszaevich <gwolfdiiec unam MX > ed25519 2019-11-22 [S] [expires 2021-09-30] ed25519 2019-11-22 [A] [expires 2021-09-30] CV25519 2019 11-22 [E] [expires: 2021 09-30]",
+      "uid uid uid sub SuD sub",
+      "pub",
+      "rsa2048 2021-07-26 [SC] [expires: 2021-08-30] 4EDA D554 3462 49DE 0417 7F62 0771 7009 1305 0776 unknown ] Donald Duck <dduckawikisteve com> Fcaoo48 3071 0776 TFT Teydi UFan 9051 301",
+      "uid Eu"
+    ]
+  },
+  "image14.png": {
+    "alt": "Mindmap-style graph of Gunnar Wolf's web-of-trust connections and signing relationships.",
+    "ocr": [
+      "Stefano Zacchiroli",
+      "David P=",
+      "Luca' Filipozzl",
+      "Jonathan McDowel",
+      "Tzafrir Cohen",
+      "NIIBE Yutaka",
+      "gregor herrmann Gunnar Eyal Wolf Iszaevich",
+      "Andrei Shadura Jonathan Carter Aaron Ueko",
+      "Rhonda",
+      "Jonas Snleflegaard Rhonda D iine",
+      "1C Wagner"
+    ]
+  },
+  "image15.png": {
+    "alt": "Terminal showing the start of firefox-99.0.tar.bz2.asc, including the BEGIN PGP SIGNATURE block.",
+    "ocr": [
+      "spock@ssharpe Lamp [firefox-examples head firefox-99.0.tar.bz2 asc BEGIN PGP SIGNATURE",
+      "iQIzBAABCgAdFiEEQZD+IOnELZMYb44h6+QekPbxLZOFAmJE/koACgko6+QekPbx LzOa+0/ /XGnziRaVRwUAPvNmHrovORLzJnNVOOuhISbN+ZhYRl6/ 1IlcSzMMEIZ4 VNTWFu9 rUApqhggHF942lgz4cerllvnqzDfVcVlxfHTyrXpbeRBHnYagbMop+qPS 7US2i78hfeUpclS4qGZKhlBTQaIr8ySavbb4nodoJDKeahjmbcOmokkkcEHZcezV J5C3Ko Bh4+sOd/DpTJkoallZqJCbpZwDnhvERaffx/2TaaBghudstkrPrNdoabBf 9DUT /xmt9TSFvcvDfpcznGyhAISyL8pxHMqYwku7UMOtpdCaOYcSapUtjPhxE+JI ORfdqc+ZeyUbzocrgbuczVdiNBUOBNHGK4xvZj6SBOUEiqML Imb/ItoDWJY+5+6z NEmigvHRf78spEQORfmMBO3wjkTeUZQEP+3mKUxOM9XScHoNggePUgNtpkYbztjXF spock@ssharpe- Lamp: firefox-examples"
+    ]
+  },
+  "image16.png": {
+    "alt": "2019 terminal output from gpg --list-keys showing the older shorter key ID format for Steve Sharpe's temporary key.",
+    "ocr": [
+      "gpg ~list-keys (udd/ s/ssharpe3084/.gnupg/pubring.gpg",
+      "pub 2048R/DD215385 2019-03-19 [expires: 2019-04-23] uid Steve Sharpe (temporary educational key) <ssharpe3o84@frees  hell.org> sub 2048R/BAB3B4AI 2019-03-19 [expires: 2019-04-23]"
+    ]
+  },
+  "image17.png": {
+    "alt": "Directory listing in Donald Duck's VM showing the received DonaldDuck.asc.gpg file.",
+    "ocr": [
+      "dduckessharpe- Lamp = :~$ I5 -1 total -TV-TV-- dduck dduck 2451 Jul 26 04:42 DonaldDuck asc.gpg dduckdssharpe- Lamp: $"
+    ]
+  },
+  "image18.png": {
+    "alt": "Terminal running gpg --keyserver keyserver.ubuntu.com --send-keys and reporting Steve Sharpe's key sent to the Ubuntu keyserver.",
+    "ocr": [
+      "ssharpedssharpe- Lamp:-$ gpg keyserver keyserver ubuntu.com send-keys C8OFDBDD14E8C 9C30306E4EC155F8242BA4AEADI gpg: sending key 155F8242BA4AEAD1 hkp: / /keyserver.ubuntu.com"
+    ]
+  },
+  "image19.png": {
+    "alt": "GUI passphrase dialog asking for a passphrase to protect the new GPG key.",
+    "ocr": [
+      "Please enter the passphrase protect your new key",
+      "Passphrase:",
+      "<0K>",
+      "<Cancel>"
+    ]
+  },
+  "image2.png": {
+    "alt": "GnuPG message explaining it needs random bytes and suggesting keyboard, mouse, or disk activity to generate entropy.",
+    "ocr": [
+      "We need to generate lot of random bytes It i5 good Idea perform some other action (type onthe keyboard move the mouse utilize the disks) during the prime generation; this gives the random number enerator better chance to gain enough entropy Ile need to generate lot of random bytes It i5 good idea perform some other action (type on the keyboard, move the mouse utilize the disks) during the prime generation; this gives the random number generator better chance to gain enough entropy"
+    ]
+  },
+  "image20.png": {
+    "alt": "Ubuntu keyserver web search results showing Steve Sharpe's uploaded public key and self-signatures.",
+    "ocr": [
+      "Search results for 'steve sharpe' Type bits/keyID time exp time key expir",
+      "pub rsa2048 c80fd8dd14e8c9c30306e4ec15Sf8242ba4aead1 2021-07-26T02:06:582 Hash-l0a069d11f7ac19666481086b8b3c2b9",
+      "uid Steve_Sharpe (tempory_educational key) SStevedklikisteve_cOmz s1g s1g 155f8242ba4aead1 2021-07-26702:06:58z 2021-08-30T02:06:58z",
+      "[selfsig]",
+      "sub rsa2048/3a5b927f9e9e97d414604b3b0e5971d151240c2f 2021-07-26T02:06:582 sig sbind 155f8242ba4aead1 2021-07 -26702: 06: 582 2021 08-30T02:06:582"
+    ]
+  },
+  "image21.png": {
+    "alt": "Terminal running gpg --search-keys gwolf@debian.org and importing Gunnar Wolf's 2019 ED25519 public key.",
+    "ocr": [
+      "ssharpe@ssharpe Lamp $ gpg keyserver keyserver ubuntu com search-keys gwolfadebia org gpg data source http://162.213.33.8:11371 (1) Gunnar Wolf <gwolfdgwolf.org> Gunnal Mo lf KgwoE fadebian.org> Gunnar Eyal Wolf Iszaevich <gwolfdiiec unam MX > 263 bit EDDSA key 240409546E145360 created: 2019-11-22 (2) Gunnar Eyal Wolf Iszaevich <gwol fddebian.org? Gunnar Eyal Wolf Iszaevich <gwolfagwolf.org> Gunnar Eyal Wolf Iszaevich (Instituto de Investigaciones Economicas 4096 bit RSA key 673A03E4C1DB9ZIF created: 2009- (3) key 15FBFDEDCIDB9ZIF (4) Gunnar Wolf <gwolfagwolf.org> Gunnar Wolf <gwolfddebian.org> Gunnal Molf <gwolfdseguridad unam.MX > 1024 bit DSA key D8OEF35A8BBSZZAF , created: 2001-10-23 Keys 1-4 of 4 for 'gwolfadebian org' Enter number (s) , Nlext Q)uit gpg key 240409546E145360: public key Gunnar Wolf <gwolfdgwolf.org>' imported gpg Total number processed gpg imported"
+    ]
+  },
+  "image22.png": {
+    "alt": "Donald Duck's keyring listing showing Donald's own key and Steve Sharpe's public key installed.",
+    "ocr": [
+      "dduckessharpe- Lamp $ gpg list-keys gpg checking the trustdb gpg marginals needed: completes needed trust model pgp gpg: depth: valid: signed: trust: 0q , On , Om , gpg next trustdb check due at 2021-08-30 /home dduck/ . gnupg/pubring kbx",
+      "pub",
+      "rsa2048 2021-07-26 [SC] [expires: 2021-08-30] 4EDAD554346249DE04177F620771700913050776 [ultimate] Donald Duck <dduckuwikisteve com> rsa2048 2021-07-26 [E] [expires: 2021-08-30]",
+      "uid sub",
+      "pub",
+      "rsa2048 2021-07-26 [SC] [expires: 2021-08-30] C8OFDBDDI4E8C9C30306E4EC1SSF8242BA4AEAD1 unknown] Steve Sharpe (tempory educational key) ~Stevedlikisteve com> rsa2048 2021-07-26 [E] [expires: 2021-08-30]",
+      "uid sub"
+    ]
+  },
+  "image23.png": {
+    "alt": "Terminal output from gpg --list-keys --fingerprint showing Gunnar Wolf's imported key, fingerprints, and subkeys.",
+    "ocr": [
+      "ssharpedssharpe- Lamp $ gpg list-keys /home/ ssharpe/ . gnupg/pubring.kbx",
+      "fingerprint",
+      "rsazc 2021-07-26 [SC] [expires 2021-08-30] C8OF DBDD 14E8 (9C3 0306 E4EC 155F 8242 BA4A EADI [ultimate] Steve Sharpe (tempory educational key) <StevedikiSteve com> rsa2048 2021-07-26 [E] [expires 2021-08-30]",
+      "uid sub",
+      "ed25519 2019-11-22 [SC] [expires: 2023-09-30] 4014 0506 5344 0207 3687 049D 2404 C954 6E14 5360 unknown] Gunnar Wolf <gwolfdgwolf.org> unknown ] Gunnar Wolf gwole fadebian.org> unknown] Gunnar Eyal Wolf Iszaevich <gwolfdiiec unam MX > ed25519 2019-11-22 [S] [expires 2021 30] ed25519 2019-11-22 [A] [expires 2021-09-30] Cv25519 2019-11-22 [E] [expires: 2021-09-30]",
+      "uid uid uid sub sub sub",
+      "pub",
+      "pub"
+    ]
+  },
+  "image24.png": {
+    "alt": "Interactive GnuPG trust menu for Mozilla's key asking how far to trust the user, ending with a confirmation prompt for ultimate trust.",
+    "ocr": [
+      "sub r5a4096/F1A6668FBB7DSZZE created: 2019-05-30 expired: 2021-05-29 usage: sub rsa4096/EBE4IEGOFOFIZFGD created: 2021-05-17 expires: 2023-05-17 usage: unknown ] (1) Mozilla Software Releases <releasedmozilla com>",
+      "Please decide how far you trust this user to correctly verify other users keys (by looking passports checking fingerprints from different sources etc",
+      "don know won say =I do NOT trust I trust marginally I trust fully I trust ultimately back to the main menu",
+      "Your decision? Do you really want to set this key to ultimate trust? (Y/N)"
+    ]
+  },
+  "image25.png": {
+    "alt": "Terminal running gpg --full-generate-key and prompting for RSA key type, a 2048-bit key size, and a 5-week expiry.",
+    "ocr": [
+      "ssharpe@ssharpe-Lamp $ gpg full-generate key gpg (GnuPG) 2.2.20; Copyright (C) 2020 Free Software Foundation, Inc _ This i5 free software: you are free to change and redistribute it. There NO MARRANTY , to the extent permitted by law.",
+      "Please select what kind of key you want: (1) RSA and RSA (default) (21 DSA and Elgamal (31 DSA (sign only) (4) RSA (sign only) (14) Existing key from card Your selection? RSA keys may be between 1024 and 4096 bits long Ihat keysize do you want? (3072) 2048 Requested keysize is 2048 bits Please specify how long the key should be valid_ key does not expire Kn> key expires in days <n>M key expires weeks <nzM key expires in months <n>y key expires 1n n years Key valid for? (0)"
+    ]
+  },
+  "image26.png": {
+    "alt": "Terminal output from gpg --list-sigs showing Donald Duck's public key with both the self-signature and Steve Sharpe's signature.",
+    "ocr": [
+      "dduck@ssharpe- Lamp gpg list s1g5 home dduck/ .gnupg/pubring.kbx",
+      "pub",
+      "rsa2048 2021-07-26 [SC] [expires: 2021-08-30] 4EDAD554346249DE04177F620771700913050776 uid [ultimate] Donald Duck <dduckawikisteve_ com> 51g 0771700913050776 2021-07-26 Donald Duck <dduc kawikisteve_ com> sig 155F8242BA4AEAD1 2021-07-26 Steve Sharpe (tempory educational key ) <Steve@likis teve_ com> SuD rsa2o48 2021-07-26 [E] [expires: 2021-08-30] s1g 0771700913050776 2021-07-26 Donald Duck <dduckawikisteve _ com>",
+      "pub",
+      "rsa2048 2021-07-26 [SC] [expires: 2021 08 30] CBOFDBDD14E8C9C30306E4EC1SSF8242BA4AEADI uid unknown ] Steve Sharpe (tempory educational key ) <StevedWikisteve com> sig 3 155F8242BA4AEAD1 2021-07-26 Steve Sharpe (tempory educational key) <Stevedlikis teve _ com> sub rsa2048 2021-07-26 [E] [expires: 2021-08-30] s1g 155F8242BA4AEADI 2021-07-26 Steve Sharpe (tempory educational key) ~Stevedikis teve_ com>"
+    ]
+  },
+  "image27.png": {
+    "alt": "Terminal sending Donald Duck's updated key back to keyserver.ubuntu.com.",
+    "ocr": [
+      "dduck@ssharpe- Lamp gpg keyserver keyserver ubuntu com send-keys 4EDAD554346249DE04177F 620771700913050776 dda : sendin kev 0771700913050776 to hkd: Ikevserver ubuntu com"
+    ]
+  },
+  "image28.png": {
+    "alt": "Terminal output showing Steve Sharpe's new GPG key created, marked ultimately trusted, and a revocation certificate stored.",
+    "ocr": [
+      "gpg key 155F8242BA4AEADI marked ultimately trusted gpg revocation certificate stored /home/ ssharpe/ . gnupg/openpgp revocs d/C8OFDBDDI 4E8C9C30306E4EC1SSF8242BA4AEADI.rev\" public and secret key created and signed_",
+      "rsa2048 2021-07-26 [SC] [expires: 2021-08-30] C8OFDBDD14E8C9C30306E4EC1SSF8242BA4AEAD Steve Sharpe (tempory educational key) <Stevedlikisteve com> rsa2048 2021-07-26 [E] [expires: 2021 08-30 ]",
+      "uid sub",
+      "pub"
+    ]
+  },
+  "image29.png": {
+    "alt": "Terminal running file DonaldDuck.asc.gpg and identifying it as a PGP RSA encrypted session key.",
+    "ocr": [
+      "ssharpedssharpe- Lamp:-$ file DonaldDuck.asc.gpg DonaldDuck.asc.gpg: PGP RSA encrypted session key keyid: ABAF3ED6 03B46B7A RSA (Encrypt Sign) 2048b ssharpe@ssharpe Lamp: $"
+    ]
+  },
+  "image3.png": {
+    "alt": "First gpg --verify attempt on the Firefox archive, failing with Can't check signature: No public key.",
+    "ocr": [
+      "spockessharpe- Lamp:-/firefox-examples gpg verify firefox-99.0.tar.bz2 asc gpg: assuming signed data in firefox-99 tar.0z2 \" gpg Signature made Thu 31 Mar 2022 01 05:14 AM UTC gpg using RSA key 4360FE2109C49763186F8E21EBE4IE9OFOF1ZFGD gpg Can't check signature: No public key spockessharpe- Lamp:-/firefox-examples"
+    ]
+  },
+  "image30.png": {
+    "alt": "Terminal searching the Ubuntu keyserver for Mozilla's signing key and importing Mozilla Software Releases <release@mozilla.com>.",
+    "ocr": [
+      "spock@ssharpe-Lamp:-/firefox-examples gpg keyserver keyserver.ubuntu com search 4360FE2109C4 9763186F8E21EBE4IE9OFOF1ZFGD gpg data source: http://162.213.33.9:11371 (1) Mozilla Software Releases creleasedmozilla com> 4096 bit RSA key 61B7B526098F0353 created: 2015-07-17 Keys 1-1 of 1 for 4360FE2109C49763186F8E21EBE4IE9OFOFIZFGD\" Enter number (s) , Nlext or Q)uit",
+      "gpg : key 61B78526098F0353: 2 duplicate signatures removed gpg key 61B7B526098F0353: public key 'Mozilla Software Releases <releasedmozilla com> imported gpg Total number processed gpg imported spockdssharpe- Lamp:-/firefox-examples"
+    ]
+  },
+  "image31.png": {
+    "alt": "Second gpg --verify attempt showing a good Mozilla signature plus warnings that the key is not yet trusted, with primary and subkey fingerprints.",
+    "ocr": [
+      "spockessharpe- Lamp [firefox-examples gpg verify firefox-99 0.tar bzz.asc gpg assuming signed data firefox-99 0.tar.bz2 gpg: Signature made Thu 31 Mar 2022 01:05:14 AM UTC gpg using RSA key 4360FE2109C49763186F8E21EBE4IE9OF6FIZFGD gpg Good signature from 'Mozilla Software Releases <releasedmozilla com> [unknown] gpg WARNING: This key 15 not certified with trusted signature! gpg There indication that the si1gnature belongs to the owner Primary key fingerprint: 14F2 6682 D091 6CDD 81E3 7B6D 61B7 B526 D98F  0353 Subkey fingerprint: 4360 FE2I 09c4 9763 186F 8E21 EBE4 1E9O F6FI 2FGD spock@ssharpe Lamp [firefox-examples"
+    ]
+  },
+  "image32.png": {
+    "alt": "Verification after a trustdb update showing a good signature from Mozilla Software Releases and the key marked ultimate in the original workflow.",
+    "ocr": [
+      "spockassharpe Lamp [firefox-examples gpg verify firefox-99.0.tar.bz2 asc gpg: assuming signed data in firefox-99.0.tar.bz2' gpg: Signature made Thu 31 Mar 2022 01:05:14 AM UTC gpg using RSA key 4360FE2109C49763186F8E21EBE4IE9OF6F12FOD gpg checking the trustdb gpg: marginals needed: completes needed: trust model: pgp gpg : depth: valid: signed: trust: 0- 0q, 0n , Om , 2u gpg: depth: valid: signed: trust: 0q, Om , Of , gpg next trustdb check due at 2022-04-07 gpg: Good signature from \"Mozilla Software Releases <releasedmozilla_ com> [ultimate] spock@ssharpe Lamp firefox-examples"
+    ]
+  },
+  "image33.png": {
+    "alt": "Terminal command signing and encrypting DonaldDuck.asc for recipient dduck@wikisteve.com.",
+    "ocr": [
+      "ssharpedssharpe-Lamp",
+      "gpg S1gn",
+      "encrypt",
+      "recipient dduckawikisteve com Dona dDuck.asc"
+    ]
+  },
+  "image34.png": {
+    "alt": "Directory listing showing both DonaldDuck.asc and the encrypted DonaldDuck.asc.gpg file.",
+    "ocr": [
+      "ssharpedssharpe Lamp $ 15 total 16 drwxrwxr-X 2 ssharpe ssharpe 4096 Jul 15:16 bin drwxrwxr 2 ssharpe ssharpe 4096 Jul 23 15:43 dir ~TV-TV-r- ssharpe ssharpe 2180 Jul 26 04:23 DonaldDuck.asc T- ssharpe ssharpe 2451 Jul 26 04:28 DonaldDuck asc.gpg ssharpe@ssharpe- Lamp"
+    ]
+  },
+  "image35.png": {
+    "alt": "Terminal decrypting DonaldDuck.asc.gpg to standard output and printing an armored BEGIN PGP PUBLIC KEY BLOCK.",
+    "ocr": [
+      "dduck@ssharpe amp gpg decrypt Donal dDuck asc.gpg gpg: encrypted with 2048-bit RSA key , ID ABAF3ED6O3B46BZA , created 2021-07-26 Donald Duck <dduckuwikisteve _ com> BEGIN PGP PUBLIC KEY BLOCK -",
+      "MQENBGD+NVgBCACSXvCvohohiesPLI9OcJhBMULzUSL jbz484dZleTycBHrLqgPH OHTOFPeihzfYoguzLLhzZguoL/X/Oer ZMVBVclrptN6c24ylnSvnzAHaRmzpOB3z"
+    ]
+  },
+  "image36.png": {
+    "alt": "Ubuntu keyserver web results for Donald Duck showing the public key with an additional signature entry.",
+    "ocr": [
+      "Search results for 'dduck@wikisteve.com\"",
+      "Type bits/keyID",
+      "time",
+      "exp time",
+      "key expir",
+      "pub rsa2048 /4edad554346249de04177f62077170d913050776 2021-07-26704:08:562 Hash-c4726d205742fa0a043ca84cf5ed3d73",
+      "uid Donald_Duck_sdduckdvikisteve comz s1g s1g 077170d913050776 2021-07-26704 08:56z 2021-08-30t04:08:562 s1g sig 155f8242ba4aead1 2021 07-26704:15:422",
+      "[selfsig] 155f8242ba4aead1",
+      "sub rsa2048/73fe4e9e27354500db8163dea3af3ed603b46b7a 2021-07-26704:08:562 sig sbind 077170d913050776 2021-07-26704:08:56z 2021 08-30T04:08:56z"
+    ]
+  },
+  "image37.png": {
+    "alt": "Interactive gpg --sign-key prompt for Donald Duck's key, showing the primary fingerprint and certification-check options.",
+    "ocr": [
+      "ssharpe@ssharpe- Lamp: gpg ask-cert-level",
+      "sign-key dduckawikisteve com",
+      "pub rsa2048/0771700913050776 created: 2021-07-26 expires 2021-08-30 usage: trust unknown validity: unknown sub rsa2048/ABAF3ED6O3B46BZA created: 2021-07-26 expires 2021 08-30 usage: E unknown] (1) Donald Duck <dduckawikisteve com>",
+      "pub rsa2048/0771700913050776 created: 2021-07-26 expires 2021-08-30 usage: trust: unknown validity: unknown Primary key fingerprint: 4EDA D554 3462 49DE 0417 7F62 0771 7009 1305 0776",
+      "Donald Duck <dduckawikisteve com>",
+      "This key is due to expire on   2021-08-30 ow carefully have you verified the key you are about to sign actually belongs to the person named above? If you don t know what to answer enter",
+      "(0) I will not answer (default) (1) I have not checked at all (2) I have done casual checking (3) I have done very careful checking-",
+      "Your selection? (enter",
+      "for more information) :"
+    ]
+  },
+  "image38.png": {
+    "alt": "Interactive gpg --edit-key view of Mozilla's key showing trust undefined, validity unknown, and the main key plus subkey IDs.",
+    "ocr": [
+      "spock@ssharpe-Lamp:~/firefox-examples gpg edit-key 4360FE2109C49763186F8E21EBE4IE9OFOFIZFGD gpg (GnuPG) 2.2.19; Copyright (C) 2019 Free Software Foundation Inc . This free software: you are free to change and redistribute it. There i5 NO MARRANTY , the extent permitted by law.",
+      "gpg: checking the trustdb gpg marginals needed: completes needed: trust model: pgp gpg _ depth: valid: Signed: trust: 0q, On , Om , gpg depth: valid: signed: trust: 04 , On , gpg next trustdb check due at 2022-04-07 pub rsa4096/61B7B526098F0353 created: 2015-07-17 expires: never usage: trust: undefined validity: unknown sub rsa4096/1C69C4ESSE99OSDB"
+    ]
+  },
+  "image4.png": {
+    "alt": "Terminal output from viewing DonaldDuck.asc.gpg directly, showing garbled binary characters in the shell.",
+    "ocr": [
+      "ssharpe@ssharpe Lamp $ head Dona dDuck.asc.gpg",
+      "0a>dakoHzdd@Qin] @dn vabKzo]obd-YDD - )won YfTBO1ddaaadd !SOSO2SP4ONagnuzus2i70m;2 70-baak ! 070 bodooGoxoaoFOt.] \"0b7ooqd PO30^DOKAQ 0{Q;",
+      "CB] D@D {dudadhAVG_W0z id VBOS ^daa0x>ZOZFOSU.=0%go00_TJoab^c00 (F2.0 (Vr7aa  00000] Qoab teOSORova codaJOAc8crd RGO*tuxL . 00! 600] OookdWlogQhTvodtovdupal1-Okios [ (PZriva.0)09s]qeedrod"
+    ]
+  },
+  "image5.png": {
+    "alt": "Terminal creating a Firefox download directory and using wget to download firefox-99.0.tar.bz2 from Mozilla with progress output.",
+    "ocr": [
+      "spockassharpe-Lamp $ mkdir firefox-example spockessharpe- Lamp firefox-example/ spockessharpe- Lamp [firefox-examples wget https://ftp.mozilla org/pub/firefox/releases/99.0/lin uX-1686/en-CA/firefox-99 tar Dz2 2022-04-05 13:21:25- https: //ftp.mozilla.org/pubfirefox/releases/99.0/linux-1686/en-CA/fire fox-99 tar Dz2 Resolving ftp.mozilla.org (ftp.mozilla.org) 13.33.160.57 _ 13.33.160.52 , 13.33.160.6 , Connecting ftp mozilla.org (ftp.mozilla.org) |13.33 160.57/:443_ connected_ HTTP request sent awaiting response 200 OK Length: 80237772 (77M4) [application/x-tar] Saving to: firefox-99.0_ tar.bz2",
+      "firefox-99.0.tar.bz2",
+      "1002[",
+      "76. 52M 5.64MB/5",
+      "in 135",
+      "2022 04-05 13:21:39 (5.79 MB/s)",
+      "firefox-99.0.tar.bz2 saved [80237772/80237772]"
+    ]
+  },
+  "image6.png": {
+    "alt": "GnuPG prompt confirming the new user ID for Steve Sharpe with email and comment fields.",
+    "ocr": [
+      "GnuPG needs",
+      "construct",
+      "user",
+      "to identify your key",
+      "Real nale Steve Sharpe Email address: Stevedllikisteve com Comment tempory educational key You selected this USER-ID: \"Steve Sharpe (tempory educational key) <Stevedllikisteve com>",
+      "Change (N)ame (C)omment, (E)mail or (O)kay/ (Qluit?"
+    ]
+  },
+  "image7.png": {
+    "alt": "Terminal exporting Donald Duck's armored public key to DonaldDuck.asc and showing the file begins with BEGIN PGP PUBLIC KEY BLOCK.",
+    "ocr": [
+      "ssharpe@ssharpe Lamp = gpg armour export dduckawikisteve com ssharpe@ssharpe- Lamp head  DonaldDuck asc BEGIN PGP PUBLIC KEY BLOCK",
+      "Dona IdDuck.asc",
+      "MQENBGD+NVgBCACSXvCvohohiesPLI9OcJhBMULzUSLjbz484dZleTycBlrLqgPH OMTOFPeihzfYogUzLLhzZgUOL/X/Qer ZMVBVclrptN6c24YlnSvnZAHaRmzpoB3z iRR6XgdVkbBJtlSuqSvbhLwiqyFOSaJSdzFVjnwcFJ3SvcSAOrOhA+Yosvy9yBCG rPztlgi5+ZnYGO+NOlnpOyNAqqorGLqOM4S+CPHONpZYV/ JPYEghB3Yzv8l2finb KS4d1m415247y0X4Y2RRDkiAnRTLUYEiSKxgTLmrev8v+iep3NSIOIMZrvmeYBOv tRUegUf1SOIILObCq4qEeKZP4HTPpGfMatxvABEBAAGOIURvbmFsZCBEdWNr IDxk ZHVjaOB3alltpc3RLdmUuYzgtPokBVAQTAQOAPhYhBEZalvQOYkneBBd/ YgdxcNkT BOd2BOJg/ jVYAhsDBOkALiSABOSJCAcCBhUKCOgLAgOlAgMBAh4BAheAAAOJEAdx ssharpedssharpe- Lamp:-$"
+    ]
+  },
+  "image8.png": {
+    "alt": "Ubuntu keyserver web results for Gunnar Wolf showing a public key record with many signatures.",
+    "ocr": [
+      "https://keyserver ubuntu.com/pks/lookup?search-gwolf%4Odebian org&fingerpri Auu n",
+      "J14",
+      "JUIuU",
+      "Z7UtLJ_TUCITJJUU",
+      "pub rsa4096/ab4lclc68afd668ca045ebf8673a03e4cldbgzlf 2009-07-09123:12:132 Hash-9b876d4bdafd2085ccaS7eScof5cSd8a sig sig 0f635628236906c5 2018 07-30t06 10:372 s1g s1g 0f635628236906c5 2018-07 30t06 10: 37z sig s1g 56034877e1f87c35 2018-08-22T06: 08:58z 2021-08 21t06: 08:582 sig sig 56034877e1f87c35 2018-08 22t06 : 08: 582 2021-08-21t06: 08:582",
+      "0f635628236906c5 0f635628236906c5 56034877e1f87035 56034877e1f87c35",
+      "uid Gunnar_Eyal_Wolf_Iszaevich_<gwol fedebian_orgz sig sig 673a03e4cldb921f 2019 28T21:54:462 2020-12-19T21:54:462 sig sig 673a03e4cldb921f 2018 21716:35:022 2019-08 14T16:35:02z sig s1g 673a03e4cldb921f 2018-03-22T13:53:052 2019-08-15T17:00:02z sig s1g 673a03e4cldb921f 2016 08-15T16 18: 422 2018-08-15T16: 18:382 sig sig 673a03e4cldb9z1f 2016-05-24T15:55:192 2017-07- 18T15:54:582 sig sig 673a03e4cldb9z1f 2014-08 26T21:48:332 2016- 08 - 25T21:48: 292 732030 ko?T 701 Al 7016 _",
+      "[selfsig] [selfsig] [selfsig] [selfsig] [selfsig] [selfsig]"
+    ]
+  },
+  "image9.png": {
+    "alt": "Terminal output from gpg --list-keys --fingerprint showing Steve Sharpe's 2021 key fingerprint and ultimate trust.",
+    "ocr": [
+      "ssharpe@ssharpe- Lamp gpg list-keys {nome/ ssharpe/ gnupg/pubring kbx",
+      "fingerprint",
+      "pub",
+      "rsa2048 2021-07-26 [SC] [expires: 2021-08-30] C8OF   DBDD 14E8 C9C3 0306 E4EC 155F 8242 BA4A EAD] [ultimate] Steve Sharpe (tempory educational key) <Stevedlikisteve com> rsa2048 2021-07-26 [E] [expires: 2021-08-30]",
+      "uid sub"
+    ]
+  }
+}
