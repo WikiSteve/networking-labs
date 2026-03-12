@@ -1,0 +1,681 @@
+{
+  "Pasted image 20260302114228.png": {
+    "alt": "VMware Workstation virtual machine settings window open while renaming a VM.",
+    "ocr": [
+      "Virtual Machine Settings",
+      "Hardware",
+      "Options",
+      "Setting",
+      "Summary ssharpe-client",
+      "Virtual Machine Name",
+      "Gemeral",
+      "ssharpe-client",
+      "~Change this to ssharpe-CA",
+      "Power Shared Folders Snapshots AutoProtect Guest Isolation Access Control",
+      "Disabled Just power off Disabled",
+      "Guest Operating System 1. Microsoft Windows",
+      "2.Linux",
+      "3 . VMware ESX",
+      "Not encrypted",
+      "Other"
+    ]
+  },
+  "Pasted image 20260302114904.png": {
+    "alt": "Terminal running ssh-copy-id to the LAMP host and prompting to confirm the host fingerprint.",
+    "ocr": [
+      "stevedssharpe-CA:~$ ssh-copy-id stevedssharpe Lamp {usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: Inome/steve/ ssh/id rsa pub\" The authenticity of host ssharpe-Lamp (127 1.1)' can't be established_ ECDSA key fingerprint SHA256 FJNK/ IuKMEadW/MIOvAyK+XLOA89ZYIVUMFWAQOLOHY _ Are you sure you want continue connecting (yes/no) ? yes [usr/bin/ssh-copy-id: INFO: attempting to log in With the new key(s) , filter out any that are already ins talled lusr/bin/ssh-copy-id: INFO: key ( s) remain be installed if you are prompted nov it i5 to install the new keys stevedssharpe-Lamp password:",
+      "Number of key(s) added:",
+      "Now try logging into the machine, with: ssn stevedssharpe-Lamp and check to make sure that only the key(s) you wanted were added_",
+      "steve@ssharpe CA:-$"
+    ]
+  },
+  "Pasted image 20260302121139.png": {
+    "alt": "Firefox toolbar menu button highlighted as the first step toward opening Preferences.",
+    "ocr": [
+      "Firetox",
+      "Step",
+      "Images",
+      "Settings",
+      "Support",
+      "Maill"
+    ]
+  },
+  "Pasted image 20260302121227.png": {
+    "alt": "Firefox application menu open with Preferences highlighted.",
+    "ocr": [
+      "Valodh Origin requires new permissions",
+      "Urag",
+      "uBlock Orgin (Cquifes new Dcfmistion",
+      "sign",
+      "Firefox",
+      "Protections Dashboard",
+      "Newy Window",
+      "CtraN Ctrl- shaft+P",
+      "Newpnvate Wlindow",
+      "Restore Prewous Session",
+      "Tonm",
+      "4oon",
+      "Edit",
+      "Library Logins and Passwrords Add-ont Ctel+shifetA Preerene Open preferences Customire-",
+      "Open Fille.",
+      "Ctrl+0 Ctrl-$",
+      "Jine"
+    ]
+  },
+  "Pasted image 20260302121500.png": {
+    "alt": "Firefox Certificate Manager Authorities tab showing the imported local certificate authority entry.",
+    "ocr": [
+      "Certificate Manager",
+      "Your Certificates",
+      "Authentication Decisions",
+      "People",
+      "Servers",
+      "Authorities",
+      "You have certificates on file that identify these certificate authorities",
+      "Certificate Name",
+      "Security Device",
+      "Sonera",
+      "Sonera Class - Root CA",
+      "Builtin Object Token",
+      "ssharpe",
+      "ssharpe-ca ssharpe local ",
+      "Software Security Device",
+      "SSL Corporation SSL_com Root Certification Authority RSA Builtin Object Token",
+      "Yiew _",
+      "Edit Trust_.",
+      "Import_..",
+      "Export_..",
+      "pelete or Distrust_."
+    ]
+  },
+  "Pasted image 20260304102815.png": {
+    "alt": "Terminal output of cat csrdetails showing the OpenSSL request configuration and subjectAltName entries.",
+    "ocr": [
+      "rootdssharpe-Lamp: # cat csrdetails [req] default bits-2048 prompt-no default_md-sha256 req extensions-req ext distinguished_name-dn",
+      "[dn] C-CA ST-Ontario L-London 0-ssharpe OU-ssharpe local emailAddress-ssharpe@ssharpe. Local CN-WWW . ssharpe local",
+      "[req ext] subjectAltName-dalt_names",
+      "[alt_names] DNS. 1-ssharpe-apache. ssharpe.local rootdssharpe-Lamp: #"
+    ]
+  },
+  "Pasted image 20260304102842.png": {
+    "alt": "Terminal running the openssl req command that generates the web server CSR and private key.",
+    "ocr": [
+      "rootassharpe amp opensst req new sha25o nodes out AM_ ssharpe local- csr newket rsa:2048 keyout |Www . ssharpe local-apache.key config cat csrdetails Jenerating 2048 bit RSA private key",
+      "riting new private key",
+      "Wuw . ssharpe local-apache key",
+      "root@ssharpe Lamp:-",
+      "Double check we're on the right server!"
+    ]
+  },
+  "Pasted image 20260304102934.png": {
+    "alt": "Directory listing showing the newly created CSR file and Apache private key.",
+    "ocr": [
+      "root@ssharpe- Lamp: Il WwW\" -Nw-r-= root root 1155 Aug 11 00:00 WWW ssharpe ca.local csr TV-n- root root 1704 Aug 11 00:00 Wi _ ssharpe. local-apache.key root@ssharpe-Lamp: #"
+    ]
+  },
+  "Pasted image 20260304103001.png": {
+    "alt": "Terminal showing the headers of the CSR and private key files with BEGIN CERTIFICATE REQUEST and BEGIN PRIVATE KEY.",
+    "ocr": [
+      "rootdssharpe-Lamp: # head WWW . ssharpe Local _ csr BEGIN CERTIFICATE REQUEST rootdssharpe Lamp head WWW . ssharpe. local-apache.key BEGIN PRIVATE KEY - root@ssharpe-Lamp:"
+    ]
+  },
+  "Pasted image 20260304104846.png": {
+    "alt": "Terminal showing the CA serial file incremented and index.txt updated after issuing a certificate.",
+    "ocr": [
+      "ootassharpe-CA: /etc/ssl/cA# cat serial Serial has incremented to 2 ootassharpe-CA: etc/ssl/CA# cat index.txt 2108110445422 unknown /C-CA/ST-Ontario/0-ssharpe/OU-ssharpe local/CN-WWM. 55 harpe local/emailAddress-ssharpedssharpe.local rootassharpe-CA:/etc/ssl/cA#"
+    ]
+  },
+  "Pasted image 20260304105309.png": {
+    "alt": "FileZilla Site Manager configured to connect to the CA host with SFTP.",
+    "ocr": [
+      "FileZilla",
+      "File Edit View Transfer Server Bookmarks Help",
+      "0 Ik",
+      "37",
+      "Host:",
+      "Username:",
+      "Password:",
+      "Port:",
+      "Quickconnect",
+      "Site Manager",
+      "Select entry:",
+      "General",
+      "Advanced",
+      "Transfer Settings",
+      "Charset",
+      "My Sites Firewall INFO-3094",
+      "Protocol:",
+      "SFTP _ SSH File Transfer Protocol",
+      "info3099wikisteve.com ssharpe CA va3atc@freeshell.org vsftpd lab",
+      "Host:",
+      "192.168.90.200",
+      "Port:",
+      "Local site: | /homelw",
+      "Logon Type: Normal",
+      "User:",
+      "steve",
+      "bin boot cdrom",
+      "Password:",
+      "Reeeee"
+    ]
+  },
+  "Pasted image 20260304105735.png": {
+    "alt": "Firefox warning page showing a certificate error when visiting the site without the matching trusted hostname.",
+    "ocr": [
+      "Warning: Potential Security Risk Anead Moziila Firefox",
+      "Warning: Potential Securit; X",
+      "C",
+      "https:| ssharpe.local",
+      "Warning: Potential Security Risk Ahead Firefox detected a potential security threat and did not continue to ssharpe.local. If you visit this site, attackers could try to steal information like your passwords, emails_ or credit card details",
+      "What can you do about it? The issue is most likely with the website, and there is nothing you can do to resolve it: You can notify the website's administrator about the problem:",
+      "Learn more:. ~",
+      "Go Back (Recommended)",
+      "Advanced"
+    ]
+  },
+  "file-5f31d346cdbb3.jpg": {
+    "alt": "Decorative certificate-themed illustration for the lab introduction.",
+    "ocr": [
+      "SOLLEX URATM"
+    ]
+  },
+  "file-5f31d8096558b.png": {
+    "alt": "vi editing /etc/hostname with the current client hostname before renaming the CA VM.",
+    "ocr": [
+      "steve@ssharpe ssharpe-client",
+      "letc/hostnale\" 1L, 15C"
+    ]
+  },
+  "file-5f31d86a409e6.png": {
+    "alt": "vi showing the updated hostname set to the CA name and the :wq save-and-quit command.",
+    "ocr": [
+      "ssharpe-CA",
+      ":Wq"
+    ]
+  },
+  "file-5f31d903cda2b_slide3_flat.png": {
+    "alt": "/etc/hosts open in the editor with localhost and host-specific name entries.",
+    "ocr": [
+      "127.0.0.1 127.0.1.1 17.0.1.1",
+      "localhost ssharpe- Lamp ssharpe client",
+      "Change ssharpe-client toyournewhostname The following lines are desirable for IPvb capable hosts localhost ip6-localhost ip6-loopback 'Jetc/hosts 8L , 217C"
+    ]
+  },
+  "file-5f31da2be4a2f_slide4_flat.png": {
+    "alt": "VMware Workstation window showing the VM selected before opening its settings.",
+    "ocr": [
+      "ssharpe-cliet",
+      "File Edit View VM Tabs Help",
+      "ssharpe-client",
+      "CSECZ-LAMP server",
+      "Ubuntu 16.04.6 LTS ssharpe-client tty1",
+      "ssharpe-client login: steve Password",
+      "Loy' incorrect ssharpe-client login: steve Password Last login: Sun Jul 26 12:23:37 EDT 2020 from Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0"
+    ]
+  },
+  "file-5f31db23d7274_slide6_flat.png": {
+    "alt": "VMware Workstation inventory showing the certificate authority VM name after renaming.",
+    "ocr": [
+      "File Edit View VM",
+      "ssharpe-CA",
+      "Ubuntu 16.04.6 LIS ssh",
+      "ssharpe-client login: Password:",
+      "Log incorrect ssharpe-client login: Password"
+    ]
+  },
+  "file-5f31db85d2e1f_slide6_flat.png": {
+    "alt": "Terminal reboot attempt showing sudo unable to resolve the old hostname before the restart.",
+    "ocr": [
+      "stevelssharpe-client stevelssharpe-client 3 stevelssharpe-client sudo reboot sudo unable to resolve host ssharpe-client Connection timed out [sudo] password for steue"
+    ]
+  },
+  "file-5f31dbeadca60_slide6_flat.png": {
+    "alt": "VMware Workstation inventory showing the LAMP server VM renamed to its new label.",
+    "ocr": [
+      "ssharpe-CA",
+      "CSECZ-LAMP server",
+      "Ubuntu 16.04.6 LTS ssharpe-CA tty1",
+      "ssharpe-CA",
+      "after restart"
+    ]
+  },
+  "file-5f31dffb08236_slide2_flat.png": {
+    "alt": "ifconfig output on the LAMP server showing its static IPv4 address.",
+    "ocr": [
+      "stevedssharpe- Lamp $ ifconfig ens33 Link encap:Ethernet Hladdr 00: Oc: 29:38:8f:a3 inet addr:192.168. 90.10 Bcast:192.168.90.255 Mask:255.255.255.0 inetb addr: fe80 20c : 29ff:fe38:8fa3/64 Scope:Link"
+    ]
+  },
+  "file-5f31e1e10c2f2_slide4_flat.png": {
+    "alt": "ssh-keygen generating a public and private key pair on the CA machine.",
+    "ocr": [
+      "steve@ssharpe-CA:-$ ssh-keygen Generating public/private Tsa key pair  Enter file in Which to save the key (/home/steve/ .ssh/id_rsa) : Enter passphrase (empty for passphrase) : Enter salle passphrase again: Your identification has been saved in /home/ steve/ ssh/id rsa Your public key nas been saved in /nome/steve/ ssh/id rsa.pub . The key fingerprint is: SHA256: PPOL+F9TAdYzmoLZwJTPCYOLabollmUlaxlzguqlrXs stevedssharpe The key\" randomart image is: [RSA 2048 ]",
+      "F0= +OBooo+ 0S-0",
+      "[SHA256] stevedssharpe CA:"
+    ]
+  },
+  "file-5f31e3b9f1071_slide2_flat.png": {
+    "alt": "/etc/hosts edited on the CA machine to map the LAMP hostname to its static IP address.",
+    "ocr": [
+      "1p7.0.0.1 127.0.1.1 192.168. 90. 10",
+      "localhost ssharpe ssharpe-LAMP",
+      "The following lines are desirable for localhost ip6-localhost ip6-loopba"
+    ]
+  },
+  "file-5f31e40275acf.png": {
+    "alt": "ping by hostname succeeding against the LAMP server after the hosts file update.",
+    "ocr": [
+      "stevedssharpe-CA: ping ssharpe-Lamp PING ssharpe LANP (192.168.90.10) 56(84) bytes of data 64 bytes from ssharpe-LAMP (192.168. 90.10) icmp_seq-1 ttl-64 time-0.738 64 bytes from ssharpe-LAMP (192.168.90.10) : icmp_seq-2 ttl-64 time-0.237"
+    ]
+  },
+  "file-5f31e47161c6e_slide6_flat.png": {
+    "alt": "SSH login to the LAMP server succeeding by hostname and showing the Ubuntu banner.",
+    "ocr": [
+      "steve@ssharpe-CA:-$ ssh stevedssharpe-Lamp come to Ubuntu 16.04.6 LTS (GNU/Linux 4.0-142-generic x86_64)",
+      "Documentation: https: / /help.ubuntu com Management: https /landscape. canonical com Support: https lubuntu com/ advantage",
+      "165 packages can be updated 117 updates are security updates",
+      "New release 4 LTS' available Run do-release-upgrade to upgrade to it",
+      "Last login: Mon Aug 10420113:54 2020 from 192.168.90 . stevedssharpe- Lamp"
+    ]
+  },
+  "file-5f31e57310ab4_slide7_flat.png": {
+    "alt": "visudo or sudoers content showing the sudo group configuration where NOPASSWD is added.",
+    "ocr": [
+      "User alias specification",
+      "Cmnd alias specification",
+      "# User privilege specification root ALL-(ALL:ALL) ALL",
+      "# Members of the admin group may gain root privileges %admin ALL  (ALL) ALL",
+      "# Allow members of group sudo execute any command %sudo ALL= (ALL:ALL) NOPASSWD :LALL",
+      "# See sudoerst51 for more information",
+      "\"#include'"
+    ]
+  },
+  "file-5f31e999d008c.png": {
+    "alt": "systemctl status apache2 showing the Apache service active on the LAMP server.",
+    "ocr": [
+      "rootdssharpe-Lamp systemctl status apachez apache2. service LSB: Apachez web server oaded: Loaded (/etclinit.d/apache2; bad; vendor preset: enabled) Drop-In: llib/systemd/system/apache2.service apache2-systemd.conf Active: active (running) since Mon 2020-08-10 20:39:57 EDT; Zmin 395 ago Docs: man: systemd-Sysv-generator(8) Process: 20745 ExecStop-/etc/init.d/apache2 stop (code-exited, status-O/SUCCESS) Process: 20771 ExecStart- /etclinit.d/apache2 start (code-exited, status-O/SUCCESS) Tacke"
+    ]
+  },
+  "file-5f31ea5170258_slide2_flat.png": {
+    "alt": "PHP command output confirming that PHP is working on the LAMP server.",
+    "ocr": [
+      "Aug 10 20:39:57 ssharpe amp systemd[1] Started LSB: Apache2 web server rootdssharpe-Lamp: # php echo 'InInPHP rking Inlnin\"",
+      "PHP i5 working"
+    ]
+  },
+  "file-5f31eae6651e7.png": {
+    "alt": "Lynx displaying the default Apache Ubuntu web page with the It works message.",
+    "ocr": [
+      "Apachez Ubuntu Detault Page: Ubuntu Logo Apache2 Ubuntu Default Page It works!",
+      "Works (pl",
+      "This i5 the default welcome page used test the correct operation of the Apachez server after installation on Ubuntu systems It i5 based the equivalent page Debian , from Which the Ubuntu Apache packaging derived _ If you can read this page means that the Apache HTTP server installed at this site is working properly. You should replace this file located Ivar /WWW/html/index.html) before continuing operate your HTTP server .",
+      "If you are norma( user of this Web site and don' know what this page 1s about, this probably means that the site i5 currently unavailable due to maintenance_ If the problem persists, please contact the site administrator _ Configuration Overview",
+      "Ubuntu' Apache2 default configuration is different from the upstream default configuration, and split into several files optimized for interaction With Ubuntu tools The configuration system is fully press space for next page Arrow keys: and Down move _ Rignt to follow Link; Left to go back. Hleld Olotions pirint Gio Miain ccreen Omit Iesearch Ideletelehistorv Tist"
+    ]
+  },
+  "file-5f32054c3c4a4.png": {
+    "alt": "openssl req -new -x509 command generating the CA certificate and encrypted private key.",
+    "ocr": [
+      "root@ssharpe-CA: # openssl req new X509 extensions Generating 2048 bit RSA private key",
+      "keyout cakey.pem out cacert.pem days 365",
+      "writing new private key to cakey.pem Enter PEM pass phrase: Verifying Enter PEM pass phrase:",
+      "You are about to be asked to enter information that will be incorporated into your certificate request What you are about to enter is What is called Distinguished Name DN _ There are quite few fields but you can Leave some blank For some fields there will be default value If you enter the field will be left blank_",
+      "Country Nale (2 letter code) [AU] State or Province Nae (full name) [Some-State] Ontario Locality Name (eg city) [J:London Organization Name company ) [Internet Widgits Pty Ltd] : SSharpe Organizational Unit Nale (eg, section) [J:ssharpe. local Common Name (e.g server FODN or  YOUR nale ) [l:ssharpe ssharpe. local Email Address []:ssharpedssharpe. local root@ssharpe-CA:"
+    ]
+  },
+  "file-5f32060ef11e3.png": {
+    "alt": "Directory listing showing cacert.pem and cakey.pem created in the CA root home directory.",
+    "ocr": [
+      "rootdssharpe-CA: # ll ca* M-Tn- root root 1484 Aug 10 22:35 cacert.pem -MV-T-n- root root 1834 Aug 10 22:35 cakey.pem root@ssharpe-CA: #"
+    ]
+  },
+  "file-5f3206b825097.png": {
+    "alt": "head output showing BEGIN CERTIFICATE in cacert.pem and BEGIN ENCRYPTED PRIVATE KEY in cakey.pem.",
+    "ocr": [
+      "root@ssharpe-CA: # head cacert.pem BEGIN CERTIFICATE rootdssharpe-CA: # head cakey.pem BEGIN ENCRYPTED PRIVATE KEY root@ssharpe-CA: #"
+    ]
+  },
+  "file-5f3207412a006.png": {
+    "alt": "file and cat output comparing cacert.pem and cakey.pem and illustrating why file type alone is not enough.",
+    "ocr": [
+      "rootdssharpe CA: # file cacert.pem cacert.pem: PEM certificate root@ssharpe CA: file cakey.pem cakey . pem: ASCII text rootdssharpe-CA: # cat cakey pem BEGIN ENCRYPTED PRIVATE KEY - MIIFDjBABgkqhkiGgwOBBQOwMzAbBgkqhkiG9wOBBOWWDgQILRzoto37HxECAggA MBOGCCGGSIb3DOMHBAg+S+kdhaJ3FwSCBHgphyRhf4DFra8RZochGzRfidkayza+"
+    ]
+  },
+  "file-5f320be305fd4_slide9_flat.png": {
+    "alt": "Long listing confirming cacert.pem has been moved into /etc/ssl/certs.",
+    "ocr": [
+      "rootdssharpe-CA: # 1l /etc/ssl/certs/cacert.pem T-n- root root 1484 Aug 10 22:35 /etc/ssl/certs/cacert.pem root@ssharpe-CA: #"
+    ]
+  },
+  "file-5f3213391cd90.png": {
+    "alt": "OpenSSL text view of the CSR showing the subject fields and public key information.",
+    "ocr": [
+      "Certificate Request: Data: Version: (Oxo) Subject: C-CA, ST-Ontario, L-London, 0-ssharpe , OU-ssharpe. local/emailAddress-ssha rpedssharpe. local, CN-WWW . ssharpe. local Subject Public Key Info: Public Key Algorithm: rsaEncryption Public-Key: (2048 bit)"
+    ]
+  },
+  "file-5f32199799cdf.png": {
+    "alt": "Terminal on the LAMP server preparing the CSR file so it can be transferred to the CA host.",
+    "ocr": [
+      "rootdssharpe-Lamp root@ssharpe Lamp",
+      "WWMW . ssharpe",
+      "local.csr {tmp"
+    ]
+  },
+  "file-5f321b57c2dd3.png": {
+    "alt": "scp command on the CA server copying the CSR from the LAMP host and prompting to trust the remote SSH key.",
+    "ocr": [
+      "rootdssharpe-CA: /etc/ssl/certs# scp stevedssharpe Lamp: tmp WW _ ssharpe local csT W sharpe ca.local.csr The authenticity of host ssharpe Lamp (192.168.90.10) : can't be established _ ECDSA key fingerprint is SHA256:FJNK/IuKMEadW/MIOvAyK+XLOA89ZYIVUMFWAQOLOMY _ Are you sure you want continue connecting (yes/no) ? yes Warning: Permanently added ssharpe-Lamp, 192 168 90.10 ' (ECDSA) to the list known hosts",
+      "stevedssharpe-Lamp password: WMM . ssharpe-ca local.csr",
+      "100% 1155",
+      "1.1KB/ 5",
+      "00:00"
+    ]
+  },
+  "file-5f321b9634173_slide6_flat.png": {
+    "alt": "Long listing in /etc/ssl/certs confirming the CSR file is now on the CA server.",
+    "ocr": [
+      "rootassharpe CA: /etc/ssl/certs# 1l WM . ssharpe-ca local.csr MV-n-- root root 1155 Aug 11 00:15 WW _ ssharpe-ca.local csr rootdssharpe CA: letc/ssl/certs#"
+    ]
+  },
+  "file-5f321d5b446c4_slide7_flat.png": {
+    "alt": "cat output showing the BEGIN CERTIFICATE REQUEST block from the CSR stored in /etc/ssl/certs.",
+    "ocr": [
+      "rootdssharpe CA: /etc/ssl/certs# cat WWW ssharpe local.csr BEGIN CERTIFICATE REQUEST MIIDHDCCAgOCAQAWGZWXCZAJBGNVBAYTAkNBMRAWDgYDVOQIDAdPbnRhcmlvMQ8w DOYDVOOHDAZMb2Skb24xEDAOBgNVBAOMB3NzaGFycGUxF jAUBgNVBAsMDXNzaGFy cGUubgg_ Ylx JDAiBgkqhkiG9wOBCQENFXNzaGFycGVAc NoYXJwzSSsbzNhbDEa GAIUEAWWRd3d3LnNzaGFycGUubgg YlwwggEiMAOGCSGGSID3DQEBAQUAA4IB DwAWggEKAOIBAQDInmcCL 9vTy3mLnTbt6G5869uVTgTrvNjkoallj IgslcB/aTNRA bnN38f440h9m/P3PU84+kRocBc9iloqJ L4AELMQAgWNLchmgu8biTl8Kpoxh iqBvY7Jczm4OzMSdBbSUmh4xf3BFRwUggyVgoa/ 7t+XiOldSq9zEZNfEbGgcmLko 9Iw4x9filiqdMYYhliSSBZbgMLkDnSkNpB7GBmguaz54cn92j+pu+/7iz58oP /m5 SXUn/6fVroimZsSUOMOnizqk5g07kf+ixz63vomlhJ/KOHxoOlzAASWOOBWWNDjz YTbVx49fnK+Zj jnvGzSLcL4pEXd+ApuFZNfTAgMBAAGgOjA4BgkqhkiG9wOBCQ4x KzApMCcGAIUdEQOgMB6CHHNzaGFycGUtYXBhYzhlLnNzaGFycGUubg9 YIWDOYJ KoZIhvcNAQELBQADGgEBAMj dBkzoyXtzRqfOBdFZHVXKIZ8KeKAjAkxfzoReitb khThKgskurYwkZlIKOTnjzjpvrLTEbbhSZzsVIiIq zJZVlzyVlUx+NWCrmMhSux g75rrxyGoSZnHERlpSIqUliuizlcsd98ByJ/zfaeggEbGXllzYRYfKcTixMBXAHH FJEgUdSChPEMshgluxEeyMAhq RZPODPiudayzdo 2mDloOSYbzYyLHfzEgf7I6 VdTkOdIFBi3oluDOSWsZwSH3YPTLiHZLVBUrggqNhiuztfc/qb4BTTvJ679GDFpo M/UTDIPUpSpp4f9lNVSyULhQATj jaOM6zSR/xyrTYCI= END CERTIFICATE REQUEST_ root@ssharpe-CA: /etc/ssl/certs#"
+    ]
+  },
+  "file-5f3222d84302f_slide1_flat.png": {
+    "alt": "openssl ca command output prompting for the CA key passphrase and asking whether to sign the certificate.",
+    "ocr": [
+      "rootdssharpe CA: /etc/ssl/certs# openssl ~in Wm _ ssharpe local CsT config /etc/ssl/openssl cnf Using configuration from /etc/ssl/openssl.cnf Enter pass phrase for /etc/ssl/private/cakey.pem: Check that the request matches the signature Signature 0k Certificate Details: Serial Number: (Oxl) Validity Not Before: Aug 04:45:42 2020 GHT Not After Aug 04:45:42 2021 GMT Subject: countryName stateOrProvinceName Ontario organizationName ssharpe organizationalUnitName ssharpe. local commonName WW ssharpe local emailAddress ssharpedssharpe. local X50gv3 extensions: X5ogv3 Basic Constraints: CA: FALSE Netscape Comment: OpenSSL Generated Certificate X5ogv3 Subject Key Identifier: A2 : 8E : 8A:C3:AS:50 09:F3:18 02:98: D6 : 58:F3:41:F5:94:AZ:AA:87 X50gv3 Authority Key Identifier:"
+    ]
+  },
+  "file-5f3227b7d9f5b_slide2_flat.png": {
+    "alt": "OpenSSL duplicate-request error showing the certificate database rejected signing the same CSR again.",
+    "ocr": [
+      "Certificate is to be certified until Aug 11 05:07:41 2021 GHT (365 days) Sign the certificate? [y/n]:y failed to update database TXT error number root@ssharpe-CA: /etc/ssl/certs#"
+    ]
+  },
+  "file-5f322a1914417_slide3_flat.png": {
+    "alt": "scp command on the LAMP server copying 01.pem from the CA into /etc/ssl/certs as the signed certificate.",
+    "ocr": [
+      "rootdssharpe-Lamp: /etc/ssl/certs# cd /etc/ssl/certs/ rootdssharpe-Lamp: /etc/ssl/certs# Scp stevedssharpe ca:/etc/ssl/newcerts/ol.pem ssharpe-apache.ssharp local stevedssharpe password: 01.pem 1002 4718 6KB/s 00:00 rootdssharpe-Lamp: /etc/ssl/certs# ll ssh* -TV-r-T- root root 4718 Aug 01:16 ssharpe-apache. ssharpe. local rootdssharpe-Lamp: /etc/ssl/certs#"
+    ]
+  },
+  "file-5f3233f6524ee_slide3_flat.png": {
+    "alt": "apache2.conf edited to add ServerName localhost under the Global configuration section.",
+    "ocr": [
+      "The binary called apache2. the default configuration, apache letclinit.d/apachez apachezct work with the default configurat",
+      "Global configuration rverName localhost",
+      "ServerRoot: The top of the directo"
+    ]
+  },
+  "file-5f32347bc8931_slide4_flat.png": {
+    "alt": "a2ensite enabling 000-default-ssl.conf and reporting that Apache should be reloaded.",
+    "ocr": [
+      "rootdssharpe-Lamp: /etc/apachez# azensite 000-default-ssl.conf Enabling site 000-default-ssl To activate the new configuration, you need run: service apachez reload"
+    ]
+  },
+  "file-5f3234c402a88_slide4_flat.png": {
+    "alt": "a2enmod ssl enabling the Apache SSL module and its dependencies.",
+    "ocr": [
+      "rootassharpe Lamp letc/apache2# azenmod ssl Considering dependency setenvi for ssl: Module setenvif already enabled Considering dependency mime for ssl: Module mime already enabled Considering dependency socache_ shmcb for ssl: Enabling module socache shmcb _ Enabling module ssl. See {usr/share/doc/apache2/README. Debian.gz on how to configure SSL and create self-signed certificates To activate the nev configuration, you need run: service apache2 restart"
+    ]
+  },
+  "file-5f32369fedc9c_slide5_flat.png": {
+    "alt": "systemctl restart apache2 completing without errors after enabling SSL.",
+    "ocr": [
+      "roo tdssharpe Lamp: /etc/apache2# systemctl restart apachez root@ssharpe Lamp: /etc/apache2#"
+    ]
+  },
+  "file-5f323733a0f39_slide5_flat.png": {
+    "alt": "systemctl status apache2 showing Apache running after the SSL configuration changes.",
+    "ocr": [
+      "rootassna amp apaciez# Psys Lemc tatus Qacnez apache2. service LSB: Apache2 web server Loaded: Loaded (/etclinit.d/apache2; bad; vendor preset: enabled) Drop-In: lib/systemd/system/apache2.service apache2-systemd.conf Active: active (running) since Tue 2020-08-11 02:10:35 EDT; Zmin 165 ago Docs man: systemd-sysv-generator(8) Process: 21444 ExecStop-/etc/init.d/apachez stop (code-exited, status-O/SUCCESS) Process: 21825 ExecStart-/etc/init.d/apache2 start (code-exited , status-O/SUCCESS) Tasks: Memory 15.2M CPU: 120m5 cgroup Isystem.slice/apache2 service F-21842 /usr/sbin/apachez k start 21845 /usr/sbin/apache2 k start 21846 /usr/sbin/apachez k start 21847 /usr/sbin/apache2 k start 21848 /usr/sbin/apache2 k start 21849 /usr/sbin/apache2 k start",
+      "Aug 10:34 ssharpe-Lamp systemd[1] : Stopped LSB: Apache2 web server Aug 11 02:10:34 ssharpe-Lamp systemd[1] Starting LSB: Apache2 web server Aug 10:34 ssharpe-Lamp apache2[21825] : Starting Apache httpd web server apachez Aug 11 02:10:35 ssharpe-Lamp apache2[21825] Aug 11 02:10:35 ssharpe-Lamp systemd[1] : Started LSB: Apache2 web server root@ssharpe-lamp: /etc/apache2#"
+    ]
+  },
+  "file-5f323d42a2bc7_slide2_flat.png": {
+    "alt": "000-default-ssl.conf showing the VirtualHost on port 443 with SSLEngine, certificate, and key directives added.",
+    "ocr": [
+      "UirtualHost :443> The ServerName directive sets the request scheme hostname and port that # the server uses to identify itself This is used when creating redirection URLs the context of virtua hosts the ServerName # specifies what hostname must appear in the request\" Host: header match this virtual host For the default virtual host (this file) this # value i5 not decisive as it i5 used last resort host regardless # However you must set it for any further virtual host explicitly #ServerName WWW . example com",
+      "ServerAdmin webmasterdlocalhost DocumentRoot /var /www/html SSLEngine SSLCertificateFile /etc/ssl/certs/ssharpe-apache. ssharpe.local SSLCertificateKeyFile /etc/ssl/private/cacert.pem"
+    ]
+  },
+  "file-5f323f52e3e3d.png": {
+    "alt": "Firefox displaying a Potential Security Risk warning when visiting the HTTPS site before trusting the certificate authority.",
+    "ocr": [
+      "Warning: Potential Securit; X",
+      "https://192.168.90.10",
+      "Warning: Potential Security Risk Ahead Firefox detected potential security threat and did not continue to 192.168.90.10. If you visit this site; attackers could try to steal information like your passwords_ emails; or credit card details",
+      "What can you do about it? The issue is most likely with the website, and there is nothing you can do to resolve it:",
+      "If you are on corporate network or using anti-virus software, you can reach out to the support teams for assistance: You can also notify the website's administrator bout the problem:",
+      "Learn more:. ~",
+      "Go Back (Recommended)",
+      "Advanced..",
+      "Websites prove their identity via certificates Firefox does not trust this site because it uses a certificate that is not valid for 192.168.90.10.",
+      "Error code: SEC_ERROR_UNKNOWN_ISSUER",
+      "View Certificate"
+    ]
+  },
+  "file-5f3241a9b0ad3_slide8_flat.png": {
+    "alt": "FileZilla host key dialog asking whether to trust the SSH fingerprint of the CA server.",
+    "ocr": [
+      "The server's host key is unknown: You have no guarantee that the server is the computer you think it is. Details Host: 192.168.90.200.22 Hostkey algorithm: ssh-ed25519 255 Fingerprints: SHA256: /h30fhox kqg9rd66xxREgCbiwnjc3VeTOyCdNtCy5O= MDS: be:1a.50.20.2.4e.79.82.40.a6*e1 d0.7c2cce35",
+      "Trust this host and carry on connecting? Always trust this host; add this key to the cache",
+      "Cancel"
+    ]
+  },
+  "file-5f32423406b41.png": {
+    "alt": "FileZilla connected to the CA server over SFTP with the remote file list visible.",
+    "ocr": [
+      "ssharpe-CA - sftp:/ [steve@192.168.90.200 FileZilla",
+      "File Edit View Transfer Server Bookmarks Help",
+      "Host:",
+      "Username_",
+      "Password:",
+      "Port:",
+      "Quickconnect",
+      "Dcomo",
+      "CCCOTY- TScINO",
+      "MECOo",
+      "Status: Status: Status: Status: Status: Status: Status: Status: Status: Status: Status: Status: Status:",
+      "Retrieving directory listing of \"/etc\" Listing directory /etc Directory listing of \"/etc' successful Retrieving directory listing of \"/etc/ssl\" Listing directory /etc/ssl Directory listing of \"/etc/ssl\" successful Retrieving directory listing of \"/etc/ssl/certs' Listing directory /etc/ssl/certs Directory listing of \"/etc/ssl/certs' successful Connecting to 192.168.90.200_ Connected to 192.168.90.200 Starting download of /etc/ssl/certs/cacert pem File transfer successful, transferred 1.5 KB in second",
+      "Local site: /homefworf(Desktop/",
+      "Remote site: (etc/sslcerts",
+      "waterfox",
+      "wine",
+      "cents",
+      "x2go xournal",
+      "newcerts private sudoers d sysctl.d systemd terminfo",
+      "zoom",
+      "Desktop Wildlife studies Documents ownloads",
+      "Filename",
+      "Filesize Filetype",
+      "Last modified",
+      "Filename thawte_ Primary_Ro_ thawte_ Primary_Ro_ thawte_ Primary_Ro_ ca-certificates crt",
+      "Filesize Filetype",
+      "Last modified Permissions",
+      "Directory Directory Directory 233.4 KB   crt-file 15 KB pem-file 1.2 KB   csr-file",
+      "2020-06-29 0_ Irwxrwxr _ 2020-06-29 0_ Irwxrwxr _ 2020-06-29 0_ Irwxrwxr _ 2020-06-29 0__ PWFS",
+      "Wildlife studies Framework-to-restart-O_ PacketTracer cacert pem",
+      "Directory 2.9 MB pdf-file 13 B File 1.5 KB   pem-file notes 677 B File successful suspend 21.3 KB_ File files and directory. Total size: 3.0 MB",
+      "2020-05-01 11.04.06 2020-04-28 08.44337 2019-01-11 12.41.14 2020-08-11 03.00.32 2020-07-29 12.55339 2020-03-16 01.40.25",
+      "cacert pem WWWssharpe-ca.loc_",
+      "2020-08-11 1_ n",
+      "2020-08-11 1_ mw-T-r_",
+      "Selected file: Total size: 1.5 KB",
+      "Server/Local file",
+      "Direction Remote file",
+      "Size Priority Status",
+      "Queued files",
+      "Failed Fransfers",
+      "Successful FransFers"
+    ]
+  },
+  "file-5f32448368e6e_slide12_flat.png": {
+    "alt": "Firefox Preferences open to Privacy & Security as the third step toward managing certificates.",
+    "ocr": [
+      "Startpage.com The world\"",
+      "Preferences",
+      "Firefox about:preferences#privacy",
+      "Find in Preferences",
+      "General",
+      "Browser Privacy",
+      "Home",
+      "Enhanced Tracking Protection",
+      "Trackers follow you around online to collect information Manage Exceptions_.= about your browsing habits and interests. Firefox blocks many Step : these trackers and other malicious scripts_ Learn more",
+      "Search",
+      "Privacy & Security",
+      "Sync",
+      "Standard Balanced for protection and performance Pages will load normally:",
+      "Strict"
+    ]
+  },
+  "file-5f3244d9288d2_slide13_flat.png": {
+    "alt": "Firefox certificate settings area with the View Certificates button highlighted.",
+    "ocr": [
+      "Warn you about unwanted and uncommon software",
+      "Certificates",
+      "When server requests your personal certificate Select one automatically Ask you every time Query OCSP responder servers to confirm the current validity of certificates",
+      "View Certificates_",
+      "Security Devices_"
+    ]
+  },
+  "file-5f32453baeacb_slide14_flat.png": {
+    "alt": "Firefox Certificate Manager on the Authorities tab with the Import button highlighted.",
+    "ocr": [
+      "Certificate Manager",
+      "Your Certificates",
+      "Authentication Decisions",
+      "People",
+      "Servers",
+      "Authorities",
+      "You have certificates on file that identify these certificate authorities",
+      "Certificate Name",
+      "Security Device",
+      "AC Camerfirma SA_",
+      "Chambers of Commerce Root 2008 Builtin Object Token Global Chambersign Root  2008 Builtin Object Token AC Camerfirma SA CIF A82743287 Camerfirma Chambers of Commerce Root Builtin Object Token Camerfirma Global Chambersign Root Builtin Object Token",
+      "View;. -",
+      "Edit Trust  =",
+      "Import..",
+      "{Step5 Delete or Distrust: -",
+      "OK"
+    ]
+  },
+  "file-5f3245f61c67b_slide15_flat.png": {
+    "alt": "File picker dialog selecting cacert.pem for import into Firefox.",
+    "ocr": [
+      "Select File contal",
+      "Home",
+      "worf",
+      "Desktop",
+      "Desktop",
+      "Name",
+      "Documents",
+      "Wildlife studies cacert pem Selectthecertificate",
+      "Downloads",
+      "Music",
+      "Pictures",
+      "Videos"
+    ]
+  },
+  "file-5f32464e3b227_slide16_flat.png": {
+    "alt": "Firefox Downloading Certificate dialog asking which trust purposes to enable for the imported CA.",
+    "ocr": [
+      "Downloading Certificate",
+      "You have been asked to trust new Certificate Authority (CA):",
+      "Do you want to trust \"ssharpe-ca ssharpe.local\" for the following purposes? Trust this CA to identify websites_ Trust this CA to identify email users:",
+      "Before trusting this CA for any purpose,you should examine its certificate and its policy and procedures (if available)",
+      "View",
+      "Examine CA certificate",
+      "Cancel",
+      "OK"
+    ]
+  },
+  "file-5f32499c4035d.png": {
+    "alt": "Windows start menu search for Notepad with Run as administrator selected before editing the hosts file.",
+    "ocr": [
+      "Installing VMWare VMware Workstation",
+      "File Edit View VM Tabs Help",
+      "ssharpe-CA",
+      "CSECZ-LAMP server",
+      "Windows Server 2019",
+      "Installing VMWare",
+      "Recycle Bin",
+      "putty exe",
+      "very private key ppk",
+      "Notepad Run as administrator Web Open file location notepad",
+      "4",
+      "notepaq Pin to Start",
+      "notepaq Pin to taskbar",
+      "WinHex",
+      "notepad Tree",
+      "notepad app",
+      "notepad3",
+      "notepad apk",
+      "notepad offline",
+      "My stuff",
+      "Web",
+      "Activate Windows Go to Settings t0 activate Windows:",
+      "notepad",
+      "[CZ 2",
+      "E 3.32 AM",
+      "To return to your computer; move the mouse pointer outside or press Ctrl-Alt.",
+      "@ @"
+    ]
+  },
+  "file-5f324a43bbb4f_slide18_flat.png": {
+    "alt": "Windows Explorer open to the System32 drivers etc folder that contains the hosts file.",
+    "ocr": [
+      "Open",
+      "System32",
+      "drivers",
+      "Search etc",
+      "Organize",
+      "New folder",
+      "Bz=",
+      "Music Videos",
+      "Name",
+      "Date modified",
+      "hosts Imhosts.sam",
+      "8/5/2020 8.55 PM 7/10/2015 7:02 AM 7/10/2015 7;02 AM 7/10/2015 7.02 AM 7/10/2015 7;02 AM",
+      "OneDrive",
+      "networks protocol services",
+      "This PC",
+      "Desktop",
+      "Documents",
+      "Download:",
+      "Music Pictures Videos Local Disk (C:)",
+      "Search for asterisk all files",
+      "to see",
+      "File name:",
+      "Text Documents (* txt)",
+      "Encoding:  ANSI",
+      "Qpen",
+      "Cancel"
+    ]
+  },
+  "file-5f324ca919a07_slide20_flat.png": {
+    "alt": "Firefox showing the Apache default page over HTTPS with a closed padlock and no certificate errors.",
+    "ocr": [
+      "Apachez Ubuntu Default Page: It works Mozilla Firefox",
+      "Apachez Ubuntu Default Page",
+      "https:/ /wwW ssharpe.local",
+      "Apache2 Ubuntu Default Page ubuntu It works! This is the default welcome page used to test the correct operation of the Apache2 server aft installation on Ubuntu systems It is based on the equivalent page on Debian; from which the Apache packaging is derived_ If you can read this page, it means that the Apache HTTP serve at this site is working properly: You should replace this file (located at /var/www/html/inde before continuing to operate your HTTP server: If you are a normal user of this web site and don't know what this page is about, this probably that the site is currently unavailable due to maintenance. If the problem persists_ please cont site's administrator:",
+      "Configuration Overview"
+    ]
+  },
+  "file-5f32b61530c21_slide2_flat.png": {
+    "alt": "Excerpt from the OpenSSL CA_default configuration showing the CA directory, database, certificate, serial, and private key paths.",
+    "ocr": [
+      "[etc/ssl letc/ssl/CA/index txt [etc/ssl/certs cacert.pem letc/ssl/CA/serial [etc/ssl/privatefcakey.pem letc/ssl/newcerts",
+      "Where everything is kept database database index file_ The certificate The current serial number private key # The private key When we sign CSR this is where the CRT will",
+      "(signed certificate)"
+    ]
+  },
+  "file-625f6183be5db.png": {
+    "alt": "Windows Notepad displaying the hosts file with entries for www.your_username.local and your_username.local.",
+    "ocr": [
+      "~hosts - Notepad File Edit Format View Help # localhost name resolution is handled within DNS itself 127.0.0_ localhost 192.168.90.10 H ssharpe.local 192.168.90.10 ssharpe.local localhost"
+    ]
+  }
+}

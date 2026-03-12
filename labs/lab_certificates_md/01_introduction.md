@@ -4,7 +4,7 @@
 
 This lab will be using OpenSSL and Apache to illustrate the process from a company creating their own key pair, to requesting a certificate from a certificate authority to lastly installing that certificate in their web server to provide confidence to end users that that web communication is both secure and that the owner of the server is trusted.
 
-![Screenshot](./assets/images/file-5f31d346cdbb3.jpg)
+![Decorative certificate-themed illustration for the lab introduction.](./assets/images/file-5f31d346cdbb3.jpg)
 
 Objectives:
 
