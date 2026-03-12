@@ -22,13 +22,13 @@ Check the status
 
 **systemctl status apache2**
 
-![Screenshot](./assets/images/file-5f31e999d008c.png)
+![systemctl status apache2 showing the Apache service active on the LAMP server.](./assets/images/file-5f31e999d008c.png)
 
 Test that PHP is working
 
 php -r 'echo "\n\nPHP is working\n\n\n";'
 
-![Screenshot](./assets/images/file-5f31ea5170258_slide2_flat.png)
+![PHP command output confirming that PHP is working on the LAMP server.](./assets/images/file-5f31ea5170258_slide2_flat.png)
 
 Install `lynx` to confirm connectivity to the Apache server from the headless server.
 
@@ -40,7 +40,7 @@ The lynx localhost should bring up the apache default web page in text mode. Use
 
 ## **Screenshot 1: Default Apache page in Lynx**
 
-![Screenshot](./assets/images/file-5f31eae6651e7.png)
+![Lynx displaying the default Apache Ubuntu web page with the It works message.](./assets/images/file-5f31eae6651e7.png)
 
 Try some of the following commands and note their differences and consider applicable uses for all three and consider the potential uses within the security field.
 

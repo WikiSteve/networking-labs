@@ -11,3 +11,7 @@
 - [Configure Apache to use signed certificates](05_configure-apache-to-use-signed-certificates.md)
 - [Troubleshooting OpenSSL](06_troubleshooting-openssl.md)
 - [Lecture](07_lecture.md)
+
+## Accessibility
+
+- [Screenshot alt text and OCR transcript data](./assets/screenshot-ocr.json)
