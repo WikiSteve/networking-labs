@@ -26,3 +26,7 @@ Build a small GPG web of trust with a class partner and use OpenPGP verification
 - [03 Generate Your Key](03_generate-your-key.md)
 - [04 Signing Other Keys](04_signing-other-keys.md)
 - [05 Verify Mozilla Firefox Installer](05_verify-firefox-installer.md)
+
+## Accessibility
+
+- [Screenshot alt text and OCR transcript data](assets/screenshot-ocr.json)

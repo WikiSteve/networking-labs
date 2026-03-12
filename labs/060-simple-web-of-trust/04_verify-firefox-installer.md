@@ -9,33 +9,33 @@ Download two files from Mozilla’s mirror:
 
 In a directory of your choice, download both files with **`wget`**.
 
-![Screenshot](assets/images/image5.png)
+![Terminal creating a Firefox download directory and using `wget` to download `firefox-99.0.tar.bz2` from Mozilla with progress output.](assets/images/image5.png)
 
 ## Verify the Files Are Authentic
 
 The `.asc` file is a signature for the Firefox archive.
 
-![Screenshot](assets/images/image15.png)
+![Terminal showing the start of `firefox-99.0.tar.bz2.asc`, including the `BEGIN PGP SIGNATURE` block.](assets/images/image15.png)
 
 Let's try to verify that the file really is from Mozilla or one of its developers.
 
-![Screenshot](assets/images/image3.png)
+![First `gpg --verify` attempt on the Firefox archive, failing with `Can't check signature: No public key`.](assets/images/image3.png)
 
 Well, it is in fact a signature, but we’re missing Mozilla’s public key. They’ve given us the keyID above as 4360FE2109C49763186F8E21EBE41E90F6F12F6D.
 
 Let’s search for this key and see if we can find it.
 
-![Screenshot](assets/images/image30.png)
+![Terminal searching the Ubuntu keyserver for Mozilla's signing key and importing `Mozilla Software Releases <release@mozilla.com>`.](assets/images/image30.png)
 
 Try the verification again
 
-![Screenshot](assets/images/image31.png)
+![Second `gpg --verify` attempt showing a good Mozilla signature plus warnings that the key is not yet trusted, with primary and subkey fingerprints.](assets/images/image31.png)
 
 Verification was successful. However, because we do not have a [web-of-trust path](https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key) to Mozilla’s key, GnuPG may still report trust warnings even when the signature itself is valid.
 
 You’ll see we don’t trust this key at all.
 
-![Screenshot](assets/images/image38.png)
+![Interactive `gpg --edit-key` view of Mozilla's key showing trust undefined, validity unknown, and the main key plus subkey IDs.](assets/images/image38.png)
 
 > [!WARNING]
 > In a real workflow, verify the key fingerprint from an official Mozilla source. Do not mark Mozilla’s key as ultimately trusted, because `ultimate` trust is reserved for keys you control.
@@ -44,7 +44,7 @@ For this lab, stop after confirming the fingerprint and the good signature. A tr
 
 Rerun the verification and confirm that the signature is valid. A trust warning may still appear, but that does not invalidate the good signature.
 
-![Screenshot](assets/images/image32.png)
+![Verification after a trustdb update showing a good signature from Mozilla Software Releases and the key marked ultimate in the original workflow.](assets/images/image32.png)
 
 ## **Screenshot 5: Show a successful verification**
 
