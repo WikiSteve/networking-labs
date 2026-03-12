@@ -23,7 +23,7 @@
   "Pasted image 20260302114904.png": {
     "alt": "Terminal running ssh-copy-id to the LAMP host and prompting to confirm the host fingerprint.",
     "ocr": [
-      "stevedssharpe-CA:~$ ssh-copy-id stevedssharpe Lamp {usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: Inome/steve/ ssh/id rsa pub\" The authenticity of host ssharpe-Lamp (127 1.1)' can't be established_ ECDSA key fingerprint SHA256 FJNK/ IuKMEadW/MIOvAyK+XLOA89ZYIVUMFWAQOLOHY _ Are you sure you want continue connecting (yes/no) ? yes [usr/bin/ssh-copy-id: INFO: attempting to log in With the new key(s) , filter out any that are already ins talled lusr/bin/ssh-copy-id: INFO: key ( s) remain be installed if you are prompted nov it i5 to install the new keys stevedssharpe-Lamp password:",
+      "stevedssharpe-CA:~$ ssh-copy-id stevedssharpe Lamp {usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: Inome/steve/ ssh/id rsa pub\" The authenticity of host ssharpe-Lamp (127 1.1)' can't be established_ ECDSA key fingerprint SHA256 FJNK/ IuKMEadW/MIOvAyK+XLOA89ZYIVUMFWAQOLOHY _ Are you sure you want continue connecting (yes/no) ? yes [usr/bin/ssh-copy-id: INFO: attempting to log in With the new key(s) , filter out any that are already ins talled lusr/bin/ssh-copy-id: INFO: key ( s) remain be installed if you are prompted now [password prompt redacted]",
       "Number of key(s) added:",
       "Now try logging into the machine, with: ssn stevedssharpe-Lamp and check to make sure that only the key(s) you wanted were added_",
       "steve@ssharpe CA:-$"
@@ -134,7 +134,7 @@
       "37",
       "Host:",
       "Username:",
-      "Password:",
+      "[password field label redacted]",
       "Port:",
       "Quickconnect",
       "Site Manager",
@@ -155,8 +155,7 @@
       "User:",
       "steve",
       "bin boot cdrom",
-      "Password:",
-      "Reeeee"
+      "[password field and masked value redacted]"
     ]
   },
   "Pasted image 20260304105735.png": {
@@ -209,8 +208,8 @@
       "ssharpe-client",
       "CSECZ-LAMP server",
       "Ubuntu 16.04.6 LTS ssharpe-client tty1",
-      "ssharpe-client login: steve Password",
-      "Loy' incorrect ssharpe-client login: steve Password Last login: Sun Jul 26 12:23:37 EDT 2020 from Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0"
+      "ssharpe-client login: steve [password prompt redacted]",
+      "Loy' incorrect ssharpe-client login: steve [password prompt redacted] Last login: Sun Jul 26 12:23:37 EDT 2020 from Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0"
     ]
   },
   "file-5f31db23d7274_slide6_flat.png": {
@@ -219,14 +218,14 @@
       "File Edit View VM",
       "ssharpe-CA",
       "Ubuntu 16.04.6 LIS ssh",
-      "ssharpe-client login: Password:",
-      "Log incorrect ssharpe-client login: Password"
+      "ssharpe-client login: [password prompt redacted]",
+      "Log incorrect ssharpe-client login: [password prompt redacted]"
     ]
   },
   "file-5f31db85d2e1f_slide6_flat.png": {
     "alt": "Terminal reboot attempt showing sudo unable to resolve the old hostname before the restart.",
     "ocr": [
-      "stevelssharpe-client stevelssharpe-client 3 stevelssharpe-client sudo reboot sudo unable to resolve host ssharpe-client Connection timed out [sudo] password for steue"
+      "stevelssharpe-client stevelssharpe-client 3 stevelssharpe-client sudo reboot sudo unable to resolve host ssharpe-client Connection timed out [sudo password prompt redacted]"
     ]
   },
   "file-5f31dbeadca60_slide6_flat.png": {
@@ -248,7 +247,7 @@
   "file-5f31e1e10c2f2_slide4_flat.png": {
     "alt": "ssh-keygen generating a public and private key pair on the CA machine.",
     "ocr": [
-      "steve@ssharpe-CA:-$ ssh-keygen Generating public/private Tsa key pair  Enter file in Which to save the key (/home/steve/ .ssh/id_rsa) : Enter passphrase (empty for passphrase) : Enter salle passphrase again: Your identification has been saved in /home/ steve/ ssh/id rsa Your public key nas been saved in /nome/steve/ ssh/id rsa.pub . The key fingerprint is: SHA256: PPOL+F9TAdYzmoLZwJTPCYOLabollmUlaxlzguqlrXs stevedssharpe The key\" randomart image is: [RSA 2048 ]",
+      "steve@ssharpe-CA:-$ ssh-keygen Generating public/private Tsa key pair  Enter file in Which to save the key (/home/steve/ .ssh/id_rsa) : [passphrase prompts redacted] Your identification has been saved in /home/ steve/ ssh/id rsa Your public key nas been saved in /nome/steve/ ssh/id rsa.pub . The key fingerprint is: SHA256: PPOL+F9TAdYzmoLZwJTPCYOLabollmUlaxlzguqlrXs stevedssharpe The key\" randomart image is: [RSA 2048 ]",
       "F0= +OBooo+ 0S-0",
       "[SHA256] stevedssharpe CA:"
     ]
@@ -364,7 +363,7 @@
     "alt": "scp command on the CA server copying the CSR from the LAMP host and prompting to trust the remote SSH key.",
     "ocr": [
       "rootdssharpe-CA: /etc/ssl/certs# scp stevedssharpe Lamp: tmp WW _ ssharpe local csT W sharpe ca.local.csr The authenticity of host ssharpe Lamp (192.168.90.10) : can't be established _ ECDSA key fingerprint is SHA256:FJNK/IuKMEadW/MIOvAyK+XLOA89ZYIVUMFWAQOLOMY _ Are you sure you want continue connecting (yes/no) ? yes Warning: Permanently added ssharpe-Lamp, 192 168 90.10 ' (ECDSA) to the list known hosts",
-      "stevedssharpe-Lamp password: WMM . ssharpe-ca local.csr",
+      "[password prompt redacted] WMM . ssharpe-ca local.csr",
       "100% 1155",
       "1.1KB/ 5",
       "00:00"
@@ -397,7 +396,7 @@
   "file-5f322a1914417_slide3_flat.png": {
     "alt": "scp command on the LAMP server copying 01.pem from the CA into /etc/ssl/certs as the signed certificate.",
     "ocr": [
-      "rootdssharpe-Lamp: /etc/ssl/certs# cd /etc/ssl/certs/ rootdssharpe-Lamp: /etc/ssl/certs# Scp stevedssharpe ca:/etc/ssl/newcerts/ol.pem ssharpe-apache.ssharp local stevedssharpe password: 01.pem 1002 4718 6KB/s 00:00 rootdssharpe-Lamp: /etc/ssl/certs# ll ssh* -TV-r-T- root root 4718 Aug 01:16 ssharpe-apache. ssharpe. local rootdssharpe-Lamp: /etc/ssl/certs#"
+      "rootdssharpe-Lamp: /etc/ssl/certs# cd /etc/ssl/certs/ rootdssharpe-Lamp: /etc/ssl/certs# Scp stevedssharpe ca:/etc/ssl/newcerts/ol.pem ssharpe-apache.ssharp local [password prompt redacted] 01.pem 1002 4718 6KB/s 00:00 rootdssharpe-Lamp: /etc/ssl/certs# ll ssh* -TV-r-T- root root 4718 Aug 01:16 ssharpe-apache. ssharpe. local rootdssharpe-Lamp: /etc/ssl/certs#"
     ]
   },
   "file-5f3233f6524ee_slide3_flat.png": {
@@ -471,7 +470,7 @@
       "File Edit View Transfer Server Bookmarks Help",
       "Host:",
       "Username_",
-      "Password:",
+      "[password field label redacted]",
       "Port:",
       "Quickconnect",
       "Dcomo",
