@@ -52,7 +52,7 @@ To enable SSH on the Cisco 2811 router, follow these steps. Make sure to replace
    ```
 **Expected Error: Key Exchange Compatibility Issue**
    When you try to connect, you’ll likely see an error message similar to this:
-![Image](assets/images/file-6737802e2016d.png)
+![SSH attempt to the Cisco 2811 failing because the modern client will not negotiate the router's older key exchange algorithm.](assets/images/file-6737802e2016d.png)
 
 - **Explanation of the Error**: This error occurs because the SSH client on your modern Linux system cannot find a **compatible key exchange algorithm** with the router. The Cisco 2811 router is using older algorithms like `diffie-hellman-group14-sha1`, which are considered outdated and are disabled by default on newer SSH clients due to security concerns.
 
@@ -62,7 +62,7 @@ To enable SSH on the Cisco 2811 router, follow these steps. Make sure to replace
    ssh -oKexAlgorithms=+diffie-hellman-group14-sha1 -oHostKeyAlgorithms=+ssh-rsa FirstName@2001:dead:beef:cafe::2
    ```
 
-![Image](assets/images/file-6737842f4a904.png)
+![Second SSH attempt to the Cisco 2811 with legacy key exchange and host key options, now failing on unsupported ciphers.](assets/images/file-6737842f4a904.png)
 
 - **Expected Error: Key Exchange Compatibility Issue**
   When you first tried to connect without specifying options, you likely saw an error indicating that the **key exchange method** was incompatible, followed by another error about **unsupported ciphers**.
@@ -140,7 +140,7 @@ To connect, you’ll need to adjust the cipher-suite settings on your SSH client
 This workaround may seem unexpected for a new device, but it’s a reflection of the Catalyst 1300’s focus on simplicity and basic compatibility rather than support for the latest cryptographic standards. By using this command, you’ll be able to securely access the Catalyst 1300, even with its older SSH settings.
 ## Firmware version
 
-![Image](assets/images/file-6737e5dca03a0.png)
+![Switch show version output highlighting the Catalyst 1300 firmware image and software version.](assets/images/file-6737e5dca03a0.png)
 
 If you end up on a C1300 that Steve upgraded, you're golden. It has the latest cipher-suites :-)
 
@@ -152,7 +152,7 @@ However, Cisco provides a helpful **video tutorial** that walks through configur
 
 [How to Configure SSH Public Key Authentication on Catalyst 1300](https://video.cisco.com/detail/video/6362214127112)
 
-![Image](assets/images/file-6737ebc07dd9a.png)
+![Cisco Tech Talks video page for Catalyst 1200 and 1300 SSH public key authentication.](assets/images/file-6737ebc07dd9a.png)
 
 ### What You’ll Learn in the Video:
 

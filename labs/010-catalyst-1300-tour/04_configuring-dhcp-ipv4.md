@@ -8,7 +8,7 @@ To keep things stable and predictable, we’ll set up a trunk port between the C
 
 Using the 2811 for these services will provide a consistent experience and let us focus on the core lab activities without troubleshooting DHCP hiccups on the C1300.
 
-![Image](assets/images/file-6734c8404fe7c.jpg)
+![Photo of the router-to-switch cabling with the Catalyst Gigabit 1 trunk connected to the Cisco 2811.](assets/images/file-6734c8404fe7c.jpg)
 
 **Verify physical connections**
 
@@ -38,7 +38,7 @@ Use the **`show cdp neighbors`** command on both the router and switch to confir
 
 By following these steps, you’ll establish a trunk connection between the Catalyst 1300 and the 2811 router, ready for DHCP and DNS setup on the 2811.
 
-![Image](assets/images/file-6734c6d31d1a8.png)
+![Router show cdp neighbors output confirming the Catalyst 1300 is connected on the expected port.](assets/images/file-6734c6d31d1a8.png)
 
 **Configuring a Blackhole VLAN as the Native VLAN**
 
@@ -91,7 +91,7 @@ LastNameR1(config-subif)#exit
 
 Use the **`show cdp neighbors detail`** command on both devices to confirm the connection is established with the native VLAN 999 as expected.
 
-![Image](assets/images/file-6734e16058c47.png)
+![Router show cdp neighbors detail output verifying the link and the native VLAN 999 configuration.](assets/images/file-6734e16058c47.png)
 
 **Configuring VLAN 1 on a Sub-Interface of the 2811 Router**
 
@@ -135,7 +135,7 @@ Now that we have our trunk port configured on the Catalyst 1300, let’s set up 
    Use these commands to verify that the sub-interface `FastEthernet0/0.1` is up and has both the IPv4 and link-local IPv6 addresses assigned correctly.
 
 
-![Image](assets/images/file-6734e7a95c6a7.png)
+![Router verification output showing FastEthernet0/0.1 up with both IPv4 and IPv6 addresses configured.](assets/images/file-6734e7a95c6a7.png)
 
 ### Using Extended Ping for IPv6 Link-Local Addresses
 
@@ -161,7 +161,7 @@ Here’s how you can perform an extended ping:
 
 This level of control is essential when dealing with IPv6 link-local addresses to ensure the correct path is used for the ping test.
 
-![Image](assets/images/file-6734e7fa23fe1.png)
+![Extended ping dialogue on the router targeting the switch IPv6 link-local address and prompting for the output interface.](assets/images/file-6734e7fa23fe1.png)
 
 ## Configuring a DHCP
 
@@ -189,7 +189,7 @@ Now that we’ve set up the VLAN and IP configurations, let’s configure a DHCP
    LastNameR1(dhcp-config)#network 192.168.100.0 255.255.255.0
    LastNameR1(dhcp-config)#domain-name LastName.com
    ```
-![Image](assets/images/file-6734ec59dab50.png)
+![DHCP scope configuration alongside client network details showing the VLAN 1 pool, domain name, and assigned settings.](assets/images/file-6734ec59dab50.png)
 ---
 
 [Prev](03_setting-an-ip.md) | [Home](README.md) | [Next](05_improve-management.md)
