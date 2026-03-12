@@ -1,6 +1,6 @@
 # samba
 
-![Screenshot](./assets/images/file-5f2ff8729807f.png)
+![Decorative Samba banner image with the slogan opening windows to a wider world.](./assets/images/file-5f2ff8729807f.png)
 
 *A file and printer sharing daemon that is fully Active Directory aware!*
 
@@ -21,7 +21,7 @@ usermod -aG sambashare your_username
 
 Make the following changes to /share
 
-![Screenshot](./assets/images/Pasted%20image%2020260228164506.png)
+![Long listing of /share showing the user directory owned by group supersecret with restricted group-write permissions.](./assets/images/Pasted%20image%2020260228164506.png)
 
 ## **Screenshot 4: Showing the correct permissions on /share/your_username**
 
@@ -77,27 +77,27 @@ After make sure to restart the samba service: **service smbd restart**
 
 ## **Screenshot 5: Your two shares created from smb.conf**
 
-![Screenshot](./assets/images/file-5f3007b4a3c41.png)
+![smb.conf excerpt defining the TUX-RW and TUX-RO Samba shares.](./assets/images/file-5f3007b4a3c41.png)
 
 ---
 
 Next try to connect. We will first try to map TUX-RW to the P drive.
 
-![Screenshot](./assets/images/file-5f30087ae7183.png)
+![Windows net use command attempting to map the TUX-RW share and failing with Access is denied.](./assets/images/file-5f30087ae7183.png)
 
 Set a password now for your_username that Samba can use.
 
-![Screenshot](./assets/images/file-5f3008f39ced8.png)
+![smbpasswd command prompting for a new Samba password and reporting the user added.](./assets/images/file-5f3008f39ced8.png)
 
 SUCCESS!
 
-![Screenshot](./assets/images/file-5f30095171fae.png)
+![Windows net use command successfully mapping the TUX-RW share after the Samba password is set.](./assets/images/file-5f30095171fae.png)
 
 ---
 
 ## **Screenshot 6: Show the two connected shares**
 
-![Screenshot](./assets/images/file-5f300a5a0e591.png)
+![Windows commands showing both TUX-RW and TUX-RO shares mapped successfully to drive letters.](./assets/images/file-5f300a5a0e591.png)
 
 Map P to TUX-RW
 
@@ -107,6 +107,6 @@ Map Q to TUX-RO
 
 ## **Screenshot 7: Using the follow methods show that the shares have different write permissions.**
 
-![Screenshot](./assets/images/file-5f300b3986add.png)
+![Drive-letter test showing writing to the RW share works while writing to the RO share is denied.](./assets/images/file-5f300b3986add.png)
 
 [Prev: vsftpd](01_vsftpd.md) | [Home](README.md)
