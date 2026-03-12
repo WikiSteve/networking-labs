@@ -31,22 +31,18 @@ Try the verification again
 
 ![Screenshot](assets/images/image31.png)
 
-Verification was successful, however because we have no [mutually trusted keys](https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key), we will change the trust setting for this key so the verification no longer reports trust warnings.
+Verification was successful. However, because we do not have a [web-of-trust path](https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key) to Mozilla’s key, GnuPG may still report trust warnings even when the signature itself is valid.
 
 You’ll see we don’t trust this key at all.
 
 ![Screenshot](assets/images/image38.png)
 
 > [!WARNING]
-> This is a lab shortcut. In a real workflow, verify the key fingerprint from an official Mozilla source before assigning higher trust, and do not mark a key as ultimately trusted unless you control that key.
+> In a real workflow, verify the key fingerprint from an official Mozilla source. Do not mark Mozilla’s key as ultimately trusted, because `ultimate` trust is reserved for keys you control.
 
-From the prompt let’s change the trust. Type **trust** at the prompt and answer `5` for **I trust ultimately**.
+For this lab, stop after confirming the fingerprint and the good signature. A trust warning can still appear because you have not established trust through your personal web of trust, and that is expected.
 
-![Screenshot](assets/images/image24.png)
-
-Lastly type **save** to exit.
-
-Rerun the verification, there should now be **no errors.**
+Rerun the verification and confirm that the signature is valid. A trust warning may still appear, but that does not invalidate the good signature.
 
 ![Screenshot](assets/images/image32.png)
 
