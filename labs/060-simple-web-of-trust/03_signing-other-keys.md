@@ -37,7 +37,7 @@ Find his name to view who he is connected to.
 
 ## Signing Colleague's Keys
 
-Next we will be signing another colleague's key. For this example I have Donald Duck’s public key, which I will be signing. That signed public key will then be encrypted and returned to Donald Duck.
+Next, we will be signing another colleague's key. For this example I have Donald Duck’s public key, which I will be signing. That signed public key will then be encrypted and returned to Donald Duck.
 
 For this exercise the parties are
 
@@ -94,7 +94,7 @@ As an example, never output a binary to standard output with an ASCII applicatio
 
 ![Screenshot](assets/images/image4.png)
 
-You’ll now need to extract the asc.gpg file from this virtual machine, send it to your peer. Your peer will then need to copy it into their VM before proceeding to the next step.
+You’ll now need to extract the asc.gpg file from this virtual machine and send it to your peer. Your peer will then need to copy it into their VM before proceeding to the next step.
 
 ### Receive Back Your Signed Public Key
 
@@ -122,7 +122,7 @@ Now import the new signed public key
 
 ![Screenshot](assets/images/image1.png)
 
-Donald Duck’s private key is now showing as signed by [steve@wikisteve.com](mailto:steve@wikisteve.com)
+Donald Duck’s public key is now showing as signed by [steve@wikisteve.com](mailto:steve@wikisteve.com)
 
 ![Screenshot](assets/images/image26.png)
 
