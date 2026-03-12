@@ -15,13 +15,13 @@ There are two ways to search for keys:
 
 Command line using GPG
 
-> ![Terminal running `gpg --search-keys gwolf@debian.org` and importing Gunnar Wolf's 2019 ED25519 public key.](assets/images/image21.png)
+> ![Terminal running gpg --search-keys gwolf@debian.org and importing Gunnar Wolf's 2019 ED25519 public key.](assets/images/image21.png)
 >
 > I’ve selected the latest key created in 2019 by selecting #1
 
 Check that the key has been successfully installed
 
-![Terminal output from `gpg --list-keys --fingerprint` showing Gunnar Wolf's imported key, fingerprints, and subkeys.](assets/images/image23.png)
+![Terminal output from gpg --list-keys --fingerprint showing Gunnar Wolf's imported key, fingerprints, and subkeys.](assets/images/image23.png)
 
 ## **Screenshot 2: Gunnar Wolf’s key**
 
@@ -55,15 +55,15 @@ I currently have Donald Duck’s public key, which I am going to sign.
 
 Sign Donald Duck dduck@wikisteve.com
 
-![Interactive `gpg --sign-key` prompt for Donald Duck's key, showing the primary fingerprint and certification-check options.](assets/images/image37.png)
+![Interactive gpg --sign-key prompt for Donald Duck's key, showing the primary fingerprint and certification-check options.](assets/images/image37.png)
 
 **Signed key visible**
 
-![Terminal output from `gpg --list-sigs` showing Donald Duck's public key now signed by Steve Sharpe.](assets/images/image11.png)
+![Terminal output from gpg --list-sigs showing Donald Duck's public key now signed by Steve Sharpe.](assets/images/image11.png)
 
 ### Export Donald Duck’s Signed Public Key
 
-![Terminal exporting Donald Duck's armored public key to `DonaldDuck.asc` and showing the file begins with `BEGIN PGP PUBLIC KEY BLOCK`.](assets/images/image7.png)
+![Terminal exporting Donald Duck's armored public key to DonaldDuck.asc and showing the file begins with BEGIN PGP PUBLIC KEY BLOCK.](assets/images/image7.png)
 
 Short form:
 
@@ -74,25 +74,25 @@ Short form:
 
 ### Encrypt a Colleague’s Signed Public Key 
 
-![Terminal command signing and encrypting `DonaldDuck.asc` for recipient `dduck@wikisteve.com`.](assets/images/image33.png)
+![Terminal command signing and encrypting DonaldDuck.asc for recipient dduck@wikisteve.com.](assets/images/image33.png)
 
 NOTE: Only prompted for your private key’s password because we opted to **sign**
 
 There is now an encrypted gpg file, verify with the **file** command
 
-![Directory listing showing both `DonaldDuck.asc` and the encrypted `DonaldDuck.asc.gpg` file.](assets/images/image34.png)
+![Directory listing showing both DonaldDuck.asc and the encrypted DonaldDuck.asc.gpg file.](assets/images/image34.png)
 
 The new gpg file is showing as encrypted
 
-![Terminal running `file DonaldDuck.asc.gpg` and identifying it as a PGP RSA encrypted session key.](assets/images/image29.png)
+![Terminal running file DonaldDuck.asc.gpg and identifying it as a PGP RSA encrypted session key.](assets/images/image29.png)
 
 `xxd` also shows that the file is indeed binary.
 
-![Hex dump of `DonaldDuck.asc.gpg` showing binary encrypted data rather than readable text.](assets/images/image10.png)
+![Hex dump of DonaldDuck.asc.gpg showing binary encrypted data rather than readable text.](assets/images/image10.png)
 
 As an example, never output a binary to standard output with an ASCII application such as cat, head or tail. Output will be garbled like this
 
-![Terminal output from viewing `DonaldDuck.asc.gpg` directly, showing garbled binary characters in the shell.](assets/images/image4.png)
+![Terminal output from viewing DonaldDuck.asc.gpg directly, showing garbled binary characters in the shell.](assets/images/image4.png)
 
 You’ll now need to extract the asc.gpg file from this virtual machine and send it to your peer. Your peer will then need to copy it into their VM before proceeding to the next step.
 
@@ -100,7 +100,7 @@ You’ll now need to extract the asc.gpg file from this virtual machine and send
 
 Do a long listing and the file should be there
 
-![Directory listing in Donald Duck's VM showing the received `DonaldDuck.asc.gpg` file.](assets/images/image17.png)
+![Directory listing in Donald Duck's VM showing the received DonaldDuck.asc.gpg file.](assets/images/image17.png)
 
 Verify that the person that signed your key is installed, if not download it. In my case I didn’t have Steve Sharpe steve@wikisteve.com so I downloaded the missing public key so the signature check wouldn’t fail.
 
@@ -108,11 +108,11 @@ Verify that the person that signed your key is installed, if not download it. In
 
 WARNING: If we do not use a redirect symbol > the output will go to standard output which is our terminal screen.
 
-![Terminal decrypting `DonaldDuck.asc.gpg` to standard output and printing an armored `BEGIN PGP PUBLIC KEY BLOCK`.](assets/images/image35.png)
+![Terminal decrypting DonaldDuck.asc.gpg to standard output and printing an armored BEGIN PGP PUBLIC KEY BLOCK.](assets/images/image35.png)
 
 Let’s do that again but redirect the output to another file without the gpg extension.
 
-![Terminal decrypting `DonaldDuck.asc.gpg`, reporting a good signature from Steve Sharpe, and warning that the signature is not trusted.](assets/images/image12.png)
+![Terminal decrypting DonaldDuck.asc.gpg, reporting a good signature from Steve Sharpe, and warning that the signature is not trusted.](assets/images/image12.png)
 
 Note: We don’t have a mutual trusted person so the signature isn’t trusted by [steve@wikisteve.com](mailto:steve@wikisteve.com)
 
@@ -120,11 +120,11 @@ Note: We don’t have a mutual trusted person so the signature isn’t trusted b
 
 Now import the new signed public key
 
-![Terminal importing `DonaldDuck.asc` and reporting one new signature on Donald Duck's key.](assets/images/image1.png)
+![Terminal importing DonaldDuck.asc and reporting one new signature on Donald Duck's key.](assets/images/image1.png)
 
 Donald Duck’s public key is now showing as signed by [steve@wikisteve.com](mailto:steve@wikisteve.com)
 
-![Terminal output from `gpg --list-sigs` showing Donald Duck's public key with both the self-signature and Steve Sharpe's signature.](assets/images/image26.png)
+![Terminal output from gpg --list-sigs showing Donald Duck's public key with both the self-signature and Steve Sharpe's signature.](assets/images/image26.png)
 
 ## **Screenshot 3: Highlight the new signature on your key**
 
@@ -132,7 +132,7 @@ Donald Duck’s public key is now showing as signed by [steve@wikisteve.com](mai
 
 Send the parent key with the two signatures back up to the key server
 
-![Terminal sending Donald Duck's updated key back to `keyserver.ubuntu.com`.](assets/images/image27.png)
+![Terminal sending Donald Duck's updated key back to keyserver.ubuntu.com.](assets/images/image27.png)
 
 If you search the web portal again there should now be two signatures, one self signed by the owner and the second additional signee. Group of 2 will need one additional signature, group of 3 will need two additional signatures.
 
