@@ -222,7 +222,7 @@ Once installed, use `nmap` to run the command provided in the guide and verify y
 
 ## Screenshot 1 Explanation and Requirements
 
-![Screenshot](assets/images/file-6743bf4dc16fa.png)
+![Nmap scan comparing the loopback address and the VLAN 1 management address, with the management ports filtered on 192.168.100.1.](assets/images/file-6743bf4dc16fa.png)
 
 **1. The Command**
 
@@ -344,7 +344,7 @@ Once you've made the necessary changes to the ACLs, reapply them to the interfac
 
 ## **Screenshot 2 Explanation and Requirements**
 
-![Screenshot](assets/images/file-6743c4bdea07c.png)
+![Follow-up Nmap scan showing SSH and HTTPS open on the loopback interface while the same ports remain filtered on the VLAN 1 interface.](assets/images/file-6743c4bdea07c.png)
 
 **1. The Command**
 
@@ -414,7 +414,7 @@ Ask questions if you need clarification!
 
 ## **Screenshot 3 IPv6 Loopback Scan**
 
-![Screenshot](assets/images/file-6744b0937328f.png)
+![IPv6 Nmap scan of the loopback address showing all tested management ports open.](assets/images/file-6744b0937328f.png)
 
 **1. The Command**
 
@@ -470,7 +470,7 @@ Your Debian machine must meet the following requirements:
 
 ## **Screenshot 4 VLAN 1 Global IPv6 Address**
 
-![Screenshot](assets/images/file-6744b3e640859.png)
+![IPv6 Nmap scan of the VLAN 1 global address showing the tested management ports filtered.](assets/images/file-6744b3e640859.png)
 
 **1. The Command**
 
@@ -534,7 +534,7 @@ Your Debian machine must meet the following requirements:
 
 ## **Screenshot 5 VLAN 1 Global IPv6 Address**
 
-![Screenshot](assets/images/file-6744f5daf01e0.png)
+![IPv6 Nmap scan confirming the global VLAN 1 address has all tested management ports filtered.](assets/images/file-6744f5daf01e0.png)
 
 **1. The Command**
 
@@ -596,13 +596,13 @@ Your Debian machine must meet the following requirements:
 
 ## Verifying Your Interface Name
 
-![Screenshot](assets/images/file-6744e925efd57.png)
+![ip a output used to identify the Linux interface name before testing an IPv6 link-local address.](assets/images/file-6744e925efd57.png)
 
 Before testing **link-local addresses**, you need to identify the correct **interface name** on your machine. In this example, the interface name is **`ens192`**, but your interface name may differ depending on your configuration. This screenshot is provided **for guidance only** and is not part of your submission.
 
 ## **Screenshot 6 Testing Link-Local Address for VLAN 1**
 
-![Screenshot](assets/images/file-6744edd1defb2.png)
+![Nmap scan of the VLAN 1 link-local address using an interface-qualified IPv6 target.](assets/images/file-6744edd1defb2.png)
 
 **1. The Command**
 
@@ -670,7 +670,7 @@ Your Debian machine must meet the following requirements:
 
 ## **Screenshot 7 Testing Link-Local Address for VLAN 1 (All Ports Filtered)**
 
-![Screenshot](assets/images/file-6744f9f463f57.png)
+![Final Nmap scan of the VLAN 1 link-local address showing the tested management ports filtered.](assets/images/file-6744f9f463f57.png)
 
 **1. The Command**
 

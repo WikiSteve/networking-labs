@@ -97,7 +97,7 @@ interface fa0/0.1
   ip access-group BLOCK_FB out
 ```
 
-![Screenshot](assets/images/file-674628b50f369.png)
+![Router CLI showing the BLOCK_FB standard ACL in the running configuration and the corresponding show access-lists hit counters.](assets/images/file-674628b50f369.png)
 
 ## **Verification and Testing**
 
@@ -128,7 +128,7 @@ Standard IP access list BLOCK_FB
 - **Note:** Hit counts are displayed next to the rules, showing how many packets matched each statement.
 ## **Screenshot 9 Testing VLAN 1 IPv4 ACLs**
 
-![Screenshot](assets/images/file-6745f4662301f.png)
+![Terminal showing ping4 to facebook.com failing with 100 percent packet loss and ping4 to google.ca succeeding, while the custom ACL lab prompt is visible.](assets/images/file-6745f4662301f.png)
 
 This screenshot must include all the elements listed below. Each part is critical to verifying the ACL functionality and ensuring everything is configured correctly.
 
