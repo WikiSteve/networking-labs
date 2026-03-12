@@ -34,7 +34,7 @@ Note the output of the fingerprint in 2019 was shorter than 2021. [See this post
 
 ## Uploading Your Key to the Keyserver
 
-Upload to the [public key server](https://pgp.surfnet.nl/plain.html). Note the term [hkp](https://en.wikipedia.org/wiki/Key_server_(cryptographic))
+Upload to the [Ubuntu keyserver](https://keyserver.ubuntu.com/). Note the term [hkp](https://en.wikipedia.org/wiki/Key_server_(cryptographic)).
 
 ![Screenshot](assets/images/image18.png)
 

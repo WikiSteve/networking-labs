@@ -31,7 +31,7 @@ Try the verification again
 
 ![Screenshot](assets/images/image31.png)
 
-Verification was successful, however because we have no [mutual trusted keys](https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key), we will change the trust setting for this key so the verification no longer reports trust warnings.
+Verification was successful, however because we have no [mutually trusted keys](https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key), we will change the trust setting for this key so the verification no longer reports trust warnings.
 
 You’ll see we don’t trust this key at all.
 
