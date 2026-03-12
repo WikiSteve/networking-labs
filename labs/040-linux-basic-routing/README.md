@@ -18,3 +18,7 @@
 - [Renaming Linux machines](04_renaming-linux-machines.md)
 - [Network prep](05_network-prep.md)
 - [Routing](06_routing.md)
+
+## Accessibility
+
+- [Screenshot alt text and OCR transcript data](assets/screenshot-ocr.json)
