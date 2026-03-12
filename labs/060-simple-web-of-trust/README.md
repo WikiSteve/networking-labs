@@ -1,5 +1,7 @@
 # Simple Web of Trust
 
+> **Before you start:** Download the [Group GPG Lab Submission Template](<./assets/Group GPG Lab Submission TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
+
 ## Goal
 Build a small GPG web of trust with a class partner and use OpenPGP verification to validate a Mozilla Firefox download.
 
