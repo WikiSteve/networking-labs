@@ -79,4 +79,4 @@ Very short list of commands to get you started.
 
 ---
 
-[Home](README.md) | [Next](02_generate-your-key.md)
+[Home](README.md) | [Next](02_walk-through-videos.md)
