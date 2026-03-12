@@ -29,4 +29,4 @@ Explore the physical and logical configuration of a Cisco Catalyst 1300 Series s
 
 ## Accessibility
 
-- [Screenshot OCR and alt text data](assets/screenshot-ocr.json)
+- [Screenshot alt text and OCR transcript data](assets/screenshot-ocr.json)
