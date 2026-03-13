@@ -31,10 +31,10 @@ Follow the link above, select **AMD64**, and download the Debian netinst ISO.
 
 ![VMware wizard guest operating system installation screen with the Debian ISO selected.](assets/images/file-62bb79ebd87c8.png)
 
-Select the installer ISO and let VMware detect the Debian version automatically.
+These screenshots show the installer ISO selected so VMware can detect the Debian version automatically.
 
 > [!NOTE]
-> It is usually best to choose the option to install the operating system later, because VMware may otherwise try to perform an unattended install.
+> If your VMware version tries to force an unattended install, go back and choose the option to install the operating system later instead.
 
 ![VMware wizard screen for selecting the guest operating system family and version.](assets/images/file-62bb7a9d2f074.png)
 

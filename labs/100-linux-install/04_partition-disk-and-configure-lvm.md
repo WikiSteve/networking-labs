@@ -107,6 +107,8 @@ Capture the details for:
 - `lv-home`
 - `lv-root`
 
+Your submission may need more than one screenshot, or one long scrolled capture, as long as all three logical volumes are visible.
+
 ![lvdisplay output showing the details of the lv-swap logical volume in VG-Sharpe.](assets/images/file-62bbdeb48e3c7.png)
 
 ![lvdisplay output showing the details of the lv-home logical volume in VG-Sharpe.](assets/images/file-62bbdf346b73f.png)
