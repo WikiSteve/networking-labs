@@ -22,8 +22,7 @@ Before using the simple `apt-get source` workflow, review `/etc/apt/sources.list
 ![Excerpt from /etc/apt/sources.list showing commented deb-src lines on an Ubuntu system.](assets/images/file-60451bf5b4f31.png)
 
 To fix that, use `vi` to search for `# deb-src` and replace it with `deb-src`. The updated screenshot below shows the source repositories uncommented after that multi-line substitution:
-
-![Updated /etc/apt/sources.list showing deb-src lines uncommented after a vi search-and-replace, with a status message indicating multiple substitutions were made successfully.](assets/images/file-60451d235d903.png)
+![Updated /etc/apt/sources.list showing deb-src lines uncommented after a vi search-and-replace, with a blue arrow and yellow caption highlighting the successful 11-line substitution.](assets/images/Pasted%20image%2020260313115609.png)
 
 > [!NOTE]
 > The original lab now notes that on Debian the source repositories may already be enabled, so you may not need to uncomment anything.

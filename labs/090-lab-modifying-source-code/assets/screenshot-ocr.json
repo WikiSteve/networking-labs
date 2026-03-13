@@ -11,7 +11,7 @@
       "# deb-src http://ca.archive.ubuntu.com/ubuntu groovy-security universe"
     ]
   },
-  "file-60451d235d903.png": {
+  "Pasted image 20260313115609.png": {
     "alt": "Updated /etc/apt/sources.list showing deb-src lines uncommented after a vi search-and-replace, with a blue arrow and yellow caption highlighting the successful 11-line substitution.",
     "ocr": [
       "deb-src http://ca.archive.ubuntu.com/ubuntu groovy main restricted",
