@@ -21,7 +21,7 @@ Before using the simple `apt-get source` workflow, review `/etc/apt/sources.list
 
 ![Excerpt from /etc/apt/sources.list showing commented deb-src lines on an Ubuntu system.](assets/images/file-60451bf5b4f31.png)
 
-To fix that in `vi`, run `:%s/^# deb-src/deb-src/g` to replace `# deb-src` with `deb-src` throughout the file. The updated screenshot below shows the source repositories uncommented after that multi-line substitution:
+To fix that in `vi`, run `:%s/^# deb-src/deb-src/g` to replace `# deb-src` with `deb-src` throughout the file. Here, `%` means "the whole file," `s` means "substitute," `^# deb-src` matches lines that start with `# deb-src`, and the trailing `g` applies the substitution everywhere it finds a match on each line. The updated screenshot below shows the source repositories uncommented after that multi-line substitution:
 ![Updated /etc/apt/sources.list showing deb-src lines uncommented after a vi search-and-replace, with a blue arrow and yellow caption highlighting the successful 11-line substitution.](assets/images/Pasted%20image%2020260313115609.png)
 
 > [!NOTE]
