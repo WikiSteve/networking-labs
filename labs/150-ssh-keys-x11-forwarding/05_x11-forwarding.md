@@ -32,11 +32,11 @@ After you connect, run the following workflow:
 
 - Install `xterm`:
   `sudo apt install xterm`
-- Try installing Firefox ESR:
+- Optionally try installing Firefox ESR:
   `sudo apt install firefox-esr`
-- You will probably run out of disk space before Firefox finishes installing.
+- On these small lab VMs, you will probably run out of disk space before Firefox finishes installing. That is expected and is only meant to show why a larger root volume matters later.
 - Launch `xterm` over X11:
-  `xterm&`
+  `xterm &`
 - A graphical `xterm` window should appear on your Windows desktop.
 - After you learn more about LVM, you will resize the root volume so larger GUI applications can be installed and launched the same way.
 
