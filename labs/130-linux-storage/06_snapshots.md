@@ -43,12 +43,20 @@ After the snapshot exists, delete `quotes.txt` from your normal home directory.
 Next, create a mount point such as `/mnt/home_snap` and mount the snapshot there:
 
 ```bash
-sudo mount /dev/VG-Sharpe/home_snap home_snap/
+sudo mkdir -p /mnt/home_snap
 ```
+
+```bash
+sudo mount /dev/VG-Sharpe/home_snap /mnt/home_snap
+```
+
+If you prefer, you can `cd /mnt` first and then mount it using the relative target `home_snap/`, which is what the screenshot shows.
 
 ![Mounting the `home_snap` logical volume under `/mnt/home_snap/` after creating the snapshot.](assets/images/file-62ced5aecfdbe.png)
 
 ![Directory listing inside the mounted snapshot showing the original `quotes.txt` content still available there.](assets/images/file-62ced6d3d3fbc.png)
+
+To actually recover the file, copy `quotes.txt` back from the mounted snapshot into your normal home directory after verifying it is present.
 
 ## Screenshot 5
 

@@ -14,7 +14,7 @@ Using VMware Workstation, add a 100 GB NVMe drive to the VM.
 
 Once the new NVMe drive is installed, boot the VM again.
 
-When you run `lsblk`, the physical volume `nvme0n1` should appear.
+When you run `lsblk`, the new NVMe disk device `nvme0n1` should appear.
 
 ![`lsblk` output showing the original `sda` disk and the newly attached `nvme0n1` disk.](assets/images/file-62cea393ba6ac.png)
 
