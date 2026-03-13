@@ -1,0 +1,103 @@
+{
+  "file-633ae5f34d063.png": {
+    "alt": "Command Prompt showing calc1.exe as a symbolic link in the user profile while Calculator is running.",
+    "ocr": [
+      "C:\\Users\\SteveS> dir",
+      "<SYMLINK> calc1.exe [\\windows\\system32\\calc.exe]",
+      "Calculator window is open"
+    ]
+  },
+  "file-633aeced0b26f.png": {
+    "alt": "Task Manager and Command Prompt showing Felix launched from a renamed calc.exe link.",
+    "ocr": [
+      "Task Manager is open on the Details tab",
+      "calc.exe is running",
+      "Command Prompt shows new1.duh renamed to calc.exe",
+      "Firefox is also open in the background"
+    ]
+  },
+  "file-633aefed48e03.png": {
+    "alt": "Task Manager and Administrator Command Prompt showing Felix launched through the new11.duh hard link.",
+    "ocr": [
+      "Administrator: Command Prompt",
+      "mklink /h new11.duh \\LabFiles\\felix.exe",
+      "Hardlink created for new11.duh",
+      "Task Manager shows new11.duh running"
+    ]
+  },
+  "file-633af5bb76dff.png": {
+    "alt": "Command Prompt output showing the tools directory link that points to the Sysinternals folder.",
+    "ocr": [
+      "mklink /d tools \\LabFiles\\sysinternals",
+      "dir",
+      "Folder PATH listing",
+      "tools",
+      "sysinternals"
+    ]
+  },
+  "file-633afb7fe6e40.png": {
+    "alt": "Command Prompt output from the FOR loop writing numbers, dates, and times to count.txt.",
+    "ocr": [
+      "type count.txt",
+      "1 through 10",
+      "time and date entries are appended to count.txt"
+    ]
+  },
+  "file-633afdf2e6dc1.png": {
+    "alt": "Command Prompt listing the files1 directory after copying selected .hlp and .chm files from Sysinternals.",
+    "ocr": [
+      "dir \\Users\\SteveS\\files1",
+      "AdExplorer.chm",
+      "ADInsight.chm",
+      "DISKMON.HLP",
+      "TCPVIEW.HLP"
+    ]
+  },
+  "file-633b03c7d6c56.png": {
+    "alt": "Command Prompt output from act5.bat showing the LabFiles directory tree and the hidden user folder step.",
+    "ocr": [
+      "Directory of C:\\LabFiles\\SteveS",
+      "sdelete.exe",
+      "sdelete64.exe",
+      "THE STEVES DIRECTORY IS NOW HIDDEN",
+      "Folder PATH listing"
+    ]
+  },
+  "file-633b12cbb8dc7.png": {
+    "alt": "Command Prompt output from act5a.bat showing copy-status messages and the files2 directory listing.",
+    "ocr": [
+      "Begin File Copy",
+      "1 file(s) copied",
+      "dir \\Users\\SteveS\\files2",
+      "copied .hlp and .chm files are listed"
+    ]
+  },
+  "file-633b15b13b99b.png": {
+    "alt": "Command Prompt output from the refined act5a.bat run with copy messages redirected to nul and the files2 directory listing.",
+    "ocr": [
+      "Begin File Copy",
+      "dir \\Users\\SteveS\\files2",
+      "copy-status messages are no longer shown on screen"
+    ]
+  },
+  "file-633b1b20e9e7d.png": {
+    "alt": "Command Prompt output from act5b.bat showing one ping reply for each of the two configured hosts.",
+    "ocr": [
+      "The output shows the IP addresses for the two hosts",
+      "Pinging 1.1.1.1",
+      "Reply from 1.1.1.1",
+      "Pinging 8.8.8.8",
+      "Reply from 8.8.8.8"
+    ]
+  },
+  "file-633b1f1403cb4.png": {
+    "alt": "Command Prompt output from act5c.bat showing the new ssharpe account and its group memberships.",
+    "ocr": [
+      "act5c.bat",
+      "net user ssharpe BatchLab1 /add",
+      "net localgroup administrators ssharpe /add",
+      "net localgroup \"Remote Desktop Users\" ssharpe /add",
+      "localgroup listings confirm the account memberships"
+    ]
+  }
+}
