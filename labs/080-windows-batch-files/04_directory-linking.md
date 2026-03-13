@@ -4,7 +4,7 @@
 
 In the **User** home directory create a directory link to the *sysinternals* directory
 
-**mklink /d tools \info1218\sysinternals**
+**mklink /d tools \LabFiles\sysinternals**
 
 Enter **dir** to view the link created. The file system will now show a link (`tools`) to the *sysinternals* directory.
 
@@ -20,7 +20,10 @@ cd tools
 
 dir /p
 
-The files listed are the same as the *\info1218\sysinternals* directory
+The files listed are the same as the *\LabFiles\sysinternals* directory
+
+> [!WARNING]
+> TODO: Retake this screenshot. The current image still shows a legacy course-specific folder path from the original source.
 
 ## **Screenshot 4 of the first page output**
 

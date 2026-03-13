@@ -44,7 +44,7 @@ In the \Users\yourname directory create subdirectories with names files1 & files
 
 Change the prompt to the sysinternals subdirectory
 
-    **cd \info1218\sysinternals**
+    **cd \LabFiles\sysinternals**
 
 Enter the following command to search for all files with a .hlp and .chm extension in the current sysinternals directory and copy those files to the destination files1 subdirectory
 
@@ -55,6 +55,9 @@ The screen will show a message for each file copied
 View files in \Users\yourname\files1
 
     **dir \Users\yourname\files1**
+
+> [!WARNING]
+> TODO: Retake this screenshot. The current image still shows a legacy course-specific folder path from the original source.
 
 ## **Screenshot 6 of the files1 directory content**
 

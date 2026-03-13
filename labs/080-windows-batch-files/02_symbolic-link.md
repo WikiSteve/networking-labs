@@ -56,17 +56,17 @@ Sign out as your username and log in as **User**
 
 Open a **Command Prompt (Admin)**
 
-From the prompt **\Windows\System32** create a new subdirectory for **info1218**
+From the prompt **\Windows\System32** create a new subdirectory for the lab files
 
-**md \info1218\act5**
+**md \LabFiles\act5**
 
 Change to the new subdirectory
 
-**cd \info1218\act5**
+**cd \LabFiles\act5**
 
 Create a symbolic link to run the Felix program
 
-**mklink new1.duh \info1218\felix.exe**
+**mklink new1.duh \LabFiles\felix.exe**
 
 Run the Felix program. Enter
 
@@ -80,7 +80,7 @@ Open Task Manager and view the running programs
 
 Prove the symbolic link will work to run the Felix program from another location
 
-Copy **new1.duh** to your user home directory. From the **\info1218\act5** prompt, enter
+Copy **new1.duh** to your user home directory. From the **\LabFiles\act5** prompt, enter
 
 **copy new1.duh \users\yourname**
 
@@ -107,6 +107,9 @@ calc.exe is a legitimate Windows accessory program.
 The Felix icon is displayed beside the name calc.exe
 
 Malware could be running disguised as a legitimate system program
+
+> [!WARNING]
+> TODO: Retake this screenshot. The current image still shows a legacy course-specific folder path from the original source.
 
 ## **Screenshot 2 of Task Manager, the command window and Felix.**
 

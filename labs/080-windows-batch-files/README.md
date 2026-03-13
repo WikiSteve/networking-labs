@@ -5,7 +5,7 @@ Use Windows command-line tools to create links, build simple batch files, work w
 
 ## Prereqs
 - A Windows 10 virtual machine with both standard and administrator access
-- Lab files available under `\info1218`, including `felix.exe` and the `sysinternals` folder
+- Lab files available under `\LabFiles`, including `felix.exe` and the `sysinternals` folder
 - VMware Workstation configured to use NAT networking when required
 
 ## Deliverables
@@ -23,3 +23,6 @@ Use Windows command-line tools to create links, build simple batch files, work w
 ## Accessibility
 
 - [Screenshot alt text and OCR transcript data](assets/screenshot-ocr.json)
+
+## TODO
+- Retake the screenshots that still show legacy course-specific folder names, usernames, hostnames, or passwords from the original source material.
