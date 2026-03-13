@@ -12,11 +12,13 @@
     ]
   },
   "file-60451d235d903.png": {
-    "alt": "Updated /etc/apt/sources.list showing deb-src lines uncommented after a vi search-and-replace, with a status message indicating multiple substitutions were made successfully.",
+    "alt": "Updated /etc/apt/sources.list showing deb-src lines uncommented after a vi search-and-replace, with a blue arrow and yellow caption highlighting the successful 11-line substitution.",
     "ocr": [
       "deb-src http://ca.archive.ubuntu.com/ubuntu groovy main restricted",
       "deb-src http://ca.archive.ubuntu.com/ubuntu groovy-updates main restricted",
-      "11 substitutions on 11 lines"
+      "11 substitutions on 11 lines",
+      "search and replace",
+      "executed successfully"
     ]
   },
   "file-604523d7e160e.png": {
