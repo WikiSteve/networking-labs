@@ -20,7 +20,7 @@
     "alt": "Task Manager and Administrator Command Prompt showing Felix launched through the new11.duh hard link.",
     "ocr": [
       "Administrator: Command Prompt",
-      "mklink /h new11.duh \\LabFiles\\felix.exe",
+      "mklink /h new11.duh \\info1218\\felix.exe",
       "Hardlink created for new11.duh",
       "Task Manager shows new11.duh running"
     ]
@@ -28,7 +28,7 @@
   "file-633af5bb76dff.png": {
     "alt": "Command Prompt output showing the tools directory link that points to the Sysinternals folder.",
     "ocr": [
-      "mklink /d tools \\LabFiles\\sysinternals",
+      "mklink /d tools \\info1218\\sysinternals",
       "dir",
       "Folder PATH listing",
       "tools",
@@ -54,12 +54,12 @@
     ]
   },
   "file-633b03c7d6c56.png": {
-    "alt": "Command Prompt output from act5.bat showing the LabFiles user directory, tree listings, and the hidden-directory step.",
+    "alt": "Command Prompt output from act5.bat showing the info1218 directory tree and the hidden FOLusername folder step.",
     "ocr": [
-      "Directory of C:\\LabFiles\\%USERNAME%",
+      "Directory of C:\\info1218\\Steves",
       "sdelete.exe",
       "sdelete64.exe",
-      "THE %USERNAME% DIRECTORY IS NOW HIDDEN",
+      "THE FOLUSERNAME DIRECTORY IS NOW HIDDEN",
       "Folder PATH listing"
     ]
   },
@@ -81,22 +81,22 @@
     ]
   },
   "file-633b1b20e9e7d.png": {
-    "alt": "Command Prompt output from act5b.bat showing one ping reply for each of the two configured hosts.",
+    "alt": "Command Prompt output from act5b.bat showing one ping reply for each of the two Fanshawe hosts.",
     "ocr": [
-      "The output shows the IP addresses for the two hosts",
-      "Pinging 1.1.1.1",
-      "Reply from 1.1.1.1",
-      "Pinging 8.8.8.8",
-      "Reply from 8.8.8.8"
+      "The output shows Fanshawe College IP addresses",
+      "Pinging www.fanshawec.ca",
+      "Reply from 52.60.137.41",
+      "Pinging fanshaweprod.brightspace.com",
+      "Reply from 3.97.84.162"
     ]
   },
   "file-633b1f1403cb4.png": {
-    "alt": "Command Prompt output from act5c.bat showing the new local user and group memberships.",
+    "alt": "Command Prompt output from act5c.bat showing the new FOLusername account and its group memberships.",
     "ocr": [
       "act5c.bat",
-      "net user BatchAdmin BatchLab1 /add",
-      "net localgroup administrators BatchAdmin /add",
-      "net localgroup \"Remote Desktop Users\" BatchAdmin /add",
+      "net user yourFOLusername Fanshawe1 /add",
+      "net localgroup administrators yourFOLusername /add",
+      "net localgroup \"Remote Desktop Users\" yourFOLusername /add",
       "localgroup listings confirm the account memberships"
     ]
   }

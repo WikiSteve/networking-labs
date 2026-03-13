@@ -56,17 +56,17 @@ Sign out as your username and log in as **User**
 
 Open a **Command Prompt (Admin)**
 
-From the prompt **\Windows\System32** create a new subdirectory tree for the lab files
+From the prompt **\Windows\System32** create a new subdirectory for **info1218**
 
-**md \LabFiles\act5**
+**md \info1218\act5**
 
 Change to the new subdirectory
 
-**cd \LabFiles\act5**
+**cd \info1218\act5**
 
 Create a symbolic link to run the Felix program
 
-**mklink new1.duh \LabFiles\felix.exe**
+**mklink new1.duh \info1218\felix.exe**
 
 Run the Felix program. Enter
 
@@ -80,7 +80,7 @@ Open Task Manager and view the running programs
 
 Prove the symbolic link will work to run the Felix program from another location
 
-Copy **new1.duh** to your user home directory. From the **\LabFiles\act5** prompt, enter
+Copy **new1.duh** to your user home directory. From the **\info1218\act5** prompt, enter
 
 **copy new1.duh \users\yourname**
 

@@ -44,7 +44,7 @@ In the \Users\yourname directory create subdirectories with names files1 & files
 
 Change the prompt to the sysinternals subdirectory
 
-    **cd \LabFiles\sysinternals**
+    **cd \info1218\sysinternals**
 
 Enter the following command to search for all files with a .hlp and .chm extension in the current sysinternals directory and copy those files to the destination files1 subdirectory
 

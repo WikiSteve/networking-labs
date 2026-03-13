@@ -12,13 +12,13 @@ The following commands are to be placed into the *act5.bat* batch file
 
 echo off
 
-md \LabFiles\%USERNAME%
+md \info1218\FOLusername
 
-copy \LabFiles\sysinternals\sd* \LabFiles\%USERNAME%
+copy \info1218\sysinternals\sd* \info1218\FOLusername
 
-dir \LabFiles\%USERNAME% > myfile1.txt
+dir \info1218\FOLusername > myfile1.txt
 
-tree \LabFiles > myfile2.txt
+tree \info1218 > myfile2.txt
 
 cls
 
@@ -30,17 +30,17 @@ type myfile2.txt
 
 pause
 
-attrib +h \LabFiles\%USERNAME%
+attrib +h \info1218\FOLusername
 
-echo THE %USERNAME% DIRECTORY IS NOW HIDDEN
+echo THE FOLUSERNAME DIRECTORY IS NOW HIDDEN
 
 pause
 
-dir \LabFiles
+dir \info1218
 
-tree \LabFiles
+tree \info1218
 
-attrib -h \LabFiles\%USERNAME%
+attrib -h \info1218\FOLusername
 
 echo on
 
@@ -50,13 +50,13 @@ From the command line enter **act5.bat** and observe the execution of the comman
 
 ## **Screenshot 7 of the batch files OUTPUT. No errors required for a grade.  If there are errors make sure to fix them.**
 
-![Command Prompt output from act5.bat showing the LabFiles user directory, tree listings, and the hidden-directory step.](assets/images/file-633b03c7d6c56.png)
+![Command Prompt output from act5.bat showing the info1218 directory tree and the hidden FOLusername folder step.](assets/images/file-633b03c7d6c56.png)
 
 ## Create a batch file to copy selected files
 
 Change to the sysinternals directory  
 
-**cd \LabFiles\sysinternals**
+**cd \info1218\sysinternals**
 
 Open notepad to create a batch file
 
@@ -118,19 +118,19 @@ Below is an example of the refined batch program output. (DO NOT SUBMIT)
 
 Switch back to your user profile directory **\users\yourname**
 
-Create a text file listing two reachable hosts
+Create a text file listing the two Fanshawe College web sites
 
    ** notepad ping.txt**
 
-Enter the following two hosts as two lines in the `ping.txt` file
+Enter the following two web sites as two lines in the `ping.txt` file
 
-    1.1.1.1
+    www.fanshawec.ca
 
-    8.8.8.8
+    www.fanshaweonline.ca
 
-IMPORTANT: **Do not** include an extra new line after **8.8.8.8**
+IMPORTANT: **Do not** include an extra new line after **www.fanshaweonline.ca**
 
-Create a batch file to ping the two hosts and place the results in a text file
+Create a batch file to ping the Fanshawe web sites and place the results in a text file
 
 **notepad act5b.bat**
 
@@ -146,7 +146,7 @@ echo ...
 
 echo...
 
-Echo The output shows the IP addresses for the two hosts
+Echo The output shows Fanshawe College IP addresses
 
 echo ...
 
@@ -184,7 +184,7 @@ Change to the \Users directory. Enter
 
 Enter **dir** to view the list of user home directories
 
-Create a batch file that will add a temporary user named **BatchAdmin** to the computer and elevate that user's privileges to the Administrators group. Assign the user password as **BatchLab1**. Enter
+Create a batch file that will add a user with your *FOLusername* to the computer and elevate that user's privileges to the Administrators group. Assign the user password as **Fanshawe1**. Enter
 
 **notepad act5c.bat**
 
@@ -192,11 +192,11 @@ Enter the following commands to create a new user and make that user a member of
 
 echo off
 
-net user BatchAdmin BatchLab1 /add
+net user yourFOLusername Fanshawe1 /add
 
-net localgroup administrators BatchAdmin /add
+net localgroup administrators yourFOLusername /add
 
-net localgroup "Remote Desktop Users" BatchAdmin /add
+net localgroup "Remote Desktop Users" yourFOLusername /add
 
 echo on
 
@@ -214,7 +214,7 @@ net localgroup "Remote Desktop Users"
 
 ## **Screenshot 9 output of all the groups and act5c.bat in the \users directory.  Must contain no errors for grading.  If any errors make sure to correct them.**
 
-![Command Prompt output from act5c.bat showing the new local user and group memberships.](assets/images/file-633b1f1403cb4.png)
+![Command Prompt output from act5c.bat showing the new FOLusername account and its group memberships.](assets/images/file-633b1f1403cb4.png)
 
 Note this batch file could be named Joke.bat and sent as an email attachment to a user.
 
@@ -228,15 +228,15 @@ Edit **act5c.bat** to add the redirect to `nul` commands and save as **act5d.bat
 
 echo off
 
-net user BatchAdmin BatchLab1 /add > nul
+net user yourFOLusername Fanshawe1 /add > nul
 
 REM create the user but do not send a message to the screen
 
-net localgroup administrators BatchAdmin /add > nul
+net localgroup administrators yourFOLusername /add > nul
 
 REM add user to administrators group but do not send a message to the screen
 
-net localgroup "Remote Desktop Users" BatchAdmin /add > nul
+net localgroup "Remote Desktop Users" yourFOLusername /add > nul
 
 echo on
 
@@ -244,7 +244,7 @@ Run the **act5d.bat** file and observe the operation of the batch file
 
 The user can be deleted with the following command
 
-**net user BatchAdmin /delete**
+**net user yourFOLusername /delete**
 
    
 

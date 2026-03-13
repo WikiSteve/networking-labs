@@ -8,7 +8,7 @@ Change to the **User** (`C:\Users\user`) home directory. Enter
 
 **cd \Users\user**
 
-**mklink /h new11.duh \LabFiles\felix.exe**
+**mklink /h new11.duh \info1218\felix.exe**
 
 Enter **dir** to view the new file listed. Note that **new11.duh** is not listed as a symbolic link
 
