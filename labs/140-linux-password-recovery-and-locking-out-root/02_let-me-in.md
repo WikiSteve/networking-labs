@@ -39,7 +39,7 @@ The root filesystem is mounted read-only in this mode.
 Remount the root filesystem read-write with:
 
 ```bash
-mount / -rw -o remount
+mount -o remount,rw /
 ```
 
 ![Root shell output showing the remount command followed by a successful `passwd` change.](assets/images/file-62bd0bcceac56.png)
