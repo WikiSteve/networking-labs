@@ -92,6 +92,9 @@ Set the filesystem types and mount points for **#1** and **#2**. Set **#3** as s
 
 ## Screenshot 2
 
+> [!TIP]
+> If you want a walkthrough of the LVM steps before collecting Screenshot 2, watch the [LVM video guide](https://www.youtube.com/watch?v=QsUctFXy6MU).
+
 Ask the person who knows the root password to log in as **root** and run:
 
 ```bash
