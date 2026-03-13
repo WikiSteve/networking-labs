@@ -4,8 +4,6 @@ With the hardware profile configured, power on the virtual machine.
 
 ![Illustration introducing the Debian installer startup section.](assets/images/file-62bbbfed7d6ad.png)
 
-Starting Debian installer
-
 Start the virtual machine. Select **Install** and **do not** choose **Graphical Install**.
 
 ![Debian installer boot menu with Install selected instead of Graphical Install.](assets/images/file-62bbc106c25da.png)

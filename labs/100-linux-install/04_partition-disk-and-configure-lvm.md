@@ -4,8 +4,6 @@
 
 ![Illustration introducing the manual partitioning and LVM configuration section.](assets/images/file-62bbcba592be0.jpg)
 
-Partition disk and configure LVM
-
 ![Debian installer partitioning method screen with Manual selected.](assets/images/file-62bbcc73a9ef0.png)
 
 Select manual
@@ -76,7 +74,7 @@ Let `lv-root` be **2 GB**.
 
 ![Debian installer prompt for giving lv-home the remaining free space in the volume group.](assets/images/file-62bbd4d7b9bb0.png)
 
-Let `lv-home` use the remaining space in **VG-LastName**, which should be about **18475 MB**.
+Let `lv-home` use the remaining free space in **VG-LastName**.
 
 ![Debian installer LVM summary showing lv-swap, lv-root, and lv-home created in the same volume group.](assets/images/file-62bbd553a4ef1.png)
 
