@@ -2,7 +2,7 @@
 
 **This activity will create batch files and symbolic links**
 
-Launch VMWare Workstation and select the Windows 10 VM tab.  
+Launch VMware Workstation and select the Windows 10 VM tab.
 
 Open activity 3 snapshot
 
@@ -16,7 +16,7 @@ Note - Only the *Administrator* can create a symbolic link
 
 Open a **Command Prompt (Admin)**
 
-Change the prompt to your user name home directory. Enter
+Change the prompt to your user home directory. Enter
 
 cd \Users\yourname
 
@@ -26,7 +26,7 @@ Close Admin command window
 
 Sign out as **User** and log in as your **username** account
 
-To open a command prompt. Enter
+To open a command prompt, enter
 
 **Start – Run – cmd - OK**
 
@@ -46,7 +46,7 @@ Open the calculator program with the symbolic link. Enter
 
 Close the calculator program
 
-***The symbolic Link can be used rather than specifying a long path name to the directory that contains the program or altering the system PATH***
+***The symbolic link can be used rather than specifying a long path name to the directory that contains the program or altering the system PATH***
 
 Delete calc1.exe. Enter
 
@@ -84,7 +84,7 @@ Copy **new1.duh** to your user home directory. From the **\LabFiles\act5** promp
 
 **copy new1.duh \users\yourname**
 
-Sign out as **User** and login as your **username** account
+Sign out as **User** and log in as your **username** account
 
 Open a command prompt and enter **dir** to verify the link **new1.duh** has been copied
 
@@ -100,7 +100,7 @@ Run Felix from the renamed symbolic link calc.exe. Enter
 
 Open Task Manager and view the running programs
 
-Note that File Manager shows calc.exe is running not felix.exe.
+Note that Task Manager shows calc.exe is running, not felix.exe.
 
 calc.exe is a legitimate Windows accessory program.
 

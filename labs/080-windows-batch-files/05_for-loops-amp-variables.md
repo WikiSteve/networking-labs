@@ -6,7 +6,7 @@ The following command will count from 1 to 10. Enter
 
 **for /L %i in (1,1,10) do echo %i**
 
-Note the screen display show the echo command counting up from 1 to 10
+Note the screen display shows the echo command counting up from 1 to 10
 
 The following command will count from 1 to 10 and place the output into a text file along with the date and time. Enter
 
@@ -36,7 +36,7 @@ View the contents of **count.txt**
 
 Copy selected files from the sysinternals subdirectory to your username home directory
 
-In the \Users\username directory create subdirectories with names files1 & files2
+In the \Users\yourname directory create subdirectories with names files1 & files2
 
    md files1
 

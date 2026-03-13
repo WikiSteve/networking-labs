@@ -6,7 +6,7 @@ In the **User** home directory create a directory link to the *sysinternals* dir
 
 **mklink /d tools \LabFiles\sysinternals**
 
-Enter **dir** to view the link created. The file system will now show a link (tools) to the *sysinternals *directory.
+Enter **dir** to view the link created. The file system will now show a link (`tools`) to the *sysinternals* directory.
 
 Enter **dir /p tools** to see the list of files associated with the tools symbolic link
 
