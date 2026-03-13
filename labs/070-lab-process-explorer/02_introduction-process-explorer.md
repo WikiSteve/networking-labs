@@ -2,19 +2,19 @@
 
 This activity will demonstrate how Process Explorer can be used to analyze Windows programs to detect malware.
 
-Open the **Windows 10** VMware image. Make sure your VM computer name is personalized. 
+Open the **Windows 10** VMware image. Make sure your VM computer name is personalized.
 
-Login with account name **User** password to **Windows1**
+Log in with account name **User** and password **Windows1**.
 
-**NOTE: ***In the example screen shots I am logged in as SteveS.  You should be logged in as "user" till part 9 labelled "PID access" near the end of this lab.*
+**NOTE:** *In the example screenshots I am logged in as SteveS. You should be logged in as **User** until part 9, labelled **PID access**, near the end of this lab.*
 
-Set the network adapter to NAT mode (VMnet8)
+Set the network adapter to NAT mode (`VMnet8`).
 
-In Network and Sharing Centre set the Adapter to obtain an address automatically
+In Network and Sharing Centre, set the adapter to obtain an address automatically.
 
-Process Explorer should be found on your Windows 10 image under: **C:\INFO1218\sysinternals\procexp.exe**.  You may have to accept the the license agreement first to open the program.
+Process Explorer should be found on your Windows 10 image under **C:\INFO1218\sysinternals\procexp.exe**. You may have to accept the license agreement before opening the program.
 
-NOTE: ProcessExplorer can also be downloaded from Microsoft
+NOTE: Process Explorer can also be downloaded from Microsoft:
 
 https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer
 
@@ -78,9 +78,9 @@ Notice the PING process is displayed only for the **duration **of the execution 
 
 In Windows 10, you'll need to click start > type **iexplore.exe** to launch classic Internet Explorer.  The E button will open Edge not Internet Explorer.
 
-Note the process is now listed as** iexplore.exe** a child process of **explorer.exe**
+Note the process is now listed as **iexplore.exe**, a child process of **explorer.exe**.
 
-Right click on** iexplore.exe** and select **Properties**
+Right click on **iexplore.exe** and select **Properties**.
 
 In the Properties window select the **Security** tab and review the privileges assigned to the process.
 
@@ -102,7 +102,7 @@ Adjust the column **width** display for **Remote Address** and **State** to bett
 
 Open a second tab and connect to www.google.ca
 
-In Process Explorer note a second** iexpore.exe** process has been started as a child process of iexplore.exe
+In Process Explorer note a second **iexplore.exe** process has been started as a child process of **iexplore.exe**.
 
 View the Properties TCP/IP tab for this new process.
 

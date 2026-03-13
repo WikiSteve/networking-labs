@@ -1,13 +1,16 @@
 # Lab Process Explorer
 
 ## Goal
-*(Add lab goal here)*
+Use Process Explorer to inspect normal Windows processes, compare suspicious ones against expected behavior, and identify indicators of malware.
 
 ## Prereqs
-- *(Add prerequisites here)*
+- A Windows 10 virtual machine that includes Process Explorer and the course malware lab files
+- A personalized standard user account for the PID access portion of the lab
+- VMware networking set to NAT mode
 
 ## Deliverables
-- *(Add deliverables here)*
+- Complete the lab observations and screenshots requested by your instructor
+- Submit your work using the course submission template
 
 ## Pages
 - [Evaluation](01_evaluation.md)
@@ -22,4 +25,4 @@
 
 ## Accessibility
 
-- [Screenshot OCR and alt text data](assets/screenshot-ocr.json)
+- [Screenshot alt text and OCR transcript data](assets/screenshot-ocr.json)

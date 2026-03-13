@@ -1,6 +1,6 @@
 # PID access
 
-Confirm your name user (First Name, Last initial) is not a member of the Administrators group.  Local Users and Groups can be accessed by running mmc.exe. File > Add/Remove Snap-in.  Find Local Users and Groups (local) and click the add button, then OK.
+Confirm your named user account (`FirstNameLastInitial`) is not a member of the Administrators group. Local Users and Groups can be accessed by running `mmc.exe`, then choosing **File > Add/Remove Snap-in**. Find **Local Users and Groups (local)**, click **Add**, then click **OK**.
 
 ![MMC Local Users and Groups window showing the Users list for the PID access section.](assets/images/file-6384e441d46ec.png)
 
@@ -14,9 +14,9 @@ Answer NO to this prompt.  We are not an administrator.
 
 ![User Account Control prompt asking whether Patch.exe should be allowed to make changes.](assets/images/file-6384e636a3b67.png)
 
-Open process explorer with this logged on user
+Open Process Explorer with this logged-on user.
 
-Several processes such as patch.exe and ieexplore.exe started by the account User are still running
+Several processes such as **patch.exe** and **iexplore.exe**, started by the account **User**, are still running.
 
 **Kill the patch.exe** process.
 
@@ -32,7 +32,7 @@ Since the current logged in account has no privileges to this process it cannot 
 
 **Open a command prompt**
 
-View the properties for the new **cmd.exe **process and click on the Security tab
+View the properties for the new **cmd.exe** process and click on the **Security** tab.
 
 Note the owner of the process
 
