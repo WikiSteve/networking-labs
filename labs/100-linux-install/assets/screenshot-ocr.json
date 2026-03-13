@@ -303,10 +303,6 @@
       "NVMe"
     ]
   },
-  "file-62bbab14b8156.png": {
-    "alt": "Illustration accompanying the explanation of why the lab uses SCSI disks instead of NVMe.",
-    "ocr": []
-  },
   "file-62bbabf89a1ab.png": {
     "alt": "VMware disk selection screen for creating a new virtual disk.",
     "ocr": [

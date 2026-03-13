@@ -71,9 +71,8 @@ Paravirtual drivers are part of the kernel now, which take fewer CPU cycles when
 
 ![VMware disk type screen used to choose SCSI instead of NVMe for simpler device names.](assets/images/file-62bbaa4c3d9e1.png)
 
-Just like paravirtualized drivers, NVMe is faster and takes less CPU. However, select SCSI because we will be working with disks and for the first few weeks we need the disks to be called something simple like `sda`, `sdb`, and so on. Feel free to reinstall with NVMe once you are confident in what you are doing.
-
-![Illustration accompanying the explanation of why the lab uses SCSI disks instead of NVMe.](assets/images/file-62bbab14b8156.png)
+> [!NOTE]
+> Just like paravirtualized drivers, NVMe is faster and takes less CPU. However, select SCSI because we will be working with disks and for the first few weeks we need the disks to be called something simple like `sda`, `sdb`, and so on. Feel free to reinstall with NVMe once you are confident in what you are doing.
 
 ![VMware disk selection screen for creating a new virtual disk.](assets/images/file-62bbabf89a1ab.png)
 
