@@ -10,7 +10,7 @@ notepad act5.bat
 
 The following commands are to be placed into the *act5.bat* batch file
 
-echo off
+@echo off
 
 md \LabFiles\SteveS
 
@@ -51,13 +51,13 @@ From the command line enter **act5.bat** and observe the execution of the comman
 > [!WARNING]
 > TODO: Retake this screenshot. The current image still shows legacy course-specific paths and folder names from the original source.
 
-## **Screenshot 7 of the batch files OUTPUT. No errors required for a grade.  If there are errors make sure to fix them.**
+## **Screenshot 7 of the batch files OUTPUT. No errors required for a grade. If there are errors make sure to fix them.**
 
 ![Command Prompt output from act5.bat showing the LabFiles directory tree and the hidden user folder step.](assets/images/file-633b03c7d6c56.png)
 
 ## Create a batch file to copy selected files
 
-Change to the sysinternals directory  
+Change to the sysinternals directory
 
 **cd \LabFiles\sysinternals**
 
@@ -67,7 +67,7 @@ Open notepad to create a batch file
 
 Variables in a batch file require %%i syntax. Enter the following commands
 
-echo off
+@echo off
 
 cls
 
@@ -87,7 +87,7 @@ Example output below (DO NOT SUBMIT)
 
 ![Command Prompt output from act5a.bat showing copy-status messages and the files2 directory listing.](assets/images/file-633b12cbb8dc7.png)
 
-Note in the above output that a message was placed on the screen for each successful file copied.     
+Note in the above output that a message was placed on the screen for each successful file copied.
 
 Edit the batch file to send these messages to NUL so they will not be displayed on screen
 
@@ -95,7 +95,7 @@ Edit the batch file to send these messages to NUL so they will not be displayed 
 
 Edit the file as shown below
 
-echo off
+@echo off
 
 cls
 
@@ -123,13 +123,13 @@ Switch back to the **\users\SteveS** profile directory
 
 Create a text file listing the two hosts to test
 
-   ** notepad ping.txt**
+  **notepad ping.txt**
 
 Enter the following two web sites as two lines in the `ping.txt` file
 
-    1.1.1.1
+  1.1.1.1
 
-    8.8.8.8
+  8.8.8.8
 
 IMPORTANT: **Do not** include an extra new line after **8.8.8.8**
 
@@ -139,8 +139,9 @@ Create a batch file to ping the two listed hosts and place the results in a text
 
 Enter the following commands
 
-echo off
+@echo off
 
+if exist ping1.txt del ping1.txt
 for /f %%i in (ping.txt) do ping %%i -n 1 >> ping1.txt
 
 cls
@@ -167,7 +168,7 @@ Note: the `ping -n 1` option specifies that only one ping command is used instea
 
 ## Change the VMware Network Adapter to NAT Mode
 
-In the **Network & Sharing center** set the Ethernet interface to **Obtain an address automatically**
+In the **Network & Sharing Center** set the Ethernet interface to **Obtain an address automatically**
 
 From command line enter **act5b.bat** to run the batch file
 
@@ -186,7 +187,7 @@ Open a Command Prompt (Admin)
 
 Change to the \Users directory. Enter
 
-   ** cd \Users**
+  **cd \Users**
 
 Enter **dir** to view the list of user home directories
 
@@ -196,7 +197,7 @@ Create a batch file that will add a temporary local user named **ssharpe** to th
 
 Enter the following commands to create a new user and make that user a member of the Administrators group and Remote Desktop Users group
 
-echo off
+@echo off
 
 net user ssharpe BatchLab1 /add
 
@@ -218,7 +219,7 @@ net localgroup administrators
 
 net localgroup "Remote Desktop Users"
 
-## **Screenshot 9 output of all the groups and act5c.bat in the \users directory.  Must contain no errors for grading.  If any errors make sure to correct them.**
+## **Screenshot 9 output of all the groups and act5c.bat in the \users directory. Must contain no errors for grading. If any errors make sure to correct them.**
 
 ![Command Prompt output from act5c.bat showing the new ssharpe account and its group memberships.](assets/images/file-633b1f1403cb4.png)
 
@@ -232,7 +233,7 @@ The execution of the batch file did send messages to the screen each time a comm
 
 Edit **act5c.bat** to add the redirect to `nul` commands and save as **act5d.bat**
 
-echo off
+@echo off
 
 net user ssharpe BatchLab1 /add > nul
 
@@ -251,8 +252,6 @@ Run the **act5d.bat** file and observe the operation of the batch file
 The user can be deleted with the following command
 
 **net user ssharpe /delete**
-
-   
 
 **Submit all screen captures to the activity drop box**
 

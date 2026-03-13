@@ -10,7 +10,7 @@ Note the screen display shows the echo command counting up from 1 to 10
 
 The following command will count from 1 to 10 and place the output into a text file along with the date and time. Enter
 
-**for /L %i in (1,1,10) do echo %i >  count.txt &&  echo %time%  %date%  >>  count.txt**
+**for /L %i in (1,1,10) do echo %i > count.txt && echo %time% %date% >> count.txt**
 
 View the contents of **count.txt**
 
@@ -38,13 +38,13 @@ Copy selected files from the sysinternals subdirectory to the SteveS home direct
 
 In the \Users\SteveS directory create subdirectories with names files1 & files2
 
-   md files1
+  md files1
 
-   md files2
+  md files2
 
 Change the prompt to the sysinternals subdirectory
 
-    **cd \LabFiles\sysinternals**
+  **cd \LabFiles\sysinternals**
 
 Enter the following command to search for all files with a .hlp and .chm extension in the current sysinternals directory and copy those files to the destination files1 subdirectory
 
@@ -54,7 +54,7 @@ The screen will show a message for each file copied
 
 View files in \Users\SteveS\files1
 
-    **dir \Users\SteveS\files1**
+  **dir \Users\SteveS\files1**
 
 > [!WARNING]
 > TODO: Retake this screenshot. The current image still shows a legacy course-specific folder path from the original source.
