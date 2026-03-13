@@ -29,7 +29,7 @@ The files listed are the same as the *\LabFiles\sysinternals* directory
 
 ![Command Prompt output showing the tools directory link that points to the Sysinternals folder.](assets/images/file-633af5bb76dff.png)
 
-Sign out as **User** and sign in as your **username** account
+Sign out as **User** and sign in as **SteveS**
 
 ---
 [Prev](03_hard-link.md) | [Home](README.md) | [Next](05_for-loops-amp-variables.md)

@@ -34,9 +34,9 @@ View the contents of **count.txt**
 
 ![Command Prompt output from the FOR loop writing numbers, dates, and times to count.txt.](assets/images/file-633afb7fe6e40.png)
 
-Copy selected files from the sysinternals subdirectory to your username home directory
+Copy selected files from the sysinternals subdirectory to the SteveS home directory
 
-In the \Users\yourname directory create subdirectories with names files1 & files2
+In the \Users\SteveS directory create subdirectories with names files1 & files2
 
    md files1
 
@@ -48,13 +48,13 @@ Change the prompt to the sysinternals subdirectory
 
 Enter the following command to search for all files with a .hlp and .chm extension in the current sysinternals directory and copy those files to the destination files1 subdirectory
 
-**for %i in (*.hlp *.chm) do copy %i \Users\yourname\files1**
+**for %i in (*.hlp *.chm) do copy %i \Users\SteveS\files1**
 
 The screen will show a message for each file copied
 
-View files in \Users\yourname\files1
+View files in \Users\SteveS\files1
 
-    **dir \Users\yourname\files1**
+    **dir \Users\SteveS\files1**
 
 > [!WARNING]
 > TODO: Retake this screenshot. The current image still shows a legacy course-specific folder path from the original source.

@@ -25,4 +25,4 @@ Use Windows command-line tools to create links, build simple batch files, work w
 - [Screenshot alt text and OCR transcript data](assets/screenshot-ocr.json)
 
 ## TODO
-- Retake the screenshots that still show legacy course-specific folder names, usernames, hostnames, or passwords from the original source material.
+- Retake the screenshots that still show legacy course-specific folder paths or hostnames from the original source material.

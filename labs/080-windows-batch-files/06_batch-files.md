@@ -4,7 +4,7 @@
 
 Change back to your user profile directory and open Notepad to create a batch. Enter
 
-cd \users\yourname
+cd \users\SteveS
 
 notepad act5.bat
 
@@ -12,11 +12,11 @@ The following commands are to be placed into the *act5.bat* batch file
 
 echo off
 
-md \LabFiles\%USERNAME%
+md \LabFiles\SteveS
 
-copy \LabFiles\sysinternals\sd* \LabFiles\%USERNAME%
+copy \LabFiles\sysinternals\sd* \LabFiles\SteveS
 
-dir \LabFiles\%USERNAME% > myfile1.txt
+dir \LabFiles\SteveS > myfile1.txt
 
 tree \LabFiles > myfile2.txt
 
@@ -30,9 +30,9 @@ type myfile2.txt
 
 pause
 
-attrib +h \LabFiles\%USERNAME%
+attrib +h \LabFiles\SteveS
 
-echo THE %USERNAME% DIRECTORY IS NOW HIDDEN
+echo THE STEVES DIRECTORY IS NOW HIDDEN
 
 pause
 
@@ -40,7 +40,7 @@ dir \LabFiles
 
 tree \LabFiles
 
-attrib -h \LabFiles\%USERNAME%
+attrib -h \LabFiles\SteveS
 
 echo on
 
@@ -73,9 +73,9 @@ cls
 
 echo Begin File Copy
 
-For %%i in (*.hlp *.chm) do @copy %%i \users\yourname\files2
+For %%i in (*.hlp *.chm) do @copy %%i \users\SteveS\files2
 
-dir \users\yourname\files2
+dir \users\SteveS\files2
 
 echo on
 
@@ -101,9 +101,9 @@ cls
 
 echo Begin File Copy
 
-For %%i in (*.hlp *.chm) do @copy %%i \users\yourname\files2 > nul
+For %%i in (*.hlp *.chm) do @copy %%i \users\SteveS\files2 > nul
 
-dir \users\yourname\files2
+dir \users\SteveS\files2
 
 echo on
 
@@ -113,13 +113,13 @@ From command line enter **act5a.bat** to run the batch file and view the differe
 
 View the files in the files2 directory. Enter
 
-**dir \Users\yourname\files2**
+**dir \Users\SteveS\files2**
 
 Below is an example of the refined batch program output. (DO NOT SUBMIT)
 
 ![Command Prompt output from the refined act5a.bat run with copy messages redirected to nul and the files2 directory listing.](assets/images/file-633b15b13b99b.png)
 
-Switch back to your user profile directory **\users\yourname**
+Switch back to the **\users\SteveS** profile directory
 
 Create a text file listing the two hosts to test
 
@@ -180,7 +180,7 @@ Observe the series of commands being executed
 
 ![Command Prompt output from act5b.bat showing one ping reply for each of the two configured hosts.](assets/images/file-633b1b20e9e7d.png)
 
-Sign out as your username and sign in as **User**
+Sign out as **SteveS** and sign in as **User**
 
 Open a Command Prompt (Admin)
 
@@ -190,7 +190,7 @@ Change to the \Users directory. Enter
 
 Enter **dir** to view the list of user home directories
 
-Create a batch file that will add a temporary local user named **BatchAdmin** to the computer and elevate that user's privileges to the Administrators group. Assign the user password as **BatchLab1**. Enter
+Create a batch file that will add a temporary local user named **ssharpe** to the computer and elevate that user's privileges to the Administrators group. Assign the user password as **BatchLab1**. Enter
 
 **notepad act5c.bat**
 
@@ -198,11 +198,11 @@ Enter the following commands to create a new user and make that user a member of
 
 echo off
 
-net user BatchAdmin BatchLab1 /add
+net user ssharpe BatchLab1 /add
 
-net localgroup administrators BatchAdmin /add
+net localgroup administrators ssharpe /add
 
-net localgroup "Remote Desktop Users" BatchAdmin /add
+net localgroup "Remote Desktop Users" ssharpe /add
 
 echo on
 
@@ -218,12 +218,9 @@ net localgroup administrators
 
 net localgroup "Remote Desktop Users"
 
-> [!WARNING]
-> TODO: Retake this screenshot. The current image still shows a legacy course-specific username and password from the original source.
-
 ## **Screenshot 9 output of all the groups and act5c.bat in the \users directory.  Must contain no errors for grading.  If any errors make sure to correct them.**
 
-![Command Prompt output from act5c.bat showing the new local user account and its group memberships.](assets/images/file-633b1f1403cb4.png)
+![Command Prompt output from act5c.bat showing the new ssharpe account and its group memberships.](assets/images/file-633b1f1403cb4.png)
 
 Note this batch file could be named Joke.bat and sent as an email attachment to a user.
 
@@ -237,15 +234,15 @@ Edit **act5c.bat** to add the redirect to `nul` commands and save as **act5d.bat
 
 echo off
 
-net user BatchAdmin BatchLab1 /add > nul
+net user ssharpe BatchLab1 /add > nul
 
 REM create the user but do not send a message to the screen
 
-net localgroup administrators BatchAdmin /add > nul
+net localgroup administrators ssharpe /add > nul
 
 REM add user to administrators group but do not send a message to the screen
 
-net localgroup "Remote Desktop Users" BatchAdmin /add > nul
+net localgroup "Remote Desktop Users" ssharpe /add > nul
 
 echo on
 
@@ -253,7 +250,7 @@ Run the **act5d.bat** file and observe the operation of the batch file
 
 The user can be deleted with the following command
 
-**net user BatchAdmin /delete**
+**net user ssharpe /delete**
 
    
 

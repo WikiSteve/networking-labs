@@ -18,13 +18,13 @@ Open a **Command Prompt (Admin)**
 
 Change the prompt to your user home directory. Enter
 
-cd \Users\yourname
+cd \Users\SteveS
 
 mklink calc1.exe \windows\system32\calc.exe
 
 Close Admin command window
 
-Sign out as **User** and log in as your **username** account
+Sign out as **User** and log in as **SteveS**
 
 To open a command prompt, enter
 
@@ -52,7 +52,7 @@ Delete calc1.exe. Enter
 
 **del calc1.exe**
 
-Sign out as your username and log in as **User**
+Sign out as **SteveS** and log in as **User**
 
 Open a **Command Prompt (Admin)**
 
@@ -82,9 +82,9 @@ Prove the symbolic link will work to run the Felix program from another location
 
 Copy **new1.duh** to your user home directory. From the **\LabFiles\act5** prompt, enter
 
-**copy new1.duh \users\yourname**
+**copy new1.duh \users\SteveS**
 
-Sign out as **User** and log in as your **username** account
+Sign out as **User** and log in as **SteveS**
 
 Open a command prompt and enter **dir** to verify the link **new1.duh** has been copied
 
@@ -117,7 +117,7 @@ Malware could be running disguised as a legitimate system program
 
 **Close calc.exe**
 
-Sign out as your username and log in as **User**
+Sign out as **SteveS** and log in as **User**
 
 ---
 [Prev](01_evaluation.md) | [Home](README.md) | [Next](03_hard-link.md)

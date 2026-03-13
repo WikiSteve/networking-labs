@@ -2,7 +2,7 @@
   "file-633ae5f34d063.png": {
     "alt": "Command Prompt showing calc1.exe as a symbolic link in the user profile while Calculator is running.",
     "ocr": [
-      "C:\\Users\\yourname> dir",
+      "C:\\Users\\SteveS> dir",
       "<SYMLINK> calc1.exe [\\windows\\system32\\calc.exe]",
       "Calculator window is open"
     ]
@@ -46,7 +46,7 @@
   "file-633afdf2e6dc1.png": {
     "alt": "Command Prompt listing the files1 directory after copying selected .hlp and .chm files from Sysinternals.",
     "ocr": [
-      "dir \\Users\\yourname\\files1",
+      "dir \\Users\\SteveS\\files1",
       "AdExplorer.chm",
       "ADInsight.chm",
       "DISKMON.HLP",
@@ -56,10 +56,10 @@
   "file-633b03c7d6c56.png": {
     "alt": "Command Prompt output from act5.bat showing the LabFiles directory tree and the hidden user folder step.",
     "ocr": [
-      "Directory of C:\\LabFiles\\%USERNAME%",
+      "Directory of C:\\LabFiles\\SteveS",
       "sdelete.exe",
       "sdelete64.exe",
-      "THE %USERNAME% DIRECTORY IS NOW HIDDEN",
+      "THE STEVES DIRECTORY IS NOW HIDDEN",
       "Folder PATH listing"
     ]
   },
@@ -68,7 +68,7 @@
     "ocr": [
       "Begin File Copy",
       "1 file(s) copied",
-      "dir \\Users\\yourname\\files2",
+      "dir \\Users\\SteveS\\files2",
       "copied .hlp and .chm files are listed"
     ]
   },
@@ -76,7 +76,7 @@
     "alt": "Command Prompt output from the refined act5a.bat run with copy messages redirected to nul and the files2 directory listing.",
     "ocr": [
       "Begin File Copy",
-      "dir \\Users\\yourname\\files2",
+      "dir \\Users\\SteveS\\files2",
       "copy-status messages are no longer shown on screen"
     ]
   },
@@ -91,12 +91,12 @@
     ]
   },
   "file-633b1f1403cb4.png": {
-    "alt": "Command Prompt output from act5c.bat showing the new local user account and its group memberships.",
+    "alt": "Command Prompt output from act5c.bat showing the new ssharpe account and its group memberships.",
     "ocr": [
       "act5c.bat",
-      "net user BatchAdmin BatchLab1 /add",
-      "net localgroup administrators BatchAdmin /add",
-      "net localgroup \"Remote Desktop Users\" BatchAdmin /add",
+      "net user ssharpe BatchLab1 /add",
+      "net localgroup administrators ssharpe /add",
+      "net localgroup \"Remote Desktop Users\" ssharpe /add",
       "localgroup listings confirm the account memberships"
     ]
   }
