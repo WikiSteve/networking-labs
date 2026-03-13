@@ -1,0 +1,108 @@
+{
+  "file-604517173c719.jpg": {
+    "alt": "",
+    "ocr": []
+  },
+  "file-60451bf5b4f31.png": {
+    "alt": "Excerpt from /etc/apt/sources.list showing commented deb-src lines on an Ubuntu system.",
+    "ocr": [
+      "# deb-src http://ca.archive.ubuntu.com/ubuntu groovy main restricted",
+      "# deb-src http://ca.archive.ubuntu.com/ubuntu groovy-updates main restricted",
+      "# deb-src http://ca.archive.ubuntu.com/ubuntu groovy-security universe"
+    ]
+  },
+  "Pasted image 20260313115609.png": {
+    "alt": "Updated /etc/apt/sources.list showing deb-src lines uncommented after a vi search-and-replace, with a blue arrow and yellow caption highlighting the successful 11-line substitution.",
+    "ocr": [
+      "deb-src http://ca.archive.ubuntu.com/ubuntu groovy main restricted",
+      "deb-src http://ca.archive.ubuntu.com/ubuntu groovy-updates main restricted",
+      "11 substitutions on 11 lines",
+      "search and replace",
+      "executed successfully"
+    ]
+  },
+  "file-604523d7e160e.png": {
+    "alt": "Terminal output showing apt-get source traceroute and the extracted traceroute-2.1.0 source directory in the home folder.",
+    "ocr": [
+      "apt-get source traceroute",
+      "dpkg-source: info: extracting traceroute in traceroute-2.1.0",
+      "traceroute_2.1.0-2.dsc",
+      "traceroute_2.1.0.orig.tar.gz",
+      "traceroute-2.1.0"
+    ]
+  },
+  "file-604525e7ca1b6.png": {
+    "alt": "Directory listing of the traceroute-2.1.0 source tree showing Makefiles, the traceroute directory, and related source files.",
+    "ocr": [
+      "Make.defines",
+      "Make.rules",
+      "Makefile",
+      "traceroute",
+      "wrappers"
+    ]
+  },
+  "file-6045272f3b26c.png": {
+    "alt": "Diagram showing compilers and assemblers producing object files, and the linker producing a relocatable library or executable.",
+    "ocr": [
+      "Compiler",
+      "Assembler",
+      "Object",
+      "Linker",
+      "Relocatable",
+      "Executable"
+    ]
+  },
+  "file-6045296082944.png": {
+    "alt": "Terminal output showing the version_string block in traceroute.c before the custom Compiled by line is added.",
+    "ocr": [
+      "version_string",
+      "\"Modern traceroute for Linux\"",
+      "TEXT(VERSION)",
+      "\"License: GPL v2 or any later\""
+    ]
+  },
+  "file-60452e24abd3c.png": {
+    "alt": "Terminal output showing traceroute.c after a custom Compiled by line has been added to version_string.",
+    "ocr": [
+      "version_string",
+      "\"Modern traceroute for Linux\"",
+      "\"Compiled by SSharpe\""
+    ]
+  },
+  "file-60452cb6954ed.png": {
+    "alt": "Terminal output showing a successful make build of the traceroute source tree.",
+    "ocr": [
+      "make",
+      "gcc",
+      "ranlib libsupp.a",
+      "traceroute"
+    ]
+  },
+  "file-60452e8da64a2.png": {
+    "alt": "Terminal output of ./traceroute -V from the build tree showing the customized version string.",
+    "ocr": [
+      "./traceroute -V",
+      "Modern traceroute for Linux",
+      "version 2.1.0",
+      "Compiled by SSharpe"
+    ]
+  },
+  "file-60452f5d48370.png": {
+    "alt": "Terminal output showing a successful sudo make install for traceroute.",
+    "ocr": [
+      "sudo make install",
+      "/usr/local/bin",
+      "traceroute.8",
+      "/usr/local/share/man/man8"
+    ]
+  },
+  "file-60453004040ea.png": {
+    "alt": "Terminal output of traceroute -V run from the home directory after the program has been installed into the system path.",
+    "ocr": [
+      "traceroute -V",
+      "Modern traceroute for Linux",
+      "version 2.1.0",
+      "Compiled by SSharpe"
+    ]
+  }
+}
