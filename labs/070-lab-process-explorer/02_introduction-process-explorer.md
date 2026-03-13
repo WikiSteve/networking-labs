@@ -12,7 +12,7 @@ Set the network adapter to NAT mode (`VMnet8`).
 
 In Network and Sharing Centre, set the adapter to obtain an address automatically.
 
-Process Explorer should be found on your Windows 10 image under **C:\INFO1218\sysinternals\procexp.exe**. You may have to accept the license agreement before opening the program.
+Process Explorer should be found on your Windows 10 image in a local Sysinternals folder such as **C:\Tools\sysinternals\procexp.exe**. You may have to accept the license agreement before opening the program.
 
 NOTE: Process Explorer can also be downloaded from Microsoft:
 
