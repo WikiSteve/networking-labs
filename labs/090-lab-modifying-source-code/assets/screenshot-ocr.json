@@ -64,7 +64,7 @@
     "ocr": [
       "version_string",
       "\"Modern traceroute for Linux\"",
-      "\"Compiled by YourInitialLastName\""
+      "\"Compiled by SSharpe\""
     ]
   },
   "file-60452cb6954ed.png": {
@@ -82,7 +82,7 @@
       "./traceroute -V",
       "Modern traceroute for Linux",
       "version 2.1.0",
-      "Compiled by YourInitialLastName"
+      "Compiled by SSharpe"
     ]
   },
   "file-60452f5d48370.png": {
@@ -100,7 +100,7 @@
       "traceroute -V",
       "Modern traceroute for Linux",
       "version 2.1.0",
-      "Compiled by YourInitialLastName"
+      "Compiled by SSharpe"
     ]
   }
 }

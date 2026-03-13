@@ -13,9 +13,6 @@ cd ~/traceroute-2.1.0/traceroute
 
 Screen print your test showing your custom name in the version output.
 
-> [!WARNING]
-> TODO: Retake this screenshot. The current image still shows the original `SSharpe` value from the source material.
-
 ![Terminal output of ./traceroute -V from the build tree showing the customized version string.](assets/images/file-60452e8da64a2.png)
 
 ## Install the program into production

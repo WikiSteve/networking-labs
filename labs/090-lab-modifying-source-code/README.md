@@ -31,6 +31,3 @@ Download the `traceroute` source package, make a small string change in the C so
 ## Accessibility
 
 - [Screenshot alt text and OCR transcript data](assets/screenshot-ocr.json)
-
-## TODO
-- Retake screenshots 2, 4, and 6 so the displayed custom version string matches the generic placeholder text used in the instructions.

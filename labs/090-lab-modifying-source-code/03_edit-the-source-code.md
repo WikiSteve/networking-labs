@@ -17,17 +17,14 @@ vi traceroute.c
 Find the string `version_string` and add a new line before the closing semicolon so it reads:
 
 ```c
-"\n Compiled by YourInitialLastName";
+"\n Compiled by SSharpe";
 ```
 
-Replace `YourInitialLastName` with your own first initial plus last name.
+Use the format first initial plus last name. For example, Steve Sharpe becomes `SSharpe`.
 
 The original source screenshots show the section before and after the edit:
 
 ![Terminal output showing the version_string block in traceroute.c before the custom Compiled by line is added.](assets/images/file-6045296082944.png)
-
-> [!WARNING]
-> TODO: Retake this screenshot. The current image still shows the original `SSharpe` value from the source material.
 
 ## Screenshot 2
 

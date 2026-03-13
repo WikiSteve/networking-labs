@@ -11,9 +11,6 @@ traceroute -V
 
 Show the output of `traceroute -V` from production. Make sure the screenshot shows the directory you ran it from and the command you issued.
 
-> [!WARNING]
-> TODO: Retake this screenshot. The current image still shows the original `SSharpe` value from the source material.
-
 ![Terminal output of traceroute -V run from the home directory after the program has been installed into the system path.](assets/images/file-60453004040ea.png)
 
 ---
