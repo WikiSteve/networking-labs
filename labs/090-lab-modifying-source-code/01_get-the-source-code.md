@@ -11,6 +11,8 @@
 
 ![](assets/images/file-604517173c719.jpg)
 
+*Just another day at the office.*
+
 ## Prepare the APT source repositories
 
 For Ubuntu, getting source code for a package is straightforward once the source repositories are enabled. The source material notes that the same basic workflow is also useful for later kernel-source labs.
