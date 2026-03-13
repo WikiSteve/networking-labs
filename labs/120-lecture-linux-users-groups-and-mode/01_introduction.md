@@ -49,15 +49,15 @@ groupadd <groupname>
 
 This lecture was adapted from an original PowerPoint deck to reduce slide-heavy delivery. The main skipped topics are `umask` and ACLs. Both are worth learning, but they are not the focus of this lecture.
 
-- Users and groups: slides 1-9
-- Regular file permissions: slides 10-19
-- Special permissions: slides 20-24
-- Default permissions through `umask`: slides 25-26
-- UGO exercise solution: slide 27
-- ACL introduction: slides 28-29
-- ACL on files: slides 30-36
-- ACL on directories: slides 37-44
-- ACL recap and final remarks: slides 47-61
+- [Users and groups: slides 1-9](https://youtu.be/_HEi_0wK_hA)
+- [Regular file permissions: slides 10-19](https://youtu.be/awR3-kuHGZg)
+- [Special permissions: slides 20-24](https://youtu.be/DcCY6WudPpI)
+- [Default permissions through `umask`: slides 25-26](https://youtu.be/wP88k0pvC7Y)
+- [UGO exercise solution: slide 27](https://youtu.be/y8vjEFEVj8E)
+- [ACL introduction: slides 28-29](https://youtu.be/0FHyG2flw_s)
+- [ACL on files: slides 30-36](https://youtu.be/YnLjPrHnWl4)
+- [ACL on directories: slides 37-44](https://youtu.be/YOTuoZ6XNkE)
+- [ACL recap and final remarks: slides 47-61](https://youtu.be/RAZWPQU0Bfo)
 
 ---
 [Home](README.md) | [Next](02_users.md)
