@@ -174,7 +174,7 @@
     ]
   },
   "file-62cdf3abd1a8a.png": {
-    "alt": "Command output showing `sudo umount home` completing without an error.",
+    "alt": "Command output showing `/home` being unmounted successfully before the resize work begins.",
     "ocr": [
       "Iete@ondi pe\"Ved;",
       "steve@SSharpe-Debian:",

@@ -15,9 +15,13 @@ Because `/home` is not required for the system to keep running, we can unmount i
 > [!NOTE]
 > You cannot unmount a filesystem that is currently in use. If you are inside `/home` or one of its subdirectories, the unmount will fail. Exit any other terminals, move to `/`, and reboot if the target still reports as busy.
 
-![Command output showing `sudo umount home` completing without an error.](assets/images/file-62cdf3abd1a8a.png)
+![Command output showing `/home` being unmounted successfully before the resize work begins.](assets/images/file-62cdf3abd1a8a.png)
 
-If the unmount succeeds, `/home` should no longer appear in `df` output.
+If the unmount succeeds, `/home` should no longer appear in `df` output. For clarity, the command to use here is:
+
+```bash
+sudo umount /home
+```
 
 We want to shrink home by 5 GB:
 

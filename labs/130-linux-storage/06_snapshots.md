@@ -1,6 +1,6 @@
 # Snapshots
 
-In this section we will use the LVM snapshot feature to recover `quotes.txt` from the `vi-tutorial` directory in your home folder. Make sure that directory and file still exist before you start.
+In this section we will use the LVM snapshot feature to recover `quotes.txt` from the `vi-tutorials` directory in your home folder. Make sure that directory and file still exist before you start.
 
 Using snapshots requires free space in the volume group. Verify that with:
 
