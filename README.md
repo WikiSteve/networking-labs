@@ -10,6 +10,7 @@
 - [Process Explorer](./labs/070-lab-process-explorer/README.md)
 - [Windows Batch Files](./labs/080-windows-batch-files/README.md)
 - [Modifying Source Code](./labs/090-lab-modifying-source-code/README.md)
+- [Linux Install](./labs/100-linux-install/README.md)
 - [FTP and Samba](./labs/lab_ftp_samba_md/README.md)
 - [Certificates](./labs/lab_certificates_md/README.md)
 
