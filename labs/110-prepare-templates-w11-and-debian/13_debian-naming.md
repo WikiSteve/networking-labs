@@ -20,20 +20,20 @@ Open `/etc/hosts` **before** making any changes to `/etc/hostname` to ensure you
 sudo nano /etc/hosts
 ```
 
-In the hosts file, find the line with your **old hostname** (let’s say it’s `old-hostname`), and add a **new line** with your new FQDN and short hostname:
+In the hosts file, find the line with your **old hostname** (let’s say it’s `old-hostname`), and add a **new line** using Debian's typical host alias address `127.0.1.1` with your new FQDN and short hostname:
 
 ```text
-127.200.200.200    old-hostname
+127.0.1.1    old-hostname
 
-127.200.200.200    firstInitialLastName-clone.LastName.com    firstInitialLastName-clone
+127.0.1.1    firstInitialLastName-clone.LastName.com    firstInitialLastName-clone
 ```
 
 For example, if your old hostname is `old-hostname` and you’re changing it to `ssharpe-clone.sharpe.com`, your entries should look like this:
 
 ```text
-127.200.200.200    old-hostname
+127.0.1.1    old-hostname
 
-127.200.200.200    ssharpe-clone.sharpe.com    ssharpe-clone
+127.0.1.1    ssharpe-clone.sharpe.com    ssharpe-clone
 ```
 
 Save and close (in nano, `Ctrl + X`, then `Y`, and `Enter`).
@@ -77,7 +77,7 @@ If it responds with "not locked out!" you’re good to go!
 - Once you’re sure everything is working, open `/etc/hosts` one last time and remove the line with the old hostname, keeping only the new FQDN line:
 
 ```text
-127.200.200.200    ssharpe-clone.sharpe.com    ssharpe-clone
+127.0.1.1    ssharpe-clone.sharpe.com    ssharpe-clone
 ```
 
 Then do a final check to confirm `sudo` is still accessible:
