@@ -1455,7 +1455,7 @@
     ]
   },
   "file-6384e775a70e9.png": {
-    "alt": "Patch.exe properties on the Security tab when viewed by a limited user with no process privileges.",
+    "alt": "Patch.exe properties window for a limited user, showing access denied and blocked process details.",
     "ocr": [
       "MWtv, svsinternals",
       "con",

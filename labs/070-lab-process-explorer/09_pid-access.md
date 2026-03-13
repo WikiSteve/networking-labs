@@ -16,19 +16,19 @@ Answer NO to this prompt.  We are not an administrator.
 
 Open process explorer with this logged on user
 
-Several process such as patch.exe and ieexplore.exe started by the account User are still running
+Several processes such as patch.exe and ieexplore.exe started by the account User are still running
 
 **Kill the patch.exe** process.
 
 Access to kill the process will be denied
 
-View properties and Select the Security tab
+View the properties window. The limited account cannot read the process details, so the screenshot shows the blocked Image tab and an access denied message rather than useful security information.
 
 No information is available to this limited account user
 
 Since the current logged in account has no privileges to this process it cannot be killed
 
-![Patch.exe properties on the Security tab when viewed by a limited user with no process privileges.](assets/images/file-6384e775a70e9.png)
+![Patch.exe properties window for a limited user, showing access denied and blocked process details.](assets/images/file-6384e775a70e9.png)
 
 **Open a command prompt**
 
@@ -38,7 +38,7 @@ Note the owner of the process
 
 Note that fewer privileges have been assigned when compared to the Command prompt opened by the account User which is a member of the Administrators group
 
-## **Screenshot 10 the Security tab showing the Group & Privileges Window**
+## **Screenshot 9 of the Security tab showing the Group & Privileges Window**
 
 ![cmd.exe properties on the Security tab showing the owner and reduced privileges under the standard user account.](assets/images/file-6384e8df5ef67.png)
 

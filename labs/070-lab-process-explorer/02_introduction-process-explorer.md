@@ -82,25 +82,21 @@ Note the process is now listed as** iexplore.exe** a child process of **explorer
 
 Right click on** iexplore.exe** and select **Properties**
 
-In the Properties window select** Security** tab
+In the Properties window select the **Security** tab and review the privileges assigned to the process.
 
-Note the Privileges assigned to the process
-
-## **Screenshot 3 of the Security tab and privileges assigned to this application**
-
-In the Properties window select the **TCP/IP **tab
+Next select the **TCP/IP** tab.
 
 Note that no TCP connections have been established by the process
 
 In the web browser connect to a default web site provided such as MSN Canada
 
-Return to the Properties window and TCP/IP tab
+Return to the Properties window and review the TCP/IP tab again.
 
-Note the TCP connections established
+Note the TCP connections that are now established.
 
 Adjust the column **width** display for **Remote Address** and **State** to better view the information.
 
-## **Screenshot 4 of the TCP/IP tab showing the ports established**
+## **Screenshot 3 of the TCP/IP tab showing the established ports**
 
 ![iexplore.exe properties on the TCP/IP tab after connecting to the first website.](assets/images/file-638422fe93c26.png)
 
@@ -108,11 +104,11 @@ Open a second tab and connect to www.google.ca
 
 In Process Explorer note a second** iexpore.exe** process has been started as a child process of iexplore.exe
 
-View the Properties TCP/IP tab for this new process
+View the Properties TCP/IP tab for this new process.
 
 Uncheck the box **Resolve Address** to view the IP address of the established connections.
 
-## **Screenshot 5 of the TCP/IP tab showing the IP addresses and ports established**
+## **Screenshot 4 of the TCP/IP tab showing the IP addresses and ports established**
 
 ![Second iexplore.exe TCP/IP view showing remote IP addresses and ports with Resolve Addresses disabled.](assets/images/file-638424ccd5495.png)
 

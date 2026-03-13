@@ -22,7 +22,7 @@ At the bottom of the tab note the Properties for
 
 **Data Execution Prevention & Address Space Load Randomization**
 
-## **Screenshot 8 of the Properties Image tab showing the information noted above**
+## **Screenshot 7 of the Properties Image tab showing the information noted above**
 
 ![lsass.exe properties on the Image tab showing the legitimate path, current directory, and protection details.](assets/images/file-6384db515750b.png)
 
