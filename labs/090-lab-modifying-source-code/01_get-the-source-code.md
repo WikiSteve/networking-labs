@@ -9,7 +9,7 @@
 - Install the utility
 - Test the installed binary from another directory
 
-![Decorative photo titled Just another day at the office.](assets/images/file-604517173c719.jpg)
+![](assets/images/file-604517173c719.jpg)
 
 ## Prepare the APT source repositories
 
@@ -31,7 +31,18 @@ Use the following workflow:
 ```bash
 sudo -i
 vi /etc/apt/sources.list
+```
+
+Inside `vi`, run:
+
+```vim
 :%s/^# deb-src/deb-src/g
+:wq
+```
+
+Then continue in the shell:
+
+```bash
 apt-get update
 apt-get install dpkg-source-gitarchive
 exit

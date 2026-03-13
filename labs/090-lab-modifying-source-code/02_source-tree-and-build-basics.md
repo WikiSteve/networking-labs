@@ -20,7 +20,7 @@ The `Make*` files define how the program is compiled, linked, cleaned, and insta
 
 - The compiler stage turns `.c` source into object files.
 - The linker stage combines object files into an executable.
-- This project does not build a library; it builds an executable program.
+- This project builds the `libsupp.a` helper library as part of the process, and then links the final `traceroute` executable.
 
 ![Diagram showing compilers and assemblers producing object files, and the linker producing a relocatable library or executable.](assets/images/file-6045272f3b26c.png)
 
