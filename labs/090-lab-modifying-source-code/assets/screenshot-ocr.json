@@ -12,7 +12,7 @@
     ]
   },
   "file-60451d235d903.png": {
-    "alt": "Updated sources.list showing deb-src lines uncommented after a search-and-replace step in vi.",
+    "alt": "Updated /etc/apt/sources.list showing deb-src lines uncommented after a vi search-and-replace, with a status message indicating multiple substitutions were made successfully.",
     "ocr": [
       "deb-src http://ca.archive.ubuntu.com/ubuntu groovy main restricted",
       "deb-src http://ca.archive.ubuntu.com/ubuntu groovy-updates main restricted",

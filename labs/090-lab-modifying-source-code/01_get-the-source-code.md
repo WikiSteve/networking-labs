@@ -17,13 +17,13 @@
 
 For Ubuntu, getting source code for a package is straightforward once the source repositories are enabled. The source material notes that the same basic workflow is also useful for later kernel-source labs.
 
-Before using the simple `apt-get source` workflow, review `/etc/apt/sources.list` and make sure the `deb-src` lines are enabled. The source screenshots below show an Ubuntu example where those lines were commented out.
+Before using the simple `apt-get source` workflow, review `/etc/apt/sources.list` and make sure the `deb-src` lines are enabled. In the Ubuntu example below, the `#` in front of each `deb-src` line means the source repositories are still commented out.
 
 ![Excerpt from /etc/apt/sources.list showing commented deb-src lines on an Ubuntu system.](assets/images/file-60451bf5b4f31.png)
 
-The original H5P also includes an updated screenshot after a `vi` search-and-replace step:
+To fix that, use `vi` to search for `# deb-src` and replace it with `deb-src`. The updated screenshot below shows the source repositories uncommented after that multi-line substitution:
 
-![Updated sources.list showing deb-src lines uncommented after a search-and-replace step in vi.](assets/images/file-60451d235d903.png)
+![Updated /etc/apt/sources.list showing deb-src lines uncommented after a vi search-and-replace, with a status message indicating multiple substitutions were made successfully.](assets/images/file-60451d235d903.png)
 
 > [!NOTE]
 > The original lab now notes that on Debian the source repositories may already be enabled, so you may not need to uncomment anything.
