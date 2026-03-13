@@ -12,6 +12,7 @@
 - [Modifying Source Code](./labs/090-lab-modifying-source-code/README.md)
 - [Linux Install](./labs/100-linux-install/README.md)
 - [Prepare Templates W11 and Debian](./labs/110-prepare-templates-w11-and-debian/README.md)
+- [Linux Users, Groups, and Mode](./labs/120-lecture-linux-users-groups-and-mode/README.md)
 - [FTP and Samba](./labs/lab_ftp_samba_md/README.md)
 - [Certificates](./labs/lab_certificates_md/README.md)
 
