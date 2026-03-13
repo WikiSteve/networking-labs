@@ -2,11 +2,9 @@
 
 ## LSASS.EXE
 
-The Local Security Authority Subsystem Service process **lsass.exe** enforces security policy on a Windows
+The Local Security Authority Subsystem Service process **lsass.exe** enforces security policy on a Windows operating system. The service runs from the **windows\system32** directory.
 
-operating system. The service runs from the **windows\system32** directory
-
-Password changes, security tokens etc
+Password changes, security tokens, etc. are handled by this process.
 
 This process runs as a child process of **services.exe**
 
@@ -14,13 +12,11 @@ Malware may be disguised with the name **lsass.exe** and be running from a diffe
 
 **Use Process Explorer to verify the location of a process**
 
-Display the Properties for lsass.exe and select the **Image **tab.
+Display the Properties for **lsass.exe** and select the **Image** tab.
 
-Note the **Path** and **Current Directories** for the process
+Note the **Path** and **Current Directory** for the process.
 
-At the bottom of the tab note the Properties for
-
-**Data Execution Prevention & Address Space Load Randomization**
+At the bottom of the tab note the properties for **Data Execution Prevention** and **Address Space Layout Randomization**.
 
 ## **Screenshot 7 of the Properties Image tab showing the information noted above**
 
