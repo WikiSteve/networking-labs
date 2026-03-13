@@ -60,7 +60,7 @@ chown [owner][:group] [-R] <target>
 Jean-Luc does not want to share `~/earl/grey` with Spock and wants the file fully owned by him:
 
 ```bash
-chown jean-luc grey
+sudo chown jean-luc grey
 ```
 
 ![Long listing in `~/earls` showing the file `grey` after its owner is changed with `chown`.](assets/images/file-62d72c45990ac.png)
@@ -68,7 +68,7 @@ chown jean-luc grey
 `~/earl` turns out to be owned by Steve. To change just the group, put a colon before the group name. Here we are changing the directory `earl`, not the file inside it:
 
 ```bash
-chown :jean-luc .
+sudo chown :jean-luc .
 ```
 
 ![Before-and-after `ls -ld ~/earl` output showing the directory group change after `chown :jean-luc .`.](assets/images/file-62d72f8035299.png)

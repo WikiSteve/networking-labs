@@ -20,7 +20,7 @@ These are password hashes, not plaintext passwords.
 Common hash markers include:
 
 - `$1$` - MD5
-- `$2$`, `$2a$`, `$2b$` - bcrypt
+- `$2a$`, `$2b$`, `$2y$` - bcrypt
 - `$5$` - SHA-256
 - `$6$` - SHA-512
 - `$y$` - yescrypt
