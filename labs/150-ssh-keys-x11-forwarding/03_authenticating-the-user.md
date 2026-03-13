@@ -30,7 +30,7 @@ Open Notepad and paste the contents.
 
 There cannot be anything above `BEGIN OPENSSH PRIVATE KEY` or below the ending line. It must match exactly what was displayed in the Linux terminal.
 
-If you do not already have one, create a `Documents\\keys` folder first, then save the file there.
+If you do not already have one, create a `Documents\keys` folder first, then save the file there.
 
 Name the file `Your_first_name private key`. Put quotes around the name or Windows will save it as a regular text file.
 
@@ -44,7 +44,7 @@ Change the key comment to read `Your Full Name's key`. If you are curious how Pu
 
 Leave the parameters section as-is, because it is only used when you click **Generate** to make a new key.
 
-Click **Save private key** and store it beside the first file under `Documents\\keys`. Call it `Your_Full_Name key.ppk`. It should already use the `.ppk` extension. For this lab, choose **Yes** when asked to save without a passphrase so the screenshot flow stays simple. In real use, add a passphrase.
+Click **Save private key** and store it beside the first file under `Documents\keys`. Call it `Your_Full_Name key.ppk`. It should already use the `.ppk` extension. For this lab, choose **Yes** when asked to save without a passphrase so the screenshot flow stays simple. In real use, add a passphrase.
 
 Once it is saved, open the file with Notepad just so you can observe what PuTTY's `.ppk` format looks like. Use `*.*` to show all files if Windows only displays `*.txt`.
 
