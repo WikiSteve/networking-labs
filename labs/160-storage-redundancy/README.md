@@ -1,5 +1,7 @@
 # Storage Redundancy
 
+> **Before you start:** Download the [Storage Redundancy Submission Template](<./assets/Storage Redundancy SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
+
 ## Goal
 Practice both hardware RAID and software RAID workflows by building RAID 6, RAID 10, RAID-Z2, and mirror storage layouts, then documenting the resulting arrays and pool status.
 
