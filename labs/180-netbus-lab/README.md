@@ -13,7 +13,7 @@ Examine the older NetBus remote-access trojan lab material, review the networkin
 
 ## Deliverables
 - Complete the required challenge screenshot
-- Use the submission template your instructor provides for this lab
+- Use the submission template linked above for this lab
 - Show the changed listening port, the password prompt window, and the hostname in the same capture
 
 ## Pages
