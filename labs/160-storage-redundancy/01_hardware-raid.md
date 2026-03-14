@@ -23,7 +23,7 @@ Download the Intel RAID controller software and build the two required arrays: R
 
 Create a RAID 6 array with the following criteria:
 
-- Data disks in bays 0 through 2
+- Data disks in bays 0 through 3
 - Hot spare in bay 7
 - Volume name: `Lastname-RAID6`
 
