@@ -50,9 +50,10 @@ Once installation is complete, change the hostname to `Lastname-NAS` under **Net
 
 Show all of the following:
 
-1. the six 20 GB drives
-2. the four 30 GB drives
-3. the hostname set correctly to `Lastname-NAS`
+1. the 100 GB OS disk
+2. the six 20 GB drives
+3. the four 30 GB drives
+4. the hostname set correctly to `Lastname-NAS`
 
 ![TrueNAS web interface showing the disk inventory and the configured Lastname-NAS hostname](assets/images/file-65ba75e4f3fc1.png)
 
@@ -72,6 +73,17 @@ Show all of the following:
 6. Name the pool `Lastname-RAID6`.
 7. Create the pool and wait for it to finish.
 
+### Add the hot spare
+
+After the RAID-Z2 pool is online, keep the VM running and hot-add one more 20 GB SCSI disk in VMware.
+
+1. Return to **Storage > Pools** in TrueNAS.
+2. Open the actions menu for `Lastname-RAID6`.
+3. Choose the option to extend or manage the vdev layout.
+4. Select the newly added 20 GB disk.
+5. Change its role to **Hot Spare**.
+6. Save the change and confirm that the pool now shows six data drives plus one spare.
+
 ### Mirror pool
 
 1. Repeat the pool-creation process with the four 30 GB disks.
@@ -89,7 +101,7 @@ Return to the **Pools** page and confirm that both pools appear with healthy or 
 
 ## Screenshot 4
 
-Show the summary of the RAID 6 style pool with all seven drives visible: six data drives and one hot spare.
+Show the summary of the RAID-Z2 pool with all seven 20 GB drives visible: six data drives and one hot spare.
 
 ![TrueNAS pool summary showing the RAID-Z2 layout with the expected drives and spare](assets/images/file-65ba81260c2d1.png)
 

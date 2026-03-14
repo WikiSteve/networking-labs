@@ -14,7 +14,7 @@ Practice both hardware RAID and software RAID workflows by building RAID 6, RAID
 ## Deliverables
 - Screenshot 1: RAID 6 array creation with the required disks, hot spare, and volume name
 - Screenshot 2: RAID 10 array creation with the required disks and volume name
-- Screenshot 3: TrueNAS disk set and hostname configured correctly
+- Screenshot 3: TrueNAS disk set, OS disk, and hostname configured correctly
 - Screenshot 4: RAID-Z2 summary with six data drives and one hot spare
 - Screenshot 5: mirror pool status showing the four 30 GB drives
 
