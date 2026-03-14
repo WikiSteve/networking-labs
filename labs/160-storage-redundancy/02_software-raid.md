@@ -7,10 +7,10 @@ Instead of building storage around iSCSI initiators and targets, this section us
 ## Download TrueNAS Core
 
 > [!NOTE]
-> TODO: Replace the download step below with the instructor-provided OneDrive ISO link.
+> Download the ISO from the instructor-provided link: [TrueNAS Core ISO](https://nscc-my.sharepoint.com/:u:/g/personal/w0305390_campus_nscc_ca/IQAFfI_lZRlNRLPgyhZ7KajVAXOo44JZOhNwl4u25_lEO2U)
 
-1. Go to the TrueNAS Core download page.
-2. Download the ISO for the current stable release.
+1. Open the instructor-provided OneDrive link above.
+2. Download the provided TrueNAS Core ISO.
 3. Keep the ISO available for the VMware virtual machine setup.
 
 ## Create the virtual machine
