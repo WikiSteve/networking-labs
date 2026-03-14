@@ -1,5 +1,7 @@
 # Lab Windows Batch Files
 
+> **Before you start:** Download the [Windows Batch Files Submission Template](<./assets/Windows Batch Files SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
+
 ## Goal
 Use Windows command-line tools to create links, build simple batch files, work with `for` loops, and observe how scripts can automate tasks or disguise program behavior.
 

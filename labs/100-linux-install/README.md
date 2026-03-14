@@ -1,5 +1,7 @@
 # Linux Install
 
+> **Before you start:** Download the [Linux Install Submission Template](<./assets/Linux Install SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
+
 ## Goal
 Download a Debian netinst ISO, build a Debian virtual machine in VMware Workstation, start the installer, and manually partition the disk with LVM.
 

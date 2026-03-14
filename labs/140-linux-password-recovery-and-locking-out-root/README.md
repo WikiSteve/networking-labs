@@ -1,5 +1,7 @@
 # Linux Password Recovery and Locking Out Root
 
+> **Before you start:** Download the [Linux Password Recovery and Root Lockout Submission Template](<./assets/Linux Password Recovery and Root Lockout SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
+
 ## Goal
 Practice recovering access to a Debian system through single-user mode, setting a root password, installing and configuring `sudo`, and then disabling direct root logins again.
 
