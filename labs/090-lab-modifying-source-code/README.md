@@ -1,5 +1,7 @@
 # Lab Modifying Source Code
 
+> **Before you start:** Download the [Modifying Source Code Submission Template](<./assets/Modifying Source Code SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
+
 ## Goal
 Download the `traceroute` source package, make a small string change in the C source, build it with `make`, install it, and verify the modified program from both the build tree and the system path.
 

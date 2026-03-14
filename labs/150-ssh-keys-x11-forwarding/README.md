@@ -1,5 +1,7 @@
 # SSH Keys and X11 Forwarding
 
+> **Before you start:** Download the [SSH Keys and X11 Forwarding Submission Template](<./assets/SSH Keys and X11 Forwarding SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
+
 ## Goal
 Practice verifying an SSH server key, authenticating with user key pairs in PuTTY, loading multiple keys with Pageant, and forwarding X11 applications from Debian to Windows.
 

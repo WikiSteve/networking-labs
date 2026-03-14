@@ -1,5 +1,7 @@
 # Lab Process Explorer
 
+> **Before you start:** Download the [Process Explorer Submission Template](<./assets/Process Explorer SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
+
 ## Goal
 Use Process Explorer to inspect normal Windows processes, compare suspicious ones against expected behavior, and identify indicators of malware.
 
