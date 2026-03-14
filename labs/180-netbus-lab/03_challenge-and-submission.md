@@ -2,16 +2,16 @@
 
 ## Challenge
 
-The final preserved capture instruction from the original H5P was:
+The final capture instruction preserved in the lab material is:
 
 > Capture 6: take a screen capture showing the new listening port used to make the connection and the password prompt window.
 
-The original note also said the exact command is **not** given. You must prove both that:
+The note also says the exact command is **not** given. You must prove both that:
 
 - the listening port has changed
 - the malware is prompting for a password
 
-This is the only explicit capture instruction still present in the surviving H5P text. The walkthrough videos may have covered additional captures, but they are not described in the package itself.
+This is the only explicit capture instruction still present in the available lab text. The walkthrough videos may have covered additional captures, but they are not described in the written material.
 
 ## Suggested victim-side workflow from the video
 
@@ -46,7 +46,7 @@ Capture one screenshot that shows all of the following:
 
 ## Hostname guidance
 
-The original H5P used old course-platform-specific names. Those have been scrubbed here, but the intent stays the same:
+Older course-platform-specific names have been scrubbed here, but the intent stays the same:
 
 - make sure each VM has a clear hostname
 - show that hostname in the command prompt in every screenshot

@@ -6,11 +6,11 @@ Malware comes in many forms. This lab focuses on an older **trojan horse** calle
 
 A trojan horse allows remote access to a victim computer without the user's knowledge. It is commonly delivered through social engineering or by someone with direct access to the machine.
 
-![NetBus logo graphic from the original lab material](assets/images/file-5ecc87205a3ca.gif)
+![NetBus logo graphic used in the lab material](assets/images/file-5ecc87205a3ca.gif)
 
 ## Legacy NetBus note
 
-The original H5P linked to the old NetBus homepage, but that source is no longer available. The preserved answer key in the H5P indicates that the original supported operating systems were:
+The old NetBus homepage used by this lab is no longer available. The lab material identifies these operating systems as supported:
 
 - Windows 95
 - Windows 98
@@ -19,7 +19,7 @@ The original H5P linked to the old NetBus homepage, but that source is no longer
 ### 🧠 NetBus operating systems
 
 > [!NOTE]
-> **Question:** Which operating systems were identified in the original lab material as supported by NetBus?
+> **Question:** Which operating systems are identified in the lab material as supported by NetBus?
 >
 > - [ ] Windows 95
 > - [ ] Windows 98
@@ -36,7 +36,7 @@ The original H5P linked to the old NetBus homepage, but that source is no longer
 
 ## Required files
 
-The original H5P pointed at old course-specific Dropbox links. Those links have been removed here.
+Older course-specific Dropbox links have been removed here.
 
 Use the instructor-provided files instead:
 
@@ -46,7 +46,7 @@ Use the instructor-provided files instead:
 
 ## Compatibility note
 
-The original lab material explains that the exercise is normally defeated on Windows XP and later unless a protection feature is disabled on the lab machines.
+The lab material explains that the exercise is normally defeated on Windows XP and later unless a protection feature is disabled on the lab machines.
 
 ![Windows Defender shield logo used to illustrate the protection feature discussed in the lab](assets/images/file-5ecc97add3ac2.png)
 

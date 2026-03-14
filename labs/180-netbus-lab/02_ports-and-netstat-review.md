@@ -79,7 +79,7 @@ The first video also points out that `find` is case-sensitive by default, so usi
 ### 🧠 Find Firefox
 
 > [!NOTE]
-> **Question:** What command did the original H5P expect for finding `firefox` while ignoring case?
+> **Question:** What command finds `firefox` while ignoring case?
 
 <details>
 <summary>👉 <b>Reveal answer</b></summary>
@@ -94,7 +94,7 @@ tasklist | find /i "firefox"
 ### 🧠 Connection states
 
 > [!NOTE]
-> **Question:** What Windows connection-state terms did the original H5P use for these meanings?
+> **Question:** What Windows connection-state terms are used for these meanings?
 >
 > - connected
 > - waiting for a connection
