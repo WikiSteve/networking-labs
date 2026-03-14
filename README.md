@@ -17,6 +17,7 @@
 - [Linux Password Recovery and Locking Out Root](./labs/140-linux-password-recovery-and-locking-out-root/README.md)
 - [SSH Keys and X11 Forwarding](./labs/150-ssh-keys-x11-forwarding/README.md)
 - [Storage Redundancy](./labs/160-storage-redundancy/README.md)
+- [iSCSI for Windows Server](./labs/170-iscsi-for-windows-server/README.md)
 - [FTP and Samba](./labs/lab_ftp_samba_md/README.md)
 - [Certificates](./labs/lab_certificates_md/README.md)
 
