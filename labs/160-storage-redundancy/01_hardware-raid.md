@@ -23,9 +23,12 @@ Download the Intel RAID controller software and build the two required arrays: R
 
 Create a RAID 6 array with the following criteria:
 
-- Data disks in bays 0 through 3
+- Data disks in bays 0 through 2
 - Hot spare in bay 7
 - Volume name: `Lastname-RAID6`
+
+> [!TODO]
+> The controller screenshot appears to allow this RAID 6 layout with bays 0 through 2 plus a hot spare in bay 7. Double-check the controller logic later, because the disk count is unusual for RAID 6.
 
 ![Intel RAID controller screen showing the RAID 6 array definition with the required disk bays and hot spare](assets/images/file-65b712fa3b99b.png)
 
