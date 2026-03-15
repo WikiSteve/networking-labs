@@ -36,12 +36,10 @@ The old NetBus homepage used by this lab is no longer available. The lab materia
 
 ## Required files
 
-Older course-specific Dropbox links have been removed here.
+Use these provided VM archives:
 
-Use the instructor-provided files instead:
-
-- Windows 7 lab image
-- Windows Server 2008 lab image
+- [Windows 7 lab image](https://www.dropbox.com/scl/fo/gnns596hl7kckt3ntwrce/AKIUK4w-w7-_3Z0W-YFGEi8/INFO6001/Win7.7z?rlkey=ziz2z8il2vj4pkm7r79fyqzpk&e=1&dl=0)
+- [Windows Server 2008 lab image](https://www.dropbox.com/scl/fo/gnns596hl7kckt3ntwrce/AGVxECByPsAwb83p-OyuqrI/INFO6001/S2008R2.7z?rlkey=ziz2z8il2vj4pkm7r79fyqzpk&e=1&dl=0)
 - NetBus lab files
 
 ## Compatibility note
