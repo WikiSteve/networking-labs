@@ -60,9 +60,9 @@ Science/
 touch myfile
 echo "my contents" > file2
 cat file2
-head -n 5 /etc/bashrc
-tail -n 5 /etc/bashrc
-less /etc/bashrc
+head -n 5 ~/.bashrc
+tail -n 5 ~/.bashrc
+less ~/.bashrc
 ```
 
 Use:
@@ -93,8 +93,8 @@ Notes:
 The pipe character sends the output of one command into another:
 
 ```bash
-cat /etc/bashrc | more
-cat /etc/bashrc | tail -n 50 | less
+cat ~/.bashrc | more
+cat ~/.bashrc | tail -n 50 | less
 ```
 
 That is useful when a file is too large to read comfortably in one screen.

@@ -20,7 +20,7 @@ Open **Connection > SSH > Auth** and browse to the `.ppk` file you created in Pu
 
 ## Save a reusable session
 
-Go back to the **Session** page, enter a clear saved-session name, and click **Save**.
+Go back to the **Session** page, enter the Linux server IP address or hostname in **Host Name (or IP address)**, then enter a clear saved-session name and click **Save**.
 
 Suggested examples:
 
@@ -33,7 +33,7 @@ If you want separate profiles for different systems, save one profile per host.
 
 ## Connect and test
 
-Load the saved session, enter the server IP address if needed, and connect.
+Load the saved session and connect. If you did not save the target host earlier, enter the server IP address or hostname before opening the session.
 
 ![PuTTY configuration beside a terminal window showing a successful SSH login using the saved session](assets/images/file-609b2ca655809.png)
 

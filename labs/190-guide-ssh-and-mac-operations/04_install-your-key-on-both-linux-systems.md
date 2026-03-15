@@ -7,17 +7,17 @@ Once the public key is on GitHub, you can import it onto each Linux system.
 On Ubuntu, the import helper is often already available:
 
 ```bash
-ssh-import-id-gh your-github-username
+ssh-import-id gh:your-github-username
 ```
 
 If it succeeds, your public key is added to `~/.ssh/authorized_keys`.
 
 ## CentOS or RHEL workflow
 
-On older CentOS or RHEL systems, `ssh-import-id-gh` may not already be installed. If the command is available, use the same import:
+On older CentOS or RHEL systems, `ssh-import-id` may not already be installed. If the command is available, use the same import:
 
 ```bash
-ssh-import-id-gh your-github-username
+ssh-import-id gh:your-github-username
 ```
 
 If it is not available, you can still install your key manually by pulling the public keys from GitHub:
@@ -28,6 +28,8 @@ chmod 700 ~/.ssh
 curl https://github.com/your-github-username.keys >> ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 ```
+
+If you use the manual method more than once, check `~/.ssh/authorized_keys` so you do not keep appending duplicate keys.
 
 ## Verify the result
 
