@@ -2,37 +2,65 @@
 
 ## Challenge
 
-The final capture instruction preserved in the lab material is:
+The lab challenge is to prove that you can:
 
-> Capture 6: take a screen capture showing the new listening port used to make the connection and the password prompt window.
+- identify the trojan process on the victim
+- verify which ports it is listening on
+- change the listening port
+- prove the new port is active
+- connect from the attacker system
+- capture evidence of the connection and the password prompt
 
-The note also says the exact command is **not** given. You must prove both that:
+## Victim-side setup from the video
 
-- the listening port has changed
-- the malware is prompting for a password
+Use the victim VM first.
 
-This is the only explicit capture instruction still present in the available lab text. The walkthrough videos may have covered additional captures, but they are not described in the written material.
+1. Show file extensions in Windows Explorer.
+2. Rename `patch.exe` so it looks harmless.
+   - The video uses a fake screen-saver style name as a social-engineering example.
+3. Run the renamed file on the victim.
+4. Open a command prompt.
+5. Use `tasklist` to identify the NetBus process and record its PID.
+6. Use `netstat -nao` and the PID to confirm the listening ports.
+7. The video shows the default listening ports as `12345` and `12346`.
 
-## Suggested victim-side workflow from the video
-
-The second video gives a concrete workflow for proving the trojan is listening and then connected:
-
-1. On the victim machine, run the NetBus executable.
-2. Use `tasklist` to find the process.
-3. Use `netstat -nao` and the PID to confirm which ports it is listening on.
-4. The walkthrough shows the default listening ports as `12345` and `12346`.
-5. Change the listening port for the exercise.
-6. Verify with `netstat` that the new port is actually listening before trying to connect.
-7. From the attacker machine, connect to the victim.
-8. Confirm that the victim now shows an `ESTABLISHED` state and the password prompt window.
-
-Helpful commands from the walkthrough:
+Useful commands:
 
 ```bat
+hostname
 tasklist
+tasklist | find /i "patch"
 netstat -nao
+netstat -nao | find "<PID>"
 netstat -nao | find /i "listening"
-netstat -nao | find "<pid>"
+```
+
+## Port-change verification
+
+The walkthrough makes one point very clearly: do not assume the port changed just because you tried to change it.
+
+Before connecting from the attacker:
+
+1. change the listening port in the trojan configuration
+2. run `netstat -nao` again on the victim
+3. verify that the old listening port is gone
+4. verify that the new listening port is now present
+
+## Attacker-side connection test
+
+Once the victim is listening on the new port:
+
+1. identify the victim IP address
+2. open the attacker-side NetBus client
+3. connect to the victim using the updated port
+4. return to the victim and verify the state changed from `LISTENING` to `ESTABLISHED`
+5. confirm that the password prompt window appears
+
+Useful verification commands:
+
+```bat
+hostname
+netstat -nao
 netstat -nao | find /i "established"
 ```
 
@@ -43,6 +71,7 @@ Capture one screenshot that shows all of the following:
 1. the hostname in the command prompt window
 2. the new listening port used for the connection
 3. the password prompt window
+4. enough `netstat` output to prove the connection is active
 
 ## Hostname guidance
 
