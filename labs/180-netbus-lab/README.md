@@ -8,7 +8,7 @@ Examine an older NetBus remote-access trojan scenario, review the networking con
 ## Prereqs
 - Instructor-provided Windows 7 lab VM
 - Instructor-provided Windows Server 2008 lab VM
-- NetBus lab files available on the Windows 7 VM under `C:\Security\netbus`
+- NetBus lab files available on both VMs under `C:\Security\netbus`
 - Basic familiarity with Windows command-line tools such as `netstat`, `find`, and `tasklist`
 
 ## Deliverables
