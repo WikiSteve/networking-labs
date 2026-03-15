@@ -19,6 +19,7 @@
 - [Storage Redundancy](./labs/160-storage-redundancy/README.md)
 - [iSCSI for Windows Server](./labs/170-iscsi-for-windows-server/README.md)
 - [NetBus Lab](./labs/180-netbus-lab/README.md)
+- [SSH and MAC Operations Guide](./labs/190-guide-ssh-and-mac-operations/README.md)
 - [FTP and Samba](./labs/lab_ftp_samba_md/README.md)
 - [Certificates](./labs/lab_certificates_md/README.md)
 

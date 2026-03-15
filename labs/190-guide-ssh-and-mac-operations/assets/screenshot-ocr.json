@@ -1,0 +1,72 @@
+{
+  "file-609b288b7dda7.png": {
+    "alt": "PuTTYgen before key generation, with RSA selected and the key size set to 4096 bits",
+    "ocr": [
+      "PuTTY Key Generator",
+      "Generate",
+      "Type of key to generate",
+      "RSA",
+      "SSH-1 (RSA)",
+      "Number of bits in a generated key",
+      "4096"
+    ]
+  },
+  "file-609b28c3da505.png": {
+    "alt": "PuTTYgen after generating a key pair, showing the public-key text box and the save buttons",
+    "ocr": [
+      "PuTTY Key Generator",
+      "Public key for pasting into OpenSSH authorized_keys file",
+      "Key comment",
+      "Save public key",
+      "Save private key"
+    ]
+  },
+  "file-609b29a12e93c.png": {
+    "alt": "GitHub account settings page with the SSH and GPG keys section visible",
+    "ocr": [
+      "Settings",
+      "SSH keys",
+      "GPG keys",
+      "New SSH key"
+    ]
+  },
+  "file-609b2b9d54df8.png": {
+    "alt": "PuTTY configuration window with the Appearance page open and the font-selection dialog visible",
+    "ocr": [
+      "PuTTY Configuration",
+      "Window",
+      "Appearance",
+      "Font settings",
+      "Courier New"
+    ]
+  },
+  "file-609b2c5481add.png": {
+    "alt": "PuTTY configuration window on the SSH Auth page, showing the private-key browse field",
+    "ocr": [
+      "PuTTY Configuration",
+      "Connection",
+      "SSH",
+      "Auth",
+      "Private key file for authentication"
+    ]
+  },
+  "file-609b2c7fa30bd.png": {
+    "alt": "PuTTY configuration window on the Session page with a saved-session name entered",
+    "ocr": [
+      "PuTTY Configuration",
+      "Session",
+      "Saved Sessions",
+      "Save"
+    ]
+  },
+  "file-609b2ca655809.png": {
+    "alt": "PuTTY configuration beside a terminal window showing a successful SSH login using the saved session",
+    "ocr": [
+      "PuTTY Configuration",
+      "Saved Sessions",
+      "Open",
+      "login as",
+      "Last login"
+    ]
+  }
+}
