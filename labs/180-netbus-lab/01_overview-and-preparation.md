@@ -40,7 +40,17 @@ Use these provided VM archives:
 
 - [Windows 7 lab image](https://www.dropbox.com/scl/fo/gnns596hl7kckt3ntwrce/AKIUK4w-w7-_3Z0W-YFGEi8/INFO6001/Win7.7z?rlkey=ziz2z8il2vj4pkm7r79fyqzpk&e=1&dl=0)
 - [Windows Server 2008 lab image](https://www.dropbox.com/scl/fo/gnns596hl7kckt3ntwrce/AGVxECByPsAwb83p-OyuqrI/INFO6001/S2008R2.7z?rlkey=ziz2z8il2vj4pkm7r79fyqzpk&e=1&dl=0)
-- NetBus lab files
+- NetBus lab files on the Windows 7 VM in `C:\Security\netbus`
+
+The Windows 7 VM listing shows these NetBus files:
+
+- `C:\Security\netbus\Patch.exe`
+- `C:\Security\netbus\NetBus.exe`
+- `C:\Security\netbus\NetBus.rtf`
+
+There is also a nested copy under:
+
+- `C:\Security\netbus\netbus`
 
 ## Compatibility note
 

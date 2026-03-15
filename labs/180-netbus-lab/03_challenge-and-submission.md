@@ -15,14 +15,15 @@ The lab challenge is to prove that you can:
 
 Use the victim VM first.
 
-1. Show file extensions in Windows Explorer.
-2. Rename `patch.exe` so it looks harmless.
+1. Go to `C:\Security\netbus` on the victim VM.
+2. Show file extensions in Windows Explorer.
+3. Rename `Patch.exe` so it looks harmless.
    - The video uses a fake screen-saver style name as a social-engineering example.
-3. Run the renamed file on the victim.
-4. Open a command prompt.
-5. Use `tasklist` to identify the NetBus process and record its PID.
-6. Use `netstat -nao` and the PID to confirm the listening ports.
-7. The video shows the default listening ports as `12345` and `12346`.
+4. Run the renamed file on the victim.
+5. Open a command prompt.
+6. Use `tasklist` to identify the NetBus process and record its PID.
+7. Use `netstat -nao` and the PID to confirm the listening ports.
+8. The video shows the default listening ports as `12345` and `12346`.
 
 Useful commands:
 
