@@ -28,7 +28,7 @@ These two statements sound similar, but they point to different ideas:
 
 ![Bundle of lit fibre optic strands used as the visual example for fibre connectivity](assets/images/fibre-optic-cable.jpg)
 
-![Several copper Ethernet cables with RJ45 ends used as the comparison image](assets/images/copper-ethernet-cables.jpg)
+![Several copper Ethernet cables with RJ-45 ends used as the comparison image](assets/images/copper-ethernet-cables.jpg)
 
 - **Fibre for faster response time** is a **business-process** decision.
 - **Fibre because it is harder to intercept than copper** is a **confidentiality** decision.

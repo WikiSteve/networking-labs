@@ -52,7 +52,7 @@ As you work in ADTool:
 6. save your work
 7. export the finished tree as a PNG image
 
-The exported PNG is what you will place into your Word document.
+The exported PNG is what you will place onto Slide 3 of the submission template.
 
 ---
 [Prev](02_classifying-security-controls-and-business-processes.md) | [Home](README.md) | [Next](04_worked-attack-tree-examples.md)
