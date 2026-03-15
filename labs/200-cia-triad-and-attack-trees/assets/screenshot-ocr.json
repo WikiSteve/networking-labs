@@ -1,0 +1,26 @@
+{
+  "attack-tree-disjunctive-refinement.png": {
+    "alt": "ADTool example showing the objective Lion with Zoo and Africa as alternative branches",
+    "ocr": [
+      "Lion",
+      "Zoo",
+      "Africa"
+    ]
+  },
+  "attack-tree-conjunctive-refinement.png": {
+    "alt": "ADTool example showing Break-in with Cutters and Tranquilizer as dependent child steps",
+    "ocr": [
+      "Break-in",
+      "Cutters",
+      "Tranquilizer"
+    ]
+  },
+  "fibre-optic-cable.jpg": {
+    "alt": "Bundle of lit fibre optic strands used as the visual example for fibre connectivity",
+    "ocr": []
+  },
+  "copper-ethernet-cables.jpg": {
+    "alt": "Several copper Ethernet cables with RJ-45 ends used as the comparison image",
+    "ocr": []
+  }
+}
