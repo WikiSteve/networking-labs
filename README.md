@@ -23,10 +23,23 @@
 ### Challenges
 - None yet.
 
+## Cloud
+
+### Lectures
+- [AWS Cloud Essentials](./course-materials/lectures/cloud/aws-cloud-essentials.md)
+- [AWS Security Fundamentals](./course-materials/lectures/cloud/aws-security-fundamentals.md)
+- [Azure Fundamentals Part 1: Describe Core Azure Concepts](./course-materials/lectures/cloud/azure-fundamentals-part-1-describe-core-azure-concepts.md)
+- [Azure Fundamentals Part 2: Core Architectural Components of Azure](./course-materials/lectures/cloud/azure-fundamentals-part-2-core-architectural-components-of-azure.md)
+
+### Labs
+- None yet.
+
+### Challenges
+- None yet.
+
 ## Security
 
 ### Lectures
-- [AWS Security Fundamentals](./course-materials/lectures/cloud/aws-security-fundamentals.md)
 - [Lecture Secrets to SSH](./course-materials/lectures/security/lecture-secrets-to-ssh.md)
 - [Symmetric and Asymmetric Encryption](./course-materials/lectures/security/symmetric-and-asymmetric-encryption.md)
 
@@ -47,9 +60,6 @@
 ## Systems
 
 ### Lectures
-- [AWS Cloud Essentials](./course-materials/lectures/cloud/aws-cloud-essentials.md)
-- [Azure Fundamentals Part 1: Describe Core Azure Concepts](./course-materials/lectures/cloud/azure-fundamentals-part-1-describe-core-azure-concepts.md)
-- [Azure Fundamentals Part 2: Core Architectural Components of Azure](./course-materials/lectures/cloud/azure-fundamentals-part-2-core-architectural-components-of-azure.md)
 - [Introduction to Computer Hardware and Operating Systems Part 1](./course-materials/lectures/systems/introduction-to-computer-hardware-and-operating-systems-part-1.md)
 - [Introduction to Computer Hardware and Operating Systems Part 2](./course-materials/lectures/systems/introduction-to-computer-hardware-and-operating-systems-part-2.md)
 - [NAS Systems and File Servers](./course-materials/lectures/systems/nas-systems-and-file-servers.md)
