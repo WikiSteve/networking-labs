@@ -21,7 +21,7 @@
 - [Routing Assignment](./course-materials/labs/networking/routing-assignment.md)
 
 ### Challenges
-- [Storage and IPv6 Challenge](./course-materials/challenges/systems/storage-and-ipv6-challenge.md)
+- None yet.
 
 ## Security
 
@@ -73,7 +73,7 @@
 - [LAB Teardown and Rebuild](./course-materials/labs/systems/lab-teardown-and-rebuild.md)
 
 ### Challenges
-- None yet.
+- [Storage and IPv6 Challenge](./course-materials/challenges/systems/storage-and-ipv6-challenge.md)
 
 ## Source
 - Original H5P files: `h5p_src/`
