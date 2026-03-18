@@ -241,7 +241,7 @@ CN=www.example.local
 subjectAltName=@alt_names
 
 [alt_names]
-DNS.1=example-apache.example.local
+DNS.1=www.example.local
 ```
 
 A concrete request command is worth keeping:
@@ -276,14 +276,17 @@ One detail worth preserving is that SSH key-based convenience may exist for a no
 Once the CSR is on the CA system, the signing step is:
 
 ```bash
-openssl ca -in www.example-ca.local.csr -config /etc/ssl/openssl.cnf
+openssl ca -in www.example-ca.local.csr \
+  -out /etc/ssl/certs/www.example.local-apache.crt \
+  -config /etc/ssl/openssl.cnf
 ```
 
 That command updates the CA state:
 
 - the certificate database,
 - the serial file,
-- and the issued-certificate output in `/etc/ssl/newcerts/`.
+- the issued-certificate output in `/etc/ssl/newcerts/`,
+- and the deployed server certificate at `/etc/ssl/certs/www.example.local-apache.crt`.
 
 Another useful operational detail is that if the same CSR is submitted again, the CA database can detect the duplicate request and complain. That is not just trivia. It teaches that a CA has memory and policy state.
 
@@ -302,8 +305,8 @@ Then the copied site is modified so it listens on `443` and enables TLS:
 
 ```apache
 SSLEngine on
-SSLCertificateFile /etc/ssl/certs/example-apache.example.local
-SSLCertificateKeyFile /etc/ssl/private/example-apache.example.local.key
+SSLCertificateFile /etc/ssl/certs/www.example.local-apache.crt
+SSLCertificateKeyFile /etc/ssl/private/www.example.local-apache.key
 ```
 
 Apache also gets a global name hint:
