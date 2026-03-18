@@ -218,7 +218,7 @@ The chapter does not stop at CA theory. It walks through a real server request.
 
 The web server builds a CSR using a small OpenSSL request config. The details matter because they force students to think about subject names and subject alternative names instead of treating “certificate identity” as a vague concept.
 
-A representative request file looks like:
+Save a representative request file as `csrdetails.cnf`:
 
 ```ini
 [req]
@@ -251,7 +251,7 @@ openssl req -new -sha256 -nodes \
   -out www.example-ca.local.csr \
   -newkey rsa:2048 \
   -keyout www.example.local-apache.key \
-  -config <(cat csrdetails)
+  -config csrdetails.cnf
 ```
 
 This makes several truths explicit:
