@@ -27,7 +27,7 @@
 #### Security
 
 - [Security index](lectures/security/index.md)
-- [Lecture Secrets to SSH](lectures/security/lecture-secrets-to-ssh.md)
+- [Secrets to SSH](lectures/security/lecture-secrets-to-ssh.md)
 - [Symmetric and Asymmetric Encryption](lectures/security/symmetric-and-asymmetric-encryption.md)
 
 #### Systems
@@ -35,6 +35,11 @@
 - [Systems index](lectures/systems/index.md)
 - [Introduction to Computer Hardware and Operating Systems Part 1](lectures/systems/introduction-to-computer-hardware-and-operating-systems-part-1.md)
 - [Introduction to Computer Hardware and Operating Systems Part 2](lectures/systems/introduction-to-computer-hardware-and-operating-systems-part-2.md)
+- [Linux Editors](lectures/systems/linux-editors.md)
+- [Linux Networking](lectures/systems/linux-networking.md)
+- [Linux Root and Single User Mode](lectures/systems/linux-root-and-single-user-mode.md)
+- [Linux Root vs sudo](lectures/systems/linux-root-vs-sudo.md)
+- [Linux Storage](lectures/systems/linux-storage.md)
 - [NAS Systems and File Servers](lectures/systems/nas-systems-and-file-servers.md)
 - [OS & Networking Fundamentals](lectures/systems/os-and-networking-fundamentals.md)
 - [SAN and DAS - Concepts and Applications](lectures/systems/san-and-das-concepts-and-applications.md)
@@ -44,9 +49,9 @@
 #### Networking
 
 - [Networking labs index](labs/networking/index.md)
-- [LAB Client Server with Netcat](labs/networking/lab-client-server-with-netcat.md)
-- [Lab DHCP, ARP, DNS, and Static IP Setup](labs/networking/lab-dhcp-arp-dns-and-static-ip-setup.md)
-- [LAB Traceroute and Path Selection](labs/networking/lab-traceroute-and-path-selection.md)
+- [Client Server with Netcat](labs/networking/lab-client-server-with-netcat.md)
+- [DHCP, ARP, DNS, and Static IP Setup](labs/networking/lab-dhcp-arp-dns-and-static-ip-setup.md)
+- [Traceroute and Path Selection](labs/networking/lab-traceroute-and-path-selection.md)
 - [Layer 2 and 3 Game](labs/networking/layer-2-and-3-game.md)
 - [Routing Assignment](labs/networking/routing-assignment.md)
 
@@ -58,10 +63,10 @@
 #### Systems
 
 - [Systems labs index](labs/systems/index.md)
-- [LAB Bootable ISO Drive](labs/systems/lab-bootable-iso-drive.md)
-- [LAB Component Search](labs/systems/lab-component-search.md)
-- [LAB LVM Setup](labs/systems/lab-lvm-setup.md)
-- [LAB Teardown and Rebuild](labs/systems/lab-teardown-and-rebuild.md)
+- [Bootable ISO Drive](labs/systems/lab-bootable-iso-drive.md)
+- [Component Search](labs/systems/lab-component-search.md)
+- [LVM Setup](labs/systems/lab-lvm-setup.md)
+- [Teardown and Rebuild](labs/systems/lab-teardown-and-rebuild.md)
 
 ### Challenges
 
