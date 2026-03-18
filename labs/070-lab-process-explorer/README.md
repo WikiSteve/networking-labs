@@ -2,6 +2,11 @@
 
 > **Before you start:** Download the [Process Explorer Submission Template](<./assets/Process Explorer SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
 
+## Required Reading
+
+- [Chapter 2: Privilege, System Calls, Processes, and Interfaces](../../books/computing-foundations-and-securing-linux/02-privilege-system-calls-and-processes.md)
+- [Chapter 12: File Transfer, File Sharing, Hardening, and Rootkits](../../books/computing-foundations-and-securing-linux/12-file-transfer-file-sharing-hardening-and-rootkits.md)
+
 ## Goal
 Use Process Explorer to inspect normal Windows processes, compare suspicious ones against expected behavior, and identify indicators of malware.
 

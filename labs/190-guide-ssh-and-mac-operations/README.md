@@ -1,5 +1,9 @@
 # SSH and MAC Operations Guide
 
+## Required Reading
+
+- [Chapter 8: Boot, Recovery, Terminals, and Secure Remote Access](../../books/computing-foundations-and-securing-linux/08-boot-recovery-terminals-and-secure-remote-access.md)
+
 ## Goal
 Set up SSH key-based access with PuTTY and GitHub, then review the core Linux file and directory commands used for move, add, and change work.
 

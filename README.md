@@ -1,5 +1,9 @@
 # Networking Labs
 
+## Books
+
+- [Computing Foundations and Securing Linux](./books/computing-foundations-and-securing-linux/README.md)
+
 ## Networking
 
 ### Lectures
