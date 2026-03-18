@@ -14,9 +14,9 @@
 - [Basic Networking](./labs/030-lab-basic-networking/README.md)
 - [Linux Basic Routing](./labs/040-linux-basic-routing/README.md)
 - [Linux Static Routing](./labs/050-linux-static-routing/README.md)
-- [LAB Client Server with Netcat](./course-materials/labs/networking/lab-client-server-with-netcat.md)
-- [Lab DHCP, ARP, DNS, and Static IP Setup](./course-materials/labs/networking/lab-dhcp-arp-dns-and-static-ip-setup.md)
-- [LAB Traceroute and Path Selection](./course-materials/labs/networking/lab-traceroute-and-path-selection.md)
+- [Client Server with Netcat](./course-materials/labs/networking/lab-client-server-with-netcat.md)
+- [DHCP, ARP, DNS, and Static IP Setup](./course-materials/labs/networking/lab-dhcp-arp-dns-and-static-ip-setup.md)
+- [Traceroute and Path Selection](./course-materials/labs/networking/lab-traceroute-and-path-selection.md)
 - [Layer 2 and 3 Game](./course-materials/labs/networking/layer-2-and-3-game.md)
 - [Routing Assignment](./course-materials/labs/networking/routing-assignment.md)
 
@@ -40,7 +40,7 @@
 ## Security
 
 ### Lectures
-- [Lecture Secrets to SSH](./course-materials/lectures/security/lecture-secrets-to-ssh.md)
+- [Secrets to SSH](./course-materials/lectures/security/lecture-secrets-to-ssh.md)
 - [Symmetric and Asymmetric Encryption](./course-materials/lectures/security/symmetric-and-asymmetric-encryption.md)
 
 ### Labs
@@ -62,6 +62,11 @@
 ### Lectures
 - [Introduction to Computer Hardware and Operating Systems Part 1](./course-materials/lectures/systems/introduction-to-computer-hardware-and-operating-systems-part-1.md)
 - [Introduction to Computer Hardware and Operating Systems Part 2](./course-materials/lectures/systems/introduction-to-computer-hardware-and-operating-systems-part-2.md)
+- [Linux Editors](./course-materials/lectures/systems/linux-editors.md)
+- [Linux Networking](./course-materials/lectures/systems/linux-networking.md)
+- [Linux Root and Single User Mode](./course-materials/lectures/systems/linux-root-and-single-user-mode.md)
+- [Linux Root vs sudo](./course-materials/lectures/systems/linux-root-vs-sudo.md)
+- [Linux Storage](./course-materials/lectures/systems/linux-storage.md)
 - [NAS Systems and File Servers](./course-materials/lectures/systems/nas-systems-and-file-servers.md)
 - [OS & Networking Fundamentals](./course-materials/lectures/systems/os-and-networking-fundamentals.md)
 - [SAN and DAS - Concepts and Applications](./course-materials/lectures/systems/san-and-das-concepts-and-applications.md)
@@ -77,10 +82,10 @@
 - [Storage Redundancy](./labs/160-storage-redundancy/README.md)
 - [iSCSI for Windows Server](./labs/170-iscsi-for-windows-server/README.md)
 - [FTP and Samba](./labs/lab_ftp_samba_md/README.md)
-- [LAB Bootable ISO Drive](./course-materials/labs/systems/lab-bootable-iso-drive.md)
-- [LAB Component Search](./course-materials/labs/systems/lab-component-search.md)
-- [LAB LVM Setup](./course-materials/labs/systems/lab-lvm-setup.md)
-- [LAB Teardown and Rebuild](./course-materials/labs/systems/lab-teardown-and-rebuild.md)
+- [Bootable ISO Drive](./course-materials/labs/systems/lab-bootable-iso-drive.md)
+- [Component Search](./course-materials/labs/systems/lab-component-search.md)
+- [LVM Setup](./course-materials/labs/systems/lab-lvm-setup.md)
+- [Teardown and Rebuild](./course-materials/labs/systems/lab-teardown-and-rebuild.md)
 
 ### Challenges
 - [Storage and IPv6 Challenge](./course-materials/challenges/systems/storage-and-ipv6-challenge.md)
