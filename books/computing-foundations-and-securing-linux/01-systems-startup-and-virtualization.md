@@ -1,7 +1,7 @@
 # Chapter 1: Systems, Startup, and Virtualization
 
 ![Operating system placement](assets/operating-system.png)
-*Image source: [Operating system](https://en.wikipedia.org/wiki/Operating_system) on Wikipedia / Wikimedia Commons.*
+*Image source: [Operating system](https://en.wikipedia.org/wiki/Operating_system). Attribution details for the local image copy are listed in [Wikipedia and Web Resources](wikipedia-and-web-resources.md#image-sources).*
 
 This chapter establishes the machine model used by the rest of the book. The point is not to admire hardware in isolation. The point is to understand what has to happen before a general-purpose computer becomes a usable, defensible system.
 

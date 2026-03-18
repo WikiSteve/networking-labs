@@ -1,7 +1,7 @@
 # Chapter 10: Linux Networking and Distribution-Specific Administration
 
 ![Network interface controller](assets/network-interface-controller.jpg)
-*Image source: [Network interface controller](https://en.wikipedia.org/wiki/Network_interface_controller) on Wikipedia / Wikimedia Commons.*
+*Image source: [Network interface controller](https://en.wikipedia.org/wiki/Network_interface_controller). Attribution details for the local image copy are listed in [Wikipedia and Web Resources](wikipedia-and-web-resources.md#image-sources).*
 
 This chapter is about the part of Linux administration where people most quickly overgeneralize. Networking on Linux is powerful, but it is also distribution-specific, tool-specific, and historically layered. The goal is to teach both old and new tools without pretending that one example is a universal truth.
 

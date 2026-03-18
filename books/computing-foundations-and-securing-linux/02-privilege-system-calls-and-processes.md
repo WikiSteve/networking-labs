@@ -1,7 +1,7 @@
 # Chapter 2: Privilege, System Calls, Processes, and Interfaces
 
 ![Protection rings](assets/protection-ring.png)
-*Image source: [Protection ring](https://en.wikipedia.org/wiki/Protection_ring) on Wikipedia / Wikimedia Commons.*
+*Image source: [Protection ring](https://en.wikipedia.org/wiki/Protection_ring). Attribution details for the local image copy are listed in [Wikipedia and Web Resources](wikipedia-and-web-resources.md#image-sources).*
 
 The previous chapter established the machine as a layered system. This chapter explains one of the most important consequences of that design: not every program should have the same level of authority.
 

@@ -1,7 +1,7 @@
 # Chapter 5: Command Lines, Batch Files, and Administrative Automation
 
 ![Command-line interface](assets/command-line-interface.png)
-*Image source: [Command-line interface](https://en.wikipedia.org/wiki/Command-line_interface) on Wikipedia / Wikimedia Commons.*
+*Image source: [Command-line interface](https://en.wikipedia.org/wiki/Command-line_interface). Attribution details for the local image copy are listed in [Wikipedia and Web Resources](wikipedia-and-web-resources.md#image-sources).*
 
 This chapter is where operating-system theory starts becoming daily administrative habit. A command line matters because it removes ambiguity. Instead of clicking until something looks right, you have to state:
 

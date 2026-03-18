@@ -1,7 +1,7 @@
 # Chapter 11: Certificates, TLS, and Service Trust
 
 ![Public-key cryptography](assets/public-key-crypto.png)
-*Image source: [Public-key cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography) on Wikipedia / Wikimedia Commons.*
+*Image source: [Public-key cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography). Attribution details for the local image copy are listed in [Wikipedia and Web Resources](wikipedia-and-web-resources.md#image-sources).*
 
 This chapter is about one of the most important ideas in secure administration: encryption is not enough if you cannot trust who is on the other end of the connection.
 

@@ -7,30 +7,57 @@ This appendix lists the main external references and image sources used in the b
 - `assets/operating-system.png`
   - Source page: [Operating system](https://en.wikipedia.org/wiki/Operating_system)
   - Wikimedia image: `Operating_system_placement.svg`
+  - Commons file: [File:Operating_system_placement.svg](https://commons.wikimedia.org/wiki/File:Operating_system_placement.svg)
+  - Credit: Golftheman, own work
+  - License: CC BY-SA 3.0
 - `assets/protection-ring.png`
   - Source page: [Protection ring](https://en.wikipedia.org/wiki/Protection_ring)
   - Wikimedia image: `Priv_rings.svg`
+  - Commons file: [File:Priv_rings.svg](https://commons.wikimedia.org/wiki/File:Priv_rings.svg)
+  - Credit: Hertzsprung at English Wikipedia
+  - License: CC BY-SA 2.5/2.0/1.0
 - `assets/computer-memory.jpg`
   - Source page: [Computer memory](https://en.wikipedia.org/wiki/Computer_memory)
   - Wikimedia image: `RAM_Module_(SDRAM-DDR4).jpg`
+  - Commons file: [File:RAM_Module_(SDRAM-DDR4).jpg](https://commons.wikimedia.org/wiki/File:RAM_Module_(SDRAM-DDR4).jpg)
+  - Credit: ElooKoN, own work
+  - License: CC BY-SA 4.0
 - `assets/command-line-interface.png`
   - Source page: [Command-line interface](https://en.wikipedia.org/wiki/Command-line_interface)
   - Wikimedia image: `Linux_command-line._Bash._GNOME_Terminal._screenshot.png`
+  - Commons file: [File:Linux_command-line._Bash._GNOME_Terminal._screenshot.png](https://commons.wikimedia.org/wiki/File:Linux_command-line._Bash._GNOME_Terminal._screenshot.png)
+  - Credit: The GNOME Project
+  - License: GNU GPL v2 or later
 - `assets/linux.png`
   - Source page: [Linux](https://en.wikipedia.org/wiki/Linux)
   - Wikimedia image: `Tux.svg`
+  - Commons file: [File:Tux.svg](https://commons.wikimedia.org/wiki/File:Tux.svg)
+  - Credit: Larry Ewing, Simon Budig, Garrett LeSage
+  - License: CC0 1.0
 - `assets/systemd.png`
   - Source page: [systemd](https://en.wikipedia.org/wiki/Systemd)
   - Wikimedia image: `Systemd-on-fedora.svg`
+  - Commons file: [File:Systemd-on-fedora.svg](https://commons.wikimedia.org/wiki/File:Systemd-on-fedora.svg)
+  - Credit: Lennart Poettering, Kay Sievers, other systemd contributors; SVG version by Smile4ever
+  - License: LGPL 2.1 or later
 - `assets/public-key-crypto.png`
   - Source page: [Public-key cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography)
   - Wikimedia image: `Public-key-crypto-1.svg`
+  - Commons file: [File:Public-key-crypto-1.svg](https://commons.wikimedia.org/wiki/File:Public-key-crypto-1.svg)
+  - Credit: KohanX
+  - License: Public domain
 - `assets/network-interface-controller.jpg`
   - Source page: [Network interface controller](https://en.wikipedia.org/wiki/Network_interface_controller)
   - Wikimedia image: `Network_card.jpg`
+  - Commons file: [File:Network_card.jpg](https://commons.wikimedia.org/wiki/File:Network_card.jpg)
+  - Credit: original English Wikipedia uploader; Commons page notes the image was "taken by myself" but does not expose machine-readable author metadata
+  - License: CC BY-SA 3.0 and GFDL
 - `assets/access-control.jpg`
   - Source page: [Access control](https://en.wikipedia.org/wiki/Access_control)
   - Wikimedia image: `-32 Security system.jpg`
+  - Commons file: [File:-32_Security_system.jpg](https://commons.wikimedia.org/wiki/File:-32_Security_system.jpg)
+  - Credit: Park taeho, own work
+  - License: CC BY-SA 4.0
 
 ## Foundations and Operating Systems
 

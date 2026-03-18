@@ -1,7 +1,7 @@
 # Chapter 3: Memory, Filesystems, and Storage Layout
 
 ![Computer memory](assets/computer-memory.jpg)
-*Image source: [Computer memory](https://en.wikipedia.org/wiki/Computer_memory) on Wikipedia / Wikimedia Commons.*
+*Image source: [Computer memory](https://en.wikipedia.org/wiki/Computer_memory). Attribution details for the local image copy are listed in [Wikipedia and Web Resources](wikipedia-and-web-resources.md#image-sources).*
 
 This chapter moves from operating-system control into the structures the OS must manage every day: memory, files, directories, disks, partitions, and boot-related storage structures.
 

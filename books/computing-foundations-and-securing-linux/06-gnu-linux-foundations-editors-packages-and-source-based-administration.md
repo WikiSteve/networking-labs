@@ -1,7 +1,7 @@
 # Chapter 6: GNU/Linux Foundations, Editors, Packages, and Source-Based Administration
 
 ![Linux](assets/linux.png)
-*Image source: [Linux](https://en.wikipedia.org/wiki/Linux) on Wikipedia / Wikimedia Commons.*
+*Image source: [Linux](https://en.wikipedia.org/wiki/Linux). Attribution details for the local image copy are listed in [Wikipedia and Web Resources](wikipedia-and-web-resources.md#image-sources).*
 
 This chapter is where the book stops treating Linux as "another desktop operating system" and starts treating it as an administrative environment. The important shift is not cosmetic. Linux is usually taught badly when it is framed as Windows with different wallpaper. In practice, the useful lessons are about:
 

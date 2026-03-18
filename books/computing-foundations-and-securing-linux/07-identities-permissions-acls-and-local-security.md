@@ -1,7 +1,7 @@
 # Chapter 7: Identities, Permissions, ACLs, and Local Security
 
 ![Access control](assets/access-control.jpg)
-*Image source: [Access control](https://en.wikipedia.org/wiki/Access_control) on Wikipedia / Wikimedia Commons.*
+*Image source: [Access control](https://en.wikipedia.org/wiki/Access_control). Attribution details for the local image copy are listed in [Wikipedia and Web Resources](wikipedia-and-web-resources.md#image-sources).*
 
 This chapter turns Linux permissions into what they actually are: a local trust policy enforced by the operating system. The important question is not "what does `chmod 755` mean on a quiz?" The important questions are:
 

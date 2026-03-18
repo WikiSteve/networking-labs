@@ -1,7 +1,7 @@
 # Chapter 8: Boot, Recovery, Terminals, and Secure Remote Access
 
 ![systemd](assets/systemd.png)
-*Image source: [systemd](https://en.wikipedia.org/wiki/Systemd) on Wikipedia / Wikimedia Commons.*
+*Image source: [systemd](https://en.wikipedia.org/wiki/Systemd). Attribution details for the local image copy are listed in [Wikipedia and Web Resources](wikipedia-and-web-resources.md#image-sources).*
 
 This chapter combines three topics that belong together operationally:
 
