@@ -48,9 +48,75 @@ This book also pulls forward the cleaned lecture notes and labs that already exi
 - [Study Guide and Reading Paths](study-guide.md)
 - [Glossary](glossary.md)
 - [Wikipedia and Web Resources](wikipedia-and-web-resources.md)
-- [Reuse and License](reuse-and-license.md)
-- [About the Author](about-the-author.md)
 
 ## Practical Scope
 
 This book stays aligned with repo material that is already cleaned and safe to reuse. When a chapter points to hands-on work, it favors the public lab notes and normalized reading packs rather than older branded source files.
+
+## Reuse and License
+
+Unless otherwise noted, the original text and original diagrams in this book are licensed under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+
+That means you may:
+
+- copy and redistribute the material,
+- adapt, remix, transform, and build on it,
+- and use it commercially,
+
+as long as you provide attribution, indicate whether you made changes, and include a link to the license.
+
+### Preferred Attribution
+
+If you reuse or adapt this book, please include:
+
+- the book title,
+- the author name,
+- a link back to the source,
+- a link to the CC BY 4.0 license,
+- and a note if you changed the material.
+
+Preferred source link:
+
+- <https://github.com/WikiSteve/networking-labs/tree/main/books/computing-foundations-and-securing-linux>
+
+Suggested attribution:
+
+> *Computing Foundations and Securing Linux* by Steve Sharpe, from the `networking-labs` repository, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Changes were made.
+
+If you are reusing the material without changes, replace `Changes were made.` with `No changes were made.`
+
+### Third-Party Material
+
+Some chapters include third-party images, linked external readings, or other referenced material.
+
+- Those items retain their own attribution and licensing requirements.
+- The CC BY 4.0 license here applies to the original book material in this directory unless a chapter or asset notes otherwise.
+- When in doubt, keep the original source attribution with the reused material.
+
+## About the Author
+
+Steve Sharpe is an IT instructor and hands-on systems educator whose teaching focuses on computing fundamentals, GNU/Linux administration, networking, and security.
+
+His teaching style is practical first. Instead of treating computers as abstract theory, he tends to start with the questions administrators and defenders actually face:
+
+- what the system is doing,
+- what layer is responsible,
+- what failed,
+- how to verify it,
+- and how to fix it without guessing.
+
+That approach shapes this book. It explains why the chapters keep returning to:
+
+- command-line literacy,
+- step-by-step troubleshooting,
+- permission and trust boundaries,
+- storage and recovery planning,
+- and service configuration that is grounded in real operational choices.
+
+Much of the material in this book was rebuilt from detailed teaching notes, labs, demonstrations, and lecture sequences, then rewritten into a cleaner public form for students. The goal was not to preserve old course packaging. The goal was to keep the useful parts:
+
+- the examples that made concepts stick,
+- the administrative habits that prevent avoidable mistakes,
+- and the technical depth students need before they can secure systems confidently.
+
+If this book feels more like a guided technical apprenticeship than a glossy overview, that is intentional.
