@@ -2,6 +2,11 @@
 
 > **Before you start:** Download the [Linux Storage Submission Template](<./assets/Linux Storage SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
 
+## Required Reading
+
+- [Chapter 4: Availability, RAID, Backup, and Recovery Planning](../../books/computing-foundations-and-securing-linux/04-availability-raid-backup-and-recovery-planning.md)
+- [Chapter 9: Linux Storage, LVM, and Filesystem Administration](../../books/computing-foundations-and-securing-linux/09-linux-storage-lvm-and-filesystem-administration.md)
+
 ## Goal
 Practice common Linux storage administration tasks with LVM, including removing the `sudo` password prompt for the lab VM, resizing logical volumes, migrating data to a new drive, reinstalling GRUB, and restoring files from a snapshot.
 

@@ -1,5 +1,9 @@
 # Lecture Linux Users, Groups, and Mode
 
+## Required Reading
+
+- [Chapter 7: Identities, Permissions, ACLs, and Local Security](../../books/computing-foundations-and-securing-linux/07-identities-permissions-acls-and-local-security.md)
+
 ## Goal
 Review Linux users, groups, password storage, and file permissions, including the special permission bits `setuid`, `setgid`, and `sticky`.
 

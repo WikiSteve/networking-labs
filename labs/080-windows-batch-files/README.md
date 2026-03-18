@@ -2,6 +2,11 @@
 
 > **Before you start:** Download the [Windows Batch Files Submission Template](<./assets/Windows Batch Files SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
 
+## Required Reading
+
+- [Chapter 2: Privilege, System Calls, Processes, and Interfaces](../../books/computing-foundations-and-securing-linux/02-privilege-system-calls-and-processes.md)
+- [Chapter 5: Command Lines, Batch Files, and Administrative Automation](../../books/computing-foundations-and-securing-linux/05-command-lines-batch-files-and-administrative-automation.md)
+
 ## Goal
 Use Windows command-line tools to create links, build simple batch files, work with `for` loops, and observe how scripts can automate tasks or disguise program behavior.
 

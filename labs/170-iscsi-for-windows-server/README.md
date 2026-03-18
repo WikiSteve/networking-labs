@@ -2,6 +2,10 @@
 
 > **Before you start:** Download the [iSCSI for Windows Server Submission Template](<./assets/iSCSI for Windows Server SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
 
+## Required Reading
+
+- [Chapter 4: Availability, RAID, Backup, and Recovery Planning](../../books/computing-foundations-and-securing-linux/04-availability-raid-backup-and-recovery-planning.md)
+
 ## Goal
 Practice basic SAN concepts by creating storage on `lastname-SAN`, publishing it through the Windows Server iSCSI Target role, and connecting to it from `lastname-FS`.
 

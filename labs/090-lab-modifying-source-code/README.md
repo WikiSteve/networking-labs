@@ -2,6 +2,11 @@
 
 > **Before you start:** Download the [Modifying Source Code Submission Template](<./assets/Modifying Source Code SUBMISSION TEMPLATE.pptx>). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
 
+## Required Reading
+
+- [Chapter 5: Command Lines, Batch Files, and Administrative Automation](../../books/computing-foundations-and-securing-linux/05-command-lines-batch-files-and-administrative-automation.md)
+- [Chapter 6: GNU/Linux Foundations, Editors, Packages, and Source-Based Administration](../../books/computing-foundations-and-securing-linux/06-gnu-linux-foundations-editors-packages-and-source-based-administration.md)
+
 ## Goal
 Download the `traceroute` source package, make a small string change in the C source, build it with `make`, install it, and verify the modified program from both the build tree and the system path.
 
