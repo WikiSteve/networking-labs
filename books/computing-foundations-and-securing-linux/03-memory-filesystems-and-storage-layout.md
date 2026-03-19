@@ -5,7 +5,7 @@
 
 This chapter moves from operating-system control into the structures the OS must manage every day: memory, files, directories, disks, partitions, and boot-related storage structures.
 
-Several topics that students often keep separate actually belong together:
+Several topics are easiest to understand when treated as one chain:
 
 - where running code lives,
 - how the OS maps program-visible addresses onto real memory,
@@ -65,7 +65,7 @@ This abstraction matters for several reasons:
 
 The OS and hardware collaborate so that a program can operate with a logical view of memory while the machine maintains the real physical mapping.
 
-The key hardware component here is the **MMU**. A student does not need to design one, but they should understand its job: helping translate the addresses a program uses into real memory locations that the machine can actually access.
+You do not need to design the **MMU**, but you do need to understand its job: helping translate the addresses a program uses into real memory locations that the machine can actually access.
 
 That is why **address binding** matters. The system is binding a program’s logical view of memory to actual physical memory at the right time and in the right place, rather than forcing the program to assume a single fixed location forever.
 
@@ -87,7 +87,7 @@ Many programs reuse common libraries rather than carrying separate full copies o
 
 Modern systems often manage memory in fixed-size chunks called **pages**. The system keeps structures such as **page tables** to help translate program-visible memory references into the right backing memory.
 
-Students should connect this to the logical/physical distinction immediately:
+Connect this to the logical/physical distinction immediately:
 
 - the program uses addresses in its own logical view,
 - the OS and hardware use page structures to resolve where that data really lives,
@@ -99,11 +99,11 @@ When RAM pressure rises, the system may rely on disk-backed memory mechanisms. T
 
 The important lesson is that memory management is about both **performance** and **control**.
 
-This is also a place where students should avoid magical thinking. Using disk-backed memory does not “turn disk into RAM.” It is a fallback technique that helps the system survive memory pressure, usually at a noticeable performance cost.
+Avoid magical thinking here. Using disk-backed memory does not “turn disk into RAM.” It is a fallback technique that helps the system survive memory pressure, usually at a noticeable performance cost.
 
 ## Memory Abstraction Improves Reliability and Security
 
-Students sometimes hear about pages, address translation, or the MMU and assume these are just performance topics. They are also control topics.
+Pages, address translation, and the MMU are not only performance topics. They are also control topics.
 
 If one process could casually read or overwrite another process’s memory, a multitasking OS would be nearly unusable. Memory abstraction helps support:
 
@@ -138,7 +138,7 @@ The OS uses that structure to support actions such as:
 
 That logical structure also depends on metadata objects that describe files beyond their visible names. In Unix-like filesystems, this is where the **inode** idea becomes important: the name in a directory entry is not the whole file. The filesystem also tracks ownership, permissions, timestamps, and block locations through metadata structures associated with that file.
 
-At an introductory level, students should keep this distinction straight:
+At an introductory level, keep this distinction straight:
 
 - the **filename** is how people usually refer to the file,
 - the **directory entry** links that name into the hierarchy,
@@ -160,7 +160,7 @@ One of the useful introductory security lessons in this material is that default
 
 That is why file inspection should be disciplined. Do not trust a file purely because the visible beginning of the name looks familiar or safe.
 
-This was a strongly practical lesson in the Windows material. If extensions are hidden, students can make bad assumptions quickly. A file that *looks* like a document may not actually be one. That is why “show the real name” is a defensive habit, not just a UI preference.
+This matters on any platform. If extensions are hidden or the visible filename is misleading, a file that *looks* like a document may not actually be one. That is why “show the real name” is a defensive habit, not just a UI preference.
 
 This also helps explain why administrators care about metadata and file attributes instead of only human-readable names.
 
@@ -174,15 +174,15 @@ That explains why:
 - some require a full path,
 - and some fail because the relevant directory is not in the search path.
 
-In Windows, commands like `path` and `attrib` make this visible. `path` relates to command lookup. `attrib` relates to file properties such as whether a file is hidden. Those are different ideas, and students need both.
+In Windows, commands like `path` and `attrib` make this visible. In GNU/Linux, `$PATH`, `which`, `type`, `ls -l`, `stat`, and `file` expose related but different facts. Command lookup, file attributes, file type, and permissions are connected, but they are not the same thing.
 
 The same area of the material also introduces **attributes**. An attribute is not the same thing as a permission. Attributes describe properties or behaviors; permissions define allowed actions.
 
-This distinction becomes important when students move from “why is the file hidden?” to “who is actually allowed to read or execute it?”
+This distinction becomes important when you move from “why is the file hidden?” to “who is actually allowed to read or execute it?”
 
 ## Secondary Storage Has a Physical Layout and a Logical Layout
 
-Mechanical hard drives are especially useful for teaching because their physical design is easy to visualize.
+Mechanical hard drives are easier to visualize than SSDs because their physical design maps cleanly to the language of tracks, sectors, and seek time.
 
 Important physical components include:
 
@@ -198,13 +198,13 @@ On that physical layout, two performance ideas matter:
 
 That physical reality is why scattered data hurts performance on spinning disks. The hardware cost of moving around the platter is real.
 
-This is one reason traditional hard drives are still so useful in teaching. Their behavior is easy to visualize. Students can see why file layout, fragmentation, and access patterns matter because the hardware literally has to move.
+This is one reason traditional hard drives remain a useful model. Their behavior makes it easy to see why file layout, fragmentation, and access patterns matter, because the hardware literally has to move.
 
 The **logical layout** is the OS-facing view layered on top of that hardware.
 
 ## Sectors, Clusters, and Slack Space
 
-Students should distinguish:
+Distinguish:
 
 - a **sector** as a low-level storage unit,
 - and a **cluster** as a filesystem allocation unit built from one or more sectors.
@@ -234,11 +234,11 @@ On mechanical disks, fragmentation can slow performance because the drive must g
 
 The reason is straightforward: SSDs do not have read heads seeking across spinning platters. They also use flash-management behavior such as wear-leveling internally. That means the classic “defragment regularly for speed” lesson from spinning disks does not transfer cleanly to SSDs.
 
-The course material also tied deletion and secure erase to this storage discussion. On a magnetic hard drive, deleting a file usually removes references before the underlying data has truly disappeared. That is why overwrite tools, degaussing, or physical destruction show up in storage lessons. SSDs complicate this further because flash translation layers, wear-leveling, and TRIM change what “overwrite the same spot” even means.
+Deletion and secure erase belong in this storage discussion too. On a magnetic hard drive, deleting a file usually removes references before the underlying data has truly disappeared. That is why overwrite tools, degaussing, or physical destruction show up in storage lessons. SSDs complicate this further because flash translation layers, wear-leveling, and TRIM change what “overwrite the same spot” even means.
 
-## Filesystems: FAT and NTFS
+## Filesystems: FAT, NTFS, ext4, and xfs
 
-The Windows-oriented storage material contrasts common filesystems such as **FAT** and **NTFS**.
+Any serious storage discussion has to compare filesystems rather than pretending there is only one default model.
 
 ### FAT
 
@@ -252,6 +252,16 @@ NTFS introduces richer metadata handling and journaling behavior. **Journaling**
 
 Journaling is a reliability feature, not a magical backup system. It helps preserve consistency after interruption. It does not give you an automatic clean historical copy of every damaged or deleted file.
 
+### ext4
+
+On Linux, **ext4** is a common general-purpose filesystem. It supports journaling, uses extents for efficient block mapping, and has mature tooling. For many Linux systems, ext4 is the first filesystem family you are likely to meet.
+
+This matters because Linux administration depends on being able to inspect the storage stack directly. Commands such as `df -T`, `lsblk -f`, `mount`, and `tune2fs` make the filesystem type and its role in the system visible.
+
+### xfs
+
+**xfs** is another common Linux filesystem, especially on larger systems and servers. It is designed for scalability and high-throughput workloads, and it is often chosen where large filesystems or large files are normal.
+
 The important lesson is not that one filesystem is magic. It is that filesystem design affects:
 
 - metadata richness,
@@ -259,7 +269,7 @@ The important lesson is not that one filesystem is magic. It is that filesystem 
 - compatibility,
 - and administrative expectations.
 
-The broader storage material also brought in Linux examples such as **ext4**, because students need to see that Windows is not the only filesystem world that matters. The durable lesson is comparative: file systems differ in features, recovery behavior, compatibility, and administrative tradeoffs.
+Linux administrators need this comparative view because repair tools, growth behavior, journaling details, and operational habits differ from one filesystem family to another.
 
 ## Boot-Related Storage Structures
 
@@ -280,7 +290,7 @@ The old model is commonly taught as:
 3. that code helps find the next stage,
 4. and eventually the operating system is loaded.
 
-Students should understand the difference between:
+Keep separate:
 
 - **whole-disk structure** such as partition layout and boot records,
 - and the **filesystem inside a partition or volume**.
@@ -293,7 +303,7 @@ This is where storage and startup meet. If the partition table is damaged, the p
 
 A **partition** is a defined region of a physical disk. A **volume** is the usable storage entity the OS mounts and presents for use, usually with a filesystem on it.
 
-In simple setups, one partition often becomes one volume, which is why students treat the words as interchangeable. Administratively, the distinction still matters.
+In simple setups, one partition often becomes one volume, which is why the words are treated as interchangeable. Administratively, the distinction still matters.
 
 Partitioning is used to:
 
@@ -302,9 +312,9 @@ Partitioning is used to:
 - create recovery areas,
 - and organize storage for operational reasons.
 
-This is also where management tools matter. Windows `diskpart`, Windows Disk Management, Linux partitioning tools, and later Linux LVM work all sit at different layers of the same storage story. A student who understands partitions and volumes will have a much easier time understanding why later Linux storage lessons add volume groups and logical volumes on top.
+This is also where management tools matter. Windows `diskpart`, Windows Disk Management, Linux partitioning tools, and later Linux LVM work all sit at different layers of the same storage story. Once you understand partitions and volumes, it becomes much easier to understand why Linux storage lessons add volume groups and logical volumes on top.
 
-Students should also recognize tools such as DiskPart conceptually as command-line disk management tools, even if every exact command sequence is not part of the surviving reading pack.
+Tools such as Windows DiskPart, Linux `lsblk`, `fdisk`, `parted`, and later LVM commands all reveal different layers of the same storage story. The point is not to memorize every switch immediately. The point is to know which layer you are inspecting before you change anything.
 
 ## MBR vs GPT, BIOS vs UEFI
 
@@ -320,19 +330,45 @@ Likewise:
 
 The key lesson is not nostalgia. It is operational awareness. Real environments may contain both old and new systems, and troubleshooting or installation steps depend on which combination you are dealing with.
 
-## Worked Examples and Teaching Moments
+## Worked Examples
 
-### Example: filenames can lie
+### Example: a filename looks safe until you inspect it
 
-One of the practical examples preserved from the foundational material is that users often trust the visible beginning of a filename instead of the actual file type. Hidden extensions and casual file browsing can make a dangerous file look harmless. That is why the book keeps tying file concepts to disciplined inspection instead of to cosmetic naming.
+Suppose a download appears in a file browser as `QuarterlyReport.pdf`, but the system is hiding extensions and the real filename is `QuarterlyReport.pdf.exe`. The visible name invites a bad assumption. That is why disciplined inspection matters.
 
-### Example: `path` and `attrib` are not trivia
+On Linux, the habit might be:
 
-The command-line material uses Windows examples to make filesystem behavior concrete. The `path` command shows how the system finds executables, while `attrib` demonstrates that a file can carry properties beyond its visible name. That is a good reminder that a file’s name, attributes, metadata, and executable status are related but not identical.
+```bash
+ls -l QuarterlyReport*
+file QuarterlyReport.pdf.exe
+```
 
-### Example: `diskpart` belongs in the storage conversation
+On Windows, the equivalent lesson is to show full extensions and inspect attributes instead of trusting the icon or the visible prefix of the name.
 
-The storage lectures do not keep partitioning purely theoretical. They tie the discussion to Windows `diskpart` as a command-line disk-management tool, which helps students connect partition tables, volumes, and boot structures to actual administrative tools instead of memorized vocabulary.
+### Example: command lookup is not the same as file metadata
+
+If `ssh` works in one shell but a custom script does not, the first question is often command lookup rather than permissions. On Linux, `echo "$PATH"`, `which ssh`, or `type ssh` answer a different question than `ls -l` or `stat`.
+
+That distinction matters because:
+
+- `$PATH` explains how a command is found,
+- `ls -l` shows permissions and ownership,
+- `stat` shows deeper metadata,
+- and `file` identifies content type.
+
+Those tools overlap in practice, but they do not answer the same question.
+
+### Example: inspect the storage layer before you resize or repair it
+
+Before changing a partition table or resizing storage, inspect the system as separate layers. On Linux, that might mean:
+
+```bash
+lsblk -f
+sudo fdisk -l
+mount | column -t
+```
+
+On Windows, a comparable check might begin with Disk Management or `diskpart` to distinguish the physical disk, partition layout, and mounted volumes. That discipline prevents a common beginner mistake: changing one layer while assuming you are looking at another.
 
 ## Practice Connections
 

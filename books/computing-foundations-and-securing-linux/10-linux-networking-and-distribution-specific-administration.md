@@ -18,7 +18,7 @@ By the end of this chapter, you should be able to explain:
 
 ## Old Tools vs New Tools
 
-The Linux networking material does something useful pedagogically: it does not pretend the old tools never existed.
+This chapter does something useful: it does not pretend the old tools never existed.
 
 You should recognize legacy tools such as:
 
@@ -80,7 +80,7 @@ The modern model needs to support concepts associated with serious network admin
 - link aggregation or bonding,
 - and other enterprise-style networking features.
 
-That does not mean every student must master all of those features immediately. It means the modern toolset exists for a reason.
+You do not need to master all of those features immediately. You do need to understand why the modern toolset exists.
 
 ## When a Command Is Installed but Still Does Not Run
 
@@ -172,7 +172,7 @@ Virtualization also grounds this lesson, because VM environments often produce n
 
 ## `ip link`, Interface Discovery, and Practical Inventory
 
-One of the strongest practical habits in the networking material is to inspect what the system actually has instead of assuming an interface name from a lecture slide.
+One of the strongest practical habits here is to inspect what the system actually has instead of assuming an interface name from old documentation or memory.
 
 Use the system to discover:
 
@@ -185,14 +185,14 @@ That habit is especially important when you work across distributions, VM platfo
 
 ## Runtime State vs Persistent Configuration
 
-The networking sequence repeatedly warns students that live changes are not always persistent.
+Live changes are not always persistent.
 
-This is one of the core Linux-admin lessons in the course:
+This is one of the core Linux administration lessons in the chapter:
 
 - a command may change the running system right now,
 - but unless the relevant configuration is stored in the right place for that distro and toolchain, the change may vanish at reboot.
 
-That is why this chapter keeps separating quick inspection commands such as:
+Quick inspection commands show the running system right now:
 
 ```bash
 ip link
@@ -218,14 +218,22 @@ That takes effect immediately, but it does not survive a reboot unless you also 
 - `-e` shows extended details,
 - `-n` keeps addresses and ports numeric instead of trying to resolve names.
 
-from persistent configuration files such as:
+Persistent configuration lives elsewhere, for example in:
 
 - `/etc/network/interfaces`,
 - `/etc/netplan/*.yaml`,
 - NetworkManager profiles,
 - and resolver configuration.
 
-That is the same temporary-versus-persistent distinction students already saw in GRUB and mount configuration.
+After editing those files, you also need to apply the change through the stack in use. Examples include:
+
+```bash
+sudo netplan apply
+sudo systemctl restart NetworkManager
+sudo ifdown eth0 && sudo ifup eth0
+```
+
+That is the same temporary-versus-persistent distinction already seen in GRUB and mount configuration.
 
 It is a recurring systems principle:
 
@@ -234,7 +242,7 @@ It is a recurring systems principle:
 
 ## Distribution-Specific Configuration Is Real
 
-The source material is explicit that a particular networking demonstration should not be treated as universal. That warning is worth preserving exactly in spirit.
+A particular networking demonstration should never be treated as universal Linux truth.
 
 Linux networking varies by:
 
@@ -278,7 +286,7 @@ iface eth0 inet static
 
 Neither syntax is “the Linux syntax.” Each belongs to a particular administration stack.
 
-Students still benefit from seeing a few concrete path examples, because “it depends on the distro” is only useful if it leads to inspection rather than paralysis. Typical places an administrator may need to check include:
+Concrete path examples still matter, because “it depends on the distro” is only useful if it leads to inspection rather than paralysis. Typical places an administrator may need to check include:
 
 - `/etc/network/interfaces` on older Debian-style systems,
 - `/etc/netplan/*.yaml` on Ubuntu systems using netplan,
@@ -289,7 +297,7 @@ The point is not to memorize a universal path. The point is to look for the conf
 
 ## Name Resolution Is Part of Networking Administration
 
-Students often think networking is only about interfaces and routes. In practice, **name resolution** causes a large share of “the network is broken” complaints.
+Networking is often reduced to interfaces and routes. In practice, **name resolution** causes a large share of “the network is broken” complaints.
 
 That means Linux networking administration also includes questions such as:
 
@@ -298,7 +306,24 @@ That means Linux networking administration also includes questions such as:
 - whether the failure is an address problem or a DNS problem,
 - and whether the host can reach the intended resolver service.
 
-This is another reason the chapter keeps warning against one-command thinking. A system can have a perfectly valid interface and route configuration while still failing operationally because name resolution is wrong.
+This is another reason to avoid one-command thinking. A system can have a perfectly valid interface and route configuration while still failing operationally because name resolution is wrong.
+
+Useful DNS and resolver checks include:
+
+```bash
+cat /etc/resolv.conf
+getent hosts example.com
+host example.com
+dig example.com
+resolvectl status
+```
+
+Those commands help separate:
+
+- “the interface is down,”
+- from “the route is wrong,”
+- from “DNS is failing,”
+- from “the name resolves, but to the wrong address.”
 
 ## Virtualization Changes What You See
 
@@ -310,7 +335,7 @@ VMware or other VM networking modes make the lesson concrete. They affect:
 
 For example, bridged and NAT-style setups do not present the same operational picture to the guest. **NAT**, or **Network Address Translation**, means the guest is often hidden behind another system that rewrites address information as traffic passes through it. If you forget that, you can easily misdiagnose lab issues that are really design choices in the virtual networking layer.
 
-That is why the chapter distinguishes exercises that use older tools in bridged-style contexts from exercises that use newer tools in NAT-style contexts. The point is not just to make students type different commands. It is to show that the surrounding network design changes what the guest can observe.
+That is why older-tool examples in bridged-style contexts and newer-tool examples in NAT-style contexts still have value. The point is not just to type different commands. It is to see how the surrounding network design changes what the guest can observe.
 
 ## Practical Administration Habits
 
@@ -327,30 +352,65 @@ That sequence is much more durable than memorizing one outdated command recipe.
 
 ## Worked Examples
 
-### Example: `ifconfig` can exist and still “not work”
+### Example: `ifconfig` can exist on disk and still fail at the shell
 
-One of the best practical examples is a Debian-style system where `ifconfig` is installed but a normal user still cannot run it directly. That annoyance becomes a lesson about PATH, `/usr/sbin`, `whereis`, and why “the binary exists” is not the same as “the shell can currently find it.”
+A Debian-style system might behave like this:
+
+```bash
+$ ifconfig
+bash: ifconfig: command not found
+
+$ whereis ifconfig
+ifconfig: /usr/sbin/ifconfig
+
+$ echo "$PATH"
+/usr/local/bin:/usr/bin:/bin
+```
+
+That is not a contradiction. The binary exists, but the current shell is not searching `/usr/sbin`. This is why PATH troubleshooting belongs in networking administration.
+
+### Example: runtime inspection and persistent configuration are different jobs
+
+One realistic sequence is:
+
+```bash
+ip addr show
+ip route
+sudo ip addr add 10.0.0.5/24 dev ens33
+ping -c 2 10.0.0.1
+```
+
+That changes the running system immediately. To keep the change after reboot, you still need to edit the persistent config and apply it:
+
+```bash
+sudoedit /etc/netplan/01-lab.yaml
+sudo netplan try
+sudo netplan apply
+```
+
+The exact files and commands depend on the distribution, but the principle does not: live state and startup state are related, not identical.
+
+### Example: DNS troubleshooting starts by separating name resolution from raw connectivity
+
+When a host can reach an IP address but not a service name, work through the problem in layers:
+
+```bash
+ping -c 2 8.8.8.8
+ping -c 2 example.com
+getent hosts example.com
+host example.com
+resolvectl status
+```
+
+If the IP ping works but name resolution fails, the problem is not the same as “the network is down.” It is usually a resolver or naming problem.
 
 ### Example: `ens33` beats assuming every interface is `eth0`
 
-Virtualization also makes interface naming concrete. Modern Linux may present names such as `ens33`, and `ip link` is a better habit than assuming a textbook interface name that does not exist on the current host.
-
-### Example: bridged and NAT guests do not see the same network
-
-The VM networking portion matters because it anchors Linux administration in lab reality. A bridged guest and a NAT-based guest do not see the same surrounding network, which is why route expectations, address behavior, and even FTP troubleshooting change depending on the virtualization mode.
-
-### Example: a runtime fix is not automatically a persistent fix
-
-The networking unit repeatedly separates:
-
-- what you changed in the live system right now,
-- from what the distribution will restore at the next boot.
-
-That difference is one of the most transferable Linux administration lessons in the whole book.
+Modern Linux may present names such as `ens33`, and `ip link` is a better habit than assuming a textbook interface name that does not exist on the current host.
 
 ## Practice Connections
 
-- For the cleaned lecture note, use [Linux Networking](../../course-materials/lectures/systems/linux-networking.md).
+- For a companion networking note, use [Linux Networking](../../course-materials/lectures/systems/linux-networking.md).
 - For path and command-line context that supports this chapter, use [OS & Networking Fundamentals](../../course-materials/lectures/systems/os-and-networking-fundamentals.md).
 - For storage-and-networking context, use [Repo Companion Material](repo-companion-material.md).
 
@@ -367,7 +427,7 @@ That difference is one of the most transferable Linux administration lessons in 
 
 ## Review Questions
 
-1. Why should students still recognize legacy tools such as `ifconfig` even though they should build around `iproute2`?
+1. Why should you still recognize legacy tools such as `ifconfig` even though you should build around `iproute2`?
 2. How can a command exist on disk but still fail for a normal user?
 3. Why is DNS or name-resolution troubleshooting part of networking administration rather than a separate problem?
 4. Why is it dangerous to assume one Linux networking example is a universal configuration method?

@@ -1,8 +1,8 @@
 # Chapter 12: File Transfer, File Sharing, Hardening, and Rootkits
 
-This final chapter works as a capstone because it ties service configuration, attack-surface reduction, and stealthy compromise together. Students finish by moving from “how to make services work” to “how to make them work safely, and how to think when the system itself may be lying to you.”
+This chapter ties service configuration, attack-surface reduction, and stealthy compromise together. The problem is no longer just "how do I make the service work?" The problem is "how do I make it work safely, and how do I reason when the system itself may be lying to me?"
 
-It also deliberately continues the trust story from earlier chapters. Chapter 8 asked how much you should trust a remote administrative path. Chapter 11 asked how much you should trust the identity presented by a service. This chapter asks what happens after you expose file-sharing services to the network and why hardening has to continue after the service first appears to work.
+It also continues the trust story from earlier chapters. Chapter 8 dealt with trust in remote administrative paths. Chapter 11 dealt with trust in service identity. This chapter deals with what happens after file-sharing services are exposed to the network and why hardening has to continue after a service first appears to work.
 
 ```mermaid
 flowchart TD
@@ -46,7 +46,7 @@ That means a sensible deployment must answer:
 
 ## `vsftpd`: A Concrete FTP Service Example
 
-`vsftpd` is a useful teaching daemon because it makes the security tradeoffs visible.
+`vsftpd` is a useful daemon because it makes the security tradeoffs visible.
 
 The initial administrative steps are very ordinary:
 
@@ -81,19 +81,7 @@ This is not the end state. It is the setup for a security lesson.
 - uploading files,
 - and downloading files.
 
-Historically important does not mean safe by default.
-
-Without encryption, plain FTP exposes too much:
-
-- usernames,
-- passwords,
-- and transferred data.
-
-So the chapter does not stop at “make FTP work.” It moves directly into:
-
-- active vs passive behavior,
-- confinement,
-- and TLS.
+Historically important does not mean safe by default. Without encryption, plain FTP exposes usernames, passwords, and transferred data. That is why the administrative problem is not merely "make FTP work." The administrative problem is how to handle active versus passive behavior, confinement, and TLS.
 
 ## Active vs Passive FTP
 
@@ -122,6 +110,28 @@ The point is simple:
 
 > FTP problems are often networking-design problems, not “the daemon is broken” problems.
 
+## Client-Side Verification Matters
+
+Server configuration is only half the job. A service should also be verified from the client side.
+
+For FTP or FTPS, a quick test might be:
+
+```bash
+curl --ssl-reqd --user username:password ftp://server.example.local/
+openssl s_client -connect server.example.local:21 -starttls ftp
+```
+
+The first command checks whether the server will actually accept an authenticated encrypted session. The second lets you inspect the certificate and TLS handshake directly.
+
+For Samba, useful client-side verification includes:
+
+```bash
+smbclient -L //server.example.local -U username
+smbclient //server.example.local/PROJECT-RW -U username
+```
+
+Those tests matter because a service that "looks correct" in a configuration file may still fail from a real client due to authentication, name resolution, permissions, or firewall issues.
+
 ## The First Big FTP Security Mistake: Over-Broad Access
 
 This `vsftpd` example lets you see that a regular FTP user can initially:
@@ -130,7 +140,7 @@ This `vsftpd` example lets you see that a regular FTP user can initially:
 - write too broadly,
 - and traverse places they should not be able to touch in a tightly controlled file-transfer setup.
 
-That is how the chapter should introduce confinement. It is not “because jails are neat.” It is because the default result can be broader than intended.
+That is the right way to think about confinement. It is not "because jails are neat." It is because the default result can be broader than intended.
 
 ## Chroot Jails and the Writable-Root Problem
 
@@ -140,7 +150,7 @@ The next step is to confine users with:
 chroot_local_user=YES
 ```
 
-That immediately leads to one of the most memorable `vsftpd` errors in the whole course:
+That immediately leads to one of the most memorable `vsftpd` errors in this topic:
 
 the user reconnects and receives a complaint about a **writable root inside chroot**.
 
@@ -176,7 +186,7 @@ That allows the administrator to treat different accounts differently.
 
 This is useful because security policy is rarely “every user gets the exact same behavior.” Some accounts need tighter confinement than others.
 
-The technical lesson is simple:
+The administrative lesson is simple:
 
 - one service can enforce more than one confinement pattern,
 - but the administrator must understand which users are inside the jail and which are exceptions.
@@ -299,17 +309,11 @@ This matters because Linux account existence and Samba access are related but no
 
 That is a durable real-world lesson.
 
+Once FTP and Samba are working as intended, the next question changes. The task is no longer just "is the share available?" The task becomes "is the host now broader, noisier, or more exposed than it needs to be?" That transition is where service setup becomes host hardening.
+
 ## Hardening Services Means Removing Convenience You Did Not Mean to Offer
 
-The hardening part of the chapter works best when it stays operational rather than abstract.
-
-Important attack-surface questions include:
-
-- which services are running,
-- which ports are listening,
-- which accounts are allowed in,
-- which directories are writable,
-- and whether the current access is actually justified by the system’s role.
+Important attack-surface questions include which services are running, which ports are listening, which accounts are allowed in, which directories are writable, and whether the current access is actually justified by the system’s role.
 
 This is the bridge between service configuration and the security material:
 
@@ -339,20 +343,37 @@ That matters because:
 
 Good hardening is not only about permissions. It is also about keeping software current and refusing to run more than the system needs.
 
-Important habits include:
+Important habits include patching software because vulnerabilities change, removing unnecessary components, disabling unneeded services, and inspecting what is actually running instead of defending an imagined system.
 
-- patch software because vulnerabilities change,
-- remove unnecessary components,
-- disable unneeded services,
-- and inspect what is actually running instead of defending an imagined system.
+Concrete Linux checks make that advice operational:
 
-That is how hardening stays tied to operations rather than slogans.
+```bash
+sudo ss -tulpen
+sudo systemctl --type=service --state=running
+sudo systemctl disable --now servicename
+sudo ufw status
+```
+
+Those commands answer practical questions:
+
+- what is listening,
+- what is still running,
+- what can be disabled,
+- and what the firewall is currently allowing.
+
+Linux-specific hardening can also involve mandatory access-control and abuse-limiting tools:
+
+```bash
+sudo aa-status
+getenforce
+sudo fail2ban-client status
+```
+
+`AppArmor` or `SELinux` can confine daemons beyond simple Unix mode bits, and tools such as `fail2ban` can react to repeated authentication failures. The point is not to memorize one stack forever. The point is to understand that hardening lives in layers: service configuration, filesystem permissions, firewall policy, process confinement, and patch management.
 
 ## Rootkits Attack Visibility
 
 While hardening reduces the attack surface, determined attackers may still find a way in. Once they do, the next goal is usually persistence and evasion. That is where rootkits enter the picture: they are built to subvert the operating system and hide malicious activity from ordinary administrative tools.
-
-The capstone topic, rootkits, belongs here because it ties together privilege, system calls, stealth, and trust.
 
 A **rootkit** is primarily a stealth mechanism. It hides malicious activity rather than replacing the malicious payload entirely.
 
@@ -381,9 +402,7 @@ Kernel-mode rootkits are more serious because the kernel mediates:
 - device access,
 - and system-call handling.
 
-One concrete delivery example is a fake “graphics patch” or FPS-improvement driver that actually installs a malicious driver-level component.
-
-That example matters because low-level compromise often arrives disguised as convenience.
+One concrete delivery example is a fake kernel-module or driver update that actually installs a malicious low-level component. Low-level compromise often arrives disguised as convenience or troubleshooting help.
 
 ## Boot, Disk, and Firmware Persistence
 
@@ -407,7 +426,7 @@ The earlier malicious code executes, the more control it may gain before ordinar
 
 ## Hooking, API Interception, and Why Tools Can Lie
 
-The main hiding mechanism preserved in the rootkit material is **hooking**:
+One of the main hiding mechanisms in rootkits is **hooking**:
 
 - intercepting API calls,
 - intercepting system-call paths,
@@ -423,16 +442,18 @@ flowchart LR
     D --> E[Administrator sees a false clean view]
 ```
 
-A concrete Windows-flavored example uses:
+A Linux-specific example makes the hiding model clearer:
 
-- calls through `kernel32.dll`,
-- especially file-enumeration paths such as `FindFirstFile`.
+- a malicious shared library loaded through `/etc/ld.so.preload` can hook functions such as `readdir()`,
+- or a kernel-level implant can tamper with `getdents64()` or `/proc`-related visibility.
 
-That example is valuable because it turns rootkit stealth into a simple mental model:
+That keeps the mental model simple:
 
-- the file may still exist,
-- but the enumeration path has been hooked,
+- the file or process may still exist,
+- but the listing path has been hooked,
 - so ordinary tools never show it.
+
+The same stealth idea appears on other operating systems too, but the Linux examples keep the mechanism aligned with the rest of the book.
 
 ## Detection, Inconsistencies, and Memory Analysis
 
@@ -452,39 +473,68 @@ Memory analysis is valuable because it may expose:
 - suspicious drivers,
 - and artifacts invisible to normal user-facing tools.
 
-In practice, defenders often capture a memory image and analyze it offline with frameworks such as **Volatility**. That offline view matters because it does not rely on the compromised operating system to describe itself honestly. If a rootkit is hiding a process, an injected DLL, or a suspicious network connection from normal tools, memory forensics can often reveal the real state of the machine.
+In practice, defenders often capture a memory image and analyze it offline with frameworks such as **Volatility**. That offline view matters because it does not rely on the compromised operating system to describe itself honestly. If a rootkit is hiding a process, a preloaded library, a suspicious module, or a network connection from normal tools, memory forensics can often reveal the real state of the machine.
 
 ## Worked Examples
 
 ### Example: the writable-root-inside-chroot failure is a security lesson
 
-`vsftpd` refuses an unsafe jail configuration for a reason. That error teaches you to reason about confinement and write access instead of blindly toggling options.
+```text
+500 OOPS: vsftpd: refusing to run with writable root inside chroot()
+```
+
+`vsftpd` refuses that configuration for a reason. The service is warning that the top of the jail is writable, which weakens the confinement boundary. The administrative response is to fix the directory design first, not to toggle settings blindly.
 
 ### Example: `allow_writeable_chroot=YES` is a policy choice, not a magic fix
 
-If the service needs a writable jailed top directory, the daemon can be told to allow it, but you should understand what risk you are accepting when you do so.
+```ini
+allow_writeable_chroot=YES
+```
+
+If the service really does need a writable jailed top directory, the daemon can be told to allow it. That should be treated as an explicit policy decision, not as a reflexive fix for an inconvenient warning. A safer pattern is often to make the jail root non-writable and create a writable subdirectory inside it for uploads.
 
 ### Example: Linux and Samba credentials are related but not identical
 
-A user can exist on the Linux host and still fail Samba login until `smbpasswd` has been used. That is one of the clearest identity-model lessons in the chapter.
+```bash
+smbclient -L //server.example.local -U alice
+session setup failed: NT_STATUS_LOGON_FAILURE
+```
+
+A user can exist on the Linux host and still fail Samba login until `smbpasswd -a alice` has been used. That is one of the clearest identity-model lessons in the chapter: Linux account existence and Samba authentication are related, but they are not the same thing.
 
 ### Example: read-write and read-only shares should feel different
 
-A read-only share is not just a differently named share. The combination of `read only`, `valid users`, and mask settings should produce visibly different behavior for users.
+```text
+smb: \> put report.txt
+NT_STATUS_ACCESS_DENIED opening remote file \\report.txt
+```
+
+That kind of failure is exactly what a read-only share should produce. If the same file upload succeeds against the read-write share, the contrast proves that the share policy is doing something real rather than existing only on paper.
+
+### Example: verify the service from a real client
+
+After configuring a service, test it from the client side:
+
+```bash
+curl --ssl-reqd --user username:password ftp://server.example.local/
+smbclient -L //server.example.local -U username
+```
+
+These checks help separate server-side configuration mistakes from client-side trust, authentication, name-resolution, or network problems.
 
 ### Example: rootkits hide by changing the answer, not by making the question disappear
 
-The `kernel32.dll` / `FindFirstFile` example makes this idea practical. If the enumeration path is hooked, the operating system can return a false clean view.
+Suppose an attacker hides a file by hooking the listing path. A command such as `ls` may appear clean even though the file still exists on disk. That is the key lesson: the question was asked, but the answer was altered.
 
-### Example: a “graphics patch” can really be a kernel compromise
+### Example: a fake kernel-module update can really be a kernel compromise
 
-The malicious-driver example is effective because it explains how low-level persistence may arrive disguised as a helpful optimization.
+A low-level implant does not need to advertise itself as malware. It can arrive disguised as a performance tweak, a hardware compatibility fix, or a troubleshooting module. That is one reason kernel-level changes deserve far more skepticism than ordinary application updates.
 
 ## Practice Connections
 
 - For the cleaned repo service lab, use [FTP and Samba](../../labs/lab_ftp_samba_md/README.md).
 - For a practical Windows visibility tool related to hardening, use [Process Explorer](../../labs/070-lab-process-explorer/README.md).
-- For the repo-facing chapter map, use [Repo Companion Material](repo-companion-material.md).
+- For a chapter-by-chapter map between the book and the companion labs, use [Repo Companion Material](repo-companion-material.md).
 
 ## Chapter Summary
 

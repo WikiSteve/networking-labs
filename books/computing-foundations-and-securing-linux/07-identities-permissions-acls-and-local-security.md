@@ -3,13 +3,7 @@
 ![Access control](assets/access-control.jpg)
 *Image source: [Access control](https://en.wikipedia.org/wiki/Access_control). Attribution details for the local image copy are listed in [Wikipedia and Web Resources](wikipedia-and-web-resources.md#image-sources).*
 
-This chapter turns Linux permissions into what they actually are: a local trust policy enforced by the operating system. The important question is not "what does `chmod 755` mean on a quiz?" The important questions are:
-
-- who is this process running as,
-- which group context matters,
-- who should own the object,
-- who should be able to read, write, execute, or traverse it,
-- and whether broad permissions are hiding a design mistake.
+This chapter turns Linux permissions into what they actually are: a local trust policy enforced by the operating system. The important question is not "what does `chmod 755` mean on a quiz?" The important questions are who a process is running as, which group context matters, who should own the object, who should be able to read, write, execute, or traverse it, and whether broad permissions are hiding a design mistake.
 
 Permissions are not decoration. They are one of the operating system's most important policy surfaces.
 
@@ -63,14 +57,7 @@ A Linux account is not just a label. It includes:
 - group relationships,
 - and authentication material.
 
-The course explicitly preserves the difference between general account records and **shadow password** storage.
-
-That distinction matters because:
-
-- account information has to be broadly readable enough for the system to function,
-- password hashes do not.
-
-This is why a secure system separates identity description from authentication secrets instead of storing everything in one casually readable place.
+The distinction between general account records and **shadow password** storage matters because account information has to be broadly readable enough for the system to function, while password hashes do not. This is why a secure system separates identity description from authentication secrets instead of storing everything in one casually readable place. `/etc/passwd` stores public account information such as usernames, UIDs, home directories, and login shells. `/etc/shadow` stores hashed passwords and aging data and must stay readable only to privileged processes.
 
 ## Groups Are the Scalable Way to Share Access
 
@@ -111,7 +98,7 @@ That is why the basic permission model is simple but still powerful.
 
 ## File Permissions and Directory Permissions Are Not the Same Thing
 
-Students get into trouble when they memorize `rwx` once and assume it means the same thing everywhere.
+Administrators get into trouble when they memorize `rwx` once and assume it means the same thing everywhere.
 
 For a **regular file**:
 
@@ -170,7 +157,7 @@ A better sequence is:
 
 ## `chmod` Implements Policy; It Does Not Invent It
 
-Students absolutely need to learn `chmod`, but the command is not the real point. The real point is the policy decision behind it.
+`chmod` matters, but the command is not the real point. The real point is the policy decision behind it.
 
 ### Symbolic form
 
@@ -190,6 +177,28 @@ Examples:
 chmod 640 file
 chmod 750 directory
 ```
+
+### Why the numbers work
+
+Numeric modes stop feeling arbitrary once you remember the bit values:
+
+- `r = 4`
+- `w = 2`
+- `x = 1`
+
+Add the values that should be present in each position:
+
+- `7 = 4 + 2 + 1 = rwx`
+- `6 = 4 + 2 = rw-`
+- `5 = 4 + 1 = r-x`
+- `4 = 4 = r--`
+
+That makes common modes much easier to read:
+
+- `755` means owner `rwx`, group `r-x`, other `r-x`
+- `750` means owner `rwx`, group `r-x`, other `---`
+- `644` means owner `rw-`, group `r--`, other `r--`
+- `640` means owner `rw-`, group `r--`, other `---`
 
 Common modes worth understanding include:
 
@@ -234,13 +243,21 @@ The classic permission bits are not the whole story. Linux also uses three speci
 
 On an executable, **setUID** causes the program to run with the identity of the file owner rather than only the identity of the user who launched it.
 
-That can be necessary, but it is also risky. Any setUID program deserves scrutiny because it changes the normal privilege model.
+That can be necessary, but it is also risky. Any setUID program deserves scrutiny because it changes the normal privilege model. In a long listing, setUID appears as an `s` in the owner's execute position, such as:
+
+```text
+-rwsr-xr-x 1 root root 68248 May  1 09:00 /usr/bin/passwd
+```
 
 ### setGID
 
 On executables, **setGID** works similarly for group context.
 
-On directories, setGID is often taught through collaboration: new files created inside the directory inherit the directory's group. That is a practical way to make shared project directories behave consistently.
+On directories, setGID helps collaboration: new files created inside the directory inherit the directory's group. That is a practical way to make shared project directories behave consistently. In a long listing, setGID appears as an `s` in the group's execute position:
+
+```text
+drwxrws--- 2 alice project 4096 May  1 09:00 shared
+```
 
 ### Sticky bit
 
@@ -260,26 +277,7 @@ Classic permissions are deliberately simple. That simplicity is useful, but it d
 - one additional group needs a different access level,
 - or the traditional three-class model would force sloppy broad permissions.
 
-ACLs should not replace good ownership and group design. They should extend it when the classic model is too coarse.
-
-The important policy lesson is this:
-
-- if ACLs help you avoid world-readable or world-writable shortcuts, they are probably serving a real purpose,
-- if ACLs are being used to patch chaos everywhere, the underlying design is probably bad.
-
-Classic permissions are easiest to understand when you inspect a real object:
-
-```bash
-ls -l script.sh
--rwxr-xr-- 1 alice staff 1024 May 1 09:00 script.sh
-```
-
-Read that permission string in pieces:
-
-- the leading `-` means this is a regular file,
-- `rwx` means the owner can read, write, and execute,
-- `r-x` means the group can read and execute,
-- `r--` means everyone else can only read.
+ACLs should not replace good ownership and group design. They should extend it when the classic model is too coarse. If ACLs help you avoid world-readable or world-writable shortcuts, they are probably serving a real purpose. If ACLs are being used to patch chaos everywhere, the underlying design is probably bad.
 
 ACLs become useful when that three-part model is still too coarse:
 
@@ -289,8 +287,6 @@ getfacl report.txt
 ```
 
 That gives the user `bob` read-write access to `report.txt` without changing the file's main group ownership or broadening access for everyone else.
-
-Account data is also split intentionally. `/etc/passwd` stores public account information such as usernames, UIDs, home directories, and login shells. `/etc/shadow` stores hashed passwords and aging data and must stay readable only to privileged processes.
 
 ## Root Is Powerful and Therefore Dangerous
 
@@ -328,29 +324,60 @@ The larger point is not that root should never be used. The larger point is that
 
 ### Example: identity checks come before permission guesses
 
-Good permission troubleshooting starts with `whoami`, `id`, and `groups`. The commands are simple, but they stop a common administrative mistake: changing permissions blindly while assuming the wrong user or group context.
+```bash
+alice@host:~$ id
+uid=1001(alice) gid=1001(alice) groups=1001(alice),27(sudo),1002(project)
+alice@host:~$ ls -l report.txt
+-rw-r----- 1 bob project 512 Mar 18 09:00 report.txt
+```
 
-### Example: directory `x` means traverse, not "execute like a program"
+That output already tells you more than a blind `chmod` ever will. `report.txt` is owned by `bob`, but members of the `project` group can read it. If `alice` cannot read the file, the first question is whether the process is actually running with the expected group membership. Good troubleshooting starts with identity, not with randomly making the file more open.
 
-A directory can be readable yet still not traversable without `x`. If you miss that point, you tend to make poor policy decisions because you apply file semantics where directory semantics actually control the result.
+### Example: directory `x` means traverse
 
-### Example: `umask` makes more sense when you create a file and inspect it
+```bash
+bob@host:~$ ls -ld shared
+drw-r----- 2 bob project 4096 Mar 18 09:00 shared
+alice@host:~$ cd shared
+bash: cd: shared: Permission denied
+```
 
-`umask` makes more sense when you inspect a real result. Show the current `umask`, create a file, inspect the resulting permissions, then change the `umask` and repeat. The concept sticks because you can see the mask removing permissions.
+The directory is readable, but it is not traversable because the execute bit is missing. That is the critical directory lesson: `x` on a directory means "may pass through this path." Without it, you can still know the directory exists and still be unable to enter it.
 
-### Example: sticky bit makes shared writable space survivable
+### Example: `umask` changes the starting permissions
 
-The sticky-bit example matters because it connects a weird-looking permission feature to a very practical problem: many users may need to write in a shared location, but they should not all be able to delete each other's work.
+```bash
+alice@host:~$ umask
+0022
+alice@host:~$ touch notes.txt
+alice@host:~$ ls -l notes.txt
+-rw-r--r-- 1 alice alice 0 Mar 18 09:05 notes.txt
+alice@host:~$ umask 0077
+alice@host:~$ touch private.txt
+alice@host:~$ ls -l private.txt
+-rw------- 1 alice alice 0 Mar 18 09:06 private.txt
+```
 
-### Example: disable routine direct root use after recovery
+That is why `umask` matters. It changes the default starting point so that new objects begin life more open or more private before any later `chmod` is applied.
 
-Recovering root access is not the same thing as normalizing direct root use afterward. Recovery exists because systems break. Daily administration should still move back toward controlled `sudo`-based work where appropriate.
+### Example: sticky bit protects shared writable space
+
+```bash
+root@host:/# ls -ld /tmp
+drwxrwxrwt 17 root root 4096 Mar 18 09:10 /tmp
+```
+
+The trailing `t` shows the sticky bit. `/tmp` stays shared and writable, but one ordinary user cannot casually delete another user's files just because the directory itself is writable.
+
+### Example: recovery does not justify routine root use
+
+Restoring root access after a recovery incident is an emergency action. It does not mean the normal operating pattern should become "stay root forever." Once the system is healthy again, administration should return to narrower privilege through `sudo` or another accountable elevation mechanism.
 
 ## Practice Connections
 
 - For file ownership and permission practice, use [Linux Users, Groups, and Mode](../../labs/120-lecture-linux-users-groups-and-mode/README.md).
 - For recovery-oriented privilege consequences, use [Linux Password Recovery and Locking Out Root](../../labs/140-linux-password-recovery-and-locking-out-root/README.md).
-- For the repo-facing bridge back into the cleaned material, use [Repo Companion Material](repo-companion-material.md).
+- For a chapter-by-chapter map between the book and the companion labs, use [Repo Companion Material](repo-companion-material.md).
 
 ## Chapter Summary
 

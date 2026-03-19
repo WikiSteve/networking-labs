@@ -37,7 +37,7 @@ By the end of this chapter, you should be able to explain:
 
 ## Recovery Paths Are Necessary, and That Makes Them Dangerous
 
-The Linux material insists on holding two ideas at once:
+Keep two ideas in view at the same time:
 
 - systems need recovery paths,
 - and recovery paths become attack paths if physical or boot access is not controlled.
@@ -57,14 +57,14 @@ That is why root recovery belongs inside security thinking, not just troubleshoo
 
 Older Unix/Linux terminology often talks about **runlevels**, especially **runlevel 1** for single-user maintenance mode.
 
-The course preserves the useful historical mapping:
+The useful historical mapping is:
 
 - `init 0` for shutdown,
 - `init 6` for reboot,
 - runlevel `1` for maintenance or recovery,
 - and on Debian-style systems, runlevels `2` through `5` are often treated the same for normal multi-user work.
 
-Students do not need to memorize every historical init table forever. They do need to remember the durable idea:
+You do not need to memorize every historical init table forever. You do need to remember the durable idea:
 
 - a machine can boot into contexts other than normal multi-user operation,
 - and those contexts may bypass ordinary login assumptions.
@@ -73,7 +73,7 @@ That matters operationally and defensively.
 
 ## GRUB Editing Can Redirect the Whole Startup Path
 
-The course makes boot control concrete by editing GRUB kernel arguments.
+Boot control becomes concrete when you edit GRUB kernel arguments.
 
 One especially important recovery example is replacing a normal boot line with something like:
 
@@ -111,7 +111,7 @@ The important lesson is that recovering a broken or inaccessible machine is not 
 
 ## Recovery from Live Media and `chroot`
 
-The course also preserves the second major recovery path: booting from a separate environment and using **`chroot`**.
+The second major recovery path is booting from a separate environment and using **`chroot`**.
 
 Conceptually the workflow is:
 
@@ -124,7 +124,7 @@ That matters because it shows how security boundaries shift when the machine is 
 
 ## Boot Security Must Be Layered
 
-The course does not pretend one control solves everything. It points to several layers:
+No single control solves this problem by itself. Several layers matter:
 
 ### GRUB password protection
 
@@ -161,7 +161,7 @@ The practical boot chain is:
 3. the kernel starts the initial userspace entry point,
 4. and on many modern Linux systems that means `systemd` becomes PID 1 and coordinates the rest of startup.
 
-The course uses commands like `ps`, `pstree`, and `lsof` to reinforce that different tools reveal different slices of this process state.
+Commands like `ps`, `pstree`, and `lsof` reinforce that different tools reveal different slices of this process state.
 
 Modern Linux uses **targets** where older Unix-like systems talked about **runlevels**. The mapping is not perfect, but it is close enough to be operationally useful:
 
@@ -177,7 +177,7 @@ That is why older commands like `init 3` show up in older material even though m
 
 The kernel argument `quiet` suppresses much of the visible boot chatter.
 
-That can make sense on a polished desktop where cosmetic presentation matters. But the course is right to criticize it on servers and troubleshooting-focused systems.
+That can make sense on a polished desktop where cosmetic presentation matters. On servers and troubleshooting-focused systems, it is often the wrong default.
 
 Visible boot messages help you:
 
@@ -186,12 +186,12 @@ Visible boot messages help you:
 - observe kernel and service-manager errors,
 - and debug earlier in the boot process.
 
-This is another place where the course teaches operational judgment rather than slogans:
+This is another place where operational judgment matters more than slogans:
 
 - on desktops, silence may be cosmetically useful,
 - on servers, diagnosability is often more valuable.
 
-The chapter also preserves an important distinction:
+Keep one more distinction clear:
 
 - editing GRUB at boot time changes behavior **temporarily**,
 - editing boot configuration files changes behavior **persistently**.
@@ -199,6 +199,8 @@ The chapter also preserves an important distinction:
 That temporary-versus-persistent distinction appears again in later networking and administration work.
 
 ## Local Consoles and Pseudo-Terminals Are Not the Same Kind of Access
+
+Once the system has booted far enough to present a shell, the next question is what kind of shell you are actually looking at. A local console session, a rescue shell, and a remote SSH session may all look similar at first glance, but they do not have the same trust assumptions or the same incident-response meaning.
 
 Linux uses different terminal contexts, and administrators should know which kind they are actually in.
 
@@ -229,7 +231,7 @@ That output shows one local console login and one remote pseudo-terminal session
 
 ## SSH Is About Trust, Not Just Encryption
 
-Students often learn SSH as "secure Telnet," which is true but too shallow.
+SSH is often introduced as "secure Telnet," which is true but too shallow.
 
 SSH is used for:
 
@@ -240,7 +242,7 @@ SSH is used for:
 - multi-factor combinations,
 - and X11 forwarding in environments that still use it.
 
-The important conceptual move in the course is separating three different questions:
+Keep three different questions separate:
 
 1. Is the session encrypted?
 2. Do I trust the server I am talking to?
@@ -250,7 +252,7 @@ Those are not the same problem.
 
 ## Diffie-Hellman, Session Keys, and Perfect Forward Secrecy
 
-The SSH lecture correctly uses **Diffie-Hellman** to explain how the session gets its temporary symmetric protection.
+**Diffie-Hellman** is useful here because it explains how the session gets its temporary symmetric protection.
 
 The important lesson is not to memorize the math. It is to understand the role:
 
@@ -260,7 +262,7 @@ The important lesson is not to memorize the math. It is to understand the role:
 
 This is where **perfect forward secrecy** matters conceptually. If session keys are temporary and negotiated well, compromising one long-term key later does not automatically reveal every old session.
 
-Students often blur all "SSH keys" together. The course deliberately prevents that confusion.
+It is easy to blur all "SSH keys" together. Do not.
 
 ## Server Trust and User Authentication Are Separate Layers
 
@@ -278,7 +280,7 @@ That is why files and concepts divide cleanly:
 - host keys and `known_hosts` belong to **server trust**,
 - user keys and `authorized_keys` belong to **user authentication**.
 
-If students keep those two layers separate, they understand SSH much more clearly.
+If you keep those two layers separate, SSH becomes much easier to reason about.
 
 ## Host Keys, `known_hosts`, and First-Connection Trust
 
@@ -292,7 +294,7 @@ Important points include:
 
 That means the first-connection warning is not visual noise. It is asking whether the client is willing to trust this server identity.
 
-The lecture also preserves a stronger idea: certificate-authority models can reduce the weakness of first-contact trust by shifting trust to a known signing authority instead of repeated ad hoc acceptance.
+Certificate-authority models can reduce the weakness of first-contact trust by shifting trust to a known signing authority instead of repeated ad hoc acceptance.
 
 ## User Key Authentication, Passphrases, and `authorized_keys`
 
@@ -302,7 +304,7 @@ User authentication through SSH keypairs uses:
 - a **public key** that can be installed where needed,
 - and a server-side authorization file such as `authorized_keys`.
 
-The course also preserves several practical details students often miss:
+Several practical details are easy to miss:
 
 - key comments help identify and manage keys later,
 - passphrases protect the private key at rest,
@@ -319,7 +321,7 @@ That concrete path knowledge helps during troubleshooting and setup.
 
 ## SSH Can Be Strengthened Beyond Simple Passwords
 
-The course also points beyond plain passwords:
+SSH also extends beyond plain passwords:
 
 - password plus keypair,
 - PAM-backed extensions such as Google Authenticator,
@@ -337,7 +339,7 @@ It does **not** mean:
 - a network card's media access control address,
 - or Mandatory Access Control.
 
-That clarification matters because students will encounter the acronym in different domains and should not assume the same meaning every time.
+That clarification matters because the acronym appears in different domains and does not mean the same thing everywhere.
 
 | SSH question | What is being checked | Why it matters |
 | --- | --- | --- |
@@ -347,43 +349,62 @@ That clarification matters because students will encounter the acronym in differ
 
 ## Worked Examples
 
-### Example: boot parameters can become a privilege path
+### Example: a GRUB edit can become a root-recovery path in one reboot
 
-Appending `single` or `init=/bin/bash` to the GRUB boot parameters redirects the startup path into a recovery shell. That makes the security problem obvious: if an attacker controls the bootloader, they may gain a privileged foothold before the normal system finishes coming up.
+At the bootloader, a temporary kernel-line edit such as:
 
-### Example: remount `/` before you assume the filesystem is writable
+```text
+single init=/bin/bash
+```
 
-One practical lesson in recovery mode is that having a shell is not enough. If the root filesystem is mounted read-only, password reset or file repair work will fail until the administrator explicitly remounts it read-write. That is an excellent example of why systems knowledge matters more than memorized "hacker mode" mythology.
+can redirect the startup path into a recovery shell. Once the shell appears, the next steps are often:
 
-### Example: `quiet` hides the information you need when startup breaks
+```bash
+mount -o remount,rw /
+passwd root
+sync
+```
 
-A pretty boot can hide exactly the messages you need when a service or driver fails early. That is why `quiet` is a cosmetic choice on some systems and a troubleshooting liability on others.
+That sequence is exactly why bootloader control matters. A small change near the start of the boot chain can turn boot access into privileged recovery access.
 
-### Example: `tty` and `pts` tell you how the shell was reached
+### Example: live media plus `chroot` can repair a system that will not boot cleanly
 
-Not every shell session is operationally equivalent. A shell reached at `tty2` after local console switching is different from a shell reached as a remote `pts` over SSH.
+A live-environment recovery flow often looks like this:
+
+```bash
+mount /dev/sda2 /mnt
+mount --bind /dev /mnt/dev
+mount --bind /proc /mnt/proc
+mount --bind /sys /mnt/sys
+chroot /mnt
+passwd root
+exit
+```
+
+The exact device names vary, but the logic does not. Boot elsewhere, mount the installed system, enter it with `chroot`, and repair it from inside its own filesystem tree.
+
+### Example: `tty` and `pts` tell you where the shell came from
+
+Not every shell session is operationally equivalent. A command like:
+
+```bash
+who
+tty
+```
+
+might show a local console such as `tty1` or a remote session such as `pts/0`. That difference matters during troubleshooting and incident review because local and remote access paths do not imply the same trust boundary.
 
 ### Example: host trust is not the same thing as user trust
 
-This is one of the most useful SSH teaching points in the chapter:
+An SSH key workflow makes the distinction visible:
 
-- the client decides whether to trust the server's host key,
-- the server decides whether to trust the user's password or keypair,
-- and `authorized_keys` belongs to the second question, not the first.
+```bash
+ssh user@server1.example.local
+ssh-copy-id user@server1.example.local
+ssh -i ~/.ssh/id_ed25519 user@server1.example.local
+```
 
-Once you keep those trust layers separate, SSH stops feeling like a bag of mysterious files.
-
-### Example: PuTTYgen and cross-platform key workflows still teach the same trust model
-
-Windows tools such as PuTTY and PuTTYgen still follow exactly the same trust model:
-
-- generate a keypair,
-- protect the private key,
-- publish the public key,
-- install it on the target systems,
-- and verify the trust path rather than clicking through blindly.
-
-That is why the tool choice is secondary to the trust model.
+On first contact, the client decides whether the server's host key is trustworthy. Separately, the server decides whether the user's password or public key is authorized. `known_hosts` belongs to the first question. `authorized_keys` belongs to the second.
 
 ## Practice Connections
 

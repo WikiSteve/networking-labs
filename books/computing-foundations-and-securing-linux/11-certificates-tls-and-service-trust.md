@@ -79,6 +79,14 @@ At a high level, the trust chain works like this:
 
 That is how TLS turns “I see a key” into “I trust that this key belongs to the service I meant to reach.”
 
+A digital signature is what makes that trust portable. In broad terms:
+
+- the CA hashes the certificate data,
+- signs that hash with the CA private key,
+- and the client verifies the signature with the CA public key.
+
+If the certificate contents change, or if the signer is not the CA the client trusts, that verification fails.
+
 ## What a Certificate Contains
 
 A certificate is not “the private key in another format.” It is a signed identity structure that usually contains:
@@ -100,7 +108,7 @@ This is why certificate inspection is an administrative skill, not just a crypto
 
 ## Keep the File Roles Separate
 
-One of the repeating teaching problems in certificate work is students blurring together three different objects:
+A common source of confusion in certificate work is blurring together three different objects:
 
 - the **private key**,
 - the **CSR**,
@@ -116,7 +124,7 @@ They are not interchangeable.
 | CA private key | Used by the CA to sign certificates |
 | CA certificate | Distributed to clients as trust anchor material |
 
-If a student loses this distinction, TLS troubleshooting becomes much harder than it needs to be.
+If you lose this distinction, TLS troubleshooting becomes much harder than it needs to be.
 
 ## Housekeeping Before Certificate Work
 
@@ -176,7 +184,7 @@ That matters because a CA is not “one magic cert file.” It is a small trust-
 
 ## Creating the CA Certificate and Key
 
-This workflow uses a self-signed CA for learning purposes rather than a full offline-root and intermediate-CA hierarchy. That keeps the process manageable while still teaching the important distinctions.
+This workflow uses a self-signed CA for a compact lab-scale example rather than a full offline-root and intermediate-CA hierarchy. That keeps the process manageable while still preserving the important distinctions.
 
 The concrete OpenSSL command matters:
 
@@ -214,9 +222,9 @@ That is why CA private-key protection deserves extra seriousness.
 
 ## Creating a CSR for the Web Server
 
-The chapter does not stop at CA theory. It walks through a real server request.
+The next step is a real server request, not just CA theory.
 
-The web server builds a CSR using a small OpenSSL request config. The details matter because they force students to think about subject names and subject alternative names instead of treating “certificate identity” as a vague concept.
+The web server builds a CSR using a small OpenSSL request config. The details matter because they force you to think about subject names and subject alternative names instead of treating “certificate identity” as a vague concept.
 
 Save a representative request file as `csrdetails.cnf`:
 
@@ -356,7 +364,7 @@ That is why visiting `www.example.local` and `example.local` are not interchange
 
 ## OpenSSL as an Inspection Tool
 
-This material repeatedly pushes students toward inspection instead of guesswork.
+The safest TLS habit is inspection instead of guesswork.
 
 OpenSSL helps because it can answer different questions about different objects:
 
@@ -391,29 +399,49 @@ This is a far better mental model than saying “OpenSSL is broken” or “TLS 
 
 ## Worked Examples
 
-### Example: a CSR is not a certificate and not a private key
+### Example: a mismatched certificate and key can stop Apache before the browser ever gets involved
 
-These roles are easy to blur together until you create, move, inspect, and deploy each object separately.
+If Apache points at the wrong certificate or private key, start by comparing the keypair components directly:
+
+```bash
+openssl x509 -noout -modulus -in /etc/ssl/certs/www.example.local-apache.crt | openssl md5
+openssl rsa  -noout -modulus -in /etc/ssl/private/www.example.local-apache.key | openssl md5
+apachectl configtest
+systemctl restart apache2
+journalctl -u apache2 -n 20
+```
+
+If the moduli do not match, the certificate and key do not belong together. That is a service deployment problem, not a browser problem.
+
+### Example: the site can be encrypted and still fail hostname trust
+
+Suppose Apache starts cleanly, but the browser still warns about the certificate. Check the certificate identity and the name the client is actually using:
+
+```bash
+openssl x509 -text -noout -in /etc/ssl/certs/www.example.local-apache.crt | less
+getent hosts www.example.local
+```
+
+If the certificate was issued for `www.example.local` but the browser is visiting `example.local`, the warning is expected. TLS is checking identity, not just encryption.
 
 ### Example: the CA database is part of the trust workflow
 
-The `serial` file and `index.txt` are not decorative. They are how the CA tracks issued certificates and duplicate requests.
+The `serial` file and `index.txt` are not decorative. They are how the CA tracks issued certificates and duplicate requests. If a signing attempt fails because a CSR was already issued, the CA state is telling you something real about the workflow.
 
-### Example: Apache can be correct enough to start and still fail trust
+### Example: trust stores make the chain visible
 
-The service may restart successfully and still produce a browser warning because the hostname does not match or the CA is not trusted yet.
+Importing the CA certificate into Firefox or verifying from the command line makes the trust chain visible:
 
-### Example: browser trust stores make the trust chain visible
+```bash
+openssl verify -CAfile /etc/ssl/certs/cacert.pem /etc/ssl/certs/www.example.local-apache.crt
+curl -vk https://www.example.local/
+```
 
-Importing the CA certificate into Firefox is one of the clearest demonstrations in the chapter that trust is configured, not assumed.
-
-### Example: hostname consistency is part of security work
-
-When `/etc/hostname`, `/etc/hosts`, client host mappings, and certificate names disagree, certificate work becomes painful fast. That is why the chapter begins with housekeeping instead of jumping straight to OpenSSL.
+Trust is configured, not assumed. A service can be running correctly and still be untrusted by the client until the correct CA is present in the trust store.
 
 ## Practice Connections
 
-- For the cleaned crypto lecture note, use [Symmetric and Asymmetric Encryption](../../course-materials/lectures/security/symmetric-and-asymmetric-encryption.md).
+- For a companion crypto note, use [Symmetric and Asymmetric Encryption](../../course-materials/lectures/security/symmetric-and-asymmetric-encryption.md).
 - For hands-on certificate work, use [Certificates](../../labs/lab_certificates_md/README.md).
 - For the repo-facing chapter map, use [Repo Companion Material](repo-companion-material.md).
 

@@ -5,14 +5,7 @@
 
 The previous chapter established the machine as a layered system. This chapter explains one of the most important consequences of that design: not every program should have the same level of authority.
 
-Modern operating systems enforce separation between:
-
-- privileged kernel operations,
-- ordinary user-space activity,
-- hardware events,
-- and the interfaces people use to control the system.
-
-That separation supports stability, security, and multitasking. It also explains why command-line work matters: command shells are userland tools, but they are often the clearest place to see how the OS exposes its services.
+Modern operating systems separate privileged kernel operations from ordinary user-space activity, hardware events, and the interfaces people use to control the system. That separation supports stability, security, and multitasking. It also explains why command-line work matters: command shells are userland tools, but they are often the clearest place to see how the OS exposes its services.
 
 ## What You Should Be Able To Explain
 
@@ -52,13 +45,7 @@ It also explains why one of the most important security mistakes is to blur toge
 
 In **user mode**, programs run with restrictions. A text editor, browser, or scripting interpreter can do useful work, but it cannot simply decide to talk to the disk controller directly, reprogram interrupt handling, or read arbitrary kernel memory on its own.
 
-In **kernel mode**, the OS can:
-
-- manage memory,
-- control devices,
-- schedule processes,
-- access protected resources,
-- and implement the rules that user-mode code must follow.
+In **kernel mode**, the OS manages memory, controls devices, schedules processes, accesses protected resources, and implements the rules that user-mode code must follow.
 
 That leads to a practical rule of thumb:
 
@@ -83,13 +70,7 @@ They use **system calls**.
 
 A system call is a controlled request from user mode into the operating system. The program is not bypassing the OS. It is explicitly asking the OS to do something privileged on its behalf.
 
-Typical categories include:
-
-- opening, reading, and writing files,
-- creating or controlling processes,
-- allocating memory,
-- interacting with devices through OS-managed mechanisms,
-- and requesting information about the system state.
+Typical categories include opening, reading, and writing files, creating or controlling processes, allocating memory, interacting with devices through OS-managed mechanisms, and requesting information about the system state.
 
 A useful mental model is:
 
@@ -195,7 +176,7 @@ The OS gives one process CPU time, saves its state, restores another process’s
 
 That process is called a **context switch**.
 
-What gets saved and restored is not magic. The OS has to preserve enough execution state that when the process resumes, it continues as though it had never been interrupted. That includes register state, execution position, and access to the process’s memory context.
+What gets saved and restored is not magic. The OS has to preserve enough execution state that when the process resumes, it continues as though it had never been interrupted. That includes register state, execution position, and access to the process’s memory context. Operating-systems texts often describe this saved execution record as a **process control block (PCB)** or a closely related scheduling structure.
 
 Context switching depends on several earlier ideas:
 
@@ -209,7 +190,7 @@ That also explains why a busy or broken process can affect responsiveness withou
 
 ## CLI and GUI Are Different Interfaces to the Same System
 
-This chapter also connects internal OS ideas to the part people actually touch: the interface.
+People encounter these internal OS ideas through interfaces.
 
 Two major styles are:
 
@@ -265,79 +246,45 @@ This helps explain why some commands behave like shell features while others are
 
 The distinction becomes especially clear in environments like Windows `cmd.exe`, where some familiar commands are part of the interpreter and others are external tools found through path lookup.
 
-For example:
-
-- commands such as `dir` and `cd` are normally treated as part of the shell environment,
-- while tools such as `ipconfig` or `tasklist` are external programs found and launched by the shell.
-
-You do not need to memorize a giant table of which is which. You do need to understand the design difference, because it explains why shells have their own built-in behavior in addition to launching programs from disk.
+For example, commands such as `dir` and `cd` are normally treated as part of the shell environment, while tools such as `ipconfig` or `tasklist` are external programs found and launched by the shell. The important point is not memorizing a giant table. The important point is understanding why shells have their own built-in behavior in addition to launching programs from disk.
 
 ## Windows Command Line as a Foundational Environment
 
-The Windows command line is not included here as a historical curiosity. It is part of the foundational skill path.
+The Windows command line trains habits that later administration depends on: directory navigation, file operations, explicit command syntax, and direct inspection of system output. The goal is not to imply that Windows and Linux use identical commands. The goal is to make operating-system behavior visible instead of mysterious.
 
-You should be comfortable with:
-
-- directory navigation,
-- file operations,
-- listing contents,
-- basic command usage,
-- and the idea that shell concepts carry between Windows and Linux.
-
-The point is not that Windows command names are identical to Linux command names. The point is that the command line teaches disciplined interaction with the OS:
-
-- you become explicit about what you want,
-- you inspect system output directly,
-- and you learn to build repeatable workflows instead of relying only on clicking around.
-
-That foundation is especially valuable because beginners often start by thinking only in application names. The shell forces a different mindset:
-
-- what directory am I in,
-- what object am I operating on,
-- what command am I issuing,
-- what output did the system return,
-- and did the operation succeed or fail?
-
-That is the mindset later Linux chapters depend on.
-
-That is why later Linux chapters assume you are already comfortable with command-line thinking.
-
-## Why This Chapter Matters for Security
-
-The separation covered here is the backbone of later security material.
-
-- Privilege boundaries matter for least privilege and process isolation.
-- System calls matter because they are common enforcement points.
-- Interrupts and scheduling matter because the OS, not applications, controls shared hardware.
-- Process state matters because attackers and defenders both care what is running and how it was launched.
-- CLI competence matters because many real investigations and administrative tasks are done outside a GUI.
-
-When you later study rootkits, setUID, SSH, or hardening, this chapter is the conceptual groundwork.
+At a shell prompt you have to ask practical questions every time you do work: What directory am I in? Which object am I operating on? Which command am I issuing? What output did the system return? Did the operation succeed or fail? That habit of explicit inspection carries directly into later Linux administration.
 
 ## Worked Examples
 
-### Example: opening a file is not “talking to the disk directly”
+### Example: opening a file means asking the kernel, not "talking to the disk directly"
 
-When you open a document in a text editor, the application does not reach down and control the storage device itself. It asks the operating system through a system call, and the OS decides whether the request is allowed and how the hardware access is actually performed.
+On Linux, `strace` makes system-call boundaries visible:
 
-### Example: multitasking feels simultaneous because the OS keeps switching
+```bash
+strace cat document.txt
+```
 
-You might experience a browser, music player, and editor all “running at once,” but the machine is rapidly switching attention and preserving state. That is why context switching matters and why process management belongs to the OS rather than to the applications being scheduled.
+You will see calls such as `openat()` and `read()`. That is the important lesson. `cat` does not directly manipulate the storage hardware. It asks the kernel to open the file, the kernel checks policy and filesystem state, and the kernel returns the result.
 
-### Example: a process is not the same as a program file
+### Example: a process is an active system object, not just a filename
 
-Tools such as Task Manager, Process Explorer, `top`, or `htop` make this distinction concrete:
+The distinction becomes clearer when you compare a file on disk with a running process:
 
-- the program on disk is a static file,
-- the running process with memory and CPU state is an active entity.
+```bash
+ps -ef | head
+```
 
-That difference becomes essential when you start reasoning about services, shells, SSH sessions, and rootkits.
+On Windows, Task Manager or Process Explorer show the same idea in a different interface. The executable on disk is static. A running process has an identifier, memory mappings, open handles, a scheduling state, and a parent-child relationship with other processes. That is why incident response and administration care about processes rather than just about program files.
+
+### Example: multitasking depends on saved state
+
+If a browser, terminal, media player, and background service all appear active at once, the operating system is repeatedly saving one context and restoring another. The PCB is the bookkeeping concept that makes this understandable: the OS has to remember enough about each runnable process that it can stop it, run something else, and then resume the first process as though nothing happened.
 
 ## Practice Connections
 
 - For a Windows process-oriented follow-up, use [Process Explorer](../../labs/070-lab-process-explorer/README.md).
 - For command-line automation fundamentals, use [Windows Batch Files](../../labs/080-windows-batch-files/README.md).
-- For the repo-facing bridge back into the cleaned material, use [Repo Companion Material](repo-companion-material.md).
+- For a chapter-by-chapter map between the book and the companion labs, use [Repo Companion Material](repo-companion-material.md).
 
 ## Chapter Summary
 
