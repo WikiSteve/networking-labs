@@ -204,7 +204,7 @@ ss -tulpen
 Those commands are for inspection and immediate changes. For example:
 
 ```bash
-ip addr add 10.0.0.5/24 dev <iface>
+sudo ip addr add 10.0.0.5/24 dev <iface>
 ```
 
 That takes effect immediately, but it does not survive a reboot unless you also change the persistent configuration.
