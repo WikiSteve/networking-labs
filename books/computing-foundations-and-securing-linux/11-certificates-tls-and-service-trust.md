@@ -434,7 +434,7 @@ Importing the CA certificate into Firefox or verifying from the command line mak
 
 ```bash
 openssl verify -CAfile /etc/ssl/certs/cacert.pem /etc/ssl/certs/www.example.local-apache.crt
-curl -vk https://www.example.local/
+curl --cacert /etc/ssl/certs/cacert.pem -v https://www.example.local/
 ```
 
 Trust is configured, not assumed. A service can be running correctly and still be untrusted by the client until the correct CA is present in the trust store.

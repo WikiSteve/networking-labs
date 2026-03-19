@@ -197,7 +197,7 @@ Batch files can store values in variables:
 
 ```bat
 @echo off
-set LOGDIR=C:\\Temp
+set LOGDIR=C:\Temp
 echo Writing report to %LOGDIR%
 ```
 

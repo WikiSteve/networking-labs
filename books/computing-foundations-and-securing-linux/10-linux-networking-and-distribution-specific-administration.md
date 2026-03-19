@@ -230,7 +230,8 @@ After editing those files, you also need to apply the change through the stack i
 ```bash
 sudo netplan apply
 sudo systemctl restart NetworkManager
-sudo ifdown eth0 && sudo ifup eth0
+# replace <iface> with your interface name, e.g. from: ip -br link
+sudo ifdown <iface> && sudo ifup <iface>
 ```
 
 That is the same temporary-versus-persistent distinction already seen in GRUB and mount configuration.

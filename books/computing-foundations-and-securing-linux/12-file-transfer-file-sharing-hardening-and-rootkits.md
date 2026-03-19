@@ -117,7 +117,7 @@ Server configuration is only half the job. A service should also be verified fro
 For FTP or FTPS, a quick test might be:
 
 ```bash
-curl --ssl-reqd --user username:password ftp://server.example.local/
+curl --ssl-reqd --user username ftp://server.example.local/
 openssl s_client -connect server.example.local:21 -starttls ftp
 ```
 
@@ -516,7 +516,7 @@ That kind of failure is exactly what a read-only share should produce. If the sa
 After configuring a service, test it from the client side:
 
 ```bash
-curl --ssl-reqd --user username:password ftp://server.example.local/
+curl --ssl-reqd --user username ftp://server.example.local/
 smbclient -L //server.example.local -U username
 ```
 

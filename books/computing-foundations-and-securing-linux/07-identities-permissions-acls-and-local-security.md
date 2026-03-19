@@ -337,12 +337,12 @@ That output already tells you more than a blind `chmod` ever will. `report.txt` 
 
 ```bash
 bob@host:~$ ls -ld shared
-drw-r----- 2 bob project 4096 Mar 18 09:00 shared
+drwxr----- 2 bob project 4096 Mar 18 09:00 shared
 alice@host:~$ cd shared
 bash: cd: shared: Permission denied
 ```
 
-The directory is readable, but it is not traversable because the execute bit is missing. That is the critical directory lesson: `x` on a directory means "may pass through this path." Without it, you can still know the directory exists and still be unable to enter it.
+For the owner (`bob`), the directory is fully accessible. For everyone else, the directory is readable but not traversable because the execute bit is missing. That is the critical directory lesson: `x` on a directory means "may pass through this path." Without it, you can still know the directory exists and still be unable to enter it.
 
 ### Example: `umask` changes the starting permissions
 
