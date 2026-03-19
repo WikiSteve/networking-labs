@@ -3,14 +3,7 @@
 ![Linux](assets/linux.png)
 *Image source: [Linux](https://en.wikipedia.org/wiki/Linux). Attribution details for the local image copy are listed in [Wikipedia and Web Resources](wikipedia-and-web-resources.md#image-sources).*
 
-This chapter is where the book stops treating Linux as "another desktop operating system" and starts treating it as an administrative environment. The important shift is not cosmetic. Linux is usually taught badly when it is framed as Windows with different wallpaper. In practice, the useful lessons are about:
-
-- how a Unix-like system is assembled,
-- why command-line administration is normal rather than exceptional,
-- how distributions shape system behavior,
-- why text editors matter operationally,
-- how package management differs from source inspection,
-- and why administrators sometimes need to read or rebuild software instead of blindly consuming it.
+This chapter treats Linux as an administrative environment rather than as a desktop with a different theme. The useful questions are practical: how a Unix-like system is assembled, why shell work is normal, how distributions shape behavior, why text editors matter operationally, how package management differs from source inspection, and why administrators sometimes need to inspect or rebuild software instead of treating packages as opaque.
 
 ## What You Should Be Able To Explain
 
@@ -27,7 +20,7 @@ By the end of this chapter, you should be able to explain:
 
 ## Unix, GNU, and Linux Are Related but Not Interchangeable
 
-One of the most useful conceptual corrections in this chapter is that **Unix**, **GNU**, and **Linux** are connected terms, not synonyms.
+**Unix**, **GNU**, and **Linux** are connected terms, not synonyms.
 
 Historically:
 
@@ -74,7 +67,7 @@ That is part of why command-line literacy matters so much. You need a way to ins
 
 ## POSIX and the Value of Shared Expectations
 
-The Linux material also brings in **POSIX** as a practical standard rather than as trivia.
+**POSIX** matters as a practical standard rather than as trivia.
 
 POSIX matters because it creates shared expectations for behavior across Unix-like environments:
 
@@ -145,7 +138,7 @@ These are not "power-user tricks." They are what make daily shell administration
 
 Configuration files, service definitions, startup settings, cron tasks, keys, and scripts are all text-centric. That is why editors matter so much.
 
-This chapter focuses on two editors for different reasons:
+Two editors matter for different reasons:
 
 - **`nano`** because it is approachable,
 - **`vi` / `vim`** because it is often available even when nicer tools are absent.
@@ -225,7 +218,7 @@ Important package-management habits include:
 
 ## Binary Packages and Source Packages Are Different Administrative Workflows
 
-The source-and-scripting material adds an important distinction:
+An important distinction separates:
 
 - a **binary package** gives you installable compiled software,
 - a **source package** gives you the source tree and build metadata.
@@ -242,7 +235,7 @@ That is why source retrieval is not only for programmers. It is also part of ser
 
 ## Source Trees Turn Utilities Back into Understandable Objects
 
-The source-modification sequence uses `traceroute` as a controlled example. That works well because it takes a familiar system utility and shows that it is not a magical black box.
+Using `traceroute` as a controlled example makes the point clearly: a familiar system utility is still inspectable software rather than a magical black box.
 
 A sane source-based workflow is:
 
@@ -256,7 +249,7 @@ A sane source-based workflow is:
 
 The durable lesson is not "everyone should become a kernel hacker." The durable lesson is that administrators should be able to trace behavior, inspect software, and verify controlled changes instead of treating all packaged tools as untouchable.
 
-## Bash Scripting Belongs Naturally in This Chapter
+## Bash Scripting as an Administrative Tool
 
 Once you understand:
 
@@ -388,10 +381,9 @@ That teaches more than build syntax. It teaches that the tools administrators re
 
 ## Practice Connections
 
-- For editor-specific notes, use [Linux Editors](../../course-materials/lectures/systems/linux-editors.md).
 - For a build-and-rebuild workflow, use [Modifying Source Code](../../labs/090-lab-modifying-source-code/README.md).
 - For installation context, use [Linux Install](../../labs/100-linux-install/README.md).
-- For the repo-facing chapter map, use [Repo Companion Material](repo-companion-material.md).
+- For the chapter-by-chapter map back into companion material, use [Repo Companion Material](repo-companion-material.md).
 
 ## Chapter Summary
 

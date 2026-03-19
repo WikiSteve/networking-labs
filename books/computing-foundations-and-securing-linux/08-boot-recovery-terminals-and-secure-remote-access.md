@@ -3,13 +3,7 @@
 ![systemd](assets/systemd.png)
 *Image source: [systemd](https://en.wikipedia.org/wiki/Systemd). Attribution details for the local image copy are listed in [Wikipedia and Web Resources](wikipedia-and-web-resources.md#image-sources).*
 
-This chapter combines three topics that belong together operationally:
-
-- boot control and recovery,
-- local versus remote terminal context,
-- and SSH as the normal secure path for remote administration.
-
-These topics belong together because they all answer the same larger question: **who really controls the machine right now?** If you control boot behavior, recovery mode, or privileged remote access, you control an enormous amount of what the machine can become.
+Boot control, recovery, terminal context, and SSH belong together because they all answer the same larger question: **who really controls the machine right now?** If you control boot behavior, recovery mode, or privileged remote access, you control an enormous amount of what the machine can become.
 
 ```mermaid
 flowchart LR
@@ -87,7 +81,7 @@ That is why bootloader control is powerful. A small edit near the start of the b
 
 ## Real Recovery Work Often Means Remounting and Repairing State
 
-The recovery sequence in the Linux material is practical, not abstract. A system booted into a minimal recovery context often needs manual repair steps such as:
+Recovery work is practical rather than abstract. A system booted into a minimal recovery context often needs manual repair steps such as:
 
 - remounting `/` read-write,
 - editing authentication-related files,
@@ -171,7 +165,7 @@ Modern Linux uses **targets** where older Unix-like systems talked about **runle
 | Runlevel 3 | multi-user text mode | `multi-user.target` |
 | Runlevel 5 | graphical multi-user mode | `graphical.target` |
 
-That is why older commands like `init 3` show up in older material even though modern systems more often use `systemctl isolate multi-user.target`.
+That is why older commands like `init 3` still appear in legacy documentation even though modern systems more often use `systemctl isolate multi-user.target`.
 
 ## `quiet` Is Not a Neutral Choice
 
@@ -252,13 +246,7 @@ Those are not the same problem.
 
 ## Diffie-Hellman, Session Keys, and Perfect Forward Secrecy
 
-**Diffie-Hellman** is useful here because it explains how the session gets its temporary symmetric protection.
-
-The important lesson is not to memorize the math. It is to understand the role:
-
-- Diffie-Hellman helps establish session secrets,
-- those session secrets protect the live connection,
-- and this secrecy step is not the same thing as user authentication or server identity.
+**Diffie-Hellman** matters here because it explains how two parties can establish a shared secret over an untrusted network without sending that secret itself in the clear. SSH can then derive temporary symmetric session keys from that exchange, use those keys to protect the live connection, and keep that secrecy step separate from server identity and user authentication.
 
 This is where **perfect forward secrecy** matters conceptually. If session keys are temporary and negotiated well, compromising one long-term key later does not automatically reveal every old session.
 
@@ -284,7 +272,7 @@ If you keep those two layers separate, SSH becomes much easier to reason about.
 
 ## Host Keys, `known_hosts`, and First-Connection Trust
 
-The SSH material spends worthwhile time on host trust because beginners often click through warnings thoughtlessly.
+Host trust deserves careful attention because it is easy to click past warnings without understanding what they mean.
 
 Important points include:
 
@@ -340,6 +328,8 @@ It does **not** mean:
 - or Mandatory Access Control.
 
 That clarification matters because the acronym appears in different domains and does not mean the same thing everywhere.
+
+In practice, SSH uses a keyed integrity check over the protected traffic. The sender computes that check from the packet contents and shared session material, and the receiver recomputes it to verify that the packet was not altered in transit. If the values differ, the packet is rejected instead of being treated as trustworthy data.
 
 | SSH question | What is being checked | Why it matters |
 | --- | --- | --- |
@@ -411,7 +401,7 @@ On first contact, the client decides whether the server's host key is trustworth
 - For boot recovery work, use [Linux Password Recovery and Locking Out Root](../../labs/140-linux-password-recovery-and-locking-out-root/README.md).
 - For remote access practice, use [SSH Keys and X11 Forwarding](../../labs/150-ssh-keys-x11-forwarding/README.md).
 - For an operations-oriented SSH reference, use [SSH and MAC Operations Guide](../../labs/190-guide-ssh-and-mac-operations/README.md).
-- For the repo-facing chapter map, use [Repo Companion Material](repo-companion-material.md).
+- For the chapter-by-chapter map back into companion material, use [Repo Companion Material](repo-companion-material.md).
 
 ## Chapter Summary
 
