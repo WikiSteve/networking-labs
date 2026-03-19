@@ -1,24 +1,18 @@
 # Computing Foundations and Securing Linux
 
-This book combines a computing-foundations sequence with a follow-on GNU/Linux administration and security sequence into one continuous path. It starts with how computers, operating systems, storage, and processes work, then moves into Linux administration, trust, services, and defense.
+This book introduces the systems knowledge needed to understand how computers work, how operating systems impose control on hardware, and how GNU/Linux systems are administered and secured in practice.
 
-The goal is not to reproduce slide decks page by page. The goal is to preserve the teaching logic that mattered:
+The first part builds the machine model used throughout the rest of the text: startup, memory, storage, processes, privilege, and the command line. The second part moves into day-to-day GNU/Linux administration: editors, packages, accounts, permissions, recovery, storage, and networking. The final part covers trust and service security, including certificates, TLS, file transfer, file sharing, hardening, and rootkits.
 
-- understand the machine before you secure it,
-- learn the command line before you automate it,
-- understand storage and recovery before you build services on top,
-- understand trust before you deploy encrypted or remotely managed services,
-- and treat hardening as an ongoing practice instead of a one-time checklist.
+The chapters are organized so that each later topic rests on earlier ones. Before you can secure a system, you need to understand how it starts, how it stores data, how it separates users and processes, and how administrators inspect and change its state. Before you can deploy services safely, you need to understand trust, naming, permissions, recovery, and failure modes.
 
-Where older materials used narrow distro details, term-specific lab numbering, or aging implementation choices, this book keeps the durable concept and trims the noise. Where the reconstructed course material had useful operational detail, this public book keeps it instead of flattening everything into overview prose.
-
-This book also pulls forward the cleaned lecture notes and labs that already exist in this repo. Use [Repo Companion Material](repo-companion-material.md) if you want the chapter-by-chapter bridge back into those notes and labs.
+This book is written for students who need more than a glossary of terms. It emphasizes concrete system behavior, operational reasoning, and the kinds of examples that help explain not just what a command or service does, but why it behaves that way and how to troubleshoot it when something goes wrong.
 
 ## How To Read This Book
 
 - Read Part I first if you want the full foundation.
 - Start at Part II if you already know basic computer architecture, operating systems, storage, and the command line.
-- Use the practice links at the end of each chapter when you want hands-on follow-up from the cleaned repo materials.
+- Use the practice links at the end of each chapter when you want hands-on follow-up through the companion labs.
 - Use the external reading links when you want a second explanation, a diagram, or a broader reference point.
 
 ## Part I: Computing Foundations
@@ -49,11 +43,12 @@ This book also pulls forward the cleaned lecture notes and labs that already exi
 - [Glossary](glossary.md)
 - [Wikipedia and Web Resources](wikipedia-and-web-resources.md)
 
-## Practical Scope
+## Publication Notes
 
-This book stays aligned with repo material that is already cleaned and safe to reuse. When a chapter points to hands-on work, it favors the public lab notes and normalized reading packs rather than older branded source files.
+These notes are kept on the landing page for convenience, but they are secondary to the text itself.
 
-## Reuse and License
+<details>
+<summary>Reuse and License</summary>
 
 Unless otherwise noted, the original text and original diagrams in this book are licensed under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 
@@ -93,7 +88,10 @@ Some chapters include third-party images, linked external readings, or other ref
 - The CC BY 4.0 license here applies to the original book material in this directory unless a chapter or asset notes otherwise.
 - When in doubt, keep the original source attribution with the reused material.
 
-## About the Author
+</details>
+
+<details>
+<summary>About the Author</summary>
 
 Steve Sharpe is an IT instructor and hands-on systems educator whose teaching focuses on computing fundamentals, GNU/Linux administration, networking, and security.
 
@@ -113,10 +111,12 @@ That approach shapes this book. It explains why the chapters keep returning to:
 - storage and recovery planning,
 - and service configuration that is grounded in real operational choices.
 
-Much of the material in this book was rebuilt from detailed teaching notes, labs, demonstrations, and lecture sequences, then rewritten into a cleaner public form for students. The goal was not to preserve old course packaging. The goal was to keep the useful parts:
+This book is shaped by the same priorities that drive strong technical instruction:
 
-- the examples that made concepts stick,
-- the administrative habits that prevent avoidable mistakes,
-- and the technical depth students need before they can secure systems confidently.
+- examples that make concepts stick,
+- administrative habits that prevent avoidable mistakes,
+- and enough technical depth for students to reason through problems instead of memorizing isolated commands.
 
 If this book feels more like a guided technical apprenticeship than a glossy overview, that is intentional.
+
+</details>

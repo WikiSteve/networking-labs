@@ -2,7 +2,7 @@
 
 This chapter turns storage concepts into operational resilience. The theme is not just “how disks work,” but “how systems stay usable when parts fail, data is deleted, or an entire site is disrupted.”
 
-Several ideas that students often treat as separate belong together:
+Several ideas that are often taught separately belong together:
 
 - links vs duplicated copies,
 - disaster recovery vs business continuity,
@@ -37,7 +37,7 @@ By the end of this chapter, you should be able to explain:
 
 ## Linking vs Copying
 
-One of the practical Windows filesystem topics in the source material is file linking. The problem is simple: copying files to multiple places creates management drift.
+File linking shows up in both Windows and Unix-like administration. The problem it solves is simple: copying files to multiple places creates management drift.
 
 If you duplicate the same content in several places:
 
@@ -53,6 +53,14 @@ At a high level:
 - a **hard link** is another directory entry for the same underlying file data,
 - a **symbolic link** behaves more like a pointer or reference to another location,
 - and a **shortcut** is more of a user convenience than a filesystem-level sharing mechanism.
+
+On inode-based filesystems, a hard link is another name for the same inode. That means:
+
+- both names refer to the same file object,
+- changing the file through one name changes the same underlying data,
+- and deleting one name does not remove the data until the last link and any open file handles are gone.
+
+A symbolic link behaves differently. It stores a pathname to another object. If the target disappears or moves, the symbolic link can become a dangling reference.
 
 The administrative lesson is that good storage design is not only about capacity. It is also about keeping one authoritative copy of the right data.
 
@@ -70,7 +78,7 @@ Business continuity is the broader organizational question: how does the organiz
 
 Disaster recovery is the narrower technical and procedural question: how are systems, services, and data restored after a failure?
 
-Students often need this distinction stated bluntly:
+State the distinction bluntly:
 
 - **business continuity** is about the organization continuing to function,
 - **disaster recovery** is about bringing systems and data back after disruption.
@@ -86,11 +94,11 @@ Real disruptions include:
 
 That means “security planning” cannot stop at malware defense. Systems must also survive ordinary failure and extraordinary disruption.
 
-This is why the lecture discussed things like alternate power, alternate sites, and preplanned recovery procedures. A system can be technically well designed and still fail the organization if nobody knows how to keep operating when the normal environment is gone.
+A system can be technically well designed and still fail the organization if nobody knows how to keep operating when the normal environment is gone. That is why continuity planning includes alternate power, alternate sites, replacement workflows, and preplanned communication.
 
 ## Fragmentation Needs Context
 
-Fragmentation is real, but students often overlearn outdated rules about it.
+Fragmentation is real, but many people overlearn outdated rules about it.
 
 ### Internal fragmentation
 
@@ -110,7 +118,7 @@ This matters differently depending on storage technology:
 
 So the correct lesson is not “fragmentation is always catastrophic.” The correct lesson is that fragmentation depends on context and layer.
 
-The lecture also tied fragmentation to **memory allocation**, not just disks. That is useful because it teaches a durable principle: fragmentation means waste or inefficiency caused by how fixed-size resources get carved up over time. The exact consequences differ by layer.
+Fragmentation also applies to **memory allocation**, not just disks. The durable principle is that fragmentation means waste or inefficiency caused by how fixed-size resources get carved up over time. The exact consequences differ by layer.
 
 ## RAID Exists for Availability
 
@@ -148,7 +156,7 @@ That sentence matters enough to repeat:
 
 ## Parity in RAID
 
-The source material teaches parity through **XOR** logic.
+Parity in RAID is easiest to understand through **XOR** logic.
 
 At a simplified level:
 
@@ -157,7 +165,7 @@ At a simplified level:
 
 That is the basis of parity-based RAID designs such as RAID 5.
 
-The course's important beginner takeaway is not the exact binary math. It is the reason parity is worth the complexity:
+The important beginner takeaway is not the exact binary math. It is the reason parity is worth the complexity:
 
 - you do not need a full extra duplicate of every block,
 - but you still gain the ability to recover from specific missing-drive scenarios,
@@ -206,9 +214,9 @@ XOR        10111001   Drive 3 parity
 
 That recovered value is exactly what had originally been on Drive 2.
 
-This is the part students should remember: parity gives the array enough extra information to recover from a missing drive without storing a full duplicate of every block. That is why parity RAID sits between "no redundancy at all" and "mirror everything" in both cost and complexity.
+This is the key point to remember: parity gives the array enough extra information to recover from a missing drive without storing a full duplicate of every block. That is why parity RAID sits between "no redundancy at all" and "mirror everything" in both cost and complexity.
 
-Students do not need to become mathematicians here, but they do need to understand what parity buys you:
+You do not need to become a mathematician here, but you do need to understand what parity buys you:
 
 - additional recovery capability,
 - storage overhead,
@@ -217,11 +225,11 @@ Students do not need to become mathematicians here, but they do need to understa
 
 When a parity-protected array loses a drive, it often continues operating in a degraded state until rebuild completes.
 
-The lecture also used software-defined RAID examples such as parity in Windows Storage Spaces. That matters because students should not assume RAID is only a hardware-controller feature found in expensive servers. The concept exists at multiple layers.
+Software-defined RAID matters here too. RAID is not only a hardware-controller feature found in expensive servers. The same ideas can appear in operating-system storage layers and software-defined storage products.
 
 ## Communications Parity Is Not the Same Thing
 
-The course explicitly contrasts **communications parity** with **RAID parity** because students often assume the word means the same thing everywhere.
+It is important to keep **communications parity** and **RAID parity** separate, because the same word describes different jobs.
 
 In communications:
 
@@ -233,38 +241,32 @@ In RAID:
 
 Both use binary logic, but they solve different problems. Keeping those meanings separate prevents confusion later.
 
-This is a very typical exam and troubleshooting trap. Students hear the same word in two places and assume the same function. The course deliberately separated them so they would stop doing that.
+Hearing the same word in two domains does not mean the mechanism is the same in both places.
 
 ## Practical RAID Levels and Nested RAID
 
 A useful way to think about RAID levels is in terms of tradeoffs.
 
-- **mirroring** duplicates data for redundancy,
-- **striping** spreads data across disks for performance,
-- **parity RAID** uses calculated redundancy rather than full duplication.
+| RAID level | Minimum drives | Main idea | Main strength | Main weakness |
+| --- | --- | --- | --- | --- |
+| RAID 0 | 2 | Striping with no redundancy | Good performance and full usable capacity | One drive failure destroys the array |
+| RAID 1 | 2 | Mirroring | Simple redundancy and straightforward rebuilds | Roughly half the raw capacity is usable |
+| RAID 5 | 3 | Striping with distributed parity | Good usable capacity with single-drive fault tolerance | Parity writes add overhead and rebuilds are stressful |
+| RAID 6 | 4 | Striping with double parity | Survives two drive failures | More write overhead and less usable capacity |
+| RAID 10 | 4 | Mirrored pairs striped together | Strong performance plus good resilience | High drive count and reduced usable capacity |
 
-Because single RAID levels force tradeoffs, practical environments also use **nested RAID** such as RAID 10.
+The point of the table is not to memorize numbers in isolation. It is to see how each level trades:
 
-Nested RAID exists because administrators often want:
+- performance,
+- usable capacity,
+- rebuild behavior,
+- and fault tolerance.
 
-- better performance than pure mirroring,
-- stronger resilience than striping alone,
-- and a layout that matches the workload rather than chasing theory for its own sake.
-
-The course especially highlights RAID 10 because it combines:
-
-- mirroring,
-- striping,
-- solid performance,
-- and useful resilience,
-
-at the cost of additional drive count and reduced usable capacity.
-
-This is the real operational reason nested RAID matters: administrators rarely get “maximum performance, maximum capacity, and maximum resilience” at the same time. Nested RAID exists because real infrastructure is built around compromises.
+Nested RAID exists because administrators rarely get maximum performance, maximum capacity, and maximum resilience at the same time. RAID 10 is a common compromise because it combines striping and mirroring in a way that is usually easier to reason about operationally than parity-heavy arrays under rebuild pressure.
 
 ## Backup Solves Different Problems
 
-After RAID, the course returns to the real answer for many data-loss situations: backup.
+After RAID, the real answer for many data-loss situations is backup.
 
 Backups are for:
 
@@ -312,7 +314,7 @@ Example timeline:
 - Tuesday: incremental contains only Tuesday’s changes
 - Wednesday: incremental contains only Wednesday’s changes
 
-Students should not memorize these as vocabulary only. They should compare them by:
+Do not memorize these as vocabulary only. Compare them by:
 
 - backup time,
 - storage use,
@@ -324,7 +326,7 @@ Students should not memorize these as vocabulary only. They should compare them 
 | Differential | Changes since the last full backup | Grows between full backups | Medium |
 | Incremental | Changes since the last backup of any kind | Usually lowest per run | Highest |
 
-The lecture also referenced the historical role of the **archive bit** in backup workflows. Students do not need to build backup software from scratch, but they should understand why filesystems and operating systems sometimes track “has this changed since backup?” state.
+The historical role of the **archive bit** also matters in backup workflows. You do not need to build backup software from scratch, but you should understand why filesystems and operating systems sometimes track “has this changed since backup?” state.
 
 ## Recovery Planning Has to Be Operational, Not Wishful
 
@@ -346,28 +348,36 @@ This is where the whole chapter comes together:
 - backups solve recovery problems,
 - and restore procedures determine whether any of those investments actually help when something goes wrong.
 
-## Worked Examples and Teaching Moments
+## Worked Examples
 
 ### Example: a hard link solves a different problem than a copy
 
-One of the course examples in this area is using linking to avoid duplicate copies of the same data. That is a practical reminder that “another path to the same content” and “another full copy of the content” are not the same administrative decision.
+Suppose two teams need the same reference dataset in different directory trees. If you copy the file, both copies now have to be maintained. If you create another link to the same file object instead, both paths lead to the same underlying data.
 
-### Example: parity is not the same idea in every topic
+That distinction matters because:
 
-The parity lectures deliberately compare two meanings of the same word:
+- a copy creates a second independent version,
+- a hard link creates another name for the same file,
+- and a symbolic link creates a reference that can break if the target moves.
 
-- communications parity helps detect an error,
-- RAID parity helps reconstruct missing data.
+Those are three different administrative decisions, not three equivalent tricks.
 
-That contrast is useful because students often assume one reused term always means one reused mechanism.
+### Example: RAID survives the drive failure and still loses the file
 
-### Example: RAID does not save you from the wrong problem
+Imagine a mirrored array holding a shared departmental folder. One morning, an administrator accidentally deletes the wrong directory tree. The array is healthy. Every mirror is healthy. The deletion is still immediately reflected across the array because RAID preserved the current state perfectly.
 
-The teaching sequence hammers on the real administrative failure case: if a user deletes a file, if ransomware encrypts it, or if application-level corruption is written cleanly to disk, RAID usually preserves the damaged state. That is why the “RAID is not backup” line is not a slogan. It is the operational difference between availability and recoverability.
+That is why **RAID is not backup**. RAID helps the system stay online when hardware fails. Backup helps you restore an earlier good state when humans, malware, or applications damage data logically.
 
-### Example: business continuity is not only an IT restore script
+### Example: continuity planning starts before the restore
 
-The continuity material grounds the concept with concrete non-cyber events such as utility failure, site loss, or inaccessible facilities. Generators, alternate sites, and replacement operations are part of the same continuity discussion as backups and RAID because the organization must still function when the normal environment is gone.
+Suppose a building loses power for the day or access to the server room is blocked after a water leak. Backups may still exist, but the organization also needs:
+
+- alternate work locations,
+- alternate communications,
+- replacement equipment,
+- and a plan for which services must return first.
+
+That is the difference between business continuity and disaster recovery. Recovery asks how to restore systems. Continuity asks how the organization keeps functioning while restoration is still underway.
 
 ## Practice Connections
 

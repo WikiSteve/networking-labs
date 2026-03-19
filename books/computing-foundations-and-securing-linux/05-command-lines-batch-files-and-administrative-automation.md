@@ -3,14 +3,7 @@
 ![Command-line interface](assets/command-line-interface.png)
 *Image source: [Command-line interface](https://en.wikipedia.org/wiki/Command-line_interface). Attribution details for the local image copy are listed in [Wikipedia and Web Resources](wikipedia-and-web-resources.md#image-sources).*
 
-This chapter is where operating-system theory starts becoming daily administrative habit. A command line matters because it removes ambiguity. Instead of clicking until something looks right, you have to state:
-
-- which shell you are using,
-- where you are in the filesystem,
-- which command you want,
-- what arguments you are passing,
-- what output you expect,
-- and whether the result should stay on the screen, go into a file, or become input for another command.
+This chapter is where operating-system theory starts becoming daily administrative habit. A command line matters because it removes ambiguity. Instead of clicking until something looks right, you have to state which shell you are using, where you are in the filesystem, which command you want, what arguments you are passing, what output you expect, and whether the result should stay on the screen, go into a file, or become input for another command.
 
 That discipline is the real lesson. Windows batch files happen to be the first scripting vehicle in this part of the book, but the habits carry directly into Bash, package maintenance, logging, troubleshooting, and later Linux administration.
 
@@ -63,77 +56,39 @@ Even before looking at Windows-specific syntax, several ideas show up everywhere
 - **arguments and switches**: telling a command what to do,
 - and **PATH lookup**: how a shell finds commands without a full path.
 
-These ideas matter more than any single command name. A student who understands them can move from Windows to Linux, from `cmd.exe` to Bash, or from one distribution to another much more easily than a student who only memorized menu clicks.
+These ideas matter more than any single command name. Anyone who understands them can move from Windows to Linux, from `cmd.exe` to Bash, or from one distribution to another much more easily than someone who only memorized menu clicks.
 
 ## Shell Resolution: Internal Commands, External Commands, and PATH
 
-A shell does not treat every command the same way.
+A shell does not treat every command the same way. **Internal commands** are built into the shell. **External commands** are separate executable files the shell launches. That matters because some commands behave like part of the shell itself, while others depend on file locations, executable extensions, and `PATH` search order.
 
-- **Internal commands** are built into the shell.
-- **External commands** are separate executable files the shell launches.
+A practical Windows example is the difference between `dir`, which is treated as part of the shell environment, and a utility such as `ipconfig`, which the shell has to locate and launch. `PATH` is the mechanism that makes that convenient. Instead of typing `C:\Windows\System32\ipconfig.exe` every time, the shell searches the directories listed in `PATH` until it finds a matching executable.
 
-That matters because it explains why some commands behave like part of the shell itself, while others depend on file locations, executable extensions, and `PATH` search order.
+You can inspect that search path directly:
 
-A practical Windows example:
+```bat
+echo %PATH%
+```
 
-- `dir` is treated like a shell feature,
-- while utilities such as `ipconfig` are separate programs the shell has to locate and launch.
+This is one reason troubleshooting "command not found" style failures starts with basic questions: Is this command internal or external? Is the executable actually present? Is it in the current directory? Is the correct directory in `PATH`? Am I in the shell I think I am?
 
-This is one reason troubleshooting "command not found" style failures starts with basic questions:
-
-- is this command internal or external,
-- is the executable actually present,
-- is it in the current directory,
-- is the correct directory in `PATH`,
-- and am I in the shell I think I am?
-
-That last point matters more than students expect. A command that works in one shell may not work the same way in another if the shell built-ins differ.
+That last point matters more than many beginners expect. A command that works in one shell may not work the same way in another if the shell built-ins differ.
 
 ## Windows Command Line Is a Good Foundation Because It Makes OS Behavior Visible
 
-The Windows command line is worth learning even for students who expect to spend more time on Linux later.
-
-It forces practical familiarity with:
-
-- paths,
-- file names,
-- command syntax,
-- text output,
-- repeatable sequences,
-- and the difference between "the system did something" and "I can prove what it did."
-
-That foundation becomes especially important when later Linux chapters remove the safety net of a familiar desktop interface.
+The Windows command line is worth learning because it forces practical familiarity with paths, file names, command syntax, text output, repeatable sequences, and the difference between "the system did something" and "I can prove what it did."
 
 The real goal is not to make Windows and Linux look identical. They are not identical. The goal is to make operating systems feel inspectable instead of mystical.
 
 ## Batch Files Are Saved Procedures Executed by `cmd.exe`
 
-A **batch file** is a plain-text file that `cmd.exe` reads line by line.
+A **batch file** is a plain-text file that `cmd.exe` reads line by line. That makes a batch file less magical than many beginners think. It is simply a saved procedure: commands that could have been typed manually, written down in order, and executed consistently by the shell. A script is only as good as the commands inside it. If you do not understand the manual command, automating it does not make it safer or smarter.
 
-That makes a batch file less magical than many beginners think. It is simply a saved procedure:
-
-- commands that you could have typed manually,
-- written down in order,
-- and executed consistently by the shell.
-
-That is why a script is only as good as the commands inside it. If you do not understand the manual command, automating it does not make it safer or smarter.
-
-This also explains why batch files are useful:
-
-- repeated tasks no longer depend on memory,
-- setup steps can be documented,
-- routine output can be logged,
-- and the procedure can be reviewed later.
+That is also why batch files are useful. Repeated tasks no longer depend on memory, setup steps can be documented, routine output can be logged, and the procedure can be reviewed later.
 
 ## What `cmd.exe` Actually Does with a Script
 
-When `cmd.exe` runs a batch file, it processes the file in order.
-
-That means:
-
-- earlier lines affect later lines,
-- environment changes can carry forward inside the script,
-- and a mistake near the top can break everything after it.
+When `cmd.exe` runs a batch file, it processes the file in order. Earlier lines affect later lines, environment changes can carry forward inside the script, and a mistake near the top can break everything after it.
 
 A minimal script such as:
 
@@ -153,14 +108,7 @@ That is not a toy example. It teaches the structure that later scripts rely on.
 
 ## Plain Text Is a Requirement, Not a Preference
 
-One of the best preserved practical warnings from this part of the course is that **scripts must remain plain text**.
-
-That means:
-
-- use the correct extension such as `.bat`,
-- avoid editors that silently introduce rich-text formatting,
-- avoid smart quotes,
-- and make sure the file is really what it claims to be.
+One warning prevents a remarkable number of beginner failures: **scripts must remain plain text**. Use the correct extension such as `.bat`, avoid editors that silently introduce rich-text formatting, avoid smart quotes, and make sure the file is really what it claims to be.
 
 This connects directly to the earlier chapter's warning about hidden file extensions. A file that visually appears to be `script.bat` may really be something like `script.bat.txt` if the environment hides the real extension.
 
@@ -168,7 +116,7 @@ That kind of problem is not theoretical. It is exactly the sort of issue that wa
 
 ## Output Control Makes Scripts Readable
 
-The course spends real time on output control because administration is easier when the script tells the truth clearly.
+Output control matters because administration is easier when a script tells the truth clearly.
 
 ### `@echo off`
 
@@ -191,24 +139,13 @@ Use `REM` for comments. Comments matter because scripts are documentation as wel
 
 ### `pause`
 
-`pause` is often dismissed as beginner syntax, but it is useful in exactly the environment where students are still learning to read output. It keeps the window open and makes the result inspectable before the script exits.
+`pause` is often dismissed as beginner syntax, but it is useful when you are still learning to read shell output carefully. It keeps the window open and makes the result inspectable before the script exits.
 
 ## Standard Output, Standard Error, and Why Streams Matter
 
 One of the strongest conceptual lessons in the batch-file material is that "what appeared on the screen" is not a good enough mental model.
 
-Commands produce streams:
-
-- **standard output** for normal results,
-- **standard error** for error conditions.
-
-That distinction matters because automation often depends on capturing, appending, or filtering output. If you do not know which stream you are dealing with, your logs may be incomplete or misleading.
-
-The durable lesson is:
-
-- output is data,
-- errors are also data,
-- and shells give you ways to handle them intentionally.
+Commands produce separate streams: **standard output** for normal results and **standard error** for error conditions. That distinction matters because automation often depends on capturing, appending, or filtering output. If you do not know which stream you are dealing with, your logs may be incomplete or misleading. Output is data, errors are also data, and shells give you ways to handle them intentionally.
 
 ## Redirection: Overwrite, Append, and Basic Logging
 
@@ -222,23 +159,13 @@ Use `>` when you want a command's output to replace the contents of a file.
 
 Use `>>` when you want new output added to the end of an existing file.
 
-That simple distinction matters for logging and reporting. A beginner admin script may only need to:
-
-- run a command,
-- collect the result,
-- and store it in a text file for later inspection.
-
-Once students understand that, scripts stop feeling like performance tricks and start feeling like documentation tools.
+That simple distinction matters for logging and reporting. A small administrative script may only need to run a command, collect the result, and store it in a text file for later inspection. Once that distinction is clear, scripts stop feeling like performance tricks and start feeling like documentation tools.
 
 ## Pipes and Filtering: Small Tools Combined on Purpose
 
 A **pipe** sends one command's output into another command.
 
-The course uses `find` as the concrete filtering example. That is a good choice because it shows the pattern clearly:
-
-- command one produces data,
-- command two narrows the data,
-- the user sees only the part that matters.
+`find` is a good filtering example because it shows the pattern clearly: command one produces data, command two narrows the data, and the user sees only the part that matters.
 
 This is an important operating-system habit. Good shell use often means chaining simple tools instead of hoping one giant program does everything elegantly.
 
@@ -248,86 +175,146 @@ That habit carries directly into later Linux work where pipelines become even mo
 
 `FOR /L` is important because it introduces controlled repetition.
 
-At that point the script is no longer just:
+At that point the script is no longer just "do line 1, do line 2, do line 3." It is now expressing a repeatable pattern. That is the beginning of real automation.
 
-- "do line 1,"
-- "do line 2,"
-- "do line 3."
-
-It is now expressing a repeatable pattern. That is the beginning of real automation.
-
-Loops matter because many administrative tasks are repetitive:
-
-- check several values,
-- create repeated output,
-- walk through numbered sequences,
-- or apply the same logic more than once.
+Loops matter because many administrative tasks are repetitive: checking several values, creating repeated output, walking through numbered sequences, or applying the same logic more than once.
 
 This is where scripting starts to feel meaningfully different from just saving a command history.
 
 ## Not Every Command-Line Tool Should Be Automated Naively
 
-Another good lesson preserved from the course is that some tools are interactive enough that they are a poor fit for casual scripting.
+Some tools are interactive enough that they are a poor fit for casual scripting.
 
-`diskpart` is the concrete example.
+`diskpart` is the concrete example. The broader lesson is that a command being visible at the command line does not automatically make it a good batch candidate. Interactive tools deserve careful manual use first, and high-impact storage tools deserve even more caution. That is administrative judgment, not just syntax knowledge.
 
-The durable lesson is broader:
+## Variables, Arguments, and Basic Decision-Making
 
-- a command being visible at the command line does not automatically make it a good batch candidate,
-- interactive tools often deserve careful manual use first,
-- and high-impact storage tools deserve even more caution.
+Useful scripts do more than replay fixed commands. They also carry state, accept input, and make small decisions.
 
-That is administrative judgment, not just syntax knowledge.
+### Environment variables
+
+Batch files can store values in variables:
+
+```bat
+@echo off
+set LOGDIR=C:\Temp
+echo Writing report to %LOGDIR%
+```
+
+The `%LOGDIR%` syntax expands the variable's value when the line is executed. Environment variables matter because they let one script reuse the same path, hostname, or setting in many places without hard-coding it repeatedly.
+
+### Script arguments
+
+Batch files can also accept positional arguments:
+
+```bat
+@echo off
+echo First argument: %1
+echo Second argument: %2
+```
+
+If the script is launched as `report.bat server01 nightly`, then `%1` becomes `server01` and `%2` becomes `nightly`. That is the first step from a fixed script toward a reusable administrative tool.
+
+### Basic conditionals
+
+Even simple scripts need decision points:
+
+```bat
+@echo off
+if exist report.txt (
+  echo Found existing report
+) else (
+  echo No report yet
+)
+```
+
+Conditionals let a script react to system state instead of blindly assuming the world looks the same every time it runs.
+
+### Exit status and failure checks
+
+Many command-line tools also communicate success or failure through an exit status:
+
+```bat
+ping -n 1 server01 >nul
+if errorlevel 1 (
+  echo Ping failed
+) else (
+  echo Ping succeeded
+)
+```
+
+That pattern is worth learning early. A script should not only run commands. It should also notice when they fail.
 
 ## Worked Examples
 
-### Example: `@echo off`, `REM`, and `pause` make beginner automation readable
-
-The batch-file sequence does not begin with abstract theory. It begins with output control because you need to see what the script is doing. That is why a beginner-friendly pattern often includes `@echo off`, comments with `REM`, and a deliberate `pause` when the result needs to stay visible.
-
-### Example: smart quotes can break a script that "looks fine"
-
-Never write scripts in a word processor. If you copy text from a formatted document, straight quotes can silently become curly “smart quotes.” `cmd.exe` expects plain ASCII characters, so a script that looks fine on screen can still fail with baffling syntax errors. That is why plain text is an operational requirement, not a stylistic preference.
-
-### Example: hidden extensions can sabotage a script before syntax even matters
-
-Windows hides file extensions by default. That means you may think you created `example.bat` when the real filename is `example.bat.txt`. The shell is not being cruel; it is following file associations and extensions exactly. Administrative work benefits from an environment that exposes filenames honestly.
-
-### Example: standard output and standard error are not the same thing
-
-Scripts produce two different output streams: standard output for normal results and standard error for failure information. That matters because a script can appear noisy and active while still failing, or appear quiet while quietly appending useful data to a report file.
+### Example: a readable batch file shows what it is doing
 
 ```bat
-dir C:\Windows > output.txt 2> errors.txt
+@echo off
+REM Basic inventory check
+echo Checking Windows version...
+ver
+pause
 ```
 
-That command sends the normal directory listing to `output.txt` and sends errors to `errors.txt`.
+Read the script in order:
+
+- `@echo off` hides the command chatter so the output is readable.
+- `REM` marks a comment for the human reader.
+- `echo Checking Windows version...` prints an explanatory line.
+- `ver` runs the command that actually reports the operating-system version.
+- `pause` keeps the window open so the result is visible before the script exits.
+
+That structure is useful because it makes the procedure inspectable instead of mysterious.
+
+### Example: plain text failures often happen before logic failures
+
+Suppose a file appears to be named `inventory.bat`, but File Explorer is hiding extensions and the real file is `inventory.bat.txt`. The script will not run as a batch file because the shell is honoring the real filename, not the one the interface suggested. The same class of problem appears when straight quotes are silently replaced by curly “smart quotes.” `cmd.exe` expects plain text. If the characters in the file are wrong, the script can fail before the intended logic is even tested.
+
+### Example: standard output and standard error belong in different places
+
+```bat
+@echo off
+dir C:\Windows > output.txt 2> errors.txt
+dir C:\DoesNotExist >> output.txt 2>> errors.txt
+```
+
+After that script runs:
+
+- `output.txt` contains the normal directory listing from the first `dir` command.
+- `errors.txt` contains the failure message from the nonexistent path.
+
+That distinction matters because a script can look busy on screen while still burying the real failure in the wrong place. Separate streams make later troubleshooting much easier.
 
 ### Example: filters and loops turn saved commands into automation
-
-Once a command works manually, you can start chaining and repeating it.
 
 ```bat
 tasklist | find "chrome.exe"
 ```
 
-That pipeline shows only the `tasklist` lines containing `chrome.exe`.
+That pipeline takes the larger `tasklist` output and keeps only the lines containing `chrome.exe`.
 
 ```bat
 FOR /L %%A IN (1,1,5) DO echo Ping attempt %%A
 ```
 
-Inside a batch file, `%%A` loops from `1` to `5` and prints a line for each pass. At an interactive command prompt, you would use `%A` instead.
+Inside a batch file, `%%A` loops from `1` to `5` and prints a line for each pass. The three numbers in `(1,1,5)` mean:
 
-### Example: `diskpart` is visible in the shell but still not a casual scripting exercise
+- start at `1`
+- increment by `1`
+- stop at `5`
 
-`diskpart` is a useful boundary marker. Yes, it is a command-line tool. No, that does not mean it belongs in beginner automation without care. Storage tools change state quickly and sometimes destructively. The right lesson is to understand a tool manually before trying to wrap it in a script.
+Batch files use `%%A` because `%A` is reserved for interactive use at the command prompt. The doubled percent sign tells `cmd.exe` that the loop variable is part of a saved script rather than a one-line command entered manually. This is the point where a script stops being just a saved checklist and starts expressing repeated logic.
+
+### Example: `diskpart` is a poor casual automation target
+
+`diskpart` is a useful boundary marker. Yes, it is a command-line tool. No, that does not make it a good beginner scripting target. Storage tools can change state quickly and destructively. The safe administrative habit is to understand such tools manually first, document the exact procedure, and automate only after the consequences are clear.
 
 ## Practice Connections
 
 - For hands-on batch-file work, use [Windows Batch Files](../../labs/080-windows-batch-files/README.md).
 - For later source modification work that builds on the same automation mindset, use [Modifying Source Code](../../labs/090-lab-modifying-source-code/README.md).
-- For the repo-facing bridge back into the cleaned material, use [Repo Companion Material](repo-companion-material.md).
+- For a chapter-by-chapter map between the book and the companion labs, use [Repo Companion Material](repo-companion-material.md).
 
 ## Chapter Summary
 

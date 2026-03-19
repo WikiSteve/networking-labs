@@ -31,7 +31,7 @@ By the end of this chapter, you should be able to explain:
 
 ## A Computer System Is a Stack of Dependencies
 
-Students often talk about “the computer” as though it were a single thing. In practice, a working system is a chain of dependencies.
+It is easy to talk about “the computer” as though it were a single thing. In practice, a working system is a chain of dependencies.
 
 At the lowest practical level, the machine is physical hardware:
 
@@ -57,7 +57,7 @@ That is why administrators and defenders care so much about the OS. It is not ju
 
 ## Hardware Is a Performance Hierarchy, Not a Flat List of Parts
 
-Introductory hardware lessons often fail because students memorize component names without seeing how they fit together. The more useful model is a **performance hierarchy**.
+Component lists are only useful if you can see how the parts interact. The more useful model is a **performance hierarchy**.
 
 The CPU is the active execution engine. It pulls instructions, works with data, and uses tiny ultra-fast storage called **registers** while doing so. Registers are where values live while the CPU is actively operating on them. When the ALU adds, compares, masks, or shifts values, it is usually working on data that has been loaded into registers first.
 
@@ -67,7 +67,7 @@ Outside the registers is **cache**. Cache exists because the CPU is much faster 
 - **L2**: larger and slower than L1,
 - **L3**: larger again and often shared across cores.
 
-When needed data is already in cache, the CPU gets a **cache hit**. When it has to go farther out to fetch the data, that is a **cache miss**. Students do not need to know every microarchitectural detail yet, but they do need the principle: systems are built in layers because one universal storage technology would be too slow, too expensive, or both.
+When needed data is already in cache, the CPU gets a **cache hit**. When it has to go farther out to fetch the data, that is a **cache miss**. You do not need every microarchitectural detail yet, but you do need the principle: systems are built in layers because one universal storage technology would be too slow, too expensive, or both.
 
 Beyond cache is **DRAM**, which is the system's main working memory. DRAM is much larger than cache, but much slower than registers or cache. Beyond DRAM is **persistent storage** such as HDDs and SSDs, which retain data without power but are slower again for active execution.
 
@@ -129,7 +129,7 @@ The OS also provides interaction models:
 - system-call interfaces for programs,
 - and higher-level APIs and services.
 
-The **kernel** is the most privileged part of that picture. It is the core system component that manages hardware access, memory, filesystems, processes, and device interaction. User-space tools depend on it even when students do not see that dependency directly.
+The **kernel** is the most privileged part of that picture. It is the core system component that manages hardware access, memory, filesystems, processes, and device interaction. User-space tools depend on it even when that dependency is hidden behind shells, desktops, or service managers.
 
 An important early correction is that “the operating system” is not identical to “the desktop” or “the shell.” Graphical environments, login managers, shells, and utilities are usually **user-space** components layered on top of the kernel and other core services.
 
@@ -164,11 +164,11 @@ That matters for both administration and security.
 - If boot settings can be modified casually, recovery and attack paths open up.
 - If you do not know the boot sequence, later discussions of GRUB, recovery shells, and encryption will feel arbitrary.
 
-It also matters for hands-on work. A bootable installer drive, a Debian ISO, a VM boot image, and an internal disk install are all different artifacts in the same startup chain. Students who understand the chain are much less likely to treat installation and recovery as magic.
+It also matters for hands-on work. A bootable installer drive, a Debian ISO, a VM boot image, and an internal disk install are all different artifacts in the same startup chain. Once you understand that chain, installation and recovery stop looking like magic.
 
 ## Memory and Storage Are Not the Same Thing
 
-Students often blur together **memory** and **storage** because both hold information. For systems work, that confusion causes immediate problems.
+**Memory** and **storage** are easy to blur together because both hold information. For systems work, that confusion causes immediate problems.
 
 ### RAM
 
@@ -205,15 +205,13 @@ That creates a hierarchy rather than one magical universal medium. Fast storage 
 
 ### Bits, bytes, and capacity language
 
-You do not need to be obsessed with conversion trivia, but you do need the vocabulary:
+You do not need to memorize every binary-versus-decimal conversion, but you do need the vocabulary:
 
 - a **bit** is a small unit of information,
 - a **byte** is the common storage unit built from bits,
 - and larger units such as kilobytes, megabytes, and gigabytes describe capacity and transfer size.
 
-Those terms show up everywhere: RAM capacity, filesystem size, RAID capacity, backup media, network throughput, and cloud storage billing.
-
-Students do not need to obsess over conversion trivia, but they do need to stop treating capacity language as decoration. A misunderstanding about MB versus GB, or about the difference between “file size” and “RAM required while running,” turns into bad troubleshooting quickly.
+Those terms show up everywhere: RAM capacity, filesystem size, RAID capacity, backup media, network throughput, and cloud storage billing. Confusing MB with GB, or file size on disk with RAM consumed while running, produces bad estimates and bad troubleshooting very quickly.
 
 ## Virtualization: One Physical System, Many Logical Systems
 
@@ -228,12 +226,12 @@ A **virtual machine** is a software-defined system that behaves like a computer 
 
 The enabling layer is a **hypervisor**. At a high level, the hypervisor manages virtual machines and mediates their use of real hardware.
 
-A practical distinction that helps students later is:
+A practical distinction that helps later is:
 
 - a **type 1** or bare-metal hypervisor runs directly on the hardware,
 - a **type 2** or hosted hypervisor runs on top of an existing operating system.
 
-For an introductory course, the exact product names matter less than the control model. In one case the hypervisor is the main platform. In the other case the hypervisor is an application living on a host OS.
+At this level, the exact product names matter less than the control model. In one case the hypervisor is the main platform. In the other case the hypervisor is an application living on a host OS.
 
 That gives you practical benefits:
 
@@ -245,7 +243,7 @@ That gives you practical benefits:
 
 ### Virtualization is not emulation
 
-Students often use the words interchangeably. They should not.
+These words are often used interchangeably. They should not be.
 
 - **Virtualization** uses the underlying hardware efficiently to run guest systems in isolated environments.
 - **Emulation** imitates another system more completely, often with greater overhead and less direct dependence on the real hardware’s native execution model.
@@ -261,7 +259,7 @@ Keep the separation clear:
 
 Logical isolation is useful, but it is not the same thing as absolute security. Every guest still depends on physical hardware, the host operating system or hypervisor, and the real storage underneath.
 
-That is why virtualization is such a strong teaching platform. It gives you:
+That is why virtualization is so useful in practice and in lab work. It gives you:
 
 - safe operating-system installs,
 - easy rollback through snapshots,
@@ -329,33 +327,48 @@ This chapter is foundational because later security decisions depend on it.
 
 Security is not a separate magical layer dropped on top of a machine. It is implemented through the same system structure you just studied.
 
-## Practical Examples
+## Worked Scenarios
 
-### Example: a virtual machine still depends on a real host
+### Scenario: a guest failure that starts on the host
 
-A guest operating system may appear to have its own disk, memory, and network card, but it still depends completely on the host and hypervisor underneath. That is why a virtual machine lets you install and break an operating system safely without destroying the host, even though it does not repeal the need for real hardware, real storage, and real startup sequencing.
+Suppose a virtualization host stores several guest disks on the same physical SSD. One guest begins reporting I/O errors and the administrator inside the guest assumes the guest filesystem is corrupted. The real problem, however, is that the host storage is full and snapshots have consumed the remaining free space.
 
-### Example: the startup chain is not one magic jump
+That is the operational meaning of **host** and **guest**:
 
-Startup is easier to reason about when you break it into visible layers:
+- the guest sees a virtual disk,
+- the hypervisor maps that disk to real storage,
+- and a failure underneath the guest can surface as a failure inside it.
+
+Virtualization makes systems easier to clone, isolate, and roll back. It does not remove the dependence on real hardware, real storage, or real capacity planning.
+
+### Scenario: the machine sees the disk but still will not boot
+
+Imagine a system where the internal drive is healthy, the operating-system files are still present, but the machine drops into firmware setup instead of loading the OS. That is not automatically a “dead disk” problem. It could be:
+
+- the wrong boot mode,
+- a missing or damaged bootloader,
+- a changed firmware boot order,
+- or a mismatch between the disk layout and the expected boot method.
+
+The startup chain is easier to troubleshoot when you keep the layers separate:
 
 - firmware starts first,
 - the bootloader decides what to load,
-- the kernel enters memory,
+- the kernel is loaded into memory,
 - and the rest of user space comes up afterward.
 
 That layered picture matters later when you edit GRUB, troubleshoot boot parameters, compare BIOS with UEFI, or reason about boot-time attack paths.
 
-### Example: open, closed, and hybrid systems all exist in practice
+### Scenario: real infrastructure is usually hybrid
 
-Real infrastructure rarely falls into a pure “open source good, commercial bad” argument. A more realistic example is a hybrid stack:
+A real environment might run a Linux server with open-source core utilities, proprietary RAID-controller firmware, commercial endpoint tooling, and a vendor support contract. That stack is neither purely open nor purely closed. It is hybrid.
 
-- an open operating system,
-- proprietary drivers or management software,
-- commercial support agreements,
-- and community tooling all living together.
+That matters because platform choices are rarely ideological. Administrators usually care about:
 
-That is closer to how real infrastructure looks than a purity argument.
+- whether the system can be supported,
+- whether it can be inspected and automated,
+- whether the licensing is acceptable,
+- and whether the total platform is reliable enough for the job.
 
 ## Practice Connections
 
