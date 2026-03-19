@@ -225,11 +225,16 @@ Persistent configuration lives elsewhere, for example in:
 - NetworkManager profiles,
 - and resolver configuration.
 
-After editing those files, you also need to apply the change through the stack in use. Examples include:
+After editing those files, you also need to apply the change through the stack in use. Use the command that matches your networking layer:
 
 ```bash
+# Netplan-managed systems
 sudo netplan apply
+
+# NetworkManager-managed systems
 sudo systemctl restart NetworkManager
+
+# ifupdown-managed systems
 # replace <iface> with your interface name, e.g. from: ip -br link
 sudo ifdown <iface> && sudo ifup <iface>
 ```

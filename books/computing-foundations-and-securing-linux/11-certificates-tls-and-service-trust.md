@@ -404,8 +404,8 @@ This is a far better mental model than saying “OpenSSL is broken” or “TLS 
 If Apache points at the wrong certificate or private key, start by comparing the keypair components directly:
 
 ```bash
-openssl x509 -noout -modulus -in /etc/ssl/certs/www.example.local-apache.crt | openssl md5
-openssl rsa  -noout -modulus -in /etc/ssl/private/www.example.local-apache.key | openssl md5
+openssl x509 -noout -modulus -in /etc/ssl/certs/www.example.local-apache.crt | openssl dgst -sha256
+openssl rsa  -noout -modulus -in /etc/ssl/private/www.example.local-apache.key | openssl dgst -sha256
 apachectl configtest
 systemctl restart apache2
 journalctl -u apache2 -n 20
