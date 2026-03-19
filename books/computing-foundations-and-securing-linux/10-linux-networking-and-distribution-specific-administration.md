@@ -271,13 +271,13 @@ The durable lesson is not “memorize one config file forever.” The durable le
 - identify the networking stack actually in use,
 - then administer the system according to that environment.
 
-That principle becomes clearer when you compare actual configuration styles. A small Ubuntu-style netplan example might look like this:
+That principle becomes clearer when you compare actual configuration styles. A small Ubuntu-style netplan example might look like this. Replace `<iface>` with the interface name you actually discovered on the host:
 
 ```yaml
 network:
   version: 2
   ethernets:
-    ens33:
+    <iface>:
       addresses:
         - 10.0.0.5/24
 ```
@@ -285,8 +285,8 @@ network:
 An older Debian-style `/etc/network/interfaces` configuration expresses the same idea differently:
 
 ```text
-auto ens33
-iface ens33 inet static
+auto <iface>
+iface <iface> inet static
     address 10.0.0.5/24
 ```
 
