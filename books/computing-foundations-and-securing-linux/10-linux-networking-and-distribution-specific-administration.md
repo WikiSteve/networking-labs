@@ -3,7 +3,7 @@
 ![Network interface controller](assets/network-interface-controller.jpg)
 *Image source: [Network interface controller](https://en.wikipedia.org/wiki/Network_interface_controller). Attribution details for the local image copy are listed in [Wikipedia and Web Resources](wikipedia-and-web-resources.md#image-sources).*
 
-This chapter is about the part of Linux administration where people most quickly overgeneralize. Networking on Linux is powerful, but it is also distribution-specific, tool-specific, and historically layered. The goal is to teach both old and new tools without pretending that one example is a universal truth.
+Linux networking is easy to overgeneralize. The same host may involve legacy commands, modern `iproute2` tools, distribution-specific configuration layers, and virtualization-specific quirks. The goal is to understand how those layers fit together so you can inspect the current host instead of assuming one universal recipe.
 
 ## What You Should Be Able To Explain
 
@@ -18,7 +18,7 @@ By the end of this chapter, you should be able to explain:
 
 ## Old Tools vs New Tools
 
-This chapter does something useful: it does not pretend the old tools never existed.
+Legacy tools still matter because administrators continue to encounter them in older documentation, older systems, and older habits.
 
 You should recognize legacy tools such as:
 
@@ -84,7 +84,7 @@ You do not need to master all of those features immediately. You do need to unde
 
 ## When a Command Is Installed but Still Does Not Run
 
-One of the most practical Linux lessons in the networking material is the Debian PATH example.
+A Debian PATH example captures one of the most practical Linux lessons in the chapter.
 
 A command may exist on the system and still fail when a normal user tries to run it. Why?
 
@@ -94,7 +94,7 @@ That leads directly to a useful filesystem-hierarchy lesson.
 
 ## `/bin`, `/sbin`, `/usr/bin`, and `/usr/sbin`
 
-This chapter uses networking tools to teach the filesystem hierarchy standard in practice.
+Networking tools also make the filesystem hierarchy standard visible in practice.
 
 At a broad level:
 
@@ -123,11 +123,11 @@ whereis ifconfig
 echo "$PATH"
 ```
 
-That is a far better lesson than simply telling you “type this command.”
+That habit is more useful than memorizing one command and hoping it always works everywhere.
 
 ## Shell Startup Files and Environment Context
 
-This problem also teaches shell startup logic. Environment configuration affects:
+The same problem also exposes shell startup logic. Environment configuration affects:
 
 - who sees which PATH entries,
 - which commands are reachable without a full path,
@@ -143,7 +143,7 @@ One useful administrative exercise here is to adjust the relevant profile logic 
 
 This also connects naturally to `sudo`. In real administrative work, one reason a command suddenly becomes reachable under `sudo` is that the effective environment often includes administrative search paths that an ordinary user shell did not expose by default. That does not remove the need to understand PATH; it proves why PATH matters.
 
-It also explains why “it works as root” is not a full diagnosis. Students should ask:
+It also explains why “it works as root” is not a full diagnosis. Ask:
 
 - did privileges change,
 - did the PATH change,
@@ -151,7 +151,7 @@ It also explains why “it works as root” is not a full diagnosis. Students sh
 
 ## Predictable Interface Naming
 
-Linux interface names changed over time. Students still need to recognize older names such as:
+Linux interface names changed over time. Administrators still need to recognize older names such as:
 
 - `eth0`,
 - `eth1`,
@@ -204,7 +204,7 @@ ss -tulpen
 Those commands are for inspection and immediate changes. For example:
 
 ```bash
-ip addr add 10.0.0.5/24 dev eth0
+sudo ip addr add 10.0.0.5/24 dev <iface>
 ```
 
 That takes effect immediately, but it does not survive a reboot unless you also change the persistent configuration.
@@ -271,13 +271,13 @@ The durable lesson is not “memorize one config file forever.” The durable le
 - identify the networking stack actually in use,
 - then administer the system according to that environment.
 
-That principle becomes clearer when you compare actual configuration styles. A small Ubuntu-style netplan example might look like this:
+That principle becomes clearer when you compare actual configuration styles. A small Ubuntu-style netplan example might look like this. Replace `<iface>` with the interface name you actually discovered on the host:
 
 ```yaml
 network:
   version: 2
   ethernets:
-    eth0:
+    <iface>:
       addresses:
         - 10.0.0.5/24
 ```
@@ -285,8 +285,8 @@ network:
 An older Debian-style `/etc/network/interfaces` configuration expresses the same idea differently:
 
 ```text
-auto eth0
-iface eth0 inet static
+auto <iface>
+iface <iface> inet static
     address 10.0.0.5/24
 ```
 
@@ -341,11 +341,11 @@ VMware or other VM networking modes make the lesson concrete. They affect:
 
 For example, bridged and NAT-style setups do not present the same operational picture to the guest. **NAT**, or **Network Address Translation**, means the guest is often hidden behind another system that rewrites address information as traffic passes through it. If you forget that, you can easily misdiagnose lab issues that are really design choices in the virtual networking layer.
 
-That is why older-tool examples in bridged-style contexts and newer-tool examples in NAT-style contexts still have value. The point is not just to type different commands. It is to see how the surrounding network design changes what the guest can observe.
+Older-tool examples in bridged-style contexts and newer-tool examples in NAT-style contexts still have value because the surrounding network design changes what the guest can observe.
 
 ## Practical Administration Habits
 
-By the end of the Linux networking material, you should be comfortable with a habit sequence like this:
+A durable networking habit sequence looks like this:
 
 1. identify the interfaces actually present,
 2. inspect current addresses, routes, and listening services,
@@ -416,9 +416,8 @@ Modern Linux may present names such as `ens33`, and `ip link` is a better habit 
 
 ## Practice Connections
 
-- For a companion networking note, use [Linux Networking](../../course-materials/lectures/systems/linux-networking.md).
-- For path and command-line context that supports this chapter, use [OS & Networking Fundamentals](../../course-materials/lectures/systems/os-and-networking-fundamentals.md).
-- For storage-and-networking context, use [Repo Companion Material](repo-companion-material.md).
+- For routing and interface practice, use [Linux Basic routing](../../labs/040-linux-basic-routing/README.md).
+- For the chapter-by-chapter map back into companion material, use [Repo Companion Material](repo-companion-material.md).
 
 ## Chapter Summary
 

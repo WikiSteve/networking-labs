@@ -40,7 +40,7 @@ Certificates matter because they are not just “crypto files.” They are part 
 
 ## Symmetric vs Asymmetric Cryptography
 
-Treat this distinction as prerequisite knowledge, because it will keep showing up throughout the rest of the chapter.
+Keep this distinction clear, because it will keep showing up throughout the rest of the chapter.
 
 ### Symmetric cryptography
 
@@ -277,7 +277,7 @@ openssl req -text -noout -in www.example-ca.local.csr | less
 
 ## Moving the CSR and Signing It
 
-Moving the CSR between hosts is ordinary Linux administration, which is exactly why the example matters. Certificate work is not isolated from the rest of systems administration.
+Moving the CSR between hosts is ordinary Linux administration. Certificate work is not isolated from the rest of systems administration.
 
 One detail worth preserving is that SSH key-based convenience may exist for a normal user account but not for root. That is why copying the CSR across hosts can fail if administrators assume root magically has the same SSH trust setup.
 
@@ -300,7 +300,7 @@ Another useful operational detail is that if the same CSR is submitted again, th
 
 ## Deploying TLS on Apache
 
-The chapter only works if certificate theory turns into service deployment.
+Certificate theory becomes meaningful when it reaches actual service deployment.
 
 The Apache example keeps the configuration concrete:
 
@@ -441,9 +441,8 @@ Trust is configured, not assumed. A service can be running correctly and still b
 
 ## Practice Connections
 
-- For a companion crypto note, use [Symmetric and Asymmetric Encryption](../../course-materials/lectures/security/symmetric-and-asymmetric-encryption.md).
 - For hands-on certificate work, use [Certificates](../../labs/lab_certificates_md/README.md).
-- For the repo-facing chapter map, use [Repo Companion Material](repo-companion-material.md).
+- For the chapter-by-chapter map back into companion material, use [Repo Companion Material](repo-companion-material.md).
 
 ## Chapter Summary
 
