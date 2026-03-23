@@ -70,6 +70,11 @@
 
 ### Challenges
 
+#### Cloud
+
+- [Cloud challenges index](challenges/cloud/index.md)
+- [Azure Segmented Service Deployment Challenge](challenges/cloud/azure-segmented-service-deployment-challenge/README.md)
+
 #### Security
 
 - [Security challenges index](challenges/security/index.md)
