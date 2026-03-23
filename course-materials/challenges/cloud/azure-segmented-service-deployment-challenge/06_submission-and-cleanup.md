@@ -16,7 +16,7 @@ Use the submission template and place exactly one required screenshot on each sl
 
 ## Required Evidence
 
-1. **Screenshot 1: Resource Group Overview.** Show the resource group name and the main resources created, including both VMs, the VNet, and the server NSG.
+1. **Screenshot 1: Resource Group Overview.** Show the resource group name and the main resources created, including both VMs and the VNet.
 2. **Screenshot 2: Nginx Running on the Server.** Show the server hostname and `systemctl status nginx` with `Active: active (running)` visible.
 3. **Screenshot 3: Internal-Only Service Running on Port 8080.** Show the server hostname, the `ss -ltnp | grep 8080` listener output, and the local `curl http://127.0.0.1:8080` result.
 4. **Screenshot 4: Server NSG Inbound Rules.** Show the **Inbound security rules** page with the full custom rule list from `100` through `160` visible, including the client-subnet CIDR in the **Source** column for the allow rules.

@@ -184,8 +184,8 @@ Example output for `az vm list-ip-addresses`:
 ```text
 VirtualMachine    PublicIPAddresses    PrivateIPAddresses
 ----------------  -------------------  ------------------
-vm-steve-client   20.151.15.224        10.10.2.4
-vm-steve-server   20.220.14.156        10.10.1.4
+vm-steve-client   203.0.113.24         10.10.2.4
+vm-steve-server   203.0.113.25         10.10.1.4
 ```
 
 Example output for `az network nic list ... -o table`:
@@ -193,8 +193,8 @@ Example output for `az network nic list ... -o table`:
 ```text
 NIC                 PrivateIP    Subnet                                                                                                                                                                        NSG
 ------------------  -----------  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------  -----------------------------------------------------------------------------------------------------------------------------------------------------------
-vm-steve-client702  10.10.2.4    /subscriptions/30cb7717-128d-4d34-b5da-c6da22d6e609/resourceGroups/rg-steve-practical/providers/Microsoft.Network/virtualNetworks/vnet-steve-practical/subnets/client-subnet  /subscriptions/30cb7717-128d-4d34-b5da-c6da22d6e609/resourceGroups/rg-steve-practical/providers/Microsoft.Network/networkSecurityGroups/vm-steve-client-nsg
-vm-steve-server651  10.10.1.4    /subscriptions/30cb7717-128d-4d34-b5da-c6da22d6e609/resourceGroups/rg-steve-practical/providers/Microsoft.Network/virtualNetworks/vnet-steve-practical/subnets/server-subnet  /subscriptions/30cb7717-128d-4d34-b5da-c6da22d6e609/resourceGroups/rg-steve-practical/providers/Microsoft.Network/networkSecurityGroups/vm-steve-server-nsg
+vm-steve-client702  10.10.2.4    /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-steve-practical/providers/Microsoft.Network/virtualNetworks/vnet-steve-practical/subnets/client-subnet  /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-steve-practical/providers/Microsoft.Network/networkSecurityGroups/vm-steve-client-nsg
+vm-steve-server651  10.10.1.4    /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-steve-practical/providers/Microsoft.Network/virtualNetworks/vnet-steve-practical/subnets/server-subnet  /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-steve-practical/providers/Microsoft.Network/networkSecurityGroups/vm-steve-server-nsg
 ```
 
 Validate:
@@ -221,7 +221,7 @@ Checkpoint:
 
 ## **Screenshot 1: Resource Group Overview**
 
-**Requirement:** Show the Azure **Resource group Overview** page with the resource group name visible and the main resources created visible in the resource list, including both VMs, the VNet, and the server NSG.
+**Requirement:** Show the Azure **Resource group Overview** page with the resource group name visible and the main resources created visible in the resource list, including both VMs and the VNet.
 
 This screenshot replaces the old separate VM overview screenshots.
 
