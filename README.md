@@ -39,7 +39,7 @@
 - None yet.
 
 ### Challenges
-- None yet.
+- [Azure Segmented Service Deployment Challenge](./course-materials/challenges/cloud/azure-segmented-service-deployment-challenge/README.md)
 
 ## Security
 
