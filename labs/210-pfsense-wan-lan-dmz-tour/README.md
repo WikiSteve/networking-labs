@@ -31,3 +31,7 @@ Explore a prebuilt pfSense firewall and prove:
 - [03 Inspect WAN Rules and NAT](03_inspect-wan-rules-and-nat.md)
 - [04 Test and Prove Traffic](04_test-and-prove-traffic.md)
 - [05 Submission Guide](05_submission-guide.md)
+
+## Accessibility
+
+- [Screenshot alt text and OCR transcript data](assets/screenshot-ocr.json)

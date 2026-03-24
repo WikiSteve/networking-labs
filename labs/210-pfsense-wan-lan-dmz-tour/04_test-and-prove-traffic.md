@@ -92,6 +92,8 @@ Filter the page for:
 
 Return to the pfSense **States** tab and refresh until you see the matching state entry.
 
+Filtering for `10.0.2.10` reduces the noise. Once the results are filtered, look for the active entry that also includes the `outside` client source `192.168.50.10`.
+
 You are looking for a state that proves:
 
 - source `192.168.50.10`
@@ -181,6 +183,8 @@ Filter the page for:
 - `10.0.1.10`
 
 Return to the pfSense **States** tab and refresh until you see the session.
+
+Filtering for `10.0.1.10` reduces the noise. Once the results are filtered, look for the active entry tied to the `outside` server at `192.168.50.10`.
 
 You are looking for a state that proves:
 
