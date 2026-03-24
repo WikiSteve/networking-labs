@@ -178,7 +178,7 @@ ls -l
 
 ![Directory listing in Donald Duck's VM showing the received DonaldDuck.asc.gpg file.](assets/images/image17.png)
 
-Before decrypting, make sure your partner's public key is already installed. You do not need that public key for the decryption itself, but you do need it if you want GPG to validate the signature on the returned file.
+Before decrypting, make sure your partner's public key is already installed. You do not need that public key for the decryption itself, but you do need it if your partner signed the encrypted file and you want GPG to validate that signature.
 
 ![Donald Duck's keyring listing showing Donald's own key and Steve Sharpe's public key installed.](assets/images/image22.png)
 
@@ -196,7 +196,7 @@ Use the same pattern for your own returned file:
 gpg --output your-key-signed.asc --decrypt your-key-signed.asc.gpg
 ```
 
-The trust warning is expected here if you do not already have a trust path to the signer.
+If your partner used the optional sign-and-encrypt path, GPG can also show a `Good signature` line here. The trust warning is still expected if you do not already have a trust path to the signer.
 
 ### Step 7: Import the New Signed Copy of Your Public Key
 
@@ -214,7 +214,7 @@ The returned public key should now show the additional signature from the partne
 
 ### Step 8: Upload the Updated Public Key Back to the Keyserver
 
-Send the updated public key with the new signature back up to the keyserver. Replace `YOUR_KEY_ID` with your own long key ID.
+Send the updated public key with the new signature back up to the keyserver. Replace `YOUR_KEY_ID` with your own long key ID from `gpg --list-keys --fingerprint`.
 
 ```bash
 gpg --keyserver hkps://keyserver.ubuntu.com --send-keys YOUR_KEY_ID
