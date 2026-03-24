@@ -54,6 +54,7 @@
 - [NetBus Lab](./labs/180-netbus-lab/README.md)
 - [SSH and MAC Operations Guide](./labs/190-guide-ssh-and-mac-operations/README.md)
 - [CIA Triad and Attack Trees](./labs/200-cia-triad-and-attack-trees/README.md)
+- [pfSense WAN, LAN, DMZ, and Management Tour](./labs/210-pfsense-wan-lan-dmz-tour/README.md)
 - [Certificates](./labs/lab_certificates_md/README.md)
 - [Crypto Basics in Wireshark](./course-materials/labs/security/crypto-basics-in-wireshark.md)
 
