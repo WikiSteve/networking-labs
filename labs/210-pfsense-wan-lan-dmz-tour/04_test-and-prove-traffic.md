@@ -44,8 +44,8 @@ Why this matters:
 
 - there is no port forward for `WAN` port `8080`
 - this is the correct way to test a blocked non-forwarded service from `outside`
-- do **not** test `curl http://10.0.1.10` from `outside`
-- directly targeting `10.0.1.10` from the `outside` network would only prove the client has no route to that private network
+- do **not** test a private address such as `10.0.2.10` or `10.0.1.10` from `outside`
+- directly targeting a private `10.0.x.x` address from the `outside` network would only prove a routing failure, not a `WAN` firewall decision
 
 ## **Screenshot 5: Outside Cannot Reach a Non-Forwarded WAN Service**
 **Requirement:** Show the `outside` VM attempting to reach `http://192.168.50.1:8080` and failing. The screenshot must include the failed `curl` output.
