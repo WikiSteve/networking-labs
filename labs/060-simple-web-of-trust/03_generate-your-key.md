@@ -15,7 +15,7 @@ gpg --full-generate-key
 
 ![Terminal running gpg --full-generate-key and prompting for RSA key type, a 2048-bit key size, and a 5-week expiry.](assets/images/image25.png)
 
-To prevent [keyserver plaque](https://en.wikipedia.org/wiki/Key_server_(cryptographic)#Problems_with_keyservers), make sure the key **expires in 5 weeks**.
+To reduce keyserver clutter and stale lab keys, make sure the key **expires in 5 weeks**.
 
 ![GUI passphrase dialog asking for a passphrase to protect the new GPG key.](assets/images/image19.png)
 

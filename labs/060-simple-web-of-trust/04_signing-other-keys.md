@@ -146,6 +146,8 @@ For this lab, encrypt the signed public key for your partner before sending it b
 gpg --encrypt --recipient partner@example.com partner-signed.asc
 ```
 
+The screenshot above shows an optional sign-and-encrypt example. For the required lab path, encryption by itself is enough.
+
 If you also choose to sign the encrypted file, GPG will prompt for your own private key passphrase as well.
 
 There is now an encrypted GPG file. Verify it with the **`file`** command.
@@ -168,11 +170,15 @@ Now send `partner-signed.asc.gpg` back to your partner.
 
 ### Step 6: Receive Back Your Signed Public Key
 
-Do a long listing and the file should be there
+Run a long listing and the file should be there:
+
+```bash
+ls -l
+```
 
 ![Directory listing in Donald Duck's VM showing the received DonaldDuck.asc.gpg file.](assets/images/image17.png)
 
-Before decrypting, make sure the signer’s public key is already installed. If it is missing, import or receive it first so GPG can validate the signature on the returned file.
+Before decrypting, make sure your partner's public key is already installed. You do not need that public key for the decryption itself, but you do need it if you want GPG to validate the signature on the returned file.
 
 ![Donald Duck's keyring listing showing Donald's own key and Steve Sharpe's public key installed.](assets/images/image22.png)
 
