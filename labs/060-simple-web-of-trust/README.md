@@ -9,13 +9,13 @@ Build a small GPG web of trust with a class partner and use OpenPGP verification
 - Linux virtual machine with internet access
 - Ability to transfer files to and from the VM
 - SSH access to the VM
-- Working `gpg` and `git` commands
+- Working `gpg` command
 - At least one class partner for key signing
 
 ## Deliverables
 - Screenshot 1: Your public key visible on the keyserver
-- Screenshot 2: Gunnar Wolf’s imported key
-- Screenshot 3: Your key showing the new signature
+- Screenshot 2: Gunnar Wolf’s imported key and fingerprint
+- Screenshot 3: Your key showing the new partner signature
 - Screenshot 4: The additional signer visible on the keyserver
 - Screenshot 5: Successful Firefox signature verification
 

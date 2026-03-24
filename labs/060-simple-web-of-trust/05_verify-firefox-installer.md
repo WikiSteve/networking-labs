@@ -2,12 +2,26 @@
 
 ## Download Required Files
 
-Download two files from Mozilla’s mirror:
+The screenshots on this page use an older Firefox example. The current workflow is the same, but some screenshot filenames, archive names, and key-import details are older.
 
-- [Firefox 99.0 archive](https://ftp.mozilla.org/pub/firefox/releases/99.0/linux-i686/en-CA/firefox-99.0.tar.bz2)
-- [Firefox 99.0 signature file](https://ftp.mozilla.org/pub/firefox/releases/99.0/linux-i686/en-CA/firefox-99.0.tar.bz2.asc)
+> [!IMPORTANT]
+> **Instructor to-do:** Replace the Firefox verification screenshots on this page so they match the current ESR archive, detached signature, and `KEY`-file workflow. The commands and links below are current, but the embedded screenshots still show the older Firefox 99 example.
 
-In a directory of your choice, download both files with **`wget`**.
+As of **March 24, 2026**, Firefox ESR `140.8.0esr` was a current stable ESR release, and Mozilla published the matching archive, detached signature, and public `KEY` file.
+
+Download these three files from Mozilla:
+
+- [Firefox ESR 140.8.0esr archive](https://ftp.mozilla.org/pub/firefox/releases/140.8.0esr/linux-x86_64/en-US/firefox-140.8.0esr.tar.xz)
+- [Firefox ESR 140.8.0esr signature file](https://ftp.mozilla.org/pub/firefox/releases/140.8.0esr/linux-x86_64/en-US/firefox-140.8.0esr.tar.xz.asc)
+- [Mozilla release signing key file](https://ftp.mozilla.org/pub/firefox/releases/140.8.0esr/KEY)
+
+In a directory of your choice, download them with **`wget`**:
+
+```bash
+wget https://ftp.mozilla.org/pub/firefox/releases/140.8.0esr/linux-x86_64/en-US/firefox-140.8.0esr.tar.xz
+wget https://ftp.mozilla.org/pub/firefox/releases/140.8.0esr/linux-x86_64/en-US/firefox-140.8.0esr.tar.xz.asc
+wget https://ftp.mozilla.org/pub/firefox/releases/140.8.0esr/KEY
+```
 
 ![Terminal creating a Firefox download directory and using wget to download firefox-99.0.tar.bz2 from Mozilla with progress output.](assets/images/image5.png)
 
@@ -17,36 +31,50 @@ The `.asc` file is a signature for the Firefox archive.
 
 ![Terminal showing the start of firefox-99.0.tar.bz2.asc, including the BEGIN PGP SIGNATURE block.](assets/images/image15.png)
 
-Let's try to verify that the file really is from Mozilla or one of its developers.
+Try to verify that the file really is from Mozilla or one of its developers.
 
 ![First gpg --verify attempt on the Firefox archive, failing with Can't check signature: No public key.](assets/images/image3.png)
 
-Well, it is in fact a signature, but we’re missing Mozilla’s public key. They’ve given us the keyID above as 4360FE2109C49763186F8E21EBE41E90F6F12F6D.
+That proves the `.asc` file is a detached signature, but verification fails because the public key is missing.
 
-Let’s search for this key and see if we can find it.
+Instead of hunting through a keyserver, inspect Mozilla’s official `KEY` file directly and match the fingerprint:
 
-![Terminal searching the Ubuntu keyserver for Mozilla's signing key and importing Mozilla Software Releases <release@mozilla.com>.](assets/images/image30.png)
+```bash
+gpg --show-keys --fingerprint KEY
+```
 
-Try the verification again
+Do not use a broad keyring lookup such as `gpg --fingerprint release@mozilla.com` here. If your keyring already contains other Mozilla-related keys, that kind of search can be confusing or return the wrong result.
+
+The primary fingerprint you should see is:
+
+`14F2 6682 D091 6CDD 81E3 7B6D 61B7 B526 D98F 0353`
+
+If the fingerprint matches, import the key:
+
+```bash
+gpg --import KEY
+```
+
+The screenshots below still show the older Firefox 99 filenames. Your current workflow should use the ESR archive, detached signature, and `KEY` file listed above.
+
+Try the verification again:
+
+```bash
+gpg --verify firefox-140.8.0esr.tar.xz.asc firefox-140.8.0esr.tar.xz
+```
 
 ![Second gpg --verify attempt showing a good Mozilla signature plus warnings that the key is not yet trusted, with primary and subkey fingerprints.](assets/images/image31.png)
 
-Verification was successful. However, because we do not have a [web-of-trust path](https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key) to Mozilla’s key, GnuPG may still report trust warnings even when the signature itself is valid.
-
-You’ll see we don’t trust this key at all.
-
-![Interactive gpg --edit-key view of Mozilla's key showing trust undefined, validity unknown, and the main key plus subkey IDs.](assets/images/image38.png)
+Verification was successful. However, because you do not have a [web-of-trust path](https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key) to Mozilla’s key, GnuPG may still report trust warnings even when the signature itself is valid.
 
 > [!WARNING]
 > In a real workflow, verify the key fingerprint from an official Mozilla source. Do not mark Mozilla’s key as ultimately trusted, because `ultimate` trust is reserved for keys you control.
 
 For this lab, stop after confirming the fingerprint and the good signature. A trust warning can still appear because you have not established trust through your personal web of trust, and that is expected.
 
-Rerun the verification and confirm that the signature is valid. A trust warning may still appear, but that does not invalidate the good signature.
+## **Screenshot 5: Successful Firefox Signature Verification**
 
-![Verification after a trustdb update showing a good signature from Mozilla Software Releases and the key marked ultimate in the original workflow.](assets/images/image32.png)
-
-## **Screenshot 5: Show a successful verification**
+**Requirement:** Show a successful `gpg --verify` run with `Good signature from "Mozilla Software Releases <release@mozilla.com>"` visible. A trust warning may still appear, and that is acceptable.
 
 ---
 

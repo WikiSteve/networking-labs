@@ -4,21 +4,9 @@
 
 This lab will require cooperation with **at least one**, but preferably multiple students in your class.
 
-This lab will require a Linux virtual machine, the distribution used in these examples is Ubuntu Server so if your distribution is different then these commands may differ.
+This lab uses a Linux virtual machine. The examples were created on Ubuntu Server, so prompts or package versions can differ slightly on another distribution.
 
-In the original lab we used a public UNIX service called Freeshell; **however, that is not required.** If you wish to still get a Freeshell account you can follow the instructions on sdf.org and contact me and I’ll validate your account. **In conclusion, we are using the Linux virtual machines you create instead.**
-
-The evaluation section of this lab differs from my original lab in the following ways:
-
-### Evaluation
-
-**[This lab](https://docs.google.com/document/d/1XMQCzzbFMqPhJXMAYu4_0xxaZYU9CHjJpM84P6oM6kQ)**
-
-Will result in the creation and submission of 5 screenshots. You may work in groups of 2 or 3. Part marks will be awarded for solo work since **you must sign another student’s key.**
-
-**[Original lab](https://docs.google.com/document/u/0/d/1OgBEiwsXZw1XZW_7OdftsErCP1zskaBA416ZGSg_FcI/edit)**
-
-Consisted of only a quiz.
+You may work in groups of 2 or 3, but the signing portion still requires a real partner because the point of the lab is to build a small web of trust instead of only making a self-signed key.
 
 ### Environment Check
 
@@ -30,7 +18,6 @@ Consisted of only a quiz.
 
 - The following commands must work:
   - **`gpg --version`** should display the installed GPG version.
-  - **`git --version`** should display the installed Git version.
 
 ## Notes
 
@@ -48,11 +35,14 @@ All good things must come to an end. The Mozilla keyserver suffered a certificat
 
 - [https://keyserver.ubuntu.com/](https://keyserver.ubuntu.com/): Ubuntu’s keyserver works like a charm.
 
+Keyserver results can take a few minutes to update after you upload a key or a new signature. If a search result does not appear immediately, wait a bit and try again.
+
 ### Terms
 
 - **HKP**: OpenPGP HTTP Keyserver Protocol, used to interact with a keyserver from the command line.
 - **Keyserver plaque**: Old fossil keys that never go away and bogus keys. [More information](https://en.wikipedia.org/wiki/Key_server_(cryptographic))
 - **Certification**: Signing another person’s public key.
+- **Fingerprint verification**: Reading a key fingerprint from a trusted out-of-band source such as your partner’s screen, voice, or video call before signing the key.
 
 ### Commands
 
@@ -71,11 +61,16 @@ All good things must come to an end. The Mozilla keyserver suffered a certificat
 
 Very short list of commands to get you started.
 
-- **`gpg --gen-key`**: Generate a key.
+- **`gpg --full-generate-key`**: Generate a key with explicit choices for key type, size, and expiry.
 - **`gpg --import somekey.key`**: Import a key. It could be `.asc` or another extension, so use tools like `file` and `head` to determine what it is.
-- **`gpg --list-keys`**: List installed keys.
-- **`gpg --list-sigs`**: List signatures.
-- **`gpg --keyserver pgp-server-address [--send-keys|recv-keys|search] keyID-or-email`**: Interact with the keyserver from the command line.
+- **`gpg --list-keys --fingerprint`**: List installed keys and show their fingerprints.
+- **`gpg --list-sigs`**: List signatures on a key.
+- **`gpg --keyserver hkps://keyserver.ubuntu.com --send-keys KEYID`**: Upload a key to the Ubuntu keyserver.
+- **`gpg --keyserver hkps://keyserver.ubuntu.com --search-keys email@example.com`**: Search the keyserver from the command line.
+- **`gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys KEYID`**: Receive a key by its key ID or fingerprint.
+
+> [!IMPORTANT]
+> Before you sign another student’s key, verify that key’s fingerprint out of band. Do not sign a key just because the name or email looks right in a keyserver search.
 
 ---
 
