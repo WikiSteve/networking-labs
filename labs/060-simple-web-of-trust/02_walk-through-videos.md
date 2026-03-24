@@ -1,5 +1,8 @@
 # Walk-through Videos
 
+> [!NOTE]
+> These walk-through videos are from an older 22W delivery of the lab. The overall workflow is still useful, but version numbers, prompts, and keyserver results can differ from what you see now.
+
 - [Full playlist](https://www.youtube.com/playlist?list=PLW8pmLUGGvXC7HTiRzv8ndoC03p42H-5N)
 - **Part 1:** [22W Web of Trust introduction](https://www.youtube.com/watch?v=hL-SEfKnqt8)
 - **Part 2:** [22W Web of Trust create key and upload to keyserver](https://www.youtube.com/watch?v=Npt2N-fH8J0)
