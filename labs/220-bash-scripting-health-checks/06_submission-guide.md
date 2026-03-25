@@ -20,6 +20,15 @@ Make sure:
 - command lines and exit codes are not cut off
 - `hostcheck.sh`, `targets.txt`, and `batch-results.txt` still exist on the VM
 
+Run this quick ownership check before you submit:
+
+```bash
+ls -l hostcheck.sh targets.txt batch-results.txt
+ls -ld .
+```
+
+Those files and the current folder should be owned by your normal user, not by `root`.
+
 ## Final Check
 
 Before you upload the file, make sure you can explain:

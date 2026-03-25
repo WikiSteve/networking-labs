@@ -36,6 +36,8 @@ rm -f batch-results.txt
 
 You should not need `sudo` for `tee` in this folder.
 
+`tee` is writing a normal file in your own home folder. If you think you need `sudo tee` here, something upstream is wrong. `sudo tee` would only work around the ownership problem and recreate it for the next run.
+
 If you get `Permission denied` on `batch-results.txt` after that `rm -f` step, check the ownership of your current folder:
 
 ```bash
@@ -43,6 +45,13 @@ ls -ld .
 ```
 
 Your working folder should be owned by your normal user, not by `root`.
+
+File ownership and folder ownership are not the same thing:
+
+- `ls -l somefile` checks a file
+- `ls -ld .` checks the folder you are in
+
+If `tee` still fails after `rm -f batch-results.txt`, the folder is often the real problem.
 
 One repair option is to fix the whole lab folder at once:
 
