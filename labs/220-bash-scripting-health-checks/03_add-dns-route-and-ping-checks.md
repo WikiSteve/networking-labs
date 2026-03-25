@@ -36,10 +36,10 @@ if [ -z "$TARGET" ]; then
   read -r -p "Enter a host or IP: " TARGET </dev/tty
 fi
 
-if [[ "$TARGET" == *[[:alpha:]]* ]]; then
-  IP="$(getent ahostsv4 "$TARGET" | awk 'NR==1 {print $1}')"
-else
+if [[ "$TARGET" == *.* && "$TARGET" != *[!0-9.]* ]]; then
   IP="$TARGET"
+else
+  IP="$(getent ahostsv4 "$TARGET" | awk 'NR==1 {print $1}')"
 fi
 
 if [ -z "$IP" ]; then
@@ -65,8 +65,8 @@ Save the file.
 
 For this lab, the rule is intentionally simple:
 
-- if the target contains letters, treat it like a hostname and resolve it with `getent ahostsv4`
-- otherwise, treat it like an IP address and use it directly
+- if the target looks like a dotted IPv4 address such as `1.1.1.1`, use it directly
+- otherwise, treat it like a hostname and resolve it with `getent ahostsv4`
 
 The goal here is not perfect input validation. The goal is to keep the focus on:
 
