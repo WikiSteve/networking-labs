@@ -53,6 +53,10 @@ You will use this table during pfSense interface assignment.
 
 ## Step 6. Install pfSense CE
 
+Download the course pfSense ISO if you do not already have it:
+
+- [netgate-installer-v1.1.1-RELEASE-amd64.iso](https://nscc-my.sharepoint.com/:u:/r/personal/w0305390_campus_nscc_ca/Documents/ISOs/netgate-installer-v1.1.1-RELEASE-amd64.iso?csf=1&web=1&e=bAXpWe)
+
 Attach the pfSense ISO and boot the VM.
 
 During the install:
