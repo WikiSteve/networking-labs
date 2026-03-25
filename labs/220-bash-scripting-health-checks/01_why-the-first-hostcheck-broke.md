@@ -13,6 +13,19 @@ mkdir -p ~/bash-healthcheck-lab
 cd ~/bash-healthcheck-lab
 ```
 
+For this lab, work as your normal user in this folder.
+
+Do **not** use `sudo` when creating or editing:
+
+- `badhostcheck.sh`
+- `hostcheck.sh`
+- `targets.txt`
+- `batch-results.txt`
+
+These files should be owned by your normal user account, not by `root`.
+
+**Why this matters:** A command run with `sudo` runs as `root`. If you create a lab file with `sudo nano`, `sudo touch`, or `sudo bash`, that file is owned by `root`, not by you. One shortcut early in the lab can create permission problems later.
+
 ## Create the broken example
 
 Create a file named `badhostcheck.sh`.

@@ -39,7 +39,25 @@ chmod +x hostcheck.sh
 ls -l hostcheck.sh
 ```
 
-The long listing should now show execute bits in the mode string.
+The long listing should now show:
+
+- execute bits in the mode string
+- your own username in the owner column, not `root`
+
+In `ls -l` output, the third and fourth columns are the owner and group. Use them as a quick health check:
+
+- if you see your own username, you own the file
+- if the owner column says `root`, a `sudo` command created it
+
+If the owner column for `hostcheck.sh` says `root`, stop and fix that before you continue.
+
+One repair option is:
+
+```bash
+sudo chown "$USER":"$(id -gn)" hostcheck.sh
+```
+
+You should not need `sudo` for this lab in your home folder except to repair a file you already created as `root`.
 
 ## Test prompt mode
 
