@@ -65,6 +65,7 @@
 ## Systems
 
 ### Lectures
+- [Bash Introduction](./course-materials/lectures/systems/bash-introduction.md)
 - [Introduction to Computer Hardware and Operating Systems Part 1](./course-materials/lectures/systems/introduction-to-computer-hardware-and-operating-systems-part-1.md)
 - [Introduction to Computer Hardware and Operating Systems Part 2](./course-materials/lectures/systems/introduction-to-computer-hardware-and-operating-systems-part-2.md)
 - [Linux Editors](./course-materials/lectures/systems/linux-editors.md)
