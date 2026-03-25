@@ -1,5 +1,12 @@
+%%{init: {"theme": "base", "themeVariables": {
+  "primaryColor": "#ffffff",
+  "primaryBorderColor": "#4b5563",
+  "lineColor": "#4b5563",
+  "fontSize": "20px",
+  "fontFamily": "Arial"
+}}}%%
 flowchart TD
-    pfsense["pfSense\n───────────────\nWAN:  DHCP from NAT\nLAN:  10.10.10.200/24\nDMZ:  10.20.20.200/24\nMGMT: &lt;host-only&gt;.200/24"]:::gold
+    pfsense["pfSense\n───────────────\nWAN:  DHCP from NAT\nLAN:  10.10.10.200/24\nDMZ:  10.20.20.200/24\nMGMT: &lt;host-only subnet&gt;.200/24"]:::gold
 
     inside["inside VM\n10.10.10.100-149\n(DHCP from pfSense)"]:::green
 

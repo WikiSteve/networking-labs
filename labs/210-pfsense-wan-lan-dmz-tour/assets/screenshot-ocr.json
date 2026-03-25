@@ -49,7 +49,7 @@
       "WAN: DHCP from NAT",
       "LAN: 10.10.10.200/24",
       "DMZ: 10.20.20.200/24",
-      "MGMT: <host-only>.200/24",
+      "MGMT: <host-only subnet>.200/24",
       "inside VM",
       "10.10.10.100-149",
       "DHCP from pfSense",
