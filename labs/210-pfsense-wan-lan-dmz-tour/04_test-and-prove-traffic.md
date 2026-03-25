@@ -39,7 +39,7 @@ Validate:
 Record:
 
 - the current `outside` IP address
-- the current pfSense `WAN` IP address
+- the current pfSense `WAN` IP address from `Status > Interfaces`
 
 You will use those two values in the required screenshots below.
 

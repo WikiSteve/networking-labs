@@ -136,6 +136,10 @@ If the GUI does not open:
 - confirm you used `.200` on the correct subnet
 - confirm pfSense is fully booted
 
+If all of those are correct and the GUI still does not open on `MGMT`, take a VMware snapshot and stop to ask for help before you keep changing settings.
+
+Some pfSense builds are pickier than others about the initial management path before the GUI hardening step later in the lab.
+
 There is no required screenshot on this page beyond the MAC-address table.
 
 ---
