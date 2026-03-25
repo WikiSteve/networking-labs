@@ -36,22 +36,10 @@ if [ -z "$TARGET" ]; then
   read -r -p "Enter a host or IP: " TARGET </dev/tty
 fi
 
-if [[ "$TARGET" =~ ^[0-9]{1,3}(\.[0-9]{1,3}){3}$ ]]; then
-  VALID_IPV4=1
-  IFS=. read -r O1 O2 O3 O4 <<< "$TARGET"
-  for OCTET in "$O1" "$O2" "$O3" "$O4"; do
-    if [ "$OCTET" -gt 255 ]; then
-      VALID_IPV4=0
-      break
-    fi
-  done
-  if [ "$VALID_IPV4" -eq 1 ]; then
-    IP="$TARGET"
-  fi
-fi
-
-if [ -z "$IP" ]; then
+if [[ "$TARGET" == *[[:alpha:]]* ]]; then
   IP="$(getent ahostsv4 "$TARGET" | awk 'NR==1 {print $1}')"
+else
+  IP="$TARGET"
 fi
 
 if [ -z "$IP" ]; then
@@ -75,7 +63,17 @@ fi
 
 Save the file.
 
-If the target is already a valid IPv4 address, the script skips DNS lookup and uses that address directly. If the target is a hostname, the script resolves it with `getent ahostsv4`.
+For this lab, the rule is intentionally simple:
+
+- if the target contains letters, treat it like a hostname and resolve it with `getent ahostsv4`
+- otherwise, treat it like an IP address and use it directly
+
+The goal here is not perfect input validation. The goal is to keep the focus on:
+
+- name resolution
+- route checks
+- ping
+- exit codes
 
 ## Inspect name resolution manually
 
