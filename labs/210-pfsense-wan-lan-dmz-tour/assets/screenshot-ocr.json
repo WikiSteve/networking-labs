@@ -1,1 +1,29 @@
-{}
+{
+  "image1.png": {
+    "alt": "VMware Workstation Virtual Network Editor with VMnet8 selected as a NAT network, DHCP enabled, subnet 172.16.171.0, and the NAT Settings button highlighted.",
+    "ocr": [
+      "Virtual Network Editor",
+      "VMnet8",
+      "NAT",
+      "Use local DHCP service to distribute IP address to VMs",
+      "172.16.171.0",
+      "255.255.255.0",
+      "NAT Settings..."
+    ]
+  },
+  "image2.png": {
+    "alt": "VMware NAT Settings window showing the gateway address 172.16.171.2 and an example port-forward row.",
+    "ocr": [
+      "NAT Settings",
+      "Gateway IP",
+      "172.16.171.2",
+      "Port Forwarding",
+      "Host port",
+      "8080",
+      "Virtual machine IP address",
+      "172.16.171.144",
+      "Virtual machine port",
+      "80"
+    ]
+  }
+}

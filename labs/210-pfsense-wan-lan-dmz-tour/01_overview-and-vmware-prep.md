@@ -2,248 +2,265 @@
 
 ## Overview
 
-In this lab, you will explore a prebuilt pfSense firewall with four interfaces:
+In this lab, you will build the pfSense firewall yourself instead of exploring a prebuilt package.
 
-- `WAN`
-- `LAN`
-- `DMZ`
-- `MGMT`
+You will:
 
-You will use:
-
-- your **host computer's web browser** for the pfSense web interface
-- three **headless Debian** VMs for traffic testing
-
-This lab is about understanding and proving the traffic flow, not about building the appliance from nothing.
+- prepare one Debian VM as `dmz`
+- configure the public and internal-only web services once
+- clone that Debian VM twice into `inside` and `outside`
+- build pfSense with four NICs
+- use the pfSense console only enough to finish the install and reach the GUI
+- finish the real interface, DHCP, reservation, NAT, and hardening work in the pfSense web interface
 
 ## Learning Goals
 
 By the end of this lab, you should be able to:
 
-- identify the `WAN`, `LAN`, `DMZ`, and `MGMT` interfaces in pfSense
-- explain the difference between a firewall rule and NAT / port forwarding
-- prove why `outside` can reach the `DMZ` service
-- prove why `outside` cannot reach a service that was not forwarded
-- prove why `inside` can reach `outside`
-- use pfSense rules, logs, NAT, and states as evidence
+- map VMware NICs to pfSense interfaces by MAC address
+- explain why `outside/WAN` must use VMware `NAT`
+- explain why `MGMT` belongs on a separate VMware `host-only` network
+- configure pfSense `LAN`, `DMZ`, `MGMT`, DHCP scopes, and a DHCP reservation
+- expose a public `DMZ` service on `WAN` port `80`
+- keep an internal-only `DMZ` service off the public `WAN`
+- harden the pfSense GUI so it is reachable only from `MGMT`
 
-## What pfSense Is
+## Final Network Plan
 
-pfSense is a firewall and router platform with a web interface.
-
-For this lab, think of pfSense as the device in the middle that decides:
-
-- what traffic is allowed
-- what traffic is blocked
-- what traffic is translated with NAT
-
-## Key Ideas Before You Start
-
-### `WAN`
-
-`WAN` is the outside-facing network.
-
-In this lab, the `outside` Debian VM lives on the WAN-side network.
-
-### `LAN`
-
-`LAN` is the internal network.
-
-In this lab, the `inside` Debian VM lives on the LAN network.
-
-### `DMZ`
-
-A `DMZ` is a separate network used for systems that may need to be reachable from the outside.
-
-In this lab, the `dmz` Debian VM hosts the web page that the outside machine will reach through a port forward.
-
-### `MGMT`
-
-`MGMT` is the management network.
-
-In this lab, the `MGMT` interface exists so you can use your **host computer** to manage pfSense through a VMware host-only network instead of adding a separate GUI VM.
-
-### Firewall Rule vs NAT
-
-These are not the same thing.
-
-- A firewall rule decides whether traffic is allowed or denied.
-- NAT changes addresses or ports so the traffic reaches the correct internal host.
-
-For this lab, `outside -> DMZ` works because pfSense uses:
-
-- a `WAN` port forward
-- and the matching rule that permits that forwarded traffic
-
-### Important Rule Direction Idea
-
-pfSense rules are evaluated on the interface where the traffic enters the firewall.
-
-That means:
-
-- traffic from `outside` enters on `WAN`, so `WAN` rules matter
-- traffic from `inside` enters on `LAN`, so `LAN` rules matter
-
-### State Table
-
-pfSense is stateful.
-
-That means pfSense keeps track of active connections. The **States** page helps prove what was allowed and how pfSense handled the session.
-
-## Topology
-
-| Device | Network | Example IP | Role |
+| Device | Network | Addressing | Role |
 | --- | --- | --- | --- |
-| `pfSense WAN` | `192.168.50.0/24` | `192.168.50.1` | outside-facing interface |
-| `pfSense LAN` | `10.0.1.0/24` | `10.0.1.1` | inside gateway |
-| `pfSense DMZ` | `10.0.2.0/24` | `10.0.2.1` | DMZ gateway |
-| `pfSense MGMT` | `172.16.99.0/24` | `172.16.99.254` | management interface |
-| `outside` | `192.168.50.0/24` | `192.168.50.10` | external client |
-| `inside` | `10.0.1.0/24` | `10.0.1.10` | internal server |
-| `dmz` | `10.0.2.0/24` | `10.0.2.10` | DMZ web server |
-| `host computer` | `172.16.99.0/24` | host adapter on `VMnet2` | pfSense management browser |
+| `pfSense WAN` | VMware `NAT` network such as `VMnet8` | `DHCP` | outside-facing interface with internet access |
+| `pfSense LAN` | `inside` LAN Segment | `10.10.10.200/24` | inside gateway |
+| `pfSense DMZ` | `dmz` LAN Segment | `10.20.20.200/24` | DMZ gateway |
+| `pfSense MGMT` | VMware `host-only` network | `<host-only subnet>.200/24` | management-only interface |
+| `outside` | VMware `NAT` network such as `VMnet8` | `DHCP` | outside client |
+| `inside` | `inside` LAN Segment | `DHCP from pfSense` | internal client |
+| `dmz` | `dmz` LAN Segment | `DHCP reservation 10.20.20.100` | public and internal-only server |
+| `host computer` | VMware `host-only` network | current host-only adapter IP | pfSense management browser |
 
-Each Debian VM hosts a tiny Nginx page:
+Service plan:
 
-- `outside`: `Hey I'm Outside`
-- `inside`: `Hey I'm Inside`
-- `dmz`: `Hey I'm DMZ`
+- `dmz` port `80`: public page
+- `dmz` port `8080`: internal-only page
 
-For this lab, the Debian VMs use **static IPv4 addressing**:
+Use these internal networks exactly:
 
-- `outside`: `192.168.50.10/24`, gateway `192.168.50.1`
-- `inside`: `10.0.1.10/24`, gateway `10.0.1.1`
-- `dmz`: `10.0.2.10/24`, gateway `10.0.2.1`
+- `LAN = 10.10.10.0/24`
+- `DMZ = 10.20.20.0/24`
 
-## Before You Begin
+Use these DHCP scopes exactly:
 
-For this lab, the environment is already built.
+- `LAN DHCP = 10.10.10.100 - 10.10.10.149`
+- `DMZ DHCP = 10.20.20.100 - 10.20.20.149`
 
-You do **not** need to:
+Use this `DMZ` reservation exactly:
 
-- install pfSense
-- assign interfaces from scratch
-- build the Linux VMs from scratch
-- install `nginx`
+- `10.20.20.100`
 
-Your job is to inspect the setup, test the traffic flow, and explain the results.
+## Step 0. Verify VMware Networking Before You Build Anything
 
-## Step 0. Verify the VMware Networks Before You Boot the VMs
-
-Open VMware Workstation and confirm the required virtual networks exist.
-
-### LAN Segments
-
-You need three LAN Segments:
-
-- `outside`
-- `inside`
-- `dmz`
-
-These are separate Layer 2 networks. There is no direct path between them unless pfSense routes the traffic.
-
-If one of these LAN Segments does not exist yet:
-
-1. Open a VM's **Settings** window.
-2. Select **Network Adapter**.
-3. Choose **LAN Segment...**
-4. Create the missing segment name.
-5. Repeat until `outside`, `inside`, and `dmz` all exist.
-
-Use the exact same segment names on every VM.
-
-LAN Segment names are case-sensitive. `Outside` and `outside` are two different networks.
-
-### Host-Only Management Network
-
-You also need VMware **`VMnet2`** for pfSense management.
-
-In VMware Workstation, open:
+Open VMware Workstation and then open:
 
 - `Edit > Virtual Network Editor`
 
-Confirm `VMnet2` is:
+For this lab, you need:
 
-- a **Host-only** network
-- on subnet `172.16.99.0/24`
-- not using VMware DHCP for this lab
+- one VMware `NAT` network for `outside` and `pfSense WAN`
+- one VMware `host-only` network for `pfSense MGMT`
+- one LAN Segment named `inside`
+- one LAN Segment named `dmz`
 
-Now confirm your host computer has a VMware adapter on `VMnet2`.
+### VMware `NAT`
 
-The host adapter must have an address in `172.16.99.0/24`.
+Use the existing VMware `NAT` network on your workstation. This is often:
 
-Typical example:
+- `VMnet8`
 
-- host computer on `VMnet2`: `172.16.99.1`
-- pfSense `MGMT`: `172.16.99.254`
+Find the current `NAT` subnet and gateway from VMware.
 
-If your host computer is not on that subnet, you will not be able to open the pfSense web interface in Step 2.
+Example:
 
-Quick host checks:
+![Example VMware Workstation NAT network screen showing VMnet8 selected, subnet 172.16.171.0, DHCP enabled, and the NAT Settings button highlighted.](assets/images/image1.png)
 
-- Windows: `ipconfig`
-- Linux: `ip -4 addr`
+![Example VMware NAT settings window showing gateway 172.16.171.2 and an example port-forward list.](assets/images/image2.png)
 
-Look for the VMware `VMnet2` adapter and confirm it has an IPv4 address in `172.16.99.0/24`.
+> [!NOTE]
+> The second screenshot includes an example VMware `NAT` port-forward entry from the instructor workstation. Ignore any specific forwarding rows you see in that example. In this lab, pfSense will do the important port forward later.
 
-### Verify the VM Adapter Mapping
+From the VMware `NAT` network, record these ideas:
 
-Before powering on the VMs, verify the adapter assignments in VMware Workstation:
+- `.1` is the host on the VMware `NAT` network
+- `.2` is the VMware `NAT` gateway
+- `.254` is the VMware DHCP server
 
-1. Right-click a VM and open **Settings**.
-2. Select **Network Adapter**.
-3. Confirm it is connected to the correct LAN Segment or VMware network.
+### VMware `host-only` for `MGMT`
 
-Expected mapping:
+Use one VMware `host-only` network for `MGMT`.
 
-- `outside` VM and pfSense `WAN`: the `outside` LAN Segment
-- `inside` VM and pfSense `LAN`: the `inside` LAN Segment
-- `dmz` VM and pfSense `DMZ`: the `dmz` LAN Segment
-- pfSense `MGMT`: `VMnet2`
+Confirm:
 
-You must verify this on every VM. Creating a segment name once does not automatically reattach the other VMs.
+- the network is `Host-only`
+- **Connect a host virtual adapter to this network** is enabled
+- you know the subnet of that `host-only` network
 
-Why this matters:
+From the VMware `host-only` network, record these ideas:
 
-- if a LAN Segment is missing, the VM cannot land on the correct network
-- if `VMnet2` is wrong, the pfSense web interface will be unreachable from your host computer
-- if a VM is attached to the wrong network, every later test becomes misleading
+- `.1` is the host computer on that host-only network
+- `.254` is the VMware DHCP server
 
-## pfSense Download
+For this lab, place the pfSense `MGMT` interface at:
 
-This lab uses a prebuilt pfSense firewall.
+- `<host-only subnet>.200`
 
-You do **not** need to install pfSense from scratch for this lab.
+Use `.200` for consistency unless that address is already in use on your workstation.
 
-If you need the pfSense image for later practice, download it here:
+### LAN Segments
 
-- pfSense: <https://nscc-my.sharepoint.com/:u:/g/personal/w0305390_campus_nscc_ca/IQDunpCC1QGuT7FF77ut-_rPAZnwMuk3eGjNFix-bCpAtrs>
+Create these LAN Segments if they do not already exist:
 
-## Access Story
+- `inside`
+- `dmz`
 
-This is the traffic story you should learn:
+Use the exact same segment names everywhere.
 
-- your host computer can manage pfSense through the `MGMT` network
-- `outside` can reach the `DMZ` web page through the pfSense `WAN` address
-- `outside` cannot reach a service that was **not** explicitly forwarded
-- `inside` can reach the `outside` web page
+These names are case-sensitive.
 
-Keep that story in mind as you work.
+## Step 1. Prepare the Base Debian VM as `dmz`
 
-## Important Testing Note
+Assume you already know how to create a basic Debian VM.
 
-Do **not** test the DMZ port forward from `inside`.
+Start with one Debian VM that will become `dmz`.
 
-Test it from the `outside` VM.
+Before you install packages, keep this base Debian VM on the VMware `NAT` network temporarily.
 
-By default, pfSense does not redirect internal clients back through a `WAN` port forward unless NAT reflection or split DNS is configured.
+Why:
 
-For this lab:
+- `apt update` and `apt install` need internet access
+- the `dmz` LAN Segment is isolated until pfSense is built and configured
 
-- `outside` reaches the DMZ page through the pfSense `WAN` address
-- `inside` reaches the `dmz` host by its private `DMZ` address only if needed
+Do **not** move the base VM to the `dmz` LAN Segment until Step 3.
 
-This avoids a common NAT reflection problem.
+Set the hostname:
+
+```bash
+sudo hostnamectl set-hostname dmz
+```
+
+Install `nginx`:
+
+```bash
+sudo apt update
+sudo apt install -y nginx
+```
+
+Create the public page on port `80`:
+
+```bash
+cat <<'EOF' | sudo tee /var/www/html/index.html >/dev/null
+I am dmz
+EOF
+```
+
+Create a separate docroot for the internal-only service:
+
+```bash
+sudo mkdir -p /var/www/intranet
+
+cat <<'EOF' | sudo tee /var/www/intranet/index.html >/dev/null
+This is the secret internal service. Outside is not invited.
+EOF
+```
+
+Create a second `nginx` site on port `8080`:
+
+```bash
+cat <<'EOF' | sudo tee /etc/nginx/sites-available/intranet-8080 >/dev/null
+server {
+    listen 8080 default_server;
+    listen [::]:8080 default_server;
+    root /var/www/intranet;
+    index index.html;
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+EOF
+
+sudo ln -s /etc/nginx/sites-available/intranet-8080 /etc/nginx/sites-enabled/intranet-8080
+sudo systemctl restart nginx
+```
+
+Validate the base VM:
+
+```bash
+curl http://127.0.0.1
+curl http://127.0.0.1:8080
+```
+
+Expected results:
+
+- port `80` returns `I am dmz`
+- port `8080` returns `This is the secret internal service. Outside is not invited.`
+
+## Step 2. Clone the Debian VM Twice
+
+Clone the base `dmz` VM twice.
+
+Rename the clones:
+
+- `inside`
+- `outside`
+
+On the `inside` clone:
+
+```bash
+sudo hostnamectl set-hostname inside
+
+cat <<'EOF' | sudo tee /var/www/html/index.html >/dev/null
+I am inside
+EOF
+```
+
+On the `outside` clone:
+
+```bash
+sudo hostnamectl set-hostname outside
+
+cat <<'EOF' | sudo tee /var/www/html/index.html >/dev/null
+I am outside
+EOF
+```
+
+Callout for the clones:
+
+- leave the public site on port `80`
+- disable the `8080` site on `inside` and `outside` so only `dmz` keeps the internal-only service
+
+One simple way to disable the `8080` site on `inside` and `outside` is:
+
+```bash
+sudo rm /etc/nginx/sites-enabled/intranet-8080
+sudo systemctl restart nginx
+```
+
+## Step 3. Attach Each Debian VM to the Correct Network
+
+Because the base Debian VM started on VMware `NAT`, each clone inherits that adapter until you change it.
+
+Before you move on, change and verify the VMware adapter for each Debian VM so each VM has only the single final adapter it should use:
+
+- `dmz` uses the `dmz` LAN Segment
+- `inside` uses the `inside` LAN Segment
+- `outside` uses the VMware `NAT` network
+
+At this point:
+
+- `outside` should still be able to use VMware `NAT` and DHCP
+- `inside` and `dmz` will not get useful addresses until pfSense is ready to provide DHCP
+
+There is no required screenshot on this page.
 
 ---
 [Home](README.md) | [Next](02_verify-hosts-and-open-pfsense.md)

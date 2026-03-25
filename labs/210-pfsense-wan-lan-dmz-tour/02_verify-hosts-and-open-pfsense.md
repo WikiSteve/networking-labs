@@ -1,137 +1,142 @@
-# Verify Hosts and Open pfSense
+# Install pfSense and Reach the GUI
 
-## Step 1. Start the VMs and Verify the Debian Hosts
+## Step 4. Build the pfSense VM
 
-Power on:
+Create the pfSense VM in VMware Workstation.
 
-- `pfSense`
-- `outside`
-- `inside`
-- `dmz`
+Use a simple FreeBSD-compatible guest profile, such as:
 
-Use the VMware Workstation console to access:
+- latest FreeBSD `64-bit`
 
-- `outside`
-- `inside`
-- `dmz`
+Use practical settings for this lab:
 
-Open the console tab for each VM in VMware Workstation.
+- `4` CPU cores
+- `2 GB` RAM
+- default virtual disk/controller options
 
-You will need the Debian username and password that came with your lab package. If you do not have those credentials yet, stop here and get them before continuing.
+Keep the hardware simple:
 
-On `outside`, run:
+- do not rely on 3D graphics
+- no extra hardware is needed for this lab beyond the network adapters and ISO
 
-```bash
-hostname
-ip -4 addr show
-ip route show default
-curl http://192.168.50.10
-```
+## Step 5. Add the Four NICs in the Correct Order
 
-On `inside`, run:
+Before you install pfSense, add four NICs in this exact order:
 
-```bash
-hostname
-ip -4 addr show
-ip route show default
-curl http://10.0.1.10
-```
+1. VMware `NAT` network for `WAN`
+2. LAN Segment `inside` for `LAN`
+3. LAN Segment `dmz` for `DMZ`
+4. VMware `host-only` network for `MGMT`
 
-On `dmz`, run:
+Start the VM once so VMware writes the MAC addresses, then shut it back down if needed.
 
-```bash
-hostname
-ip -4 addr show
-ip route show default
-curl http://10.0.2.10
-```
+Open **Settings** for the pfSense VM and record the MAC address for each adapter.
 
-Validate:
+Make a simple table with columns like these:
 
-- `outside` shows address `192.168.50.10/24`
-- `inside` shows address `10.0.1.10/24`
-- `dmz` shows address `10.0.2.10/24`
-- `outside` shows default gateway `192.168.50.1`
-- `inside` shows default gateway `10.0.1.1`
-- `dmz` shows default gateway `10.0.2.1`
-- each VM shows the correct local Nginx page
+- VMware adapter number
+- VMware network or LAN Segment
+- MAC address
+- intended pfSense role
 
-Why this matters:
+Your completed table should map all four adapters to these roles:
 
-- this confirms that each VM is on the expected network
-- this confirms that each VM has the expected static IP and gateway
-- this confirms that Nginx is running before you test traffic between zones
+- `WAN`
+- `LAN`
+- `DMZ`
+- `MGMT`
 
-## Step 2. Open the pfSense Web Interface from Your Host Computer
+You will use this table during pfSense interface assignment.
 
-On your host computer, open a web browser.
+## **Screenshot 1: MAC Address Mapping Table**
+**Requirement:** Show your completed MAC-address mapping table with all four pfSense NICs mapped to `WAN`, `LAN`, `DMZ`, and `MGMT`.
 
-Browse to:
+## Step 6. Install pfSense CE
+
+Attach the pfSense ISO and boot the VM.
+
+During the install:
+
+- choose the Community Edition install path
+- accept the normal defaults unless your screen clearly requires something different
+
+The important part is the interface assignment after boot.
+
+Match the console interface names such as `em0`, `em1`, `em2`, and `em3` to your MAC-address table.
+
+Assign:
+
+- `WAN`
+- `LAN`
+- `OPT1` for the future `DMZ`
+- `OPT2` for the future `MGMT`
+
+At the console, pfSense will not show friendly names such as `DMZ` and `MGMT` yet.
+
+You will rename:
+
+- `OPT1 -> DMZ`
+- `OPT2 -> MGMT`
+
+later in the GUI.
+
+## Step 7. Do the Minimum Console Configuration
+
+Use the pfSense console only enough to get the firewall online and reachable.
+
+Configure these first:
+
+- `WAN = DHCP`
+- `LAN = 10.10.10.200/24`
+- `OPT2 = <host-only subnet>.200/24` for the future `MGMT`
+
+Use the current VMware `host-only` subnet you discovered in Step 0 of the lab.
+
+Examples:
+
+- if the host-only network is `172.16.99.0/24`, use `172.16.99.200`
+- if the host-only network is `192.168.239.0/24`, use `192.168.239.200`
+
+Do not use VMware-reserved addresses such as:
+
+- `.1`
+- `.254`
+
+You can finish the `DMZ` IP, DHCP scopes, reservation, port forward, interface renaming, and GUI hardening in the web interface.
+
+## Step 8. Open the pfSense GUI from Your Host Computer
+
+On your host computer, open a web browser and browse to:
 
 ```text
-https://172.16.99.254
+https://<MGMT_IP>
 ```
 
-You will likely see a certificate warning because pfSense uses a self-signed certificate by default.
+Replace `<MGMT_IP>` with the `MGMT` address you chose, such as:
 
-Proceed past the warning and log in with the pfSense credentials provided with your lab files.
+```text
+https://172.16.99.200
+```
 
-Common browser behavior:
+You will likely get a certificate warning because pfSense uses a self-signed certificate by default.
 
-- Chrome or Edge: click **Advanced**, then continue to the site
-- Firefox: click **Advanced**, then **Accept the Risk and Continue**
-- if Chrome does not show a clear continue link, click the page and type `thisisunsafe`
+Proceed past the warning and log in.
 
 Common default credentials for a fresh pfSense install are:
 
 - username: `admin`
 - password: `pfsense`
 
-If your lab package includes different credentials, use the lab credentials instead.
+If your course package gives you different credentials, use those instead.
 
-If the page does not open:
+If the GUI does not open:
 
-- confirm your host computer has a `VMnet2` adapter in `172.16.99.0/24`
-- confirm pfSense `MGMT` is attached to `VMnet2`
-- confirm pfSense is powered on
-- confirm you typed `https://172.16.99.254`
+- confirm the pfSense `MGMT` adapter is on the VMware `host-only` network
+- confirm your host computer has an IP on that same `host-only` network
+- confirm you used `.200` on the correct subnet
+- confirm pfSense is fully booted
 
-Why this matters:
-
-- pfSense management is happening on the dedicated `MGMT` network
-- the firewall web interface is not being managed from `WAN`
-
-## Step 3. Identify `WAN`, `LAN`, `DMZ`, and `MGMT`
-
-In pfSense, start with:
-
-- `Status > Interfaces`
-
-If your build does not show that exact menu path, use the pfSense search box and search for `Interfaces`.
-
-Find:
-
-- which interface is `WAN`
-- which interface is `LAN`
-- which interface is `DMZ`
-- which interface is `MGMT`
-- the IP address on each one
-
-If one of the interfaces still shows a generic name such as `OPT1` or `OPT2`, also inspect:
-
-- `Interfaces > Assignments`
-
-Use that page only to confirm which VMware NIC is mapped to which pfSense interface name.
-
-Validate:
-
-- `WAN` is on `192.168.50.0/24`
-- `LAN` is on `10.0.1.0/24`
-- `DMZ` is on `10.0.2.0/24`
-- `MGMT` is on `172.16.99.0/24`
-
-## **Screenshot 1: pfSense Interfaces**
-**Requirement:** Show the pfSense interface view with `WAN`, `LAN`, `DMZ`, and `MGMT` visible and their IP addresses readable.
+There is no required screenshot on this page beyond the MAC-address table.
 
 ---
 [Prev](01_overview-and-vmware-prep.md) | [Home](README.md) | [Next](03_inspect-wan-rules-and-nat.md)
