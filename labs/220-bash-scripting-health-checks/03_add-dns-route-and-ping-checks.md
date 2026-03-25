@@ -30,14 +30,27 @@ Replace the starter script with this version:
 # 3 = no route
 
 TARGET="$1"
+IP=""
 
 if [ -z "$TARGET" ]; then
-  read -r -p "Enter a host or IP: " TARGET
+  read -r -p "Enter a host or IP: " TARGET </dev/tty
 fi
 
 if [[ "$TARGET" =~ ^[0-9]{1,3}(\.[0-9]{1,3}){3}$ ]]; then
-  IP="$TARGET"
-else
+  VALID_IPV4=1
+  IFS=. read -r O1 O2 O3 O4 <<< "$TARGET"
+  for OCTET in "$O1" "$O2" "$O3" "$O4"; do
+    if [ "$OCTET" -gt 255 ]; then
+      VALID_IPV4=0
+      break
+    fi
+  done
+  if [ "$VALID_IPV4" -eq 1 ]; then
+    IP="$TARGET"
+  fi
+fi
+
+if [ -z "$IP" ]; then
   IP="$(getent ahostsv4 "$TARGET" | awk 'NR==1 {print $1}')"
 fi
 
@@ -62,7 +75,7 @@ fi
 
 Save the file.
 
-If the target is already an IPv4 address, the script skips DNS lookup and uses that address directly. If the target is a hostname, the script resolves it with `getent ahostsv4`.
+If the target is already a valid IPv4 address, the script skips DNS lookup and uses that address directly. If the target is a hostname, the script resolves it with `getent ahostsv4`.
 
 ## Inspect name resolution manually
 

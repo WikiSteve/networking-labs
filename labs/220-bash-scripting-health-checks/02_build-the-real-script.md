@@ -24,7 +24,7 @@ Paste this starter version:
 TARGET="$1"
 
 if [ -z "$TARGET" ]; then
-  read -p "Enter a host or IP: " TARGET
+  read -r -p "Enter a host or IP: " TARGET </dev/tty
 fi
 
 echo "You entered: $TARGET"
@@ -82,7 +82,8 @@ You entered: 1.1.1.1
 
 - `TARGET="$1"` captures the first argument if one was provided
 - `-z` checks whether the variable is empty
-- `read -p` lets the script ask the user for input only when it needs it
+- `read -r -p ... </dev/tty` lets the script ask the user for input only when it needs it, without treating backslashes specially
+- reading from `/dev/tty` keeps prompt mode tied to the terminal, even if standard input is redirected later
 - quotes around `"$TARGET"` protect the variable if spaces or odd characters ever appear
 
 ## **Screenshot 2: Executable Script with Prompt and Argument Modes**
