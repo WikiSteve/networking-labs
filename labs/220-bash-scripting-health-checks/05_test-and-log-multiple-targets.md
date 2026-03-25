@@ -36,15 +36,18 @@ rm -f batch-results.txt
 
 You should not need `sudo` for `tee` in this folder.
 
-If you get `Permission denied` on `batch-results.txt`, you probably created one of these lab files earlier as `root`.
-
-One repair option is to fix any existing lab files one at a time. Run the `batch-results.txt` line only if that file already exists.
+If you get `Permission denied` on `batch-results.txt` after that `rm -f` step, check the ownership of your current folder:
 
 ```bash
-sudo chown "$USER":"$(id -gn)" badhostcheck.sh
-sudo chown "$USER":"$(id -gn)" hostcheck.sh
-sudo chown "$USER":"$(id -gn)" targets.txt
-sudo chown "$USER":"$(id -gn)" batch-results.txt
+ls -ld .
+```
+
+Your working folder should be owned by your normal user, not by `root`.
+
+One repair option is to fix the whole lab folder at once:
+
+```bash
+sudo chown -R "$USER":"$(id -gn)" ~/bash-healthcheck-lab
 ```
 
 Run this loop exactly as written:
