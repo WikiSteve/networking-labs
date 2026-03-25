@@ -34,6 +34,16 @@ Remove any old results file so you can see a clean run.
 rm -f batch-results.txt
 ```
 
+You should not need `sudo` for `tee` in this folder.
+
+If you get `Permission denied` on `batch-results.txt`, you probably created one of these lab files earlier as `root`.
+
+One repair option is:
+
+```bash
+sudo chown "$USER":"$USER" badhostcheck.sh hostcheck.sh targets.txt batch-results.txt
+```
+
 Run this loop exactly as written:
 
 ```bash

@@ -39,7 +39,12 @@ chmod +x hostcheck.sh
 ls -l hostcheck.sh
 ```
 
-The long listing should now show execute bits in the mode string.
+The long listing should now show:
+
+- execute bits in the mode string
+- your own username as the owner, not `root root`
+
+If `ls -l hostcheck.sh` shows `root root`, stop and fix that before you continue. You should not need `sudo` for this lab in your home folder.
 
 ## Test prompt mode
 

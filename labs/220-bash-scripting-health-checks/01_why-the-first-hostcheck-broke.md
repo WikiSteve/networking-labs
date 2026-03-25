@@ -13,6 +13,17 @@ mkdir -p ~/bash-healthcheck-lab
 cd ~/bash-healthcheck-lab
 ```
 
+For this lab, work as your normal user in this folder.
+
+Do **not** use `sudo` when creating or editing:
+
+- `badhostcheck.sh`
+- `hostcheck.sh`
+- `targets.txt`
+- `batch-results.txt`
+
+These files should be owned by your normal user account, not by `root`.
+
 ## Create the broken example
 
 Create a file named `badhostcheck.sh`.
