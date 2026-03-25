@@ -12,11 +12,11 @@ This lecture deck introduces basic Bash usage. It covers `stdin`, `stdout`, `std
 
 ## Key Details
 
-- Bash input and output basics
-- redirection and `tee`
-- variables and `read`
-- exit codes and simple `if` logic
-- a small `hostcheck.sh` example
+- Covers Bash input and output basics.
+- Covers redirection and `tee`.
+- Covers variables and `read`.
+- Covers exit codes and simple `if` logic.
+- Ends with a small `hostcheck.sh` example.
 
 ## Tags
 
