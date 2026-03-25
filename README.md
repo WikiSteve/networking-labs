@@ -80,6 +80,7 @@
 ### Labs
 - [Process Explorer](./labs/070-lab-process-explorer/README.md)
 - [Windows Batch Files](./labs/080-windows-batch-files/README.md)
+- [Bash Scripting Health Checks](./labs/220-bash-scripting-health-checks/README.md)
 - [Modifying Source Code](./labs/090-lab-modifying-source-code/README.md)
 - [Linux Install](./labs/100-linux-install/README.md)
 - [Prepare Templates W11 and Debian](./labs/110-prepare-templates-w11-and-debian/README.md)
