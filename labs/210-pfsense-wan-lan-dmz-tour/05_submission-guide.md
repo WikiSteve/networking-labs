@@ -4,34 +4,31 @@
 
 Submit the completed PowerPoint template with:
 
-- Screenshot 1: pfSense Interfaces
-- Screenshot 2: WAN Rules for the DMZ and Blocked 8080
-- Screenshot 3: NAT Port Forward to the DMZ
-- Screenshot 4: Outside Reaches the DMZ
-- Screenshot 5: Outside Cannot Reach a Non-Forwarded WAN Service
+- Screenshot 1: MAC Address Mapping Table
+- Screenshot 2: pfSense Interface Names and IP Addresses
+- Screenshot 3: GUI Access Before and After Hardening
+- Screenshot 4: Outside Reaches WAN Port 80 but Not WAN Port 8080
+- Screenshot 5: Inside Reaches the DMZ Internal Service on Port 8080
 - Screenshot 6: Inside Reaches Outside
-- Screenshot 7: pfSense State for the Allowed DMZ Connection
-- Screenshot 8: pfSense Log for the Blocked WAN Attempt
-- Screenshot 9: Automatic Outbound NAT
-- Screenshot 10: State for the Inside-to-Outside Session
 
 ## Before You Submit
 
 Make sure:
 
 - each screenshot is on the correct slide
-- each required screen element is visible
-- screenshots are readable at normal zoom
-- failed and successful tests are easy to distinguish
+- each screenshot is readable at normal zoom
+- the required IP addresses, hostnames, and command results are visible
+- successful and failed tests are easy to tell apart
 
 ## Final Check
 
 Before you upload the file, make sure you can explain:
 
-- why the `DMZ` service is reachable from `outside`
-- why the unforwarded `WAN` service is blocked
-- why the `inside` host can still reach `outside`
-- where NAT shows up in the lab
+- why `WAN` had to use VMware `NAT`
+- why `MGMT` belongs on VMware `host-only`
+- why the public `DMZ` page worked from `outside`
+- why the internal-only `DMZ` page did not work from `outside`
+- why the pfSense GUI should be reachable only from `MGMT`
 
 ---
 [Prev](04_test-and-prove-traffic.md) | [Home](README.md)

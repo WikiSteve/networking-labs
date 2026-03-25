@@ -1,62 +1,196 @@
-# Inspect WAN Rules and NAT
+# Configure pfSense in the GUI
 
-## Step 4. Inspect the `WAN` Rules
+## Step 9. Rename the Interfaces and Finish the IP Plan
 
-In pfSense, go to:
+In the pfSense GUI, use:
 
-- `Firewall > Rules > WAN`
+- `Interfaces > Assignments`
+- the individual interface pages under `Interfaces`
 
-Look for:
+If your extra interfaces still show up as `OPT1` and `OPT2`, rename them now:
 
-- the rule that permits forwarded web traffic from `WAN` to the `dmz` host
-- the explicit `WAN` block rule for port `8080` with logging enabled
+- `OPT1 -> DMZ`
+- `OPT2 -> MGMT`
 
-Why this matters:
+On the `DMZ` and `MGMT` interface pages, make sure each interface is enabled.
 
-- a `WAN` rule controls traffic coming from `outside`
-- the allow rule is tied to the port forward you will inspect in the next step
-- the block rule is what makes the later firewall-log proof reliable
+Make sure you end up with these logical interface names:
 
-Important:
+- `WAN`
+- `LAN`
+- `DMZ`
+- `MGMT`
 
-- the allow rule was created automatically when the NAT Port Forward was built
-- pfSense uses the NAT entry to translate the traffic
-- pfSense uses the linked `WAN` rule to permit that translated traffic
+Use these final addresses:
 
-## **Screenshot 2: WAN Rules for the DMZ and Blocked 8080**
-**Requirement:** Show the `WAN` rules page with both of these visible:
+- `LAN = 10.10.10.200/24`
+- `DMZ = 10.20.20.200/24`
+- `MGMT = <host-only subnet>.200/24`
+- `WAN = DHCP`
 
-- the rule that allows forwarded web traffic to the `dmz` host
-- the explicit logged block rule for `WAN` port `8080`
+On the `WAN` interface page, disable:
 
-## Step 5. Inspect the NAT Port Forward
+- `Block private networks and loopback addresses`
 
-In pfSense, go to:
+Why:
 
-- `Firewall > NAT > Port Forward`
+- VMware `NAT` uses a private RFC1918 subnet
+- your `outside` client is also on that private VMware `NAT` subnet
+- if you leave that pfSense `WAN` setting enabled, the `outside -> WAN` tests can fail before your port forward or block rule is even considered
 
-Find the rule that forwards web traffic from the pfSense `WAN` address to the `dmz` host.
+When this is done, use:
 
-Identify:
+- `Status > Interfaces`
 
-- the interface
-- the destination address
-- the destination port
-- the redirect target IP
-- the redirect target port
+Record the current `WAN` IP. You will need it later when you test traffic from `outside`.
+
+## **Screenshot 2: pfSense Interface Names and IP Addresses**
+**Requirement:** Show `Status > Interfaces` with `WAN`, `LAN`, `DMZ`, and `MGMT` visible and their IP addresses readable.
+
+## Step 10. Enable DHCP on `LAN` and `DMZ`
+
+In pfSense, open:
+
+- `Services > DHCP Server > LAN`
+- `Services > DHCP Server > DMZ`
+
+Use these exact ranges:
+
+- `LAN DHCP = 10.10.10.100 - 10.10.10.149`
+- `DMZ DHCP = 10.20.20.101 - 10.20.20.149`
+
+## Step 11. Create the `DMZ` Reservation
+
+On the `dmz` Debian VM, find the MAC address of the active NIC:
+
+```bash
+ip -br link
+```
+
+Ignore `lo`.
+
+Use that MAC address to create a DHCP reservation in pfSense for the `dmz` host:
+
+- IP address: `10.20.20.100`
+
+After the reservation is in place, renew the `dmz` lease or reboot the VM.
+
+If you want to renew from the shell instead of rebooting:
+
+```bash
+sudo dhclient -r
+sudo dhclient
+```
+
+Do the same on `inside` if it still does not have a `10.10.10.x` address.
 
 Validate:
 
-- the forward sends `WAN` port `80` to `10.0.2.10:80`
-- there is **not** a second web port forward exposing another internal service
+- `inside` gets an address in `10.10.10.100 - 10.10.10.149`
+- `dmz` gets `10.20.20.100`
+
+## Step 12. Create the Public `WAN` Port Forward and the Blocked `WAN` Rule
+
+For this lab, leave:
+
+- `Firewall > NAT > Outbound`
+
+on its default automatic mode.
+
+In pfSense, create a port forward on:
+
+- interface: `WAN`
+- protocol: `TCP`
+- destination: `WAN address`
+- destination port: `80`
+- redirect target IP: `10.20.20.100`
+- redirect target port: `80`
+
+When pfSense offers to create the associated filter rule, allow it.
+
+Then add an explicit `WAN` block rule for:
+
+- protocol: `TCP`
+- destination port: `8080`
+- logging enabled
+
+This gives you a clean public-vs-internal-only proof later:
+
+- `outside -> WAN:80` should work
+- `outside -> WAN:8080` should fail
+
+## Step 13. Harden the GUI to `MGMT` Only
+
+Before you change the GUI listen interface, take a VMware snapshot of the pfSense VM.
+
+Why:
+
+- this is the riskiest configuration step in the lab
+- if you make a mistake, you can revert to a known working state instead of rebuilding the firewall from the beginning
+
+Before you move the GUI to `MGMT`, create the `MGMT` firewall rule that will let your host computer reach it.
+
+In pfSense, open:
+
+- `Firewall > Rules > MGMT`
+
+Add a pass rule with these values:
+
+- action: `Pass`
+- protocol: `TCP`
+- source: `MGMT net`
+- destination: `MGMT address`
+- destination port: `HTTPS`
+
+Save and apply the rule.
 
 Why this matters:
 
-- the outside machine is not connecting directly to `10.0.2.10`
-- pfSense is translating that connection and sending it to the `dmz` host
+- `MGMT` is an OPT-style interface
+- new OPT-style interfaces do not get open firewall rules by default
+- if you move the GUI to `MGMT` first and do not add this rule, you can lock yourself out
 
-## **Screenshot 3: NAT Port Forward to the DMZ**
-**Requirement:** Show the port forward that sends incoming web traffic on the `WAN` side to the `dmz` host.
+Before you harden the GUI, move to the `inside` VM and test the current `LAN` GUI response:
+
+```bash
+curl -kI https://10.10.10.200
+```
+
+If that command does not return headers before hardening, stop and re-check:
+
+- `LAN` is enabled
+- `LAN` is really `10.10.10.200`
+- the web interface is still listening on the default interfaces
+
+Now go back to pfSense and open:
+
+- `System > Advanced > Admin Access`
+
+Set the webConfigurator listen interface so the GUI is reachable only on:
+
+- `MGMT`
+
+Save the change.
+
+Then return to `inside` and run the same command again:
+
+```bash
+curl -kI https://10.10.10.200
+```
+
+Expected result:
+
+- before hardening, the command returned HTTP headers
+- after hardening, the command should fail, return connection refused, or time out
+
+From your host computer, confirm the GUI still opens on:
+
+```text
+https://<MGMT_IP>
+```
+
+## **Screenshot 3: GUI Access Before and After Hardening**
+**Requirement:** In one screenshot, show the `inside` VM hostname, one successful `curl -kI https://10.10.10.200` result before hardening, and one failed attempt after the GUI is restricted to `MGMT` only.
 
 ---
 [Prev](02_verify-hosts-and-open-pfsense.md) | [Home](README.md) | [Next](04_test-and-prove-traffic.md)
