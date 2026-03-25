@@ -71,6 +71,13 @@ Now run the same script with an argument.
 
 This time the script should not prompt because `$1` already supplied the target.
 
+Example:
+
+```text
+$ ./hostcheck.sh 1.1.1.1
+You entered: 1.1.1.1
+```
+
 ## Why this matters
 
 - `TARGET="$1"` captures the first argument if one was provided

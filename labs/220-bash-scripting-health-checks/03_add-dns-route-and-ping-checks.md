@@ -69,6 +69,20 @@ ip route get 1.1.1.1
 
 The first command should show one or more IPv4 addresses. The second should show the route your VM would use to reach `1.1.1.1`.
 
+Example:
+
+```text
+$ getent ahostsv4 one.one.one.one
+1.1.1.1         STREAM one.one.one.one
+1.1.1.1         DGRAM
+1.1.1.1         RAW
+
+$ ip route get 1.1.1.1
+1.1.1.1 via 172.16.171.2 dev ens33 src 172.16.171.144 uid 1000
+```
+
+Your interface name, gateway, and source IP will likely differ.
+
 ## Test the DNS failure path
 
 Run the script with an invalid hostname and then print the exit code.
@@ -79,6 +93,15 @@ echo $?
 ```
 
 You should see a DNS failure message and exit code `2`.
+
+Example:
+
+```text
+$ ./hostcheck.sh definitely-not-a-real-hostname.invalid
+DNS lookup failed for definitely-not-a-real-hostname.invalid. Check the hostname or DNS settings.
+$ echo $?
+2
+```
 
 ## Why the streams matter
 

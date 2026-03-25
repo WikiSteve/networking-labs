@@ -49,6 +49,16 @@ bash badhostcheck.sh
 
 If your VM is working normally on NAT, the ping should fail and `echo $?` should print a non-zero value. The saved script still prints `UP` because `bash badhostcheck.sh` started a new shell process.
 
+Example:
+
+```text
+$ ping -c 1 -W 1 192.0.2.1 >/dev/null 2>&1
+$ echo $?
+1
+$ bash badhostcheck.sh
+UP
+```
+
 ## Compare it to sourcing
 
 Run the failed ping again, then source the file instead of executing it.
@@ -59,6 +69,14 @@ ping -c 1 -W 1 192.0.2.1 >/dev/null 2>&1
 ```
 
 This time the file runs in your current shell, so it can still see the exit code from the ping you just ran.
+
+Example:
+
+```text
+$ ping -c 1 -W 1 192.0.2.1 >/dev/null 2>&1
+$ . ./badhostcheck.sh
+DOWN
+```
 
 ## What you should learn from this
 

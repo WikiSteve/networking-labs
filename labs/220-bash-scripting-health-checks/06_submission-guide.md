@@ -8,7 +8,7 @@ Submit the completed PowerPoint template with:
 - Screenshot 2: Executable Script with Prompt and Argument Modes
 - Screenshot 3: DNS Failure and Route Inspection
 - Screenshot 4: Reachable Target Returns UP
-- Screenshot 5: No Reply Returns Exit Code 1
+- Screenshot 5: Failure Path Returns a Diagnostic Exit Code
 - Screenshot 6: Batch Test Logged with `tee`
 
 ## Before You Submit
