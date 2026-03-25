@@ -87,6 +87,7 @@
 - [Linux Storage](./labs/130-linux-storage/README.md)
 - [Storage Redundancy](./labs/160-storage-redundancy/README.md)
 - [iSCSI for Windows Server](./labs/170-iscsi-for-windows-server/README.md)
+- [Bash Scripting Health Checks](./labs/220-bash-scripting-health-checks/README.md)
 - [FTP and Samba](./labs/lab_ftp_samba_md/README.md)
 - [Bootable ISO Drive](./course-materials/labs/systems/lab-bootable-iso-drive.md)
 - [Component Search](./course-materials/labs/systems/lab-component-search.md)
