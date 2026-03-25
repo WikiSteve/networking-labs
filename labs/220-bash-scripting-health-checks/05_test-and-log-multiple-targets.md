@@ -44,7 +44,7 @@ If you get `Permission denied` on `batch-results.txt` after that `rm -f` step, c
 ls -ld .
 ```
 
-Your working folder should be owned by your normal user, not by `root`.
+The owner column for your working folder should show your normal user, not `root`.
 
 File ownership and folder ownership are not the same thing:
 
@@ -56,7 +56,7 @@ If `tee` still fails after `rm -f batch-results.txt`, the folder is often the re
 One repair option is to fix the whole lab folder at once:
 
 ```bash
-sudo chown -R "$USER":"$(id -gn)" ~/bash-healthcheck-lab
+sudo chown -R "$USER":"$(id -gn)" "$HOME/bash-healthcheck-lab"
 ```
 
 Run this loop exactly as written:

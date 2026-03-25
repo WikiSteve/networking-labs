@@ -42,14 +42,14 @@ ls -l hostcheck.sh
 The long listing should now show:
 
 - execute bits in the mode string
-- your own username as the owner, not `root root`
+- your own username in the owner column, not `root`
 
 In `ls -l` output, the third and fourth columns are the owner and group. Use them as a quick health check:
 
 - if you see your own username, you own the file
-- if you see `root root`, a `sudo` command created it
+- if the owner column says `root`, a `sudo` command created it
 
-If `ls -l hostcheck.sh` shows `root root`, stop and fix that before you continue.
+If the owner column for `hostcheck.sh` says `root`, stop and fix that before you continue.
 
 One repair option is:
 

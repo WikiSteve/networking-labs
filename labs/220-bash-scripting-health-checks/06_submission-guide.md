@@ -27,7 +27,7 @@ ls -l hostcheck.sh targets.txt batch-results.txt
 ls -ld .
 ```
 
-Those files and the current folder should be owned by your normal user, not by `root`.
+The owner column for those files and the current folder should show your normal user, not `root`.
 
 ## Final Check
 
