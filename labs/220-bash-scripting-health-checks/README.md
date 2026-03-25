@@ -44,4 +44,4 @@ Build a reusable `hostcheck.sh` script that:
 
 ## Accessibility
 
-This lab does not include embedded reference screenshots in the repository. You create your own screenshots while completing the lab, so there is no `screenshot-ocr.json` file in this folder.
+- [Screenshot alt text and OCR transcript data](assets/screenshot-ocr.json)
