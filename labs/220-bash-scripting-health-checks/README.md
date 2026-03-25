@@ -39,7 +39,3 @@ Build a reusable `hostcheck.sh` script that:
 - [04 Test Success and Failure](04_test-success-and-failure.md)
 - [05 Test and Log Multiple Targets](05_test-and-log-multiple-targets.md)
 - [06 Submission Guide](06_submission-guide.md)
-
-## Accessibility
-
-- [Screenshot alt text and OCR transcript data](assets/screenshot-ocr.json)

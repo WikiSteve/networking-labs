@@ -32,10 +32,14 @@ Replace the starter script with this version:
 TARGET="$1"
 
 if [ -z "$TARGET" ]; then
-  read -p "Enter a host or IP: " TARGET
+  read -r -p "Enter a host or IP: " TARGET
 fi
 
-IP="$(getent ahostsv4 "$TARGET" | awk 'NR==1 {print $1}')"
+if [[ "$TARGET" =~ ^[0-9]{1,3}(\.[0-9]{1,3}){3}$ ]]; then
+  IP="$TARGET"
+else
+  IP="$(getent ahostsv4 "$TARGET" | awk 'NR==1 {print $1}')"
+fi
 
 if [ -z "$IP" ]; then
   echo "DNS lookup failed for $TARGET. Check the hostname or DNS settings." >&2
@@ -57,6 +61,8 @@ fi
 ```
 
 Save the file.
+
+If the target is already an IPv4 address, the script skips DNS lookup and uses that address directly. If the target is a hostname, the script resolves it with `getent ahostsv4`.
 
 ## Inspect name resolution manually
 
