@@ -55,7 +55,7 @@ You will use this table during pfSense interface assignment.
 
 Download the course pfSense ISO if you do not already have it:
 
-- [netgate-installer-v1.1.1-RELEASE-amd64.iso](https://nscc-my.sharepoint.com/:u:/r/personal/w0305390_campus_nscc_ca/Documents/ISOs/netgate-installer-v1.1.1-RELEASE-amd64.iso?csf=1&web=1&e=bAXpWe)
+- [netgate-installer-v1.1.1-RELEASE-amd64.iso](https://nscc-my.sharepoint.com/:u:/g/personal/w0305390_campus_nscc_ca/IQDunpCC1QGuT7FF77ut-_rPAZnwMuk3eGjNFix-bCpAtrs)
 
 Attach the pfSense ISO and boot the VM.
 
