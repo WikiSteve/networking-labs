@@ -38,10 +38,13 @@ You should not need `sudo` for `tee` in this folder.
 
 If you get `Permission denied` on `batch-results.txt`, you probably created one of these lab files earlier as `root`.
 
-One repair option is:
+One repair option is to fix any existing lab files one at a time. Run the `batch-results.txt` line only if that file already exists.
 
 ```bash
-sudo chown "$USER":"$USER" badhostcheck.sh hostcheck.sh targets.txt batch-results.txt
+sudo chown "$USER":"$(id -gn)" badhostcheck.sh
+sudo chown "$USER":"$(id -gn)" hostcheck.sh
+sudo chown "$USER":"$(id -gn)" targets.txt
+sudo chown "$USER":"$(id -gn)" batch-results.txt
 ```
 
 Run this loop exactly as written:
