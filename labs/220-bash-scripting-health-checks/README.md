@@ -7,6 +7,8 @@
 - [Bash Introduction](../../course-materials/lectures/systems/bash-introduction.md)
 - [Chapter 5: Command Lines, Batch Files, and Administrative Automation](../../books/computing-foundations-and-securing-linux/05-command-lines-batch-files-and-administrative-automation.md)
 
+Chapter 5 uses Windows batch examples, but the automation theory still applies here. Focus on the command-line logic, variables, redirection, and scripting ideas, even though the Bash syntax will differ.
+
 ## Goal
 
 Build a reusable `hostcheck.sh` script that:
