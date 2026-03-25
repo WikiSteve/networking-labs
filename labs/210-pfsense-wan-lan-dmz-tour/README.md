@@ -19,6 +19,7 @@ Build a four-interface pfSense firewall in VMware Workstation and prove:
 - basic IPv4 addressing and default gateways
 - basic DHCP, NAT, and port-forwarding concepts
 - ability to clone a VM and change a hostname
+- the course pfSense installer ISO: [netgate-installer-v1.1.1-RELEASE-amd64.iso](https://nscc-my.sharepoint.com/:u:/r/personal/w0305390_campus_nscc_ca/Documents/ISOs/netgate-installer-v1.1.1-RELEASE-amd64.iso?csf=1&web=1&e=bAXpWe)
 
 ## Deliverables
 
