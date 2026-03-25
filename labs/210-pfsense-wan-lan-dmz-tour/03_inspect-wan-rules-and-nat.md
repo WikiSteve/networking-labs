@@ -12,6 +12,8 @@ If your extra interfaces still show up as `OPT1` and `OPT2`, rename them now:
 - `OPT1 -> DMZ`
 - `OPT2 -> MGMT`
 
+On the `DMZ` and `MGMT` interface pages, make sure each interface is enabled.
+
 Make sure you end up with these logical interface names:
 
 - `WAN`
@@ -55,7 +57,7 @@ In pfSense, open:
 Use these exact ranges:
 
 - `LAN DHCP = 10.10.10.100 - 10.10.10.149`
-- `DMZ DHCP = 10.20.20.100 - 10.20.20.149`
+- `DMZ DHCP = 10.20.20.101 - 10.20.20.149`
 
 ## Step 11. Create the `DMZ` Reservation
 
@@ -118,6 +120,35 @@ This gives you a clean public-vs-internal-only proof later:
 - `outside -> WAN:8080` should fail
 
 ## Step 13. Harden the GUI to `MGMT` Only
+
+Before you change the GUI listen interface, take a VMware snapshot of the pfSense VM.
+
+Why:
+
+- this is the riskiest configuration step in the lab
+- if you make a mistake, you can revert to a known working state instead of rebuilding the firewall from the beginning
+
+Before you move the GUI to `MGMT`, create the `MGMT` firewall rule that will let your host computer reach it.
+
+In pfSense, open:
+
+- `Firewall > Rules > MGMT`
+
+Add a pass rule with these values:
+
+- action: `Pass`
+- protocol: `TCP`
+- source: `MGMT net`
+- destination: `MGMT address`
+- destination port: `HTTPS`
+
+Save and apply the rule.
+
+Why this matters:
+
+- `MGMT` is an OPT-style interface
+- new OPT-style interfaces do not get open firewall rules by default
+- if you move the GUI to `MGMT` first and do not add this rule, you can lock yourself out
 
 Before you harden the GUI, move to the `inside` VM and test the current `LAN` GUI response:
 

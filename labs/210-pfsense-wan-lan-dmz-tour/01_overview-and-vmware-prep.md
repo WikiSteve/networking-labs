@@ -51,11 +51,13 @@ Use these internal networks exactly:
 Use these DHCP scopes exactly:
 
 - `LAN DHCP = 10.10.10.100 - 10.10.10.149`
-- `DMZ DHCP = 10.20.20.100 - 10.20.20.149`
+- `DMZ DHCP = 10.20.20.101 - 10.20.20.149`
 
 Use this `DMZ` reservation exactly:
 
 - `10.20.20.100`
+
+Keep the `DMZ` reservation outside the `DMZ` DHCP pool.
 
 ## Step 0. Verify VMware Networking Before You Build Anything
 
