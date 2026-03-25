@@ -1,0 +1,17 @@
+flowchart TD
+    pfsense["pfSense\n───────────────\nWAN:  DHCP from NAT\nLAN:  10.10.10.200/24\nDMZ:  10.20.20.200/24\nMGMT: &lt;host-only&gt;.200/24"]:::gold
+
+    inside["inside VM\n10.10.10.100-149\n(DHCP from pfSense)"]:::green
+
+    dmz["dmz VM\n10.20.20.100\n(DHCP reservation)\n─────────────\nport 80 -> public page\nport 8080 -> internal only"]:::orange
+
+    host["host computer\n&lt;host-only subnet&gt;.1\n(pfSense GUI access)"]:::purple
+
+    pfsense -->|"LAN 10.10.10.0/24"| inside
+    pfsense -->|"DMZ 10.20.20.0/24"| dmz
+    pfsense -->|"MGMT host-only"| host
+
+    classDef gold   fill:#fff4cc,stroke:#b8960c,color:#1a1a1a
+    classDef green  fill:#d6eddc,stroke:#3a7d44,color:#1a1a1a
+    classDef orange fill:#fde8cc,stroke:#c97b2a,color:#1a1a1a
+    classDef purple fill:#ece0f5,stroke:#7b4fa6,color:#1a1a1a

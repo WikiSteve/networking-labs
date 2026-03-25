@@ -43,6 +43,15 @@ Record:
 
 You will use those two values in the required screenshots below.
 
+> [!NOTE]
+> You need two different IP addresses for the next tests:
+>
+> - the `outside` VM's own IP address
+> - the pfSense `WAN` IP
+>
+> These are **not** the same thing. When you test `outside -> WAN`, use the
+> pfSense `WAN` IP as the target.
+
 ## Step 15. Prove the Public `DMZ` Service and the Blocked `8080` Service from `outside`
 
 On the `outside` VM, run:
@@ -53,6 +62,8 @@ curl -v --max-time 5 http://<PFSENSE_WAN_IP>:8080
 ```
 
 Replace `<PFSENSE_WAN_IP>` with the current pfSense `WAN` IP you recorded.
+
+Do **not** use the `outside` VM's own IP in these commands.
 
 Expected results:
 
@@ -84,10 +95,13 @@ Expected behavior note:
 - `inside -> 10.20.20.100:80` should also work
 - do not submit a screenshot for that extra check
 
-Why this matters:
+Why this works:
 
-- a higher-security-side client reaching a lower-security-side service is normal in many firewall designs
-- this lab is not an ASA lab, but you should still recognize that this is expected behavior here
+- pfSense creates a default `LAN` rule that allows traffic from `LAN` to any destination
+- `inside` is on `LAN`, so it is allowed to start a connection to the `DMZ`
+- this is expected behavior in this lab
+
+If you wanted to stop `inside -> DMZ`, you would need an explicit `LAN` rule to block it.
 
 ## **Screenshot 5: Inside Reaches the DMZ Internal Service on Port 8080**
 **Requirement:** Show the `inside` VM reaching `10.20.20.100:8080` and receiving the internal-only page.

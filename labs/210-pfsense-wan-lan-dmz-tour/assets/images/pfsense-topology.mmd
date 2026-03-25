@@ -1,0 +1,38 @@
+%%{init: {"theme": "base", "themeVariables": {
+  "primaryColor": "#ffffff",
+  "primaryBorderColor": "#4b5563",
+  "lineColor": "#4b5563",
+  "fontSize": "20px",
+  "fontFamily": "Arial"
+}}}%%
+flowchart TD
+    outside["outside VM"]
+
+    nat["VMware NAT\n(e.g. VMnet8)"]:::blue
+
+    pfsense["pfSense\nWAN · LAN · DMZ · MGMT"]:::gold
+
+    seg_inside["LAN Segment: inside"]:::green
+    seg_dmz["LAN Segment: dmz"]:::orange
+    hostonly["VMware host-only\n(MGMT network)"]:::purple
+
+    inside["inside VM"]
+    dmz["dmz VM"]
+    host["host computer"]
+
+    outside -->|"shares NAT"| nat
+    nat -->|"WAN"| pfsense
+
+    pfsense -->|"LAN"| seg_inside
+    pfsense -->|"DMZ"| seg_dmz
+    pfsense -->|"MGMT"| hostonly
+
+    seg_inside --> inside
+    seg_dmz --> dmz
+    hostonly --> host
+
+    classDef blue   fill:#dce8f5,stroke:#4a7fb5,color:#1a1a1a
+    classDef green  fill:#d6eddc,stroke:#3a7d44,color:#1a1a1a
+    classDef orange fill:#fde8cc,stroke:#c97b2a,color:#1a1a1a
+    classDef purple fill:#ece0f5,stroke:#7b4fa6,color:#1a1a1a
+    classDef gold   fill:#fff4cc,stroke:#b8960c,color:#1a1a1a

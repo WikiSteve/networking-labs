@@ -12,18 +12,57 @@
     ]
   },
   "image2.png": {
-    "alt": "VMware NAT Settings window showing the gateway address 172.16.171.2 and an example port-forward row.",
+    "alt": "VMware NAT Settings window showing the network vmnet8, subnet 172.16.171.0, subnet mask 255.255.255.0, and gateway address 172.16.171.2.",
     "ocr": [
       "NAT Settings",
+      "vmnet8",
+      "172.16.171.0",
+      "255.255.255.0",
       "Gateway IP",
-      "172.16.171.2",
-      "Port Forwarding",
-      "Host port",
-      "8080",
-      "Virtual machine IP address",
-      "172.16.171.144",
-      "Virtual machine port",
-      "80"
+      "172.16.171.2"
+    ]
+  },
+  "pfsense-topology.png": {
+    "alt": "Topology diagram showing outside connected through VMware NAT to pfSense, with pfSense branching to LAN Segment inside and the inside VM, LAN Segment dmz and the dmz VM, and VMware host-only and the host computer.",
+    "ocr": [
+      "outside VM",
+      "VMware NAT (VMnet8)",
+      "shares NAT",
+      "WAN",
+      "pfSense",
+      "LAN",
+      "LAN Segment: inside",
+      "inside VM",
+      "DMZ",
+      "LAN Segment: dmz",
+      "dmz VM",
+      "MGMT",
+      "VMware host-only",
+      "Host computer",
+      "MGMT network"
+    ]
+  },
+  "pfsense-addressing-services.png": {
+    "alt": "Address and service reference diagram showing pfSense with WAN from NAT, LAN 10.10.10.200/24 to the inside client DHCP range, DMZ 10.20.20.200/24 to the dmz reservation 10.20.20.100 with port 80 public and port 8080 internal only, and MGMT on the host-only network to the host computer.",
+    "ocr": [
+      "pfSense",
+      "WAN: DHCP from NAT",
+      "LAN: 10.10.10.200/24",
+      "DMZ: 10.20.20.200/24",
+      "MGMT: <host-only>.200/24",
+      "inside VM",
+      "10.10.10.100-149",
+      "DHCP from pfSense",
+      "dmz VM",
+      "10.20.20.100",
+      "DHCP reservation",
+      "port 80",
+      "public page",
+      "port 8080",
+      "internal only",
+      "host computer",
+      "<host-only subnet>.1",
+      "pfSense GUI access"
     ]
   }
 }
