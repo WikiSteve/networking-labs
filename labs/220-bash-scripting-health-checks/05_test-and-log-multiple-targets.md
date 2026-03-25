@@ -38,7 +38,7 @@ You should not need `sudo` for `tee` in this folder.
 
 `tee` is writing a normal file in your own home folder. If you think you need `sudo tee` here, something upstream is wrong. `sudo tee` would only work around the ownership problem and recreate it for the next run.
 
-If you get `Permission denied` on `batch-results.txt` after that `rm -f` step, check the ownership of your current folder:
+If the later `tee` command reports `Permission denied` on `batch-results.txt`, check the ownership of your current folder:
 
 ```bash
 ls -ld .
