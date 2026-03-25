@@ -27,6 +27,32 @@ By the end of this lab, you should be able to:
 
 ## Final Network Plan
 
+Use this first diagram only as your connection map.
+
+It answers:
+
+- what connects to what
+- which VMware network type each path uses
+- which pfSense interface belongs to each zone
+
+It does **not** try to carry every address, DHCP range, or service rule.
+
+Use the table below this diagram for exact addresses and ranges.
+
+![Topology diagram showing VMware NAT connected to pfSense WAN, pfSense LAN connected to the inside LAN Segment and inside VM, pfSense DMZ connected to the dmz LAN Segment and dmz VM, and pfSense MGMT connected to VMware host-only and the host computer.](assets/images/pfsense-topology.png)
+
+Diagram source: [Mermaid](assets/images/pfsense-topology.mmd)
+
+Color guide:
+
+- blue = VMware-managed network
+- green = `inside`
+- orange = `DMZ`
+- purple = `MGMT`
+- gold = pfSense interfaces
+
+If you later lose track of addresses or public-vs-internal service behavior, there is a second reference diagram in page 03 where you finish the pfSense GUI work.
+
 | Device | Network | Addressing | Role |
 | --- | --- | --- | --- |
 | `pfSense WAN` | VMware `NAT` network such as `VMnet8` | `DHCP` | outside-facing interface with internet access |
@@ -84,10 +110,10 @@ Example:
 
 ![Example VMware Workstation NAT network screen showing VMnet8 selected, subnet 172.16.171.0, DHCP enabled, and the NAT Settings button highlighted.](assets/images/image1.png)
 
-![Example VMware NAT settings window showing gateway 172.16.171.2 and an example port-forward list.](assets/images/image2.png)
+![Example VMware NAT settings window showing the network vmnet8, subnet 172.16.171.0, subnet mask 255.255.255.0, and gateway 172.16.171.2.](assets/images/image2.png)
 
 > [!NOTE]
-> The second screenshot includes an example VMware `NAT` port-forward entry from the instructor workstation. Ignore any specific forwarding rows you see in that example. In this lab, pfSense will do the important port forward later.
+> The second screenshot is only there to help you identify the VMware `NAT` gateway value. Your own subnet and gateway may differ.
 
 From the VMware `NAT` network, record these ideas:
 
@@ -205,6 +231,14 @@ Expected results:
 
 - port `80` returns `I am dmz`
 - port `8080` returns `This is the secret internal service. Outside is not invited.`
+
+If either local test fails, stop and fix `nginx` before you clone this VM.
+
+One quick config check is:
+
+```bash
+sudo nginx -t
+```
 
 ## Step 2. Clone the Debian VM Twice
 
