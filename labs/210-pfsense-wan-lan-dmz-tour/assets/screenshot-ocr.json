@@ -64,5 +64,19 @@
       "<host-only subnet>.1",
       "pfSense GUI access"
     ]
+  },
+  "pfsense-wan-inbound-path.png": {
+    "alt": "WAN inbound decision diagram showing outside sending traffic to the pfSense WAN IP, the \"Block private networks and loopback addresses\" option needing to be disabled, port 80 forwarding to 10.20.20.100:80, and port 8080 being explicitly blocked.",
+    "ocr": [
+      "outside VM sends curl to pfSense WAN IP",
+      "WAN setting 'Block private networks and loopback addresses' disabled?",
+      "Traffic can be blocked by WAN private-networks setting before this test succeeds",
+      "Destination port?",
+      "WAN port forward WAN:80 -> 10.20.20.100:80",
+      "outside receives 'I am dmz'",
+      "Explicit WAN block rule for TCP 8080",
+      "outside sees failure for WAN:8080",
+      "Other ports are not part of this lab proof"
+    ]
   }
 }

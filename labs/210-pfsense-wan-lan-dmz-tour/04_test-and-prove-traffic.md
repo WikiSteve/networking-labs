@@ -65,6 +65,11 @@ Replace `<PFSENSE_WAN_IP>` with the current pfSense `WAN` IP you recorded.
 
 Do **not** use the `outside` VM's own IP in these commands.
 
+This is the same public-vs-blocked path shown in the page 03 **WAN inbound decision** diagram:
+
+- `outside -> WAN:80` should forward to the public `DMZ` page
+- `outside -> WAN:8080` should fail
+
 Expected results:
 
 - port `80` returns `I am dmz`
