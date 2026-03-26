@@ -1,0 +1,32 @@
+%%{init: {"theme": "base", "themeVariables": {
+  "primaryColor": "#ffffff",
+  "primaryBorderColor": "#4b5563",
+  "lineColor": "#4b5563",
+  "fontSize": "18px",
+  "fontFamily": "Arial"
+}}}%%
+flowchart TD
+    start["outside VM sends curl to pfSense WAN IP"]:::blue
+    private{"WAN setting 'Block private networks'\ndisabled?"}:::gold
+    drop["Traffic can be dropped before\nNAT or firewall evaluation"]:::red
+    port{"Destination port?"}:::gold
+    nat["WAN port forward\nWAN:80 -> 10.20.20.100:80"]:::green
+    publicok["outside receives\n'I am dmz'"]:::green
+    block8080["Explicit WAN block rule\nfor TCP 8080"]:::red
+    fail8080["outside sees failure\nfor WAN:8080"]:::red
+    other["Other ports are not part\nof this lab proof"]:::gray
+
+    start --> private
+    private -->|"No"| drop
+    private -->|"Yes"| port
+    port -->|"80"| nat
+    nat --> publicok
+    port -->|"8080"| block8080
+    block8080 --> fail8080
+    port -->|"anything else"| other
+
+    classDef blue   fill:#dce8f5,stroke:#4a7fb5,color:#1a1a1a
+    classDef gold   fill:#fff4cc,stroke:#b8960c,color:#1a1a1a
+    classDef green  fill:#d6eddc,stroke:#3a7d44,color:#1a1a1a
+    classDef red    fill:#fee2e2,stroke:#dc2626,color:#1a1a1a
+    classDef gray   fill:#f1f5f9,stroke:#64748b,color:#1a1a1a

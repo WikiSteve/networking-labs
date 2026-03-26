@@ -137,6 +137,12 @@ This gives you a clean public-vs-internal-only proof later:
 - `outside -> WAN:80` should work
 - `outside -> WAN:8080` should fail
 
+Use this quick path diagram as a memory aid for those two inbound `WAN` tests. It does not replace the real `curl` proof on the next page.
+
+![WAN inbound decision diagram showing outside sending traffic to the pfSense WAN IP, the need to disable Block private networks on WAN, port 80 forwarding to 10.20.20.100:80, and port 8080 being explicitly blocked.](assets/images/pfsense-wan-inbound-path.png)
+
+Diagram source: [Mermaid](assets/images/pfsense-wan-inbound-path.mmd)
+
 ## Step 13. Harden the GUI to `MGMT` Only
 
 Before you change the GUI listen interface, take a VMware snapshot of the pfSense VM.
