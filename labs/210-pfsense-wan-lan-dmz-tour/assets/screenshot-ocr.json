@@ -66,10 +66,10 @@
     ]
   },
   "pfsense-wan-inbound-path.png": {
-    "alt": "WAN inbound decision diagram showing outside sending traffic to the pfSense WAN IP, Block private networks on WAN needing to be disabled, port 80 forwarding to 10.20.20.100:80, and port 8080 being explicitly blocked.",
+    "alt": "WAN inbound decision diagram showing outside sending traffic to the pfSense WAN IP, the \"Block private networks and loopback addresses\" option needing to be disabled, port 80 forwarding to 10.20.20.100:80, and port 8080 being explicitly blocked.",
     "ocr": [
       "outside VM sends curl to pfSense WAN IP",
-      "Block private networks disabled?",
+      "Block private networks and loopback addresses disabled?",
       "Traffic can be dropped before NAT or firewall evaluation",
       "Destination port?",
       "WAN port forward",
