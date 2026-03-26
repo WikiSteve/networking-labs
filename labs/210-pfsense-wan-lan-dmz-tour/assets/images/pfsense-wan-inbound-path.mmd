@@ -8,7 +8,7 @@
 flowchart TD
     start["outside VM sends curl to pfSense WAN IP"]:::blue
     private{"WAN setting 'Block private networks and loopback addresses'\ndisabled?"}:::gold
-    drop["Traffic can be dropped before\nNAT or firewall evaluation"]:::red
+    drop["Traffic can be blocked by WAN\nprivate-networks setting\nbefore this test succeeds"]:::red
     port{"Destination port?"}:::gold
     nat["WAN port forward\nWAN:80 -> 10.20.20.100:80"]:::green
     publicok["outside receives\n'I am dmz'"]:::green
