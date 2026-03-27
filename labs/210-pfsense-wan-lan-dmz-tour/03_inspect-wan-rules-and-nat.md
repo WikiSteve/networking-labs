@@ -349,8 +349,9 @@ the pfSense login page or dashboard still opens on `MGMT`.
 > keep the GUI reachable from `outside` even after you disable the automatic
 > anti-lockout path.
 >
-> In that situation, your hardening result is contaminated. Remove the
-> unintended `WAN` rule, apply the firewall changes, and test again.
+> In that situation, your hardening result is contaminated. See
+> [Mistake 6](06_troubleshooting.md#mistake-6-trusting-a-dirty-wan-hardening-test)
+> on the troubleshooting page for the full cleanup steps.
 
 ## **Screenshot 3: GUI Access Before and After Hardening**
 **Requirement:** In one screenshot, show the `outside` VM hostname, one successful `curl -kI https://<WAN_IP>` result before hardening, and one failed attempt after the automatic `WAN` anti-lockout rule is disabled. Keep both results visible in the same terminal window.
