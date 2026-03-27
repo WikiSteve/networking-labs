@@ -187,6 +187,10 @@ Common default credentials for a fresh pfSense install are:
 
 If your course package gives you different credentials, use those instead.
 
+The certificate warning is expected on a fresh install.
+
+Bypass it and continue to the login page.
+
 If the GUI does not open:
 
 - confirm which IP you are actually supposed to be testing first:

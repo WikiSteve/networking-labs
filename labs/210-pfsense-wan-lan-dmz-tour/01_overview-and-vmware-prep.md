@@ -209,11 +209,20 @@ printf '127.0.1.1 dmz\n' | sudo tee -a /etc/hosts >/dev/null
 
 Note: After editing `/etc/hostname` and `/etc/hosts`, reboot the VM so `sudo` does not show hostname/name-resolution warnings.
 
+After the reboot, verify both the hostname and local name resolution before you continue:
+
+```bash
+hostnamectl
+getent hosts "$(hostname)"
+```
+
+If either check is wrong, fix `/etc/hosts` before you continue.
+
 Install `nginx`:
 
 ```bash
 sudo apt update
-sudo apt install -y nginx
+sudo apt install -y nginx curl
 ```
 
 Create the public page on port `80`:
@@ -287,6 +296,8 @@ Rename the clones:
 
 On the `inside` clone:
 
+Paste this whole block exactly as written:
+
 ```bash
 printf 'inside\n' | sudo tee /etc/hostname >/dev/null
 sudo sed -i '/^127\\.0\\.1\\.1[[:space:]]/d' /etc/hosts
@@ -298,6 +309,8 @@ EOF
 ```
 
 On the `outside` clone:
+
+Paste this whole block exactly as written:
 
 ```bash
 printf 'outside\n' | sudo tee /etc/hostname >/dev/null
@@ -348,6 +361,13 @@ At this point:
 
 - `outside` should still be able to use VMware `NAT` and DHCP
 - `inside` and `dmz` will not get useful addresses until pfSense is ready to provide DHCP
+
+> [!WARNING]
+> **Do not leave any extra temporary setup adapter attached to `inside` or `dmz` once you switch them to their final LAN Segment.**
+>
+> An extra adapter can let traffic bypass pfSense and make the proof steps lie.
+>
+> In the lab, each Debian VM should have only the single final adapter it is supposed to use.
 
 There is no required screenshot on this page.
 

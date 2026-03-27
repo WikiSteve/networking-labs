@@ -4,6 +4,11 @@
 
 Before you test traffic between zones, make sure each VM serves the page you expect locally.
 
+> [!WARNING]
+> **If any Debian VM still has an extra temporary setup adapter, disconnect or disable it before you trust the proof tests below.**
+>
+> A second adapter can let traffic bypass pfSense and make the results lie.
+
 On `outside`, run:
 
 ```bash
@@ -82,7 +87,11 @@ This proves:
 - the internal-only `DMZ` service is not exposed on `WAN`
 
 ## **Screenshot 4: Outside Reaches WAN Port 80 but Not WAN Port 8080**
-**Requirement:** In one screenshot, show the `outside` VM successfully reaching the current pfSense `WAN` IP on port `80` and failing to reach that same `WAN` IP on port `8080`.
+**Requirement:** In one screenshot, show all three of these from the `outside` VM:
+
+- the `curl http://<PFSENSE_WAN_IP>` command returning `I am dmz`
+- the `curl -v --max-time 5 http://<PFSENSE_WAN_IP>:8080` command failing
+- enough of the prompt or hostname context to prove you are on `outside`
 
 ## Step 16. Prove the Internal-Only `DMZ` Service from `inside`
 
@@ -110,7 +119,11 @@ Why this works:
 If you wanted to stop `inside -> DMZ`, you would need an explicit `LAN` rule to block it.
 
 ## **Screenshot 5: Inside Reaches the DMZ Internal Service on Port 8080**
-**Requirement:** Show the `inside` VM reaching `10.20.20.100:8080` and receiving the internal-only page.
+**Requirement:** In one screenshot, show all three of these from the `inside` VM:
+
+- the `curl http://10.20.20.100:8080` command
+- the returned text `This is the secret internal service. Outside is not invited.`
+- enough of the prompt or hostname context to prove you are on `inside`
 
 ## Step 17. Prove `inside -> outside`
 
@@ -132,7 +145,11 @@ Why this matters:
 - outbound access is not the same thing as exposing `inside` to the public `WAN`
 
 ## **Screenshot 6: Inside Reaches Outside**
-**Requirement:** Show the `inside` VM reaching the current `outside` VM IP and receiving the `I am outside` page.
+**Requirement:** In one screenshot, show all three of these from the `inside` VM:
+
+- the `curl http://<OUTSIDE_VM_IP>` command
+- the returned text `I am outside`
+- enough of the prompt or hostname context to prove you are on `inside`
 
 ## Final Check: Traffic Behaviour
 
