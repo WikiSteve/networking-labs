@@ -43,7 +43,7 @@
     ]
   },
   "pfsense-vmware-boundary.png": {
-    "alt": "Boundary diagram showing VMware defining VMnet8 NAT for WAN and VMnet1 host-only for MGMT, while pfSense defines the inside and dmz LAN Segments and runs DHCP on those internal networks.",
+    "alt": "Boundary diagram showing VMware defining VMnet8 NAT for WAN, VMnet1 host-only for MGMT, and the inside and dmz LAN Segments, while pfSense assigns IP networks and runs DHCP on those internal segments.",
     "ocr": [
       "VMware defines these",
       "VMnet8",
@@ -53,12 +53,12 @@
       "host-only",
       "MGMT",
       "pfSense",
-      "pfSense defines these",
+      "VMware LAN Segments with pfSense IP networks and DHCP",
       "LAN Segment: inside",
-      "LAN lives here",
+      "pfSense LAN lives here",
       "pfSense runs DHCP here",
       "LAN Segment: dmz",
-      "DMZ lives here",
+      "pfSense DMZ lives here",
       "pfSense runs DHCP here"
     ]
   },

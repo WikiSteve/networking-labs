@@ -14,10 +14,10 @@ flowchart LR
 
     pfsense["pfSense"]:::gold
 
-    subgraph internal ["pfSense defines these"]
+    subgraph internal ["VMware LAN Segments with pfSense IP networks and DHCP"]
         direction TB
-        inside["LAN Segment: inside\nLAN lives here\npfSense runs DHCP here"]:::green
-        dmz["LAN Segment: dmz\nDMZ lives here\npfSense runs DHCP here"]:::orange
+        inside["LAN Segment: inside\npfSense LAN lives here\npfSense runs DHCP here"]:::green
+        dmz["LAN Segment: dmz\npfSense DMZ lives here\npfSense runs DHCP here"]:::orange
     end
 
     nat -->|"WAN"| pfsense

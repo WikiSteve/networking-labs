@@ -58,7 +58,7 @@ If you later lose track of addresses or public-vs-internal service behavior, the
 
 This is the point that has confused the most students.
 
-![Boundary diagram showing VMware defining VMnet8 NAT for WAN and VMnet1 host-only for MGMT, while pfSense defines the inside and dmz LAN Segments and runs DHCP there.](assets/images/pfsense-vmware-boundary.png)
+![Boundary diagram showing VMware defining VMnet8 NAT for WAN, VMnet1 host-only for MGMT, and the inside and dmz LAN Segments, while pfSense assigns IP networks and runs DHCP on those internal segments.](assets/images/pfsense-vmware-boundary.png)
 
 Diagram source: [Mermaid](assets/images/pfsense-vmware-boundary.mmd)
 
@@ -203,7 +203,8 @@ Set the hostname by editing both `/etc/hostname` and `/etc/hosts`.
 
 ```bash
 printf 'dmz\n' | sudo tee /etc/hostname >/dev/null
-printf '127.0.0.1 localhost\n127.0.1.1 dmz\n' | sudo tee /etc/hosts >/dev/null
+sudo sed -i '/^127\\.0\\.1\\.1[[:space:]]/d' /etc/hosts
+printf '127.0.1.1 dmz\n' | sudo tee -a /etc/hosts >/dev/null
 ```
 
 Note: After editing `/etc/hostname` and `/etc/hosts`, reboot the VM so `sudo` does not show hostname/name-resolution warnings.
@@ -288,7 +289,8 @@ On the `inside` clone:
 
 ```bash
 printf 'inside\n' | sudo tee /etc/hostname >/dev/null
-printf '127.0.0.1 localhost\n127.0.1.1 inside\n' | sudo tee /etc/hosts >/dev/null
+sudo sed -i '/^127\\.0\\.1\\.1[[:space:]]/d' /etc/hosts
+printf '127.0.1.1 inside\n' | sudo tee -a /etc/hosts >/dev/null
 
 cat <<'EOF' | sudo tee /var/www/html/index.html >/dev/null
 I am inside
@@ -299,7 +301,8 @@ On the `outside` clone:
 
 ```bash
 printf 'outside\n' | sudo tee /etc/hostname >/dev/null
-printf '127.0.0.1 localhost\n127.0.1.1 outside\n' | sudo tee /etc/hosts >/dev/null
+sudo sed -i '/^127\\.0\\.1\\.1[[:space:]]/d' /etc/hosts
+printf '127.0.1.1 outside\n' | sudo tee -a /etc/hosts >/dev/null
 
 cat <<'EOF' | sudo tee /var/www/html/index.html >/dev/null
 I am outside
