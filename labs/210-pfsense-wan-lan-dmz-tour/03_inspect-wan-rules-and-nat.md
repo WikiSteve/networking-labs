@@ -81,10 +81,7 @@ Do not assume the new address or name is live until pfSense has applied the chan
 >
 > Students who lose the GUI often do it here by changing the wrong optional interface or by damaging the future `MGMT` interface while trying to rename it.
 >
-> On the `Interfaces > Assignments` page, selecting a NIC in a row does **not**
-> "add" that NIC. It reassigns that existing interface slot to a different NIC.
-> If you pick the wrong NIC in the `LAN` row, you can replace the real `LAN`
-> interface and collapse your reachable management path.
+> On the `Interfaces > Assignments` page, selecting a NIC in a row does **not** "add" that NIC. It reassigns that existing interface slot to a different NIC. If you pick the wrong NIC in the `LAN` row, you can replace the real `LAN` interface and collapse your reachable management path.
 
 On the `DMZ` and `MGMT` interface pages, make sure each interface is enabled.
 
