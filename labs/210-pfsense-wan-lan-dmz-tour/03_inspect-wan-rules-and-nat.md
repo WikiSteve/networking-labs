@@ -314,7 +314,7 @@ What this does on this lab build:
 - checking this box removes the automatic GUI safety path
 - after that, GUI access is controlled by your real firewall rules instead of the automatic safety rule
 
-Because you already created the `MGMT` HTTPS pass rule, your trusted management path should remain `MGMT` while the automatic `WAN` management path disappears
+Because you already created the `MGMT` HTTPS pass rule, your trusted management path should remain `MGMT` while the automatic `WAN` management path disappears.
 
 Then return to `outside` and run the same command again:
 
@@ -349,9 +349,10 @@ the pfSense login page or dashboard still opens on `MGMT`.
 > keep the GUI reachable from `outside` even after you disable the automatic
 > anti-lockout path.
 >
-> In that situation, your hardening result is contaminated. See
-> [Mistake 6](06_troubleshooting.md#mistake-6-trusting-a-dirty-wan-hardening-test)
-> on the troubleshooting page for the full cleanup steps.
+> In that situation, your hardening result is contaminated. Remove the
+> unintended `WAN` rule, apply the firewall changes, and test again. See
+> [Troubleshooting](06_troubleshooting.md#mistake-6-trusting-a-dirty-wan-hardening-test)
+> for the cleanup checklist.
 
 ## **Screenshot 3: GUI Access Before and After Hardening**
 **Requirement:** In one screenshot, show the `outside` VM hostname, one successful `curl -kI https://<WAN_IP>` result before hardening, and one failed attempt after the automatic `WAN` anti-lockout rule is disabled. Keep both results visible in the same terminal window.
