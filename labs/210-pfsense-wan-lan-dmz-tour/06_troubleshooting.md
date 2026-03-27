@@ -208,6 +208,33 @@ It is **not** a substitute for correct interface assignment.
 > If `MGMT` is missing, blank, or on the wrong NIC, disabling `pf` will not fix the real problem.
 > Use it only when the correct `MGMT` interface already exists and you are locked out by rules or admin-access settings.
 
+### Mistake 6: Trusting a Dirty `WAN` Hardening Test
+
+If you disable the webConfigurator anti-lockout rule and `outside` can still
+open the pfSense GUI on the `WAN` IP, do not assume the hardening step failed.
+
+First check whether your firewall baseline is dirty.
+
+Common cause:
+
+- an earlier recovery step added a broad `WAN` pass rule
+- the rule description may mention `pfSsh.php`
+- the active firewall rules may not have been fully reloaded after cleanup
+
+What to check:
+
+1. open `Firewall > Rules > WAN`
+2. look for any broad pass rule that still allows GUI traffic from `outside`
+3. remove unintended `WAN` pass rules
+4. apply the firewall changes
+5. test `outside -> https://<WAN_IP>` again
+
+On a clean baseline for this lab:
+
+- `outside -> https://<WAN_IP>` should work before hardening
+- `outside -> https://<WAN_IP>` should fail after hardening
+- `https://<MGMT_IP>` should still open from the host computer
+
 ## When to Snapshot and Stop
 
 Take a VMware snapshot and stop changing things blindly if:

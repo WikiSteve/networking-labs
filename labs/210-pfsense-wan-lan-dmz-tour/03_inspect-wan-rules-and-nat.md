@@ -255,7 +255,7 @@ Add a pass rule with these values:
 - action: `Pass`
 - protocol: `TCP`
 - source: `MGMT net`
-- destination: `MGMT address`
+- destination: `This Firewall (self)`
 - destination port: `HTTPS`
 
 Save and apply the rule.
@@ -308,13 +308,13 @@ On this pfSense build, the key control is:
 
 Check that box and save the change.
 
-What this does:
+What this does on this lab build:
 
-- by default, pfSense keeps the webConfigurator reachable on `WAN` through an automatic anti-lockout rule
-- checking this box removes that automatic `WAN` GUI allowance
+- before hardening, the webConfigurator is still reachable from `outside` on the current `WAN` IP
+- checking this box removes the automatic GUI safety path
 - after that, GUI access is controlled by your real firewall rules instead of the automatic safety rule
 
-Because you already created the `MGMT` HTTPS pass rule, your trusted management path should remain `MGMT` while the automatic `WAN` management path disappears
+Because you already created the `MGMT` HTTPS pass rule, your trusted management path should remain `MGMT` while the automatic `WAN` management path disappears.
 
 Then return to `outside` and run the same command again:
 
@@ -333,6 +333,26 @@ From your host computer, confirm the GUI still opens on:
 ```text
 https://<MGMT_IP>
 ```
+
+If your browser shows a certificate warning again when you switch from the `WAN`
+IP to the `MGMT` IP, that is expected.
+
+You changed the IP address you are using to reach the same webConfigurator, so
+the browser may treat it like a new site. Bypass the warning, then confirm that
+the pfSense login page or dashboard still opens on `MGMT`.
+
+> [!WARNING]
+> **If `outside -> https://<WAN_IP>` still works after hardening, stop and inspect the live `WAN` rules before you trust your result.**
+>
+> That usually means your pfSense VM is not on a clean baseline. A broad `WAN`
+> pass rule, especially one added by earlier recovery work or `pfSsh.php`, can
+> keep the GUI reachable from `outside` even after you disable the automatic
+> anti-lockout path.
+>
+> In that situation, your hardening result is contaminated. Remove the
+> unintended `WAN` rule, apply the firewall changes, and test again. See
+> [Troubleshooting](06_troubleshooting.md#mistake-6-trusting-a-dirty-wan-hardening-test)
+> for the cleanup checklist.
 
 ## **Screenshot 3: GUI Access Before and After Hardening**
 **Requirement:** In one screenshot, show the `outside` VM hostname, one successful `curl -kI https://<WAN_IP>` result before hardening, and one failed attempt after the automatic `WAN` anti-lockout rule is disabled. Keep both results visible in the same terminal window.
