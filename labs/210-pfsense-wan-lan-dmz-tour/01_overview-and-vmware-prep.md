@@ -201,7 +201,12 @@ Do **not** move the base VM to the `dmz` LAN Segment until Step 3.
 
 Set the hostname by editing both `/etc/hostname` and `/etc/hosts`.
 
-Note: Reboot after else you'll get errors with sudo on name resolution
+```bash
+printf 'dmz\n' | sudo tee /etc/hostname >/dev/null
+printf '127.0.0.1 localhost\n127.0.1.1 dmz\n' | sudo tee /etc/hosts >/dev/null
+```
+
+Note: After editing `/etc/hostname` and `/etc/hosts`, reboot the VM so `sudo` does not show hostname/name-resolution warnings.
 
 Install `nginx`:
 
