@@ -169,6 +169,15 @@ Use these exact ranges:
 - `LAN DHCP = 10.10.10.100 - 10.10.10.149`
 - `DMZ DHCP = 10.20.20.101 - 10.20.20.149`
 
+Do not trust whatever values happen to already be in those range boxes.
+
+On this pfSense build, students may see:
+
+- old default LAN values such as `192.168.1.100 - 192.168.1.199`
+- blank `DMZ` range fields
+
+Overwrite the fields with the lab values above before you save.
+
 ## Step 11. Create the `DMZ` Reservation
 
 On the `dmz` Debian VM, find the MAC address of the active NIC:
@@ -181,7 +190,18 @@ Ignore `lo`.
 
 Use that MAC address to create a DHCP reservation in pfSense for the `dmz` host:
 
-- IP address: `10.20.20.100`
+- `Services > DHCP Server > DMZ`
+- scroll to `DHCP Static Mappings`
+- click `Add Static Mapping`
+
+On the static-mapping page, the fields students care about are:
+
+- `MAC Address`
+- `IP Address` = `10.20.20.100`
+- optional `Hostname`
+- optional `Description`
+
+Save the mapping, then apply changes if pfSense prompts you.
 
 After the reservation is in place, renew the `dmz` lease or reboot the VM.
 
@@ -220,9 +240,20 @@ When pfSense offers to create the associated filter rule, allow it.
 
 Then add an explicit `WAN` block rule for:
 
+- `Firewall > Rules > WAN`
+- click `Add`
 - protocol: `TCP`
 - destination port: `8080`
 - logging enabled
+
+On the `Firewall > Rules > Edit` page, students should expect to use:
+
+- `Action = Block`
+- `Interface = WAN`
+- `Address Family = IPv4`
+- `Protocol = TCP`
+- `Destination Port` = `8080`
+- `Log packets that are handled by this rule`
 
 This gives you a clean public-vs-internal-only proof later:
 
