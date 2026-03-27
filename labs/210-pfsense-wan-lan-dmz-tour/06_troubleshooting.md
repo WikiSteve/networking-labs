@@ -15,7 +15,7 @@ It usually means one of these is true:
 - the intended `MGMT` interface lost its IP
 - the wrong optional interface was renamed
 - the NIC-to-interface mapping no longer matches the student's table
-- the GUI moved, but the expected firewall or listen path was not finished correctly
+- the expected firewall or admin-access path was not finished correctly
 
 ## Fast Rule
 
@@ -26,6 +26,19 @@ Before you keep clicking around in pfSense, stop and prove:
 3. whether that interface is enabled
 4. whether the host computer is on the same host-only subnet
 5. whether the GUI is actually listening where you think it is
+
+Then sort the failure into one of these two buckets:
+
+1. **Interface collapse**
+   - `MGMT` is missing
+   - the wrong NIC has the `.200` IP
+   - the intended `MGMT` interface is blank, disabled, or on the wrong subnet
+2. **Policy lockout**
+   - the correct `MGMT` interface exists
+   - it has the correct `<host-only subnet>.200/24` address
+   - but the GUI or SSH path is still blocked by rules or admin-access settings
+
+Do **not** use the same recovery method for both.
 
 ## 5-Step “pfSense Went AWOL” Checklist
 
@@ -78,7 +91,7 @@ So if ARP works but `ping` and the GUI fail, focus on:
 - wrong interface assignment
 - missing or wrong `MGMT` IP
 - disabled `MGMT`
-- later GUI-hardening/listen-interface mistakes
+- later GUI-hardening or admin-access mistakes
 
 Do **not** waste time debugging WAN rules, NAT, or the `DMZ` web service first.
 
@@ -157,6 +170,43 @@ Use the pfSense console, not the GUI:
 5. only after console recovery should you try the GUI again
 
 If you do not have console access and your remote path is gone, take a VMware snapshot of the broken state, then revert to your last known good snapshot.
+
+### Mistake 5: Policy Lockout on a Correct `MGMT` Interface
+
+This is a different failure class.
+
+Use this branch only if all of the following are already true:
+
+- the intended `MGMT` interface exists
+- it is the correct NIC from your MAC-address table
+- it has the correct `<host-only subnet>.200/24` address
+- the host computer is on that same host-only subnet
+
+If those are **not** true, go back to the interface-collapse recovery above.
+
+Common symptoms of policy lockout:
+
+- `MGMT` looks correct in pfSense
+- the interface/IP mapping still matches your table
+- but the GUI or SSH path stops responding after rule or admin-access changes
+
+### Recovery for Policy Lockout
+
+If you are locked out by firewall policy, students have had success with this emergency sequence:
+
+1. temporarily disable the pfSense packet filter from the console
+2. connect and create the correct `MGMT` access rule
+3. re-enable the packet filter immediately
+
+Use this only as a short rescue window.
+
+It is **not** a substitute for correct interface assignment.
+
+> [!WARNING]
+> **Temporary `pf` disable is a policy-recovery tool, not an interface-recovery tool.**
+>
+> If `MGMT` is missing, blank, or on the wrong NIC, disabling `pf` will not fix the real problem.
+> Use it only when the correct `MGMT` interface already exists and you are locked out by rules or admin-access settings.
 
 ## When to Snapshot and Stop
 
