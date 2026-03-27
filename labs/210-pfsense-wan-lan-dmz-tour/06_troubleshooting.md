@@ -116,6 +116,48 @@ Remember:
 
 If you blur those layers together, you can easily chase the wrong problem.
 
+### Mistake 4: Interface Assignment Collapse
+
+This is the failure mode where a student thinks they are adding or fixing `MGMT`, but they actually re-map an existing interface slot to the wrong NIC.
+
+Common symptom pattern:
+
+- the GUI worked earlier
+- the student opens `Interfaces > Assignments`
+- a save-and-apply happens
+- `ping`, `HTTPS`, and fresh `SSH` all stop responding
+- an already-open shell may still stay alive
+- `ARP` may still work on the host-only path
+
+What is really happening:
+
+- the `Interfaces > Assignments` page is reassigning an existing slot such as `LAN`
+- the new NIC bound to that slot may not have a usable IPv4 config yet
+- pfSense restarts networking on apply
+- the system is still alive, but the reachable management path is gone
+
+This is why the lab now tells you to stop if `OPT1` or `OPT2` are missing before the rename step.
+
+If those optional interfaces are not already present, fix that from the pfSense console.
+
+Do not improvise from the GUI.
+
+### Recovery for Interface Assignment Collapse
+
+Use the pfSense console, not the GUI:
+
+1. choose Option `1` to assign interfaces again
+2. use your Screenshot 1 MAC table to restore:
+   - `WAN` to the VMware `NAT` NIC
+   - `LAN` to the `inside` LAN Segment NIC
+   - `OPT1` to the `dmz` LAN Segment NIC
+   - `OPT2` to the VMware `host-only` NIC
+3. choose Option `2` to restore the expected IPs
+4. verify the host-only interface has `<host-only subnet>.200/24`
+5. only after console recovery should you try the GUI again
+
+If you do not have console access and your remote path is gone, take a VMware snapshot of the broken state, then revert to your last known good snapshot.
+
 ## When to Snapshot and Stop
 
 Take a VMware snapshot and stop changing things blindly if:

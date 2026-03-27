@@ -110,6 +110,19 @@ Do not use VMware-reserved addresses such as:
 
 You can finish the `DMZ` IP, DHCP scopes, reservation, port forward, interface renaming, and GUI hardening in the web interface.
 
+Before you leave the pfSense console, stop and verify that pfSense really has all four interface roles assigned:
+
+- `WAN`
+- `LAN`
+- `OPT1`
+- `OPT2`
+
+If `OPT1` or `OPT2` are missing, fix that at the console first.
+
+Do **not** plan to "add them later" in the GUI.
+
+The GUI `Interfaces > Assignments` page re-maps existing interface slots to different NICs. It is not the safe place to invent missing optional interfaces once you are already depending on remote access.
+
 ## Step 8. Open the pfSense GUI from Your Host Computer
 
 On a fresh install, do **not** assume the first reachable GUI path is already `MGMT`.
@@ -130,6 +143,7 @@ Why this warning is here:
 - `MGMT` starts life as an `OPT`-style interface
 - students sometimes lose the GUI later by editing the wrong optional interface or changing the wrong field while renaming `OPT2 -> MGMT`
 - if the GUI works now and later disappears, the problem is usually a later interface or GUI-hardening change, not the original install itself
+- if you skipped or damaged the `OPT1` / `OPT2` assignment at the console, the later GUI steps can re-map the wrong interface and destroy your reachable path
 
 On your host computer, open a web browser and browse to:
 

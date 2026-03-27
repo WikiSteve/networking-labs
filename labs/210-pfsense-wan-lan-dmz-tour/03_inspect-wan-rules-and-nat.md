@@ -19,6 +19,19 @@ In the pfSense GUI, use:
 - `Interfaces > Assignments`
 - the individual interface pages under `Interfaces`
 
+Before you change anything in the GUI, confirm that `Interfaces > Assignments` already shows:
+
+- `WAN`
+- `LAN`
+- `OPT1`
+- `OPT2`
+
+If `OPT1` or `OPT2` are missing, stop and go back to the pfSense console.
+
+Use console Option `1` to assign interfaces and Option `2` to set interface IPs.
+
+Do **not** try to create missing optional interfaces from the GUI while you are connected over the fresh-install management path.
+
 Rename the extra interfaces now in `Interfaces > Assignments`:
 
 - before you rename anything, cross-check the MAC-address table from Screenshot 1 and make sure each optional interface still matches the NIC you think it does
@@ -35,6 +48,11 @@ Rename the extra interfaces now in `Interfaces > Assignments`:
 > - disabling and re-enabling interfaces “just to see”
 >
 > Students who lose the GUI often do it here by changing the wrong optional interface or by damaging the future `MGMT` interface while trying to rename it.
+>
+> On the `Interfaces > Assignments` page, selecting a NIC in a row does **not**
+> "add" that NIC. It reassigns that existing interface slot to a different NIC.
+> If you pick the wrong NIC in the `LAN` row, you can replace the real `LAN`
+> interface and collapse your reachable management path.
 
 On the `DMZ` and `MGMT` interface pages, make sure each interface is enabled.
 
@@ -43,6 +61,15 @@ Before you leave Step 9, explicitly verify:
 - `MGMT` is enabled
 - `MGMT` still has `<host-only subnet>.200/24`
 - the interface you renamed to `MGMT` is still the NIC from your MAC-address table that connects to VMware `host-only`
+
+> [!WARNING]
+> **Check the prefix length before you save an interface IP.**
+>
+> pfSense can default to `/32` in some GUI forms.
+>
+> For this lab, your `LAN`, `DMZ`, and `MGMT` interfaces should be normal `/24`
+> networks, not `/32` host routes. If you accidentally save `/32`, the
+> interface can become unreachable even if the IP address itself looks correct.
 
 If ARP later works but `ping` and the GUI do not, come back to these three checks first.
 
