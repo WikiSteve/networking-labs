@@ -19,12 +19,32 @@ In the pfSense GUI, use:
 - `Interfaces > Assignments`
 - the individual interface pages under `Interfaces`
 
-If your extra interfaces still show up as `OPT1` and `OPT2`, rename them now:
+Rename the extra interfaces now in `Interfaces > Assignments`:
 
+- before you rename anything, cross-check the MAC-address table from Screenshot 1 and make sure each optional interface still matches the NIC you think it does
 - `OPT1 -> DMZ`
 - `OPT2 -> MGMT`
 
+> [!CAUTION]
+> **During the rename step, change only the interface description/name.**
+>
+> Do **not** use this step to experiment with:
+>
+> - a different NIC assignment
+> - a different IP address
+> - disabling and re-enabling interfaces “just to see”
+>
+> Students who lose the GUI often do it here by changing the wrong optional interface or by damaging the future `MGMT` interface while trying to rename it.
+
 On the `DMZ` and `MGMT` interface pages, make sure each interface is enabled.
+
+Before you leave Step 9, explicitly verify:
+
+- `MGMT` is enabled
+- `MGMT` still has `<host-only subnet>.200/24`
+- the interface you renamed to `MGMT` is still the NIC from your MAC-address table that connects to VMware `host-only`
+
+If ARP later works but `ping` and the GUI do not, come back to these three checks first.
 
 Make sure you end up with these logical interface names:
 
@@ -45,16 +65,16 @@ On the `WAN` interface page, disable:
 - `Block private networks and loopback addresses`
 
 > [!CAUTION]
-> **Do this or your `WAN` tests can silently fail.**
+> **Check this setting on your build before you trust the `WAN` tests.**
 >
 > VMware `NAT` uses a private RFC1918 subnet, and your pfSense `WAN` interface
 > and `outside` VM both sit on that private subnet.
 >
-> If you leave `Block private networks and loopback addresses` enabled,
+> On some builds, if `Block private networks and loopback addresses` is enabled,
 > pfSense can drop `outside -> WAN` traffic before your port forward or block
 > rule is ever evaluated. Your rules can look correct and still do nothing.
 >
-> Disable it on `WAN`, then save and apply the change.
+> For this lab, if that setting is enabled on `WAN`, disable it, then save and apply the change.
 
 When this is done, use:
 
@@ -174,6 +194,12 @@ Why this matters:
 - new OPT-style interfaces do not get open firewall rules by default
 - if you move the GUI to `MGMT` first and do not add this rule, you can lock yourself out
 
+Why this rule was not required earlier:
+
+- before this hardening step, the webConfigurator was still listening on its broader default interface set
+- this `MGMT` rule matters once you restrict the GUI to `MGMT` only
+- if `MGMT` worked for you earlier, that does not mean the `MGMT` firewall rule is optional
+
 Before you harden the GUI, move to the `inside` VM and open one terminal window.
 
 In that same terminal, run:
@@ -184,6 +210,8 @@ curl -kI https://10.10.10.200
 ```
 
 You should see HTTP headers.
+
+Run this from `inside`, not from your host computer. This gives you a before-and-after proof on the `LAN` path that this hardening step is supposed to break.
 
 Leave this terminal open. Do **not** clear it.
 

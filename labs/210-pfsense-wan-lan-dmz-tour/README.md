@@ -35,6 +35,7 @@ Build a four-interface pfSense firewall in VMware Workstation and prove:
 - [03 Configure pfSense in the GUI](03_inspect-wan-rules-and-nat.md)
 - [04 Test and Prove Traffic](04_test-and-prove-traffic.md)
 - [05 Submission Guide](05_submission-guide.md)
+- [06 Troubleshooting](06_troubleshooting.md)
 
 ## Accessibility
 

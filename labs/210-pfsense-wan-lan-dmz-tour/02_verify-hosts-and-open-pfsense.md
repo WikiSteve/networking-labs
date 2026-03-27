@@ -96,6 +96,8 @@ Configure these first:
 
 Use the current VMware `host-only` subnet you discovered in Step 0 of the lab.
 
+If you are not sure what that subnet is anymore, stop and re-check the VMware `vmnet1` details before you guess.
+
 Examples:
 
 - if the host-only network is `172.16.99.0/24`, use `172.16.99.200`
@@ -110,15 +112,40 @@ You can finish the `DMZ` IP, DHCP scopes, reservation, port forward, interface r
 
 ## Step 8. Open the pfSense GUI from Your Host Computer
 
+On a fresh install, do **not** assume the first reachable GUI path is already `MGMT`.
+
+For this lab, treat these as two different ideas:
+
+- the **early fresh-install GUI path**
+- the **final hardened management path**
+
+On a fresh pfSense install, the web GUI is often still reachable on the broader default interface set.
+
+In practice, that means your first successful browser path may be the current `WAN` address, not `MGMT` yet.
+
+Later in the lab, you will deliberately harden the GUI so it is reachable only from `MGMT`.
+
+Why this warning is here:
+
+- `MGMT` starts life as an `OPT`-style interface
+- students sometimes lose the GUI later by editing the wrong optional interface or changing the wrong field while renaming `OPT2 -> MGMT`
+- if the GUI works now and later disappears, the problem is usually a later interface or GUI-hardening change, not the original install itself
+
 On your host computer, open a web browser and browse to:
 
 ```text
-https://<MGMT_IP>
+https://<CURRENT_PFSENSE_GUI_IP>
 ```
 
-Replace `<MGMT_IP>` with the `MGMT` address you chose, such as:
+On a fresh install, try these in this order:
+
+- the current `WAN` IP if the host and pfSense share the VMware `NAT` network during setup
+- the `MGMT` IP if you have already confirmed the `host-only` path is correct
+
+Examples:
 
 ```text
+https://172.16.171.129
 https://172.16.99.200
 ```
 
@@ -135,10 +162,27 @@ If your course package gives you different credentials, use those instead.
 
 If the GUI does not open:
 
+- confirm which IP you are actually supposed to be testing first:
+  - the current `WAN` IP on a fresh install
+  - or the intended `MGMT` IP if you are specifically testing the host-only path
 - confirm the pfSense `MGMT` adapter is on the VMware `host-only` network
-- confirm your host computer has an IP on that same `host-only` network
+- confirm your host computer has an IP on that same VMware `vmnet1` `host-only` network
 - confirm you used `.200` on the correct subnet
 - confirm pfSense is fully booted
+- confirm your MAC-address mapping table still says the `host-only` NIC is the future `MGMT` interface
+
+If ARP works but `ping` and `HTTPS` do not, do **not** assume pfSense is totally dead.
+
+That usually means:
+
+- the NIC is still present on the right layer-2 segment
+- but the wrong interface has the IP
+- or the intended `MGMT` interface lost its IP
+- or you are no longer reaching the interface you think you are
+
+Before you keep changing settings, jump to:
+
+- [06 Troubleshooting](06_troubleshooting.md)
 
 If all of those are correct and the GUI still does not open on `MGMT`, take a VMware snapshot and stop to ask for help before you keep changing settings.
 
