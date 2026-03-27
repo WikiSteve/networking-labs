@@ -20,7 +20,7 @@ Make sure:
 - the required IP addresses, hostnames, and command results are visible
 - successful and failed tests are easy to tell apart
 
-## Final Check
+## Final Check: Design Decisions
 
 Before you upload the file, make sure you can explain:
 
@@ -31,4 +31,4 @@ Before you upload the file, make sure you can explain:
 - why the pfSense GUI should be reachable only from `MGMT`
 
 ---
-[Prev](04_test-and-prove-traffic.md) | [Home](README.md)
+[Prev](04_test-and-prove-traffic.md) | [Home](README.md) | [Next](06_troubleshooting.md)

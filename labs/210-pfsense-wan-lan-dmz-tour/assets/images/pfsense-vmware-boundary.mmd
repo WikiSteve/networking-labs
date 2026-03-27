@@ -1,0 +1,32 @@
+%%{init: {"theme": "base", "themeVariables": {
+  "primaryColor": "#ffffff",
+  "primaryBorderColor": "#4b5563",
+  "lineColor": "#4b5563",
+  "fontSize": "20px",
+  "fontFamily": "Arial"
+}}}%%
+flowchart LR
+    subgraph vmware ["VMware defines these"]
+        direction TB
+        nat["VMnet8\nNAT\nWAN / outside"]:::blue
+        hostonly["VMnet1\nhost-only\nMGMT"]:::purple
+    end
+
+    pfsense["pfSense"]:::gold
+
+    subgraph internal ["pfSense defines these"]
+        direction TB
+        inside["LAN Segment: inside\nLAN lives here\npfSense runs DHCP here"]:::green
+        dmz["LAN Segment: dmz\nDMZ lives here\npfSense runs DHCP here"]:::orange
+    end
+
+    nat -->|"WAN"| pfsense
+    hostonly -->|"MGMT"| pfsense
+    pfsense -->|"LAN"| inside
+    pfsense -->|"DMZ"| dmz
+
+    classDef blue   fill:#dce8f5,stroke:#4a7fb5,color:#1a1a1a
+    classDef green  fill:#d6eddc,stroke:#3a7d44,color:#1a1a1a
+    classDef orange fill:#fde8cc,stroke:#c97b2a,color:#1a1a1a
+    classDef purple fill:#ece0f5,stroke:#7b4fa6,color:#1a1a1a
+    classDef gold   fill:#fff4cc,stroke:#b8960c,color:#1a1a1a

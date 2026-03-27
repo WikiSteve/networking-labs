@@ -74,6 +74,7 @@ Expected results:
 
 - port `80` returns `I am dmz`
 - port `8080` fails
+- depending on how the rule is handled, you may see either a timeout or a connection failure message; both are acceptable failed outcomes here
 
 This proves:
 
@@ -119,7 +120,7 @@ On the `inside` VM, run:
 curl http://<OUTSIDE_VM_IP>
 ```
 
-Replace `<OUTSIDE_VM_IP>` with the current `outside` VM IP you recorded earlier.
+Replace `<OUTSIDE_VM_IP>` with the `outside` VM IP you recorded in Step 14.
 
 Expected result:
 
@@ -133,7 +134,7 @@ Why this matters:
 ## **Screenshot 6: Inside Reaches Outside**
 **Requirement:** Show the `inside` VM reaching the current `outside` VM IP and receiving the `I am outside` page.
 
-## Final Check
+## Final Check: Traffic Behaviour
 
 Before you submit, make sure you can explain:
 

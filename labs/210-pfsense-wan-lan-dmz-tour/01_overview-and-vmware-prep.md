@@ -18,7 +18,8 @@ You will:
 By the end of this lab, you should be able to:
 
 - map VMware NICs to pfSense interfaces by MAC address
-- explain why `outside/WAN` must use VMware `NAT`
+- explain why pfSense `WAN` must use VMware `NAT`
+- explain why the `outside` VM must also use VMware `NAT`
 - explain why `MGMT` belongs on a separate VMware `host-only` network
 - configure pfSense `LAN`, `DMZ`, `MGMT`, DHCP scopes, and a DHCP reservation
 - expose a public `DMZ` service on `WAN` port `80`
@@ -52,6 +53,23 @@ Color guide:
 - gold = pfSense interfaces
 
 If you later lose track of addresses or public-vs-internal service behavior, there is a second reference diagram in page 03 where you finish the pfSense GUI work.
+
+## What VMware Defines vs What pfSense Defines
+
+This is the point that has confused the most students.
+
+![Boundary diagram showing VMware defining VMnet8 NAT for WAN and VMnet1 host-only for MGMT, while pfSense defines the inside and dmz LAN Segments and runs DHCP there.](assets/images/pfsense-vmware-boundary.png)
+
+Diagram source: [Mermaid](assets/images/pfsense-vmware-boundary.mmd)
+
+> [!IMPORTANT]
+> **Do not try to configure `LAN` or `DMZ` in Virtual Network Editor.**
+> VMware's Virtual Network Editor only manages the networks that cross between VMware and your host computer:
+>
+> - `vmnet8 (NAT)` for `WAN`
+> - `vmnet1 (host-only)` for `MGMT`
+>
+> The `LAN` and `DMZ` networks are inside pfSense. In this lab, those are VMware **LAN Segments**, and pfSense is the device that gives them addresses and runs DHCP on them.
 
 | Device | Network | Addressing | Role |
 | --- | --- | --- | --- |
@@ -93,10 +111,18 @@ Open VMware Workstation and then open:
 
 For this lab, you need:
 
-- one VMware `NAT` network for `outside` and `pfSense WAN`
+- one VMware `NAT` network for `pfSense WAN` and the `outside` VM
 - one VMware `host-only` network for `pfSense MGMT`
 - one LAN Segment named `inside`
 - one LAN Segment named `dmz`
+
+That means:
+
+- use Virtual Network Editor to verify `vmnet8` and `vmnet1`
+- use VMware LAN Segments for `inside` and `dmz`
+- configure the actual `LAN` and `DMZ` addressing later in pfSense
+
+`outside` shares the VMware `NAT` network with pfSense `WAN` because `outside` is your simulated internet-side client for the public `WAN` tests later in the lab.
 
 ### VMware `NAT`
 
@@ -115,11 +141,16 @@ Example:
 > [!NOTE]
 > The second screenshot is only there to help you identify the VMware `NAT` gateway value. Your own subnet and gateway may differ.
 
-From the VMware `NAT` network, record these ideas:
+From the VMware `NAT` network, note the gateway value:
+
+- `.2` is the VMware `NAT` gateway
+
+You may also notice:
 
 - `.1` is the host on the VMware `NAT` network
-- `.2` is the VMware `NAT` gateway
 - `.254` is the VMware DHCP server
+
+Those two values are useful context, but you will not configure them directly in this lab.
 
 ### VMware `host-only` for `MGMT`
 
@@ -168,11 +199,9 @@ Why:
 
 Do **not** move the base VM to the `dmz` LAN Segment until Step 3.
 
-Set the hostname:
+Set the hostname by editing both `/etc/hostname` and `/etc/hosts`.
 
-```bash
-sudo hostnamectl set-hostname dmz
-```
+Note: Reboot after else you'll get errors with sudo on name resolution
 
 Install `nginx`:
 
@@ -216,6 +245,7 @@ server {
 }
 EOF
 
+
 sudo ln -s /etc/nginx/sites-available/intranet-8080 /etc/nginx/sites-enabled/intranet-8080
 sudo systemctl restart nginx
 ```
@@ -252,7 +282,8 @@ Rename the clones:
 On the `inside` clone:
 
 ```bash
-sudo hostnamectl set-hostname inside
+printf 'inside\n' | sudo tee /etc/hostname >/dev/null
+printf '127.0.0.1 localhost\n127.0.1.1 inside\n' | sudo tee /etc/hosts >/dev/null
 
 cat <<'EOF' | sudo tee /var/www/html/index.html >/dev/null
 I am inside
@@ -262,11 +293,25 @@ EOF
 On the `outside` clone:
 
 ```bash
-sudo hostnamectl set-hostname outside
+printf 'outside\n' | sudo tee /etc/hostname >/dev/null
+printf '127.0.0.1 localhost\n127.0.1.1 outside\n' | sudo tee /etc/hosts >/dev/null
 
 cat <<'EOF' | sudo tee /var/www/html/index.html >/dev/null
 I am outside
 EOF
+```
+
+Before you move on, reboot each clone once:
+
+```bash
+sudo reboot
+```
+
+After each reboot, verify:
+
+```bash
+hostname
+getent hosts "$(hostname)"
 ```
 
 Callout for the clones:

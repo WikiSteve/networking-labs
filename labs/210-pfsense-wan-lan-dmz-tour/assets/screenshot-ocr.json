@@ -42,6 +42,26 @@
       "MGMT network"
     ]
   },
+  "pfsense-vmware-boundary.png": {
+    "alt": "Boundary diagram showing VMware defining VMnet8 NAT for WAN and VMnet1 host-only for MGMT, while pfSense defines the inside and dmz LAN Segments and runs DHCP on those internal networks.",
+    "ocr": [
+      "VMware defines these",
+      "VMnet8",
+      "NAT",
+      "WAN / outside",
+      "VMnet1",
+      "host-only",
+      "MGMT",
+      "pfSense",
+      "pfSense defines these",
+      "LAN Segment: inside",
+      "LAN lives here",
+      "pfSense runs DHCP here",
+      "LAN Segment: dmz",
+      "DMZ lives here",
+      "pfSense runs DHCP here"
+    ]
+  },
   "pfsense-addressing-services.png": {
     "alt": "Address and service reference diagram showing pfSense with WAN from NAT, LAN 10.10.10.200/24 to the inside client DHCP range, DMZ 10.20.20.200/24 to the dmz reservation 10.20.20.100 with port 80 public and port 8080 internal only, and MGMT on the host-only network to the host computer.",
     "ocr": [
