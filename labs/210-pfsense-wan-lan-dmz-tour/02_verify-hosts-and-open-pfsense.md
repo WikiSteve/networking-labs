@@ -68,6 +68,10 @@ The important part is the interface assignment after boot.
 
 Match the console interface names such as `em0`, `em1`, `em2`, and `em3` to your MAC-address table.
 
+Do **not** guess from adapter order, link state, or which `em` number "looks right."
+
+In this lab, the future `MGMT` interface is whichever pfSense interface name matches the VMware `host-only` NIC in your MAC-address table.
+
 Assign:
 
 - `WAN`
@@ -83,6 +87,15 @@ You will rename:
 - `OPT2 -> MGMT`
 
 later in the GUI.
+
+That means the web UI is **not** where you first discover which interface is `MGMT`.
+
+You decide that earlier:
+
+1. VMware tells you which MAC address belongs to the `host-only` NIC
+2. pfSense tells you which interface name such as `em3` owns that MAC address
+3. you assign that interface to `OPT2` at the console
+4. only later do you rename `OPT2 -> MGMT` in the GUI
 
 ## Step 7. Do the Minimum Console Configuration
 

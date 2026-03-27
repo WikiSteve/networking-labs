@@ -32,6 +32,10 @@ Use console Option `1` to assign interfaces and Option `2` to set interface IPs.
 
 Do **not** try to create missing optional interfaces from the GUI while you are connected over the fresh-install management path.
 
+In other words, by the time you reach this page, you should already know which pfSense interface became the future `MGMT` path.
+
+You know that from the VMware MAC table and the console assignment step, not from guessing in the GUI.
+
 Rename the extra interfaces now in `Interfaces > Assignments`:
 
 - before you rename anything, cross-check the MAC-address table from Screenshot 1 and make sure each optional interface still matches the NIC you think it does
