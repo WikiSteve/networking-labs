@@ -149,6 +149,10 @@ Record the current `WAN` IP. You will need it later when you test traffic from `
 ## **Screenshot 2: pfSense Interface Names and IP Addresses**
 **Requirement:** Show `Status > Interfaces` with `WAN`, `LAN`, `DMZ`, and `MGMT` visible and their IP addresses readable.
 
+Example final state:
+
+![Status > Interfaces in pfSense showing all four interfaces, with WAN, LAN, DMZ, and MGMT visible and their IPv4 addresses readable.](assets/images/pfsense-status-interfaces-curated.png)
+
 ## Step 10. Enable DHCP on `LAN` and `DMZ`
 
 In pfSense, open:
@@ -219,6 +223,12 @@ Validate:
 - `inside` gets an address in `10.10.10.100 - 10.10.10.149`
 - `dmz` gets `10.20.20.100`
 
+Example final state:
+
+Your hostname and MAC address will differ, but the reservation should still point the `dmz` host to `10.20.20.100`.
+
+![Services > DHCP Server > DMZ showing the DHCP Static Mappings section with the DMZ host reserved at 10.20.20.100.](assets/images/pfsense-dhcp-dmz-static-mappings-curated.png)
+
 ## Step 12. Create the Public `WAN` Port Forward and the Blocked `WAN` Rule
 
 For this lab, leave:
@@ -254,6 +264,12 @@ On the `Firewall > Rules > Edit` page, students should expect to use:
 - `Protocol = TCP`
 - `Destination Port` = `8080`
 - `Log packets that are handled by this rule`
+
+Example final states:
+
+![Firewall > NAT > Port Forward showing the WAN TCP port-forward rule that sends WAN port 80 to 10.20.20.100 port 80 in the DMZ.](assets/images/pfsense-nat-portforward-curated.png)
+
+![Firewall > Rules > WAN showing both the NAT-linked HTTP pass rule and the explicit Block WAN 8080 rule.](assets/images/pfsense-wan-rules-curated.png)
 
 This gives you a clean public-vs-internal-only proof later:
 
@@ -344,6 +360,10 @@ What this does on this lab build:
 - before hardening, the webConfigurator is still reachable from `outside` on the current `WAN` IP
 - checking this box removes the automatic GUI safety path
 - after that, GUI access is controlled by your real firewall rules instead of the automatic safety rule
+
+Example control location:
+
+![System > Advanced > Admin Access showing the Disable webConfigurator anti-lockout rule checkbox enabled.](assets/images/pfsense-admin-access-antilockout-curated.png)
 
 Because you already created the `MGMT` HTTPS pass rule, your trusted management path should remain `MGMT` while the automatic `WAN` management path disappears.
 
