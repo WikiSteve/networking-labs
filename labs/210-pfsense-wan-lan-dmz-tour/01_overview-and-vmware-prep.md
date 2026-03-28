@@ -363,11 +363,13 @@ At this point:
 - `inside` and `dmz` will not get useful addresses until pfSense is ready to provide DHCP
 
 > [!WARNING]
-> **Do not leave any extra temporary setup adapter attached to `inside` or `dmz` once you switch them to their final LAN Segment.**
+> **Once you switch a Debian VM to its final network, it should have only the single adapter the lab topology expects.**
 >
-> An extra adapter can let traffic bypass pfSense and make the proof steps lie.
+> For this lab:
 >
-> In the lab, each Debian VM should have only the single final adapter it is supposed to use.
+> - `outside` should use VMware `NAT`
+> - `inside` should use the `inside` LAN Segment
+> - `dmz` should use the `dmz` LAN Segment
 
 There is no required screenshot on this page.
 
