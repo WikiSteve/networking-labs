@@ -26,7 +26,7 @@ Before you keep clicking around in pfSense, stop and prove:
 3. whether that interface is enabled
 4. whether the host computer is on the same host-only subnet
 5. whether the GUI is actually listening where you think it is
-6. whether any Debian VM still has an extra temporary setup adapter that could contaminate the proof tests
+6. whether each Debian VM still matches the page 01 topology
 
 Then sort the failure into one of these two buckets:
 
@@ -41,7 +41,11 @@ Then sort the failure into one of these two buckets:
 
 Do **not** use the same recovery method for both.
 
-If the traffic tests are the part that looks wrong, also verify that `inside`, `dmz`, and `outside` each have only the single final adapter the lab expects.
+If the traffic tests are the part that look wrong, also verify that:
+
+- `outside` is still on VMware `NAT`
+- `inside` is still on the `inside` LAN Segment
+- `dmz` is still on the `dmz` LAN Segment
 
 ## 5-Step “pfSense Went AWOL” Checklist
 
@@ -260,7 +264,7 @@ Check:
 - the `WAN` port forward really points to `10.20.20.100:80`
 - the matching `WAN` firewall rule exists
 - the `dmz` VM still serves the page locally on port `80`
-- the `dmz` VM does not still have an extra temporary setup adapter that can steal the reply path
+- the `dmz` VM still has only its single `dmz` LAN Segment adapter
 
 If the local `dmz` page is broken, fix the service before you debug pfSense.
 
@@ -280,7 +284,7 @@ Check:
 - `outside` still serves its page locally
 - pfSense outbound NAT is still in automatic mode
 - `inside` still has a working `LAN` lease and gateway from pfSense
-- neither VM still has an extra temporary setup adapter that makes the test bypass pfSense or use the wrong default route
+- neither VM has a leftover adapter from an earlier network change that could bypass pfSense or override the default route
 
 This path is `LAN -> WAN`, so if it breaks, think outbound routing/NAT before you think `DMZ`.
 
