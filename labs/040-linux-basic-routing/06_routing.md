@@ -7,13 +7,16 @@ To do this, a configuration bit needs to be enabled. Uncomment **`net.ipv4.ip_fo
 ![grep output in /etc/sysctl.conf showing the commented net.ipv4.ip_forward setting before it is enabled.](assets/images/file-62d83027a56d5.png)
 
 After you've done this, reload the system control configuration:
-**`sudo sysctl -p`**
+
+```bash
+sudo sysctl -p
+```
 
 ![Terminal output confirming net.ipv4.ip_forward is enabled and sysctl settings are reloaded.](assets/images/file-62d830a7c0e5e.png)
 
 ![Packet capture view used to observe forwarding traffic and ICMP redirects during the routing test.](assets/images/file-62d8326c1e72f.png)
 
-If you send a ping to Google now from your client, it should work; however, the routing engine might use ICMP to send a route update (Redirect). This happens because it is technically inefficient to use the server when the actual gateway is on the same network. This setup is for academic purposes; a more realistic example will be explored when we look at NAT.
+If you ping Google from your client, it should work. However, the routing engine might send an ICMP redirect to tell the client to use the actual NAT gateway instead of the server. This setup demonstrates basic routing concepts, but a more realistic scenario will involve Network Address Translation (NAT) covered in a later lab.
 
 To get the final screenshot, you need to "dodge" the ICMP redirect. If you sent a ping previously and received a redirection, you may need to restart the server and ensure you ping a different destination (e.g., if you pinged Google, try Yahoo). The screenshot must show that the traffic passed through **your server.**
 

@@ -1,15 +1,17 @@
 # Linux Basic routing
 
-> **Before you start:** Download the [Basic Routing Submission Template](./assets/Basic%20routing%20SUBMISSION%20TEMPLATE.pptx). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
+> **Before you start:** Download the [Basic Routing Submission Template](../../course-materials/sources/Static%20routing%20Submission%20Template.pptx). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
 
 ## Goal
-*(Add lab goal here)*
+Clone a Debian virtual machine, assign new hostnames, configure static IPs in a NAT network, and enable IPv4 forwarding to create a basic Linux router.
 
 ## Prereqs
-- *(Add prerequisites here)*
+- A Debian virtual machine installed in VMware Workstation.
+- Basic knowledge of Linux command line, networking concepts (static IPs, default gateways), and `/etc/hosts` resolution.
+- VMware Workstation installed and configured with a NAT network.
 
 ## Deliverables
-- *(Add deliverables here)*
+- Four required screenshots demonstrating hostname changes, host file verification, topology configuration, and routing proof.
 
 ## Pages
 - [Evaluation](01_evaluation.md)
