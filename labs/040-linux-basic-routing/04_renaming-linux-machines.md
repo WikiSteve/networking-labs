@@ -48,6 +48,8 @@ Also add the client computer now so you can use the client hostname instead of a
 
 ![Updated /etc/hosts file on the server including both the server and client hostname mappings.](assets/images/file-62d82742b9029.png)
 
+Notice in the screenshot that both the Fully Qualified Domain Name (e.g., **`FirstInitialLastName-Server.LASTNAME.com`**) and the short hostname (**`FirstInitialLastName-Server`**) are listed for each IP:
+
 - Make sure the client computer has the correct IP.
 - Ensure these are the FQDNs for the hosts (formatted as **`hostname.LASTNAME.com`**).
 - Include the hostname without the FQDN.

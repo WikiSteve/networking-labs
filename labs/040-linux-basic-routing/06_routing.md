@@ -16,9 +16,9 @@ sudo sysctl -p
 
 ![Packet capture view used to observe forwarding traffic and ICMP redirects during the routing test.](assets/images/file-62d8326c1e72f.png)
 
-If you ping a reliable external address like **`8.8.8.8`** or **`1.1.1.1`** from your client, it should work. However, the routing engine might send an ICMP redirect to tell the client to use the actual NAT gateway instead of the server. This setup demonstrates basic routing concepts, but a more realistic scenario will involve Network Address Translation (NAT) covered in a later lab.
+If you ping an external address like **`google.com`** from your client, it should work. However, the routing engine might send an ICMP redirect to tell the client to use the actual NAT gateway instead of the server. This setup demonstrates basic routing concepts, but a more realistic scenario will involve Network Address Translation (NAT) covered in a later lab.
 
-To accurately capture the final screenshot, you must prevent the ICMP redirect from circumventing the server. Rather than pinging different addresses or restarting, the proper way to handle this is to disable `send_redirects` on the server or `accept_redirects` on the client via `sysctl`, or to capture the traffic (e.g., using `tcpdump` or `traceroute`) before the cached redirect route is established. The screenshot must show that the traffic passed through **your server.**
+To get the final screenshot, you need to "dodge" the ICMP redirect. If you sent a ping previously to one destination (e.g., **`google.com`**) and received a redirection, that route is now cached. You can prove your server is routing by targeting a completely different destination (e.g., **`yahoo.com`**) using **`traceroute`**. The screenshot must show that traffic passed through **your server** as the first hop.
 
 ![Traceroute output from the client demonstrating that web traffic passes through the server during the routing proof.](assets/images/file-62d8353d676da.png)
 
