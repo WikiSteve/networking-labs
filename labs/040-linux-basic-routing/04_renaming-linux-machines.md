@@ -62,7 +62,7 @@ Once you've updated your **`hosts`** file, **reboot again** before the next scre
 **Requirement:** Proving the hosts have been configured correctly and you're still not locked out.
 
 **Repeat these processes** on the client computer. For the **`hosts`** file on the client, ensure:
-- When you call **`FirstInitialLastName-client`**, the IP is **`127.0.0.1`**.
+- When you call **`FirstInitialLastName-client`** (ensure your capitalization matches your earlier names!), the IP is **`127.0.0.1`**.
 - You add the server computer with host **`.200`** (e.g., **`192.168.90.200`**).
 
 ---
