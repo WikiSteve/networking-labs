@@ -1,6 +1,6 @@
 # Linux Basic routing
 
-> **Before you start:** Download the [Basic Routing Submission Template](../../course-materials/sources/Static%20routing%20Submission%20Template.pptx). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
+> **Before you start:** Download the [Basic Routing Submission Template](./assets/Basic%20routing%20SUBMISSION%20TEMPLATE.pptx). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
 
 ## Goal
 Clone a Debian virtual machine, assign new hostnames, configure static IPs in a NAT network, and enable IPv4 forwarding to create a basic Linux router.
