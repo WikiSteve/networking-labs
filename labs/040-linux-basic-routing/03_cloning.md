@@ -17,7 +17,7 @@ Confirm you can find the VM in your file explorer.
 
 ![File manager view after the virtual machine folder has been renamed from Debian to Server.](assets/images/file-62d8065021c53.png)
 
-Rename the folder from `FirstInitialLastName-Debian` to `FirstInitialLastName-Server`.
+Rename the folder from **`FirstInitialLastName-Debian`** to **`FirstInitialLastName-Server`**.
 
 Re-open VMware Workstation.
 
@@ -60,13 +60,13 @@ If you do it in this order, it will automatically populate the correct subdirect
 
 ![Clone Virtual Machine Wizard summary page confirming the full clone settings.](assets/images/file-62d812b547465.png)
 
-It will take a moment for your computer to copy the contents.  Once finished you should now have a new tab with the virtual machine's new name.
+Wait for the computer to copy the contents. Once finished, a new tab with the virtual machine's new name will appear.
 
 ![VMware Workstation with separate tabs for the server and client virtual machines after cloning.](assets/images/file-62d81325107b9.png)
 
 Verify that the directories are both where you expect them to be and that they are correct.
 
-Cloning should always generate new MAC address but I have seen it miss the generation step. Verify that the two NICs have different MAC addresses.
+Cloning a VM should automatically generate a new MAC address. Always verify that the two NICs have different MAC addresses.
 
 ![Advanced network adapter settings showing the MAC address of the server virtual machine.](assets/images/file-62d813da9b70e.png)
 

@@ -2,7 +2,11 @@
 
 ![Addressing worksheet for the NAT segment showing the required .200 server and .201 client host assignments.](assets/images/file-62d831f225546.png)
 
-Using your networking knowledge, configure both computers to match this topology on the NAT network.
+Configure both computers to match the topology diagram using static IP assignments. On Debian, you can configure persistent static IPs by editing **`/etc/network/interfaces`**. Alternatively, you can use the **`ip`** command, but remember that those changes are temporary and will not persist after a reboot.
+
+Set the server interface to **`.200`** (e.g., **`192.168.90.200`**) and the client interface to **`.201`** (e.g., **`192.168.90.201`**) matching your specific NAT network.
+
+For internet access to work, **the server must have a default gateway configured pointing to the NAT network gateway (e.g., `.2` such as `192.168.90.2`)**, and it also needs DNS configured. Set the client's default gateway to point to the server (**`.200`**).
 
 The computers should be able to ping each other. The client computer, once finished, should **NOT** be able to reach the internet anymore.
 
