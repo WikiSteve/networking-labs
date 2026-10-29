@@ -124,4 +124,3 @@ Your partners should see the five release files. If the page does not load, chec
 
 ---
 [Prev](02_build-and-modify-your-game.md) | [Home](README.md) | [Next](04_verify-and-play.md)
-

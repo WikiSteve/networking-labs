@@ -82,4 +82,3 @@ Keep private keys and their passphrases on their owners' VMs. Public keys may be
 
 ---
 [Home](README.md) | [Next](02_build-and-modify-your-game.md)
-

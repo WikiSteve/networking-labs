@@ -46,4 +46,3 @@ Submit one group PowerPoint with everyone's classroom name and role on the cover
 - [03 Package, Protect, and Publish](03_package-protect-and-publish.md)
 - [04 Verify and Play](04_verify-and-play.md)
 - [05 Decrypt and Rebuild](05_decrypt-and-rebuild.md)
-

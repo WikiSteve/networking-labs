@@ -82,4 +82,3 @@ Keep the signed installer, its signature, and the encrypted source archive avail
 
 ---
 [Prev](04_verify-and-play.md) | [Home](README.md)
-

@@ -78,4 +78,3 @@ This lets the next group's version use the same package name without mixing rele
 
 ---
 [Prev](03_package-protect-and-publish.md) | [Home](README.md) | [Next](05_decrypt-and-rebuild.md)
-
