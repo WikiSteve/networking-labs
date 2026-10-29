@@ -50,6 +50,7 @@
 
 ### Labs
 - [Simple Web of Trust](./labs/060-simple-web-of-trust/README.md)
+- [Release Your Game with GPG](./labs/065-signed-game-release/README.md)
 - [Linux Password Recovery and Locking Out Root](./labs/140-linux-password-recovery-and-locking-out-root/README.md)
 - [SSH Keys and X11 Forwarding](./labs/150-ssh-keys-x11-forwarding/README.md)
 - [NetBus Lab](./labs/180-netbus-lab/README.md)
