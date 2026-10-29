@@ -4,45 +4,43 @@
 
 ## Goal
 
-Build your own edition of a terminal game. Publish an installer that another student can verify, and encrypt your modified source so a trusted developer can work on it.
+Modify and compile a terminal game. Sign its installer so your partner can verify it, then encrypt the source so only your partner can decrypt that copy.
 
-Use **Snake Duel** by default. **Tetris** and **Battleship** are alternatives. All three run in a terminal without a graphical desktop.
+**Target: 30–40 minutes**, with tools installed and the [Web of Trust](../060-simple-web-of-trust/README.md) keys and file transfers already working.
 
-This follows [Simple Web of Trust](../060-simple-web-of-trust/README.md). Reuse your keys and the fingerprints you checked with their owners. A certification on a public key helps establish identity; it does not give that person access to encrypted files.
+Work in **pairs**. Both of you build your own game and act as the other's trusted developer. Submit your own four screenshots, with both names on the cover.
 
-## What you need
+## Before class
 
-- A Debian or Ubuntu Linux VM, internet access, and a terminal
-- Your working GPG key pair from the web-of-trust lab
-- Three students with separate accounts and private keys
-- Working SSH/SCP between group members and VM network connectivity for the class download server
-- Matching Linux distribution versions and CPU architectures for the publisher and player
+- Use your lab VM with your own valid private key and your partner's imported, fingerprint-checked public key.
+- Use compatible Debian/Ubuntu VMs with the same architecture and distribution version.
+- Have a working file-transfer method from the previous lab.
+- Download the [installer helper](assets/build-installer.sh) using **Download raw file** on GitHub. It makes the installer for you.
 
-**You may choose Windows.** The walkthrough supports Linux. If you choose Windows, find suitable build and installer instructions and arrange a compatible system for your partner to test. The same four screenshot requirements apply; use your actual Windows installer filenames in place of the `.deb` filenames. WSL follows the Linux route and produces a Linux game, not a native Windows executable. A detached GPG signature is checked with GPG; it does not provide Windows Authenticode signing.
+<details>
+<summary>Install the build tools if needed</summary>
 
-## Group roles
+```bash
+sudo apt update
+sudo apt install git golang-go
+```
 
-| Role | Your job |
-| --- | --- |
-| Publisher | Modify and compile the game, build and sign its installer, and encrypt the source to the developer |
-| Trusted developer | Verify the release, decrypt the source using your own private key, and rebuild the game |
-| Player | Verify and play the public release, then demonstrate that you cannot decrypt the source |
+For the C/ncurses choices, install these instead:
 
-Choose one release for your group's submission. Use that release for all four screenshots. Rotate roles for practice so everyone uses their own key to sign and decrypt. Keep each round in its own folder and remove the previous round's installed `student-game` package before installing the next one.
+```bash
+sudo apt install git build-essential libncurses-dev pkg-config
+```
 
-## Four screenshots
+Go downloads its code dependencies during the first build. The C tools supply the compiler, Make and ncurses headers. `pkg-config` lets Make find ncurses.
 
-- Screenshot 1: Modified Game Running
-- Screenshot 2: Original and Tampered Installer Verification
-- Screenshot 3: Trusted Developer Decrypts and Rebuilds
-- Screenshot 4: Player Cannot Decrypt the Source
+</details>
 
-Submit one group PowerPoint with everyone's classroom name and role on the cover. Add the screenshots to the matching slides. Keep the release files and source available until grading is complete.
+**Windows is your choice:** prepare a working compiler and installer method beforehand, and use a compatible partner system. Substitute your installer filenames for the Linux examples. WSL follows the Linux route.
 
-## Pages
+## Complete the practical
 
-- [01 Setup and Keys](01_setup-and-keys.md)
-- [02 Build and Modify Your Game](02_build-and-modify-your-game.md)
-- [03 Package, Protect, and Publish](03_package-protect-and-publish.md)
-- [04 Verify and Play](04_verify-and-play.md)
-- [05 Decrypt and Rebuild](05_decrypt-and-rebuild.md)
+- [01 Build Your Game](01_build-your-game.md) — about 10 minutes
+- [02 Sign and Share](02_sign-and-share.md) — about 10 minutes
+- [03 Protect the Source](03_protect-the-source.md) — about 10 minutes
+
+Allow the remaining time for screenshots and playing your partner's game. These are planning estimates.
