@@ -18,7 +18,13 @@ cd ~/game-release
 mkdir incoming
 ```
 
-Put the downloaded `build-installer.sh` in this folder. `incoming` will hold your partner's files separately from yours.
+Download [build-installer.sh](assets/build-installer.sh) using **Download raw file** on GitHub. If your browser saves it in `Downloads`, move it into your game folder:
+
+```bash
+mv ~/Downloads/build-installer.sh ~/game-release/
+```
+
+`incoming` will hold your partner's files separately from yours.
 
 Replace `SOURCE_URL` with your chosen URL:
 
