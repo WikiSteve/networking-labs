@@ -15,7 +15,6 @@ Work in **pairs**. Both of you build your own game and act as the other's truste
 - Use your lab VM with your own valid private key and your partner's imported, fingerprint-checked public key.
 - Use compatible Debian/Ubuntu VMs with the same architecture and distribution version.
 - Have a working file-transfer method from the previous lab.
-- Download the [installer helper](assets/build-installer.sh) using **Download raw file** on GitHub. It makes the installer for you.
 
 <details>
 <summary>Install the build tools if needed</summary>
