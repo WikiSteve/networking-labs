@@ -14,6 +14,8 @@
 
 ### Labs
 - [Catalyst 1300 Tour](./labs/010-catalyst-1300-tour/README.md)
+- [Catalyst 1300 Lab 1 — Initial Configuration](./labs/011-catalyst-1300-initial-configuration/README.md)
+- [Catalyst 1300 Lab 2 — VLANs and Inter-VLAN Routing](./labs/012-catalyst-1300-vlan-routing/README.md)
 - [Access Control Lists](./labs/020-access-control-lists/README.md)
 - [Basic Networking](./labs/030-lab-basic-networking/README.md)
 - [Linux Basic Routing](./labs/040-linux-basic-routing/README.md)
@@ -49,6 +51,7 @@
 - [Symmetric and Asymmetric Encryption](./course-materials/lectures/security/symmetric-and-asymmetric-encryption.md)
 
 ### Labs
+- [Windows File Encryption (EFS)](./labs/230-windows-efs/README.md)
 - [Simple Web of Trust](./labs/060-simple-web-of-trust/README.md)
 - [Release Your Game with GPG](./labs/065-signed-game-release/README.md)
 - [Linux Password Recovery and Locking Out Root](./labs/140-linux-password-recovery-and-locking-out-root/README.md)

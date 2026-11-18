@@ -1,0 +1,524 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; base-uri 'none'; form-action 'none'"><meta name="color-scheme" content="light"><title>Secret Mission · Learn Windows EFS</title><style>
+:root{--ink:#172e34;--muted:#4d6267;--paper:#f5f4ef;--white:#fffefa;--line:#cbd3cd;--teal:#075f57;--soft:#e5f0e9;--amber:#784617;--amber-bg:#fff0d9;--red:#993e36;--red-bg:#fbeeea;--radius:18px}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}button,select,input[type=radio],input[type=checkbox]{cursor:pointer}button,select{min-height:44px}button{border:1px solid var(--line);border-radius:10px;padding:.6rem 1rem;color:var(--ink);background:var(--white);font-weight:650}button:hover:not(:disabled){border-color:var(--teal);background:var(--soft)}button:disabled{cursor:default;opacity:.6}a{color:var(--teal);text-underline-offset:3px}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,[tabindex="-1"]:focus-visible{outline:3px solid #ab4e08;outline-offset:4px}input{accent-color:var(--teal);width:19px;height:19px;flex-shrink:0}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(2.3rem,5.2vw,4.25rem);line-height:1.04;letter-spacing:-.055em;max-width:830px;margin-bottom:1.2rem;font-weight:750}h2{font-size:clamp(1.5rem,3vw,2rem);line-height:1.2;letter-spacing:-.025em;margin-bottom:.75rem}h3{font-size:1rem;margin-bottom:.5rem}p{margin-bottom:.9rem}.small{font-size:.88rem}.muted{color:var(--muted)}.eyebrow{font-size:.75rem;font-weight:750;text-transform:uppercase;letter-spacing:.13em;color:var(--teal)}.skip{position:absolute;left:1rem;top:-100px;background:white;padding:.8rem;z-index:5}.skip:focus{top:1rem}.wrap{max-width:1160px;margin:auto;padding:0 32px}.topline{border-bottom:1px solid var(--line);padding:16px 0}.topline .wrap{display:flex;justify-content:space-between;gap:1rem;align-items:center}.brand{font-weight:750;font-size:.9rem;letter-spacing:.03em}.pill{display:inline-block;border:1px solid var(--line);border-radius:100px;padding:.25rem .7rem;font-size:.75rem;font-weight:700;background:var(--white)}header.hero{padding:48px 0 28px}.intro{max-width:720px;font-size:1.1rem}.setup{margin:24px 0 0;border-left:3px solid var(--teal);padding:0 0 0 18px;max-width:850px}.setup p{margin:0}.chapters{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:24px 0 12px}.chapters button{text-align:left;padding:12px;font-size:.9rem;line-height:1.3}.chapters button span{display:block;font-size:.72rem;margin-bottom:6px;letter-spacing:.05em}.chapters button[aria-current=step]{background:var(--teal);color:white;border-color:var(--teal)}.chapter-note{margin-bottom:25px}.workbench{display:grid;grid-template-columns:minmax(0,1.22fr) minmax(310px,1fr);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--white);box-shadow:0 10px 35px #17352d08}.story{padding:30px;border-right:1px solid var(--line)}.scene-top{display:flex;justify-content:space-between;gap:12px;margin-bottom:14px;align-items:center}.time{font-size:.8rem;color:var(--muted);white-space:nowrap}.scenario-note{border-radius:10px;background:var(--paper);padding:12px 14px;font-size:.87rem;color:var(--muted)}.action-area{margin:20px 0}.primary{background:var(--teal);color:white;border-color:var(--teal)}.primary:hover:not(:disabled){background:#084c46;color:white}.action-note{margin-top:9px;margin-bottom:0;min-height:1.5em}.reset-choice{display:block;margin-bottom:16px}.reset-choice select{display:block;width:100%;margin-top:7px;border:1px solid var(--line);border-radius:8px;background:white;padding:8px;color:var(--ink)}.lab-details{border-top:1px solid var(--line);margin-top:22px;padding-top:15px}summary{cursor:pointer;font-weight:700;padding:5px 0;min-height:44px}ol,ul{padding-left:1.35rem}li{margin:9px 0}.lab-details ol{font-size:.92rem}.lab-details .caution{font-size:.86rem;color:var(--amber)}code{background:#e9ece7;border-radius:4px;padding:.1rem .3rem;color:var(--ink)}.simulation{padding:28px;background:#f0f3ed}.sim-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px}.sim-header p{margin:0}.sim-label{background:var(--amber-bg);color:var(--amber);border-color:#d4ba8d}.file{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--white);display:flex;gap:14px;align-items:center;margin-bottom:20px}.file-icon{width:37px;height:46px;border:2px solid var(--teal);border-radius:5px;display:grid;place-items:center;font-size:19px;color:var(--teal);flex-shrink:0}.file p{margin:0}.file strong{font-size:1.05rem}.file .small{margin-top:2px}fieldset{border:0;padding:0;margin:0 0 18px;min-width:0}legend{font-size:.88rem;font-weight:700;margin-bottom:8px}.people{display:flex;gap:7px;flex-wrap:wrap}.person{flex:1;display:flex;align-items:center;gap:6px;padding:10px 8px;border:1px solid var(--line);border-radius:8px;background:var(--white);font-size:.85rem;min-height:46px}.person:has(input:checked){border-color:var(--teal);box-shadow:inset 0 0 0 1px var(--teal)}.person input{margin:0}.gates{display:grid;gap:10px}.gate{border:1px solid var(--line);background:var(--white);padding:14px;border-radius:12px;display:grid;grid-template-columns:28px 1fr;gap:10px}.number{background:var(--paper);width:27px;height:27px;border-radius:50%;text-align:center;font-weight:750;font-size:.85rem;line-height:27px}.gate h3{margin:0 0 4px}.gate p{margin:0;font-size:.87rem}.state-good{color:var(--teal)}.state-bad{color:var(--red)}.state-na{color:var(--muted)}.gate .explain{font-size:.8rem;color:var(--muted);margin-top:4px}.permission-label{display:flex;align-items:flex-start;gap:8px;font-size:.84rem;margin-top:12px;min-height:44px}.permission-label input{margin:3px 0 0}.permission-label small{display:block;color:var(--muted);font-size:.75rem}.backup{font-size:.82rem;margin:14px 0 0;padding:11px 0 0;border-top:1px solid var(--line)}.predict{padding:26px 30px;border-top:1px solid var(--line);grid-column:1/-1;background:var(--white)}.predict legend{font-size:1.05rem}.answers{display:flex;flex-wrap:wrap;gap:10px}.answer{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:9px 12px;min-height:46px;font-size:.9rem}.answer:has(input:checked){background:var(--soft);border-color:var(--teal)}.answer input{margin:0}.try-row{display:flex;align-items:center;flex-wrap:wrap;gap:14px}.try-row p{margin:0;font-size:.85rem;color:var(--muted)}.result{border-left:4px solid var(--teal);background:var(--soft);padding:14px 18px;margin-top:18px;border-radius:0 10px 10px 0}.result p{margin:0}.result strong{display:block;margin-bottom:4px}.result[data-outcome=permission],.result[data-outcome=key]{border-color:var(--amber);background:var(--amber-bg)}.pager{display:flex;justify-content:space-between;align-items:center;gap:14px;margin:20px 0 40px}.pager p{margin:0}.recap{border-top:1px solid var(--line);padding-top:28px;display:grid;grid-template-columns:1fr 1.5fr;gap:35px;margin-bottom:35px}.recap h2{font-size:1.55rem}.quiz details{border-bottom:1px solid var(--line);padding:8px 0}.quiz details:first-child{padding-top:0}.quiz summary{font-size:.95rem}.quiz p{font-size:.92rem;padding:4px 0 0}.notes{border:1px solid var(--line);border-radius:12px;padding:15px 20px;margin-bottom:35px}.notes h3{margin-top:18px}.notes ul{font-size:.9rem}.notes p{font-size:.9rem}.sources{display:grid;gap:7px}.sources a{font-size:.87rem}footer{border-top:1px solid var(--line);padding:20px 0 35px;font-size:.8rem;color:var(--muted)}footer p{margin:0}.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}[hidden]{display:none!important}noscript p{border:2px solid var(--amber);padding:16px}
+@media(max-width:900px){.wrap{padding:0 22px}.story,.simulation{padding:22px}.people{gap:5px}.person{font-size:.8rem;padding:8px 6px}.chapters{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.workbench{grid-template-columns:1fr}.story{border-right:0;border-bottom:1px solid var(--line)}header.hero{padding-top:32px}.recap{grid-template-columns:1fr;gap:12px}.predict{padding:22px}.answers{flex-direction:column}.answer{width:100%}.pager{flex-wrap:wrap}.pager p{order:3;width:100%;text-align:center}.topline .wrap{align-items:flex-start}.scene-top{flex-wrap:wrap}}
+@media(max-width:380px){.wrap{padding:0 14px}.chapters button{padding:9px;font-size:.8rem}.story,.simulation,.predict{padding:18px}.people{flex-direction:column}.topline .pill{font-size:.65rem}}
+@media(prefers-reduced-motion:no-preference){button{transition:background-color .15s,border-color .15s}}
+@media print{body{font-size:11pt;background:white}.wrap{max-width:none;padding:0}.chapters,.pager,.predict,.action-area,.permission-label,footer button{display:none}.workbench{box-shadow:none}.story,.simulation{padding:16px}.hero{padding-top:12px!important}h1{font-size:30pt}.recap{break-inside:avoid}.notes{border:0}a{color:inherit}}
+
+
+header.hero.wrap{padding-inline:32px}html{scroll-behavior:smooth;scroll-padding-top:24px} .wrap{max-width:1050px}.topline{background:var(--white)}header.hero{padding-bottom:15px}h1{font-size:clamp(2.1rem,5vw,3.5rem);max-width:900px}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.download{display:inline-flex;align-items:center;border-radius:10px;padding:.7rem 1rem;text-decoration:none;background:var(--teal);color:white;font-weight:650}.guide-nav{position:static;top:0;background:var(--paper);z-index:3;border-block:1px solid var(--line);padding:10px 0}.guide-links{display:flex;gap:6px;flex-wrap:wrap}.guide-links a{font-size:.82rem;text-decoration:none;padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:white}.start-box,.background,.check-understanding{border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--white);margin:24px 0}.background summary{font-size:1.1rem}.background .contents{padding-top:14px}.lab-step{border:1px solid var(--line);border-radius:18px;background:var(--white);margin:28px 0;overflow:hidden;scroll-margin-top:24px}.step-heading{background:var(--soft);display:flex;justify-content:space-between;gap:18px;padding:24px;align-items:center}.step-heading h2{margin:0}.step-heading .eyebrow{margin:0 0 6px}.account{padding:10px 15px;background:white;border:1px solid var(--line);border-radius:10px;min-width:145px}.account span{display:block;font-size:.75rem;color:var(--muted)}.account strong{display:block;font-size:1rem}.step-body{padding:8px 26px 16px}.step-body h2{font-size:1.35rem;margin-top:24px}.step-body h3{margin-top:20px}.step-body p{max-width:80ch}.step-body ul,.step-body ol{max-width:82ch}.command-route{padding:10px 16px;background:var(--paper);border:1px solid var(--line);border-radius:10px;margin:16px 0}.command-route summary{font-size:.9rem}.command-route p{font-size:.95rem}pre{background:#142d32;color:#f4faf5;border-radius:10px;padding:18px;overflow:auto;position:relative;font-size:.86rem;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}pre code{background:none;color:inherit;padding:0}.code-actions{display:flex;align-items:center;gap:12px;margin-top:-6px;margin-bottom:18px;font-size:.8rem}.copy-code{font-size:.8rem;padding:6px 12px;min-height:36px}.screenshot{background:var(--amber-bg);border:1px solid #d8c09a;border-left:5px solid var(--amber);padding:18px 20px;margin:24px 0;border-radius:10px}.screenshot .eyebrow{color:var(--amber);margin-bottom:6px}.screenshot h3{font-size:1.1rem;margin:0 0 10px}.screenshot p:last-child{margin-bottom:0}.model-link{margin:0 26px 20px;font-size:.85rem}.model-container{border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--white);margin:28px 0;scroll-margin-top:24px}.model-container>summary{font-size:1.1rem}.model-container>summary small{display:block;font-weight:400;color:var(--muted);font-size:.85rem}.chapters{margin-top:20px}.model-container .chapters button{font-size:.78rem}.model-container .story{padding:20px}.model-container .simulation{padding:20px}.model-container .pager{margin-bottom:0}.step-body table{font-size:.92rem}.step-body th,.step-body td{padding:10px;border-bottom:1px solid var(--line);text-align:left}table{width:100%;border-collapse:collapse}.chapter-note{font-size:.85rem}.check-understanding details{padding:8px 0;border-bottom:1px solid var(--line)}.source-details{padding:22px 0 30px}.draft-note{font-size:.82rem;color:var(--muted)}.model-container h2{font-size:1.45rem}.skip{z-index:10}.print-button{background:var(--white)}
+@media(max-width:700px){header.hero.wrap{padding-inline:16px}.wrap{padding:0 16px}.step-heading{padding:19px;align-items:flex-start;flex-direction:column;gap:12px}.account{display:flex;gap:10px;align-items:center;width:100%;padding:8px 12px}.step-body{padding:4px 19px 14px}.start-box,.background,.check-understanding,.model-container{padding:18px}.guide-links a{padding:6px 8px;font-size:.75rem}.guide-nav{position:static}.lab-step{scroll-margin-top:12px}.model-link{margin-left:19px}.model-container .people{flex-direction:column}pre{padding:14px;font-size:.8rem}.topline .wrap{flex-wrap:wrap}}
+@media print{.guide-nav,.model-container,.model-link,.hero-actions,.copy-code,.code-actions,.topline{display:none!important}.step-body{padding:0}.lab-step{border:0;break-before:auto;break-inside:auto}.step-heading{border-bottom:2px solid #777;padding:12px 0}.screenshot{break-inside:avoid}pre{background:#eee;color:#111;border:1px solid #aaa}.command-route{break-inside:avoid}.wrap{max-width:none}h1{font-size:28pt}.account{border:0}details>summary{list-style:none}.background,.start-box,.check-understanding{border:0;padding:10px 0}}
+
+html:has(body.paged){scroll-behavior:auto}
+.lab-layout{display:grid;grid-template-columns:205px minmax(0,1fr);gap:24px;align-items:start}
+.lab-layout main{min-width:0}
+.guide-nav{position:sticky;top:12px;border:1px solid var(--line);border-radius:14px;padding:10px;background:var(--white);z-index:3}
+.guide-links{display:grid;gap:4px}
+.guide-links a{border-color:transparent;padding:10px;color:var(--ink);font-size:.88rem}
+.guide-links a[aria-current="step"]{background:var(--teal);color:white;font-weight:700}
+.step-picker{display:none}
+.evidence-jump{font-size:.9rem;margin:12px 0}
+.view-pager{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin:16px 0 28px}
+.view-pager a,.model-link{display:inline-block;padding:8px 12px;border:1px solid var(--line);border-radius:8px;color:var(--teal);font-weight:650}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+body.paged .hero .intro,body.paged .hero .eyebrow{display:none}
+body.paged .hero h1{font-size:clamp(1.65rem,4vw,2.5rem);margin:4px 0 10px}
+body.paged .hero h1 br{display:none}
+@media(max-width:760px){
+  .lab-layout{display:block}
+  .guide-nav{top:0;margin-bottom:12px}
+  .guide-links{grid-template-columns:repeat(auto-fit,minmax(125px,1fr))}
+  body.paged .guide-links{display:none}
+  body.paged .step-picker{display:flex;align-items:center;gap:10px;font-weight:650;font-size:.85rem}
+  .step-picker select{min-width:0;flex:1}
+  html{scroll-padding-top:72px}
+}
+@media print{
+  .lab-layout{display:block}
+  [data-view][hidden]{display:block!important}
+  .evidence-jump,.view-pager,[data-view="explore"]{display:none!important}
+}
+</style></head><body>
+<a class="skip" href="#start">Skip to the lab instructions</a><div class="topline"><div class="wrap"><span class="brand">WINDOWS EFS · INDIVIDUAL LAB</span><span class="pill">About 40 minutes · 5 screenshots</span></div></div><header class="hero wrap"><p class="eyebrow">One VM · Three accounts · A key worth keeping</p><h1>Secret Mission:<br>who can read the file?</h1><p class="intro">You play Alice, Bob and LabAdmin on your Windows 11 VM. Encrypt a mission note, test who can read it, then use a backed-up key to recover access after a password reset.</p><div class="hero-actions"><a class="download" href="EFS%20Lab%20SUBMISSION%20TEMPLATE.pptx" download="EFS Lab SUBMISSION TEMPLATE.pptx">Download the 5-screenshot template</a><button type="button" class="print-button" id="print-guide">Print the guide</button></div><p class="small muted">Unzip the lab folder, then open this page. The screenshot template is in the assets folder.</p></header>
+<div class="wrap lab-layout"><nav class="guide-nav" aria-label="Lab navigation"><div class="guide-links"><a href="#start">Before you start</a><a href="#encrypt">1. Encrypt and back up</a><a href="#bob">2. Test as Bob</a><a href="#admin">3. Test as LabAdmin</a><a href="#reset">4. Reset Alice’s password</a><a href="#recover">5. Restore Alice’s key</a><a href="#submit">Submit screenshots</a><a href="#explore">EFS simulator</a></div><label class="step-picker">Lab section <select><option value="start">Before you start</option><option value="encrypt">1. Encrypt and back up</option><option value="bob">2. Test as Bob</option><option value="admin">3. Test as LabAdmin</option><option value="reset">4. Reset Alice’s password</option><option value="recover">5. Restore Alice’s key</option><option value="submit">Submit screenshots</option><option value="explore">EFS simulator</option></select></label></nav><main id="lab-content"><article data-view="start"><section id="start" class="start-box"><p class="eyebrow">Before you start</p><h2>Use your Windows 11 VM</h2><p><strong>Before you start:</strong> Download the <a href="https://github.com/WikiSteve/networking-labs/raw/refs/heads/main/labs/230-windows-efs/EFS%20Lab%20SUBMISSION%20TEMPLATE.pptx">EFS Lab Submission Template</a> <small>(<a href="EFS%20Lab%20SUBMISSION%20TEMPLATE.pptx" download>local copy</a>)</small>. Add each required screenshot as you complete the lab, then submit the completed template for grading.</p><p>You need EFS support (Pro, Education or Enterprise) and an NTFS drive. Have these <strong>three local accounts</strong> ready. Expand the account setup below if you need to create them.</p><table><thead><tr><th>Account</th><th>Type</th><th>Role in the lab</th></tr></thead><tbody><tr><td><strong>LabAdmin</strong></td><td>Administrator</td><td>Tests administrator access and resets Alice’s practice password.</td></tr><tr><td><strong>Alice</strong></td><td>Standard user</td><td>Encrypts the secret and backs up her key.</td></tr><tr><td><strong>Bob</strong></td><td>Standard user</td><td>Tries reading the public and encrypted files.</td></tr></tbody></table><p>Keep your normal account. Use practice passwords for these lab accounts; reset <strong>Alice only</strong> during the experiment.</p><p><strong>Follow the numbered steps on your VM.</strong> Use the GUI route, or expand a Command Prompt alternative and do that instead. You do not need both. Commands go in <strong>Command Prompt</strong>, not PowerShell; open Start and type <code>cmd</code>. Run it as administrator only when directed.</p><p class="small muted">Work individually. Take the five screenshots where shown. The optional models explain the ideas; they do not operate your VM or count as evidence. Allow the remaining time for screenshots, sign-ins and the restart.</p></section>
+<details class="background"><summary>Set up the three local accounts</summary><div class="contents"><p>Choose <strong>GUI or commands</strong>, not both. Use practice
+passwords that you can remember. Do not use real passwords.</p>
+<p><strong>GUI route:</strong> Press <strong>Windows+R</strong>, type
+<code>lusrmgr.msc</code>, and press <strong>Enter</strong>. This opens
+<strong>Local Users and Groups</strong>.</p>
+<ol type="1">
+<li>Select <strong>Users</strong>, then <strong>Action &gt; New
+User</strong>.</li>
+<li>Enter <code>LabAdmin</code> as the user name and enter its practice
+password twice.</li>
+<li>Clear <strong>User must change password at next logon</strong>.
+Select <strong>Create</strong>.</li>
+<li>Repeat for <code>Alice</code> and <code>Bob</code>, then select
+<strong>Close</strong>.</li>
+<li>Open <strong>LabAdmin</strong>'s properties. Select <strong>Member
+Of &gt; Add</strong>. Type <code>Administrators</code>, select
+<strong>Check Names</strong>, then <strong>OK &gt; Apply</strong>. Leave
+Alice and Bob as standard users.</li>
+</ol>
+<p>If LabAdmin already exists, skip creating it and changing its
+membership.</p>
+<p><strong>Command route:</strong> Open <strong>Start</strong>, type
+<code>cmd</code>, right-click <strong>Command Prompt</strong>, and
+select <strong>Run as administrator</strong>. Approve the prompt.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>net user LabAdmin * <span class="at">/add</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>net localgroup Administrators LabAdmin <span class="at">/add</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>net user Alice * <span class="at">/add</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>net user Bob * <span class="at">/add</span></span></code></pre></div>
+<p>If you are reusing an existing LabAdmin account, run only the last
+two commands.</p>
+<p>For <code>net user</code>, <code>/add</code> creates an account. The
+<code>*</code> asks you to enter the password twice without displaying
+it. For <code>net localgroup</code>, <code>/add</code> adds the named
+account to that group. Here it makes LabAdmin an administrator.</p>
+<h2 id="check-the-roles">Check the roles</h2>
+<p><strong>GUI:</strong> In Local Users and Groups, open <strong>Groups
+&gt; Administrators</strong>. LabAdmin should be listed; Alice and Bob
+should not. Open <strong>Groups &gt; Users</strong> to check Alice and
+Bob are present.</p>
+<p><strong>Commands:</strong></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>net localgroup Administrators</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>net localgroup Users</span></code></pre></div>
+<p>Other built-in or existing entries are normal. No screenshot is
+needed here.</p>
+</div></details>
+<details class="background" open><summary>Understand the idea before you click</summary><div class="contents"><p><strong>Permissions versus encryption.</strong> NTFS permissions (the <strong>Security</strong> tab) are rules Windows checks before it opens a file: "Bob may read this folder." An administrator can change those rules. <strong>Encryption</strong> scrambles the file's contents. Without the right key, the contents stay unreadable, even when the permissions say "allowed".</p>
+<p><strong>EFS versus BitLocker.</strong> BitLocker encrypts the whole drive. It protects data when the computer is off, lost or stolen. Once the drive is unlocked, Windows permissions still control which files each signed-in user can access. <strong>EFS</strong> (Encrypting File System) encrypts individual files for authorized users. In this lab, only Alice has a key, so it still protects them from other people signed in to the same running computer. Many organizations use both.</p>
+<h3>Where the key comes from</h3>
+<p>When Alice encrypts a file, Windows creates an <strong>EFS certificate</strong> for her. The certificate contains her <strong>public key</strong>. Windows keeps the matching <strong>private key</strong> separately in her profile. Windows locks the file with a random file key, then locks that file key with Alice's public key. Only Alice's private key can unlock it. Windows stores the private key in Alice's profile and protects it with her password. Your key backup is a <strong>PFX file</strong>: the certificate <em>plus</em> the private key, protected by a password you choose. A <code>.cer</code> file holds only the certificate, so it cannot decrypt the file by itself.</p></div></details>
+</article><article id="explore" data-view="explore"><details class="model-container" id="concept-model"><summary>Optional: predict what happens in an EFS model<small>Try the two access checks before testing them on your VM.</small></summary><nav class="chapters" aria-label="Story chapters">
+<button type="button" data-scene="0" aria-current="step">Permission</button>
+<button type="button" data-scene="1">Encryption</button>
+<button type="button" data-scene="2">Administrator</button>
+<button type="button" data-scene="3">Key backup</button>
+<button type="button" data-scene="4">Password reset</button>
+<button type="button" data-scene="5">Restore access</button>
+</nav>
+<p class="small muted chapter-note">Optional model only: Each chapter loads a prepared example, including earlier steps. Your clicks affect this model only; they do not inspect or change Windows. Reloading clears your choices.</p>
+<section class="workbench" aria-labelledby="scene-title">
+<div class="story">
+<div class="scene-top"><span class="eyebrow" id="scene-number">Chapter 01</span><span class="time" id="scene-time"></span></div>
+<h2 id="scene-title" tabindex="-1">Start with permission.</h2>
+<p id="scene-story">An ordinary file has no EFS encryption. Bob cannot read it until its NTFS permissions allow him to.</p>
+<p class="scenario-note" id="scene-baseline">Prepared example: Bob has no Read permission. Alice and LabAdmin do.</p>
+<div class="action-area">
+<label class="reset-choice" id="reset-choice" hidden>Model a possible reset outcome
+<select id="reset-outcome"><option value="lost">Alice loses access to her EFS private key</option><option value="retained">Alice retains access to her EFS private key</option></select>
+</label>
+<button class="primary" id="scene-action" type="button">Simulate: grant Bob Read</button>
+<p class="action-note small muted" id="action-note">The permission change is performed by LabAdmin in this model.</p>
+</div>
+
+</div>
+<div class="simulation" aria-label="Simplified EFS simulation">
+<div class="sim-header"><p class="eyebrow">Inspect the model</p><span class="pill sim-label">SIMULATION</span></div>
+<div class="file"><div class="file-icon" aria-hidden="true">≡</div><div><strong>secret.txt</strong><p class="small" id="file-state">EFS off · ordinary file</p></div></div>
+<fieldset><legend>Try opening the file as</legend><div class="people">
+<label class="person"><input type="radio" name="actor" value="Alice">Alice</label>
+<label class="person"><input type="radio" name="actor" value="Bob" checked>Bob</label>
+<label class="person"><input type="radio" name="actor" value="LabAdmin">LabAdmin</label>
+</div></fieldset>
+<div class="gates">
+<div class="gate"><span class="number" aria-hidden="true">1</span><div><h3>NTFS read permission</h3><p id="permission-state" class="state-bad">Not allowed for Bob</p><p class="explain">Permission to read the file through Windows.</p></div></div>
+<div class="gate"><span class="number" aria-hidden="true">2</span><div><h3>Usable EFS private key</h3><p id="key-state" class="state-na">Not required: EFS is off</p><p class="explain" id="key-explain">An unencrypted file has no EFS decryption requirement.</p></div></div>
+</div>
+<label class="permission-label"><input type="checkbox" id="permission-toggle"><span><span id="permission-label">Allow Bob to read</span><small>Permission experiment: LabAdmin changes this account’s Read permission.</small></span></label>
+<p class="backup" id="backup-state">PFX backup: not exported in this example.</p>
+<p class="small muted" style="margin:10px 0 0">Two requirements for ordinary file opening, not a diagram of Windows internals.</p>
+</div>
+<form class="predict" id="predict-form">
+<fieldset><legend id="prediction-title">Predict: what happens when Bob opens the file?</legend><div class="answers">
+<label class="answer"><input type="radio" name="prediction" value="open" required>Opens</label>
+<label class="answer"><input type="radio" name="prediction" value="permission">Blocked by permissions</label>
+<label class="answer"><input type="radio" name="prediction" value="key">Cannot decrypt</label>
+</div></fieldset>
+<div class="try-row"><button type="submit" id="try-open">Try opening · simulation</button><p>No real file is opened.</p></div>
+<div class="result" id="result" hidden><strong id="result-title"></strong><p id="result-body"></p></div>
+</form>
+</section>
+<div class="pager"><button type="button" id="previous" disabled>Previous chapter</button><p class="small muted" id="position">1 of 6</p><button type="button" id="next">Next: encryption →</button></div>
+</details></article>
+<section class="lab-step" id="encrypt" data-view="encrypt" aria-labelledby="heading-encrypt"><div class="step-heading"><div><p class="eyebrow">Step 1 of 5 · 10 minutes</p><h2 id="heading-encrypt">Encrypt and back up</h2></div><span class="account"><span>Sign in as</span><strong>Alice</strong></span></div><div class="step-body"><p class="evidence-jump"><a href="#screenshot-1">What to capture for Screenshot 1</a></p><p>Sign in as <strong>Alice</strong> using her local account password.</p>
+<h2>Make the mission folder</h2>
+<p>In File Explorer, select <strong>View &gt; Show &gt; File name extensions</strong> so you can see <code>.txt</code> and <code>.pfx</code>.</p>
+<p>Alice uses <strong>Public Documents</strong>, a folder Windows shares with every local user. Bob and LabAdmin should be able to read plain files here. Both new files inherit the folder’s permissions. Reading the plain control file will confirm access before you test the encrypted file.</p>
+<p>Choose <strong>one</strong> route.</p>
+<p><strong>GUI route:</strong> Open <strong>File Explorer</strong>. Click the address bar, type <code>C:\Users\Public\Documents</code>, and press <strong>Enter</strong>. Right-click empty space and select <strong>New &gt; Folder</strong>. Name it <code>EFS-Lab</code> and open it.</p>
+<p>Right-click empty space and select <strong>New &gt; Text Document</strong>. Name it <code>public</code> (Windows keeps the <code>.txt</code> ending). Open it, type the text below, save with <strong>Ctrl+S</strong> and close Notepad:</p>
+<pre><code class="language-text">PUBLIC NOTICE: Book club meets Thursday. Snacks provided. Everyone welcome.
+</code></pre>
+<p>Make a second text document the same way. Type <code>secret</code> for its name; Windows keeps the <code>.txt</code> ending. Check that Explorer displays exactly <strong>public.txt</strong> and <strong>secret.txt</strong>, not names ending in <code>.txt.txt</code>. Put this text in the secret:</p>
+<pre><code class="language-text">TOP SECRET: The golden stapler is hidden behind rack 3. Trust no one. - Agent Alice
+</code></pre>
+<details class="command-route"><summary>Prefer Command Prompt? Use this route instead</summary><p><strong>Command route:</strong> Open Command Prompt (not as administrator).</p>
+<pre><code class="language-cmd">cd C:\Users\Public\Documents
+mkdir EFS-Lab
+cd EFS-Lab
+echo PUBLIC NOTICE: Book club meets Thursday. Snacks provided. Everyone welcome. &gt; public.txt
+echo TOP SECRET: The golden stapler is hidden behind rack 3. Trust no one. - Agent Alice &gt; secret.txt
+</code></pre>
+<p><code>echo</code> prints the text, and <code>&gt;</code> saves it into the named file instead of the screen.</p>
+<p>Finish your text <strong>before</strong> encrypting. Do not edit <code>secret.txt</code> afterward.</p>
+</details><h2>Encrypt only secret.txt</h2>
+<p>Choose <strong>one</strong> route.</p>
+<p><strong>GUI route:</strong> Right-click <code>secret.txt</code> and select <strong>Properties</strong>. Select <strong>Advanced</strong>. Check <strong>Encrypt contents to secure data</strong>. Select <strong>OK</strong>, then <strong>Apply</strong>.</p>
+<p>Windows shows an <strong>Encryption Warning</strong> because the folder itself is not encrypted. Select <strong>Encrypt the file only</strong>, then <strong>OK</strong> twice.</p>
+<details class="command-route"><summary>Prefer Command Prompt? Use this route instead</summary><p><strong>Command route:</strong></p>
+<pre><code class="language-cmd">cd C:\Users\Public\Documents\EFS-Lab
+cipher /e secret.txt
+</code></pre>
+<p><code>cd</code> changes to the mission folder; <code>/e</code> means encrypt. <code>cipher</code> encrypts just the file you name.</p>
+<p>Why <strong>file only</strong>? Encrypting the folder would make new files there encrypted too. Alice's notice must stay readable, so <code>EFS-Lab</code> and <code>public.txt</code> stay plain.</p>
+<p>If Windows offers a key-backup notification, you can close the notification and follow the backup steps below.</p>
+</details><h2>Check the result</h2>
+<p><strong>GUI route:</strong> Look at the icons. <code>secret.txt</code> shows a small <strong>padlock</strong>; <code>public.txt</code> does not. For a closer look, open <code>secret.txt</code>'s <strong>Properties &gt; Advanced &gt; Details</strong>: expect only <strong>Alice</strong> under users who can access the file, with no recovery certificate. If a recovery certificate is listed, ask your instructor before the reset test.</p>
+<details class="command-route"><summary>Prefer Command Prompt? Use this route instead</summary><p><strong>Command route:</strong></p>
+<pre><code class="language-cmd">cd C:\Users\Public\Documents\EFS-Lab
+cipher
+</code></pre>
+<p><code>cd</code> changes the current folder. With no options, <code>cipher</code> lists that folder. Expect <code>E secret.txt</code> (encrypted) and <code>U public.txt</code> (unencrypted).</p>
+</details><p>Open <code>secret.txt</code>. Alice can read it normally because Windows unlocks her private key automatically.</p>
+<h2>Back up Alice's key</h2>
+<p>Alice's private key lives only in her profile. Save a copy in a <strong>PFX</strong> file on her <strong>Desktop</strong>. The Desktop is outside the encrypted file and is not encrypted itself.</p>
+<p>Choose <strong>one</strong> route.</p>
+<p><strong>GUI route:</strong> Press <strong>Windows+R</strong>, type <code>certmgr.msc</code>, and press <strong>Enter</strong>. This opens <strong>Alice’s user certificates</strong>.</p>
+<ol>
+<li>Open <strong>Personal &gt; Certificates</strong>. Select the certificate whose <strong>Intended Purposes</strong> includes <strong>Encrypting File System</strong>.</li>
+<li>Right-click it and select <strong>All Tasks &gt; Export</strong>.</li>
+<li>Select <strong>Next</strong>, then <strong>Yes, export the private key</strong>, then <strong>Next</strong>. If this option is unavailable, stop and ask your instructor.</li>
+<li>Keep <strong>Personal Information Exchange (.PFX)</strong>. Do not select <strong>Delete the private key if the export is successful</strong>. Select <strong>Next</strong>.</li>
+<li>Select <strong>Password</strong>, enter the backup password twice, then <strong>Next</strong>.</li>
+<li>Select <strong>Browse</strong>, choose <strong>Desktop</strong>, and name the file <code>alice-efs.pfx</code>. Select <strong>Save &gt; Next &gt; Finish</strong>.</li>
+<li>Expect <strong>The export was successful</strong>.</li>
+</ol>
+<details class="command-route"><summary>Prefer Command Prompt? Use this route instead</summary><p><strong>Command route:</strong> Open Command Prompt (not as administrator). The full path below saves the backup to Alice’s Desktop, wherever your command window started.</p>
+<pre><code class="language-cmd">cipher /x C:\Users\Alice\Desktop\alice-efs
+</code></pre>
+<p><code>/x</code> exports Alice's current EFS certificate <strong>and</strong> private key. Confirm the Windows prompt, then type the backup password twice. Windows adds <code>.pfx</code> to the name.</p>
+
+</details><p>Expect <code>alice-efs.pfx</code> on the Desktop. If the file is missing or the export failed, stop here: do not reset Alice’s password until you have the backup. In real life, move a PFX to a USB drive or safe storage, because anyone holding it and its password can open Alice's files.</p><aside class="screenshot" id="screenshot-1"><p class="eyebrow">Screenshot 1 of 5 · Your real VM</p><h3>Alice's Encrypted Secret and Key Backup</h3><p><strong>Requirement:</strong> In one screenshot, show all three of these, with no password visible:</p>
+<ul>
+<li><code>secret.txt</code> marked encrypted (padlock icon or <code>E</code> in <code>cipher</code> output)</li>
+<li><code>public.txt</code> not encrypted (no padlock, or <code>U</code>)</li>
+<li><code>alice-efs.pfx</code> on Alice's Desktop</li>
+</ul></aside>
+<p>Close Notepad. <strong>Sign out</strong> Alice.</p></div><a class="model-link" href="#concept-model" data-show-scene="1">Explore this idea in the simulator</a></section><section class="lab-step" id="bob" data-view="bob" aria-labelledby="heading-bob"><div class="step-heading"><div><p class="eyebrow">Step 2 of 5 · 5 minutes</p><h2 id="heading-bob">Can Bob read it?</h2></div><span class="account"><span>Sign in as</span><strong>Bob</strong></span></div><div class="step-body"><p class="evidence-jump"><a href="#screenshot-2">What to capture for Screenshot 2</a></p><p><code>public.txt</code> is your <strong>control file</strong>. It sits in the same folder as <code>secret.txt</code> but is not encrypted. If a person can read it, Windows permissions let that person into the folder. Both files were created in the same folder with inherited permissions. The expected difference is that EFS also requires Alice’s private key for <code>secret.txt</code>.</p>
+<p>Sign in as <strong>Bob</strong>. Skip any PIN or Windows Hello offer.</p>
+<p>Choose <strong>one</strong> route.</p>
+<p><strong>GUI route:</strong> In File Explorer, go to <code>C:\Users\Public\Documents\EFS-Lab</code>. Notice the padlock: Bob can see <em>that</em> the file is encrypted, and its name and size, but not its contents. Open <code>public.txt</code>. Bob can read the notice. Now open <code>secret.txt</code>. Expect an error such as <strong>Access is denied</strong>. Open <strong>Start</strong> so Bob's name shows, then take the screenshot.</p>
+<details class="command-route"><summary>Prefer Command Prompt? Use this route instead</summary><p><strong>Command route:</strong> Open Command Prompt.</p>
+<pre><code class="language-cmd">cd C:\Users\Public\Documents\EFS-Lab
+whoami
+type public.txt
+type secret.txt
+</code></pre>
+<p><code>whoami</code> shows the signed-in account. <code>type</code> prints a file. Expect the public notice, then <strong>Access is denied</strong> for the secret.</p>
+<p>If Bob cannot read <code>public.txt</code> either, the test cannot separate permissions from encryption. Stop and ask your instructor.</p>
+</details><aside class="screenshot" id="screenshot-2"><p class="eyebrow">Screenshot 2 of 5 · Your real VM</p><h3>Bob Reads Public but Not Secret</h3><p><strong>Requirement:</strong> In one screenshot, show Bob's account name, the readable <code>public.txt</code> text, and the access error for <code>secret.txt</code>.</p></aside>
+<p><strong>One warning:</strong> encryption protects what a file <em>says</em>, not whether it <em>survives</em>. If folder permissions let someone delete or replace a file, encryption will not stop them. Permissions and backups handle that. Do not delete Alice's file.</p>
+<p><strong>Sign out</strong> Bob. Next, sign in as <strong>LabAdmin</strong>.</p></div><a class="model-link" href="#concept-model" data-show-scene="1">Explore this idea in the simulator</a></section><section class="lab-step" id="admin" data-view="admin" aria-labelledby="heading-admin"><div class="step-heading"><div><p class="eyebrow">Step 3 of 5 · 5 minutes</p><h2 id="heading-admin">Can the administrator read it?</h2></div><span class="account"><span>Sign in as</span><strong>LabAdmin</strong></span></div><div class="step-body"><p class="evidence-jump"><a href="#screenshot-3">What to capture for Screenshot 3</a></p><h2>LabAdmin tries</h2>
+<p>Sign in as <strong>LabAdmin</strong>. Administrators can override almost any permission. Find out whether that is enough.</p>
+<p>Choose <strong>one</strong> route.</p>
+<p><strong>GUI route:</strong> Go to the <code>EFS-Lab</code> folder. Open <code>public.txt</code>; LabAdmin can read it. Open <code>secret.txt</code>. Expect an access error. Open <strong>Start</strong> so LabAdmin's name shows, then take the screenshot.</p>
+<details class="command-route"><summary>Prefer Command Prompt? Use this route instead</summary><p><strong>Command route:</strong> Open Command Prompt <strong>as administrator</strong>. The window title starts with <strong>Administrator:</strong>, showing that full administrator rights are active.</p>
+<pre><code class="language-cmd">cd C:\Users\Public\Documents\EFS-Lab
+whoami
+type public.txt
+type secret.txt
+</code></pre>
+<p>Expect the public notice, then <strong>Access is denied</strong>.</p>
+<p>An administrator can change permissions, move files or take ownership. None of that gives LabAdmin Alice's private key, so the contents stay scrambled. A <strong>recovery agent</strong> is an extra key some organizations configure so IT can recover encrypted files. If your chosen VM has one configured, its recovery behaviour can differ from this experiment.</p>
+</details><aside class="screenshot" id="screenshot-3"><p class="eyebrow">Screenshot 3 of 5 · Your real VM</p><h3>LabAdmin Reads Public but Not Secret</h3><p><strong>Requirement:</strong> In one screenshot, show LabAdmin's account name, the readable <code>public.txt</code> text, and the access error for <code>secret.txt</code>.</p></aside>
+<p><strong>Stay signed in</strong> as LabAdmin for the next section.</p>
+<p><strong>Be realistic:</strong> this test shows that administrator rights alone did not decrypt the file. It does not make an administrator harmless. Someone who controls a running computer could install spyware to capture Alice's password, or copy her PFX and try to guess its password.</p></div><a class="model-link" href="#concept-model" data-show-scene="2">Explore this idea in the simulator</a><div class="check-understanding"><h2>Pause for a quick check</h2><p>You can answer these before trying the next account. They are practice, not extra submission requirements.</p><details><summary>Bob can read public.txt. Why might secret.txt still fail?</summary><p>The files inherit the same folder permissions, but the encrypted file also requires a matching EFS private key. Bob does not have Alice’s key.</p></details><details><summary>Would a certificate-only CER recover Alice’s file?</summary><p>No. Recovery needs the matching private key. Alice’s password-protected PFX backup includes that private key as well as her certificate.</p></details><details><summary>After importing the PFX, is secret.txt unencrypted?</summary><p>No. Alice can read it because her key is available again. Verify that the file still shows EFS encryption.</p></details></div></section><section class="lab-step" id="reset" data-view="reset" aria-labelledby="heading-reset"><div class="step-heading"><div><p class="eyebrow">Step 4 of 5 · 7 minutes</p><h2 id="heading-reset">Reset Alice’s password</h2></div><span class="account"><span>Sign in as</span><strong>LabAdmin → Alice</strong></span></div><div class="step-body"><p class="evidence-jump"><a href="#screenshot-4">What to capture for Screenshot 4</a></p><h2>Change versus reset</h2>
+<p>A password <strong>change</strong> happens when Alice types her <strong>old</strong> password and then a new one. Windows uses the old password to re-protect her private key, so her encrypted files keep working.</p>
+<p>A password <strong>reset</strong> happens when an administrator sets a new password <strong>without</strong> knowing the old one. Windows cannot re-protect Alice's private key, so her new password may no longer unlock it. That is a safety feature: otherwise any administrator could reset Alice's password, sign in as her and read her files. On a standalone computer with local accounts, a key backup is Alice's way back.</p>
+<h2>LabAdmin resets Alice</h2>
+<p>Alice must be signed out. You signed her out after encrypting and backing up her key.</p>
+<p>Choose <strong>one</strong> route.</p>
+<p><strong>GUI route:</strong> Press <strong>Windows+R</strong>, type <code>lusrmgr.msc</code>, and press <strong>Enter</strong>. Select <strong>Users</strong>. Right-click <strong>Alice</strong> and select <strong>Set Password</strong>. Read the warning about possible loss of information, such as encrypted files. Select <strong>Proceed</strong>, type Alice's <strong>new</strong> password twice, and select <strong>OK</strong>.</p>
+<details class="command-route"><summary>Prefer Command Prompt? Use this route instead</summary><p><strong>Command route:</strong> In Command Prompt <strong>as administrator</strong>:</p>
+<pre><code class="language-cmd">net user Alice *
+</code></pre>
+<p>Type the new password twice. This command does not show the warning dialog that the GUI route displays.</p>
+</details><p><strong>Restart</strong> the VM: <strong>Start &gt; Power &gt; Restart</strong>. A restart makes sure no old Alice session remains.</p>
+<h2>Alice comes back</h2>
+<p>Sign in as <strong>Alice</strong> with her <strong>new</strong> password.</p>
+<p>Choose <strong>one</strong> route.</p>
+<p><strong>GUI route:</strong> In File Explorer, go to <code>C:\Users\Public\Documents\EFS-Lab</code>. Open <code>public.txt</code>; Alice can still read it. Open <code>secret.txt</code> freshly from File Explorer. Expect an access error. Close any restored Notepad tab first: cached text is not a fresh file read. Open <strong>Start</strong> so Alice's name shows, then take the screenshot.</p>
+<details class="command-route"><summary>Prefer Command Prompt? Use this route instead</summary><p><strong>Command route:</strong> Open Command Prompt (not as administrator).</p>
+<pre><code class="language-cmd">cd C:\Users\Public\Documents\EFS-Lab
+whoami
+type public.txt
+type secret.txt
+</code></pre>
+<p>Expect the public notice, then <strong>Access is denied</strong>. The file still names Alice's certificate, but her new password cannot unlock the old private key.</p>
+
+</details><p>If the secret opens instead, the reset did not remove Alice's key access. Do not fake the error. Ask your instructor; the VM may have different key-recovery or account settings. Do not delete certificates to force a failure.</p><aside class="screenshot" id="screenshot-4"><p class="eyebrow">Screenshot 4 of 5 · Your real VM</p><h3>Alice Locked Out After the Reset</h3><p><strong>Requirement:</strong> In one screenshot, show Alice's account name, the readable <code>public.txt</code> text, and the access error for <code>secret.txt</code>.</p></aside></div><a class="model-link" href="#concept-model" data-show-scene="4">Explore this idea in the simulator</a></section><section class="lab-step" id="recover" data-view="recover" aria-labelledby="heading-recover"><div class="step-heading"><div><p class="eyebrow">Step 5 of 5 · 5 minutes</p><h2 id="heading-recover">Restore Alice’s key</h2></div><span class="account"><span>Sign in as</span><strong>Alice</strong></span></div><div class="step-body"><p class="evidence-jump"><a href="#screenshot-5">What to capture for Screenshot 5</a></p><h2>Restore the key</h2>
+<p>Choose <strong>one</strong> way to open the <strong>Certificate Import Wizard</strong>:</p>
+<ul>
+<li>Double-click <code>alice-efs.pfx</code> on the Desktop, <strong>or</strong></li>
+<li>Press <strong>Windows+R</strong>, type <code>certmgr.msc</code>, and press <strong>Enter</strong>. This shortcut opens Alice's own certificates. Right-click <strong>Personal</strong> and select <strong>All Tasks &gt; Import</strong>, then browse to the Desktop. Change the file type list to <strong>Personal Information Exchange</strong> so <code>alice-efs.pfx</code> appears.</li>
+</ul>
+<p>Complete the wizard:</p>
+<ol>
+<li>If asked for <strong>Store Location</strong>, choose <strong>Current User</strong>, then <strong>Next</strong>.</li>
+<li>Check that the file name points to <code>alice-efs.pfx</code>. Select <strong>Next</strong>.</li>
+<li>Type the backup password. Leave the other options as they are. Select <strong>Next</strong>.</li>
+<li>Accept the suggested certificate store (<strong>Automatically select</strong> or <strong>Personal</strong>), then <strong>Next</strong>.</li>
+<li>Select <strong>Finish</strong>. Expect <strong>The import was successful</strong>.</li>
+</ol>
+<p><strong>Current User</strong> matters: it puts the key in Alice's own profile, where EFS looks for it.</p>
+<h2>Read the secret again</h2>
+<p>Choose <strong>one</strong> route.</p>
+<p><strong>GUI route:</strong> Open <code>secret.txt</code>. Expect the mission text. Look at the padlock on its icon: the file is <strong>still encrypted</strong>. Alice simply has her key back. Open <strong>Start</strong> so Alice's name shows.</p>
+<details class="command-route"><summary>Prefer Command Prompt? Use this route instead</summary><p><strong>Command route:</strong> In Command Prompt:</p>
+<pre><code class="language-cmd">cd C:\Users\Public\Documents\EFS-Lab
+whoami
+type secret.txt
+cipher
+</code></pre>
+<p>Expect the mission text, then <code>E secret.txt</code> and <code>U public.txt</code>.</p>
+<p>If access is still denied, sign Alice out and back in, then try again.</p>
+</details><aside class="screenshot" id="screenshot-5"><p class="eyebrow">Screenshot 5 of 5 · Your real VM</p><h3>Alice's Secret Restored and Still Encrypted</h3><p><strong>Requirement:</strong> In one screenshot, show Alice's account name, the mission text from <code>secret.txt</code>, and <code>secret.txt</code> still marked encrypted (padlock icon or <code>E</code> in <code>cipher</code> output).</p></aside>
+<p>Mission complete. Remember: <strong>permissions decide who may open a file; encryption decides who can read it. Back up the key before you need it.</strong></p></div><a class="model-link" href="#concept-model" data-show-scene="5">Explore this idea in the simulator</a></section>
+<article data-view="submit"><section id="submit" class="start-box"><p class="eyebrow">Finish</p><h2>Submit five screenshots from your real VM</h2><p>Add Screenshots 1–5 to the <a href="https://github.com/WikiSteve/networking-labs/raw/refs/heads/main/labs/230-windows-efs/EFS%20Lab%20SUBMISSION%20TEMPLATE.pptx">submission template</a> <small>(<a href="EFS%20Lab%20SUBMISSION%20TEMPLATE.pptx" download>local copy</a>)</small>. Submit that completed template through your normal class submission method. No extra screenshot or written report is required.</p><p><strong>The takeaway:</strong> permission lets Windows attempt to open a file; the matching private key makes EFS decryption possible. Back up the key before you need it.</p></section><details class="source-details"><summary>Microsoft references and instructor status</summary><ul>
+<li><a href="https://support.microsoft.com/en-us/windows/security/encryption/how-to-encrypt-a-file-or-folder">Encrypt a file or folder</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cipher">EFS encryption and key-backup commands</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows/win32/seccng/cng-dpapi-backup-keys-on-ad-domain-controllers">Domain recovery differs from this local-account experiment</a></li>
+</ul><p class="draft-note">Reviewed teaching draft. A full interactive Windows run and classroom timing check are still pending. A simulation result is not a Windows test result. UI labels and recovery behaviour can vary between Windows editions and managed environments.</p></details></article><p id="announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p></main></div><footer><div class="wrap"><p>Windows EFS lab · Offline HTML guide · Simulations adapted from the supplied EFS interactive explainer. No passwords, private keys, VM files or results are collected.</p></div></footer>
+<script>
+'use strict';
+// All model logic is independent of the DOM. Chapters deliberately load fixed
+// examples rather than claiming to track actions performed in the learner's VM.
+const EFSModel = (() => {
+  const actors = Object.freeze(['Alice', 'Bob', 'LabAdmin']);
+  function create(chapter) {
+    if (!Number.isInteger(chapter) || chapter < 0 || chapter > 5) throw new RangeError('Invalid chapter');
+    return {chapter, actor: ['Bob','Alice','LabAdmin','Alice','LabAdmin','Alice'][chapter],
+      encrypted: chapter >= 2, read: {Alice:true, Bob:chapter > 0, LabAdmin:chapter !== 2},
+      aliceKey: chapter !== 5, backup: chapter >= 4, resetApplied:chapter === 5,
+      resetOutcome:'lost', actionDone:false};
+  }
+  function outcome(s) {
+    if (!s.read[s.actor]) return 'permission';
+    if (s.encrypted && !(s.actor === 'Alice' && s.aliceKey)) return 'key';
+    return 'open';
+  }
+  function reduce(s, event) {
+    const next = {...s, read:{...s.read}};
+    if (event.type === 'actor' && actors.includes(event.value)) next.actor = event.value;
+    if (event.type === 'permission') next.read[next.actor] = Boolean(event.value);
+    if (event.type === 'resetOutcome' && !s.resetApplied && ['lost','retained'].includes(event.value)) next.resetOutcome = event.value;
+    if (event.type === 'action' && !s.actionDone) {
+      switch (s.chapter) {
+        case 0: next.read.Bob = true; break;
+        case 1: next.encrypted = true; break;
+        case 2: next.read.LabAdmin = true; break;
+        case 3: next.backup = true; break;
+        case 4:
+          if (!s.backup) return s;
+          next.resetApplied = true;
+          next.aliceKey = s.resetOutcome === 'retained';
+          next.actor = 'Alice';
+          break;
+        case 5:
+          if (!s.backup) return s;
+          next.aliceKey = true;
+          next.actor = 'Alice';
+          break;
+      }
+      next.actionDone = true;
+    }
+    return next;
+  }
+  return Object.freeze({actors, create, outcome, reduce});
+})();
+
+const scenes = [
+  {title:'Start with permission.', time:'Optional simulation', name:'permission',
+    story:'An ordinary file has no EFS encryption. Bob cannot read it until its NTFS permissions allow him to.',
+    baseline:'Prepared example: Bob has no Read permission. Alice and LabAdmin do.',
+    action:'Simulate: grant Bob Read', done:'Read granted to Bob',
+    note:'The permission change is performed by LabAdmin in this model.',
+    after:'Bob now meets the only requirement for this unencrypted file. Predict, then try opening it.',
+  },
+  {title:'Add the second requirement.', time:'10–14 minutes', name:'encryption',
+    story:'Alice encrypts the file. Bob keeps his Read permission, but he does not have a private key that can decrypt it.',
+    baseline:'Prepared example: EFS is off and all three accounts have Read. Alice has a usable EFS key in this simplified model.',
+    action:'Simulate: Alice encrypts the file', done:'EFS encryption applied',
+    note:'This changes encryption, not the permissions.',
+    after:'Choose Bob, predict, then try opening. Switch to Alice to compare.',
+  },
+  {title:'Administrator is not a key.', time:'14–18 minutes', name:'administrator',
+    story:'LabAdmin can change permissions. Giving itself Read still does not supply a private key for Alice’s encrypted file.',
+    baseline:'Prepared example: the file is encrypted. LabAdmin starts without Read and has no applicable decryption or recovery key.',
+    action:'Simulate: grant LabAdmin Read', done:'Read granted to LabAdmin',
+    note:'First predict the result without Read. Then grant Read and compare.',
+    after:'The permission requirement is now met. The missing decryption key still matters.',
+  },
+  {title:'Back up the way back in.', time:'18–25 minutes', name:'key backup',
+    story:'Alice exports her matching EFS certificate and private key into a password-protected PFX. The backup is a copy; her working key stays available.',
+    baseline:'Prepared example: Alice can open the encrypted file. No PFX backup has been exported yet.',
+    action:'Simulate: export Alice’s PFX', done:'PFX backup created in the model',
+    note:'No real certificate, password or file is collected or created here.',
+    after:'The backup is outside the encrypted folder. Alice’s working key and the file’s encryption are unchanged.',
+  },
+  {title:'Sign-in can work. Decryption may not.', time:'25–32 minutes', name:'password reset',
+    story:'LabAdmin forcibly resets Alice’s local password. Alice signs in again. In the loss-of-access case, her permissions remain but her protected EFS private key is no longer usable.',
+    baseline:'Prepared example: Alice’s PFX was exported safely, the file is encrypted and all accounts have Read. Choose an illustrative reset outcome.',
+    action:'Simulate: force reset & sign in as Alice', done:'Forced reset simulated; Alice selected',
+    note:'This is a possible outcome, not a promise about every Windows configuration.',
+    after:'The file and NTFS permissions are unchanged. Inspect Alice’s key status, then predict and try.',
+  },
+  {title:'Restore the key. Keep the encryption.', time:'32–37 minutes', name:'restore access',
+    story:'Alice imports the original PFX into her own user certificate store. With the matching private key available again, she can open the file without removing EFS encryption.',
+    baseline:'Prepared example: this chapter follows the loss-of-access branch. Alice has Read, her key is unavailable, and her original PFX backup is accessible.',
+    action:'Simulate: Alice imports her PFX', done:'Alice’s certificate and private key restored',
+    note:'Importing a matching key does not grant NTFS permissions.',
+    after:'Try Alice, then Bob. For an extra check, remove Alice’s Read permission: the restored key cannot bypass that requirement.',
+  }
+];
+
+let state = EFSModel.create(0);
+const $ = id => document.getElementById(id);
+function announce(message) { $('announcement').textContent = message; }
+function clearPrediction() {
+  document.querySelectorAll('[name="prediction"]').forEach(input => { input.checked = false; });
+  $('result').hidden = true;
+}
+function render() {
+  const scene = scenes[state.chapter];
+  $('file-state').textContent = state.encrypted ? 'EFS on · contents remain encrypted on disk' : 'EFS off · ordinary file';
+  document.querySelectorAll('[name="actor"]').forEach(input => { input.checked = input.value === state.actor; });
+  const allowed = state.read[state.actor];
+  $('permission-state').textContent = `${allowed ? 'Allowed' : 'Not allowed'} for ${state.actor}`;
+  $('permission-state').className = allowed ? 'state-good' : 'state-bad';
+  const usable = state.actor === 'Alice' && state.aliceKey;
+  $('key-state').textContent = !state.encrypted ? 'Not required: EFS is off' : usable ? 'Available to Alice' : `Unavailable to ${state.actor}`;
+  $('key-state').className = !state.encrypted ? 'state-na' : usable ? 'state-good' : 'state-bad';
+  $('key-explain').textContent = !state.encrypted ? 'An unencrypted file has no EFS decryption requirement.' : usable ? 'Her matching private key can unlock this file’s encryption key.' : state.actor === 'Alice' ? 'In this branch, Alice cannot use her protected private key. The file is still encrypted.' : 'Read permission and administrator status do not supply Alice’s private key.';
+  $('permission-toggle').checked = allowed;
+  $('permission-label').textContent = `Allow ${state.actor} to read`;
+  $('backup-state').textContent = state.backup ? 'PFX backup: certificate + private key, password-protected and outside the EFS folder (simulated).' : 'PFX backup: not exported in this example.';
+  $('prediction-title').textContent = `Predict: what happens when ${state.actor} opens the file?`;
+  $('scene-action').textContent = state.actionDone ? scene.done : scene.action;
+  $('scene-action').disabled = state.actionDone;
+  $('reset-outcome').value = state.resetOutcome;
+  $('reset-outcome').disabled = state.resetApplied;
+  $('action-note').textContent = state.actionDone ? (state.chapter === 4 && state.aliceKey ? 'In this alternative, Alice retains key access. This illustrates why the real lab outcome must be observed, not assumed.' : scene.after) : scene.note;
+}
+function loadChapter(chapter, focus = true) {
+  state = EFSModel.create(chapter);
+  const scene = scenes[chapter];
+  $('scene-number').textContent = `Chapter ${String(chapter + 1).padStart(2,'0')}`;
+  $('scene-time').textContent = 'Optional simulation';
+  $('scene-title').textContent = scene.title;
+  $('scene-story').textContent = scene.story;
+  $('scene-baseline').textContent = scene.baseline;
+  $('reset-choice').hidden = chapter !== 4;
+  document.querySelectorAll('.chapters [data-scene]').forEach(button => {
+    if (Number(button.dataset.scene) === chapter) button.setAttribute('aria-current','step');
+    else button.removeAttribute('aria-current');
+  });
+  $('previous').disabled = chapter === 0;
+  $('next').textContent = chapter === 5 ? 'Restart the story ↺' : `Next: ${scenes[chapter + 1].name} →`;
+  $('position').textContent = `${chapter + 1} of 6`;
+  clearPrediction();
+  render();
+  if (focus) { $('scene-title').focus(); announce(`Chapter ${chapter + 1}. Prepared example loaded. ${scene.baseline}`); }
+}
+function dispatch(event) {
+  state = EFSModel.reduce(state,event);
+  clearPrediction();
+  render();
+  announce(event.type === 'action' ? `${$('action-note').textContent} Predict the result below.` : `Model updated for ${state.actor}. Choose a new prediction.`);
+}
+document.querySelectorAll('.chapters [data-scene]').forEach(button => button.addEventListener('click',() => loadChapter(Number(button.dataset.scene))));
+document.querySelectorAll('[name="actor"]').forEach(input => input.addEventListener('change',() => dispatch({type:'actor',value:input.value})));
+$('permission-toggle').addEventListener('change',event => dispatch({type:'permission',value:event.target.checked}));
+$('reset-outcome').addEventListener('change',event => dispatch({type:'resetOutcome',value:event.target.value}));
+$('scene-action').addEventListener('click',() => dispatch({type:'action'}));
+$('previous').addEventListener('click',() => loadChapter(Math.max(0,state.chapter - 1)));
+$('next').addEventListener('click',() => loadChapter((state.chapter + 1) % scenes.length));
+$('predict-form').addEventListener('submit',event => {
+  event.preventDefault();
+  const prediction = document.querySelector('[name="prediction"]:checked');
+  if (!prediction) return;
+  const outcome = EFSModel.outcome(state);
+  const titles = {open:'The file opens in the model.',permission:'Opening is blocked by NTFS permissions.',key:'Read is allowed, but decryption fails.'};
+  const reasons = {
+    open:state.encrypted ? 'Alice has both Read permission and a usable matching private key. The file remains EFS-encrypted on disk.' : `${state.actor} has Read permission. This file is not EFS-encrypted, so no EFS key is needed.`,
+    permission:`${state.actor} lacks Read permission. A decryption key does not grant it. ${state.encrypted ? 'Encryption remains a separate requirement.' : 'EFS is off in this example.'}`,
+    key:`${state.actor} has Read permission but no usable private key for this file. ${state.actor === 'Alice' ? 'In the loss-of-access branch, importing her original PFX can restore the matching key.' : 'Changing permissions again will not supply Alice’s private key.'}`
+  };
+  $('result-title').textContent = `${prediction.value === outcome ? 'Prediction matched. ' : 'Compare your prediction. '}${titles[outcome]}`;
+  $('result-body').textContent = reasons[outcome];
+  $('result').dataset.outcome = outcome;
+  $('result').hidden = false;
+  announce(`${$('result-title').textContent} ${reasons[outcome]}`);
+});
+loadChapter(0,false);
+window.EFSExplorer={load:loadChapter};
+</script><script>
+'use strict';
+const views = Array.from(document.querySelectorAll('[data-view]'));
+const stepLinks = Array.from(document.querySelectorAll('.guide-links a'));
+const picker = document.querySelector('.step-picker select');
+const pager = document.createElement('nav');
+pager.className = 'view-pager';
+pager.setAttribute('aria-label', 'Previous and next lab sections');
+views[0].parentNode.insertBefore(pager, document.getElementById('announcement'));
+
+function showView(moveFocus) {
+  const fragment = location.hash.slice(1);
+  const requested = document.getElementById(fragment);
+  const active = requested?.closest('[data-view]') ||
+    views.find(view => view.dataset.view === fragment) || views[0];
+  const key = active.dataset.view;
+  const index = stepLinks.findIndex(link => link.hash === '#' + key);
+  views.forEach(view => { view.hidden = view !== active; });
+  stepLinks.forEach((link, position) => {
+    if (position === index) link.setAttribute('aria-current', 'step');
+    else link.removeAttribute('aria-current');
+  });
+  picker.value = key;
+  pager.replaceChildren();
+  if (key !== 'explore') {
+    for (const [neighbor, prefix] of [[index - 1, '← '], [index + 1, 'Next: ']]) {
+      if (neighbor < 0 || neighbor > 6) continue;
+      const link = stepLinks[neighbor].cloneNode(true);
+      link.removeAttribute('aria-current');
+      link.textContent = prefix + link.textContent;
+      pager.append(link);
+    }
+  }
+  if (key === 'explore') document.getElementById('concept-model').open = true;
+  if (moveFocus) {
+    const target = requested && !requested.matches('section, details')
+      ? requested : active.querySelector('h2') || active;
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll: true});
+    target.scrollIntoView({block: 'start'});
+  }
+}
+
+document.body.classList.add('paged');
+picker.addEventListener('change', () => { location.hash = picker.value; });
+window.addEventListener('hashchange', () => showView(true));
+document.querySelectorAll('[data-show-scene]').forEach(link => {
+  link.addEventListener('click', () => window.EFSExplorer.load(Number(link.dataset.showScene), false));
+});
+showView(Boolean(location.hash));
+document.querySelectorAll('pre').forEach(pre=>{if(!pre.querySelector('code.language-cmd'))return;const row=document.createElement('div');row.className='code-actions';const button=document.createElement('button');button.type='button';button.className='copy-code';button.textContent='Copy commands';const status=document.createElement('span');status.setAttribute('role','status');row.append(button,status);pre.after(row);button.addEventListener('click',async()=>{try{if(!navigator.clipboard)throw Error();await navigator.clipboard.writeText(pre.textContent);status.textContent='Copied. Paste into Command Prompt.';}catch{const range=document.createRange();range.selectNodeContents(pre);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);status.textContent='Commands selected. Press Ctrl+C to copy.';}});});
+let printDetails=[];window.addEventListener('beforeprint',()=>{printDetails=Array.from(document.querySelectorAll('details:not(.model-container)')).map(d=>[d,d.open]);printDetails.forEach(([d])=>d.open=true);});window.addEventListener('afterprint',()=>printDetails.forEach(([d,open])=>d.open=open));document.getElementById('print-guide').addEventListener('click',()=>window.print());
+</script></body></html>
