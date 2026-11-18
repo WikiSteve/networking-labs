@@ -1,6 +1,6 @@
 # Cisco Catalyst 1300 Lab 1 — Initial Configuration
 
-> **Before you start:** Download the [submission template](./Cisco%20Catalyst%201300%20Initial%20Configuration%20SUBMISSION%20TEMPLATE.pptx?raw=true). Add each required screenshot as you complete the lab, then submit the completed template for grading.
+> **Before you start:** Download the [submission template](https://raw.githubusercontent.com/WikiSteve/networking-labs/refs/heads/main/labs/011-catalyst-1300-initial-configuration/Cisco%20Catalyst%201300%20Initial%20Configuration%20SUBMISSION%20TEMPLATE.pptx). Add each required screenshot as you complete the lab, then submit the completed template for grading.
 
 [Download the interactive HTML lab](./index.html) · On the file page, click **Download raw file**, then open the saved HTML in your browser. Save the PowerPoint beside it if you want the template available offline.
 

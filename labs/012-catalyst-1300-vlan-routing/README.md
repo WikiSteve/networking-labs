@@ -1,6 +1,6 @@
 # Cisco Catalyst 1300 Lab 2 — VLANs and Inter-VLAN Routing
 
-> **Before you start:** Download the [submission template](./Catalyst%201300%20Lab%202%20SUBMISSION%20TEMPLATE.pptx?raw=true). Add each required screenshot as you complete the lab, then submit the completed template for grading.
+> **Before you start:** Download the [submission template](https://raw.githubusercontent.com/WikiSteve/networking-labs/refs/heads/main/labs/012-catalyst-1300-vlan-routing/Catalyst%201300%20Lab%202%20SUBMISSION%20TEMPLATE.pptx). Add each required screenshot as you complete the lab, then submit the completed template for grading.
 
 [Download the interactive HTML lab](./index.html) · On the file page, click **Download raw file**, then open the saved HTML in your browser. Save the PowerPoint beside it if you want the template available offline.
 
@@ -187,7 +187,7 @@ The switch routed the IP packet, reduced its TTL by one, and built a new Etherne
 
 ## 6. Submit and save
 
-Put these five screenshots in order in the [Catalyst 1300 Lab 2 Submission Template](./Catalyst%201300%20Lab%202%20SUBMISSION%20TEMPLATE.pptx?raw=true):
+Put these five screenshots in order in the [Catalyst 1300 Lab 2 Submission Template](https://raw.githubusercontent.com/WikiSteve/networking-labs/refs/heads/main/labs/012-catalyst-1300-vlan-routing/Catalyst%201300%20Lab%202%20SUBMISSION%20TEMPLATE.pptx):
 
 1. ARP request and reply in the same VLAN.
 2. ARP requests visible on PC A and absent on PC B after the VLAN move.

@@ -1,6 +1,6 @@
 # Secret Mission: Windows File Encryption (EFS)
 
-> **Before you start:** Download the [submission template](./EFS%20Lab%20SUBMISSION%20TEMPLATE.pptx?raw=true). Add each required screenshot as you complete the lab, then submit the completed template for grading.
+> **Before you start:** Download the [submission template](https://raw.githubusercontent.com/WikiSteve/networking-labs/refs/heads/main/labs/230-windows-efs/EFS%20Lab%20SUBMISSION%20TEMPLATE.pptx). Add each required screenshot as you complete the lab, then submit the completed template for grading.
 
 [Download the interactive HTML lab](./index.html) · On the file page, click **Download raw file**, then open the saved HTML in your browser. Save the PowerPoint beside it if you want the template available offline.
 
