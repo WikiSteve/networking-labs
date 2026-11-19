@@ -1,6 +1,6 @@
 # Which happened first?
 
-OSYS-3030 · Network Time Protocol on Debian, Windows, and the Catalyst 1300 · Target 40 minutes after setup
+Network Time Protocol on Debian, Windows, and the Catalyst 1300 · Target 40 minutes after setup
 
 [Download the interactive HTML lab](https://github.com/WikiSteve/networking-labs/releases/download/ntp-lab-html/index.html). Open the downloaded `index.html` in your browser to fill in and check the timeline.
 
