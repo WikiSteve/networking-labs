@@ -95,6 +95,7 @@
 - [Bash Scripting Health Checks](./labs/220-bash-scripting-health-checks/README.md)
 - [FTP and Samba](./labs/lab_ftp_samba_md/README.md)
 - [Samba Active Directory and File Shares](./labs/240-samba-domain-and-shares/README.md)
+- [Network Time Protocol on Debian, Windows, and Catalyst 1300](./labs/250-network-time-protocol/README.md)
 - [Bootable ISO Drive](./course-materials/labs/systems/lab-bootable-iso-drive.md)
 - [Component Search](./course-materials/labs/systems/lab-component-search.md)
 - [LVM Setup](./course-materials/labs/systems/lab-lvm-setup.md)
