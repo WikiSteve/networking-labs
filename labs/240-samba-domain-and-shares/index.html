@@ -19,6 +19,13 @@
 .lab-visual button{margin:.2rem .3rem .2rem 0;padding:.35rem .65rem}
 .lab-visual [role="status"]{display:block;margin:.7rem 0 0}
 noscript .lab-note{display:block}
+
+.demo-choices{border:0;padding:0;margin:.8rem 0 0;min-width:0}
+.demo-choices legend{font-weight:700;margin-bottom:.35rem}
+.demo-choices button[aria-pressed="true"]{background:#153e3d;color:#fff;border-color:#153e3d}
+.demo-answer:not(:empty){border-left:4px solid #21776a;padding:.25rem .7rem;margin:.6rem 0}
+.demo-answer p,.demo-answer ol{margin:.4rem 0}
+.demo-answer code{overflow-wrap:anywhere}
 </style></head><body><a class="skip" href="#main">Skip to lab</a><header class="hero"><div class="wrap"><strong>Hands-on lab · 40-minute target</strong><h1>Samba Active Directory<br/>and File Shares</h1><p>Join two Windows VMs to a Linux-hosted domain, then see how group membership changes what each user can open or edit.</p></div></header><div class="layout wrap"><nav aria-label="Lab steps" class="steps"><h2>Lab steps</h2><div class="links"><a href="#overview">Overview</a><a href="#domain">Create the domain</a><a href="#join">Join Windows</a><a href="#samba">Publish Samba shares</a><a href="#windows">Set Windows permissions</a><a href="#test">Test as Alice and Bob</a><a href="#troubleshooting">Troubleshooting</a><a href="#references">References</a></div><label class="picker">Lab step <select id="step-picker"><option value="overview">Overview</option><option value="domain">Create the domain</option><option value="join">Join Windows</option><option value="samba">Publish Samba shares</option><option value="windows">Set Windows permissions</option><option value="test">Test as Alice and Bob</option><option value="troubleshooting">Troubleshooting</option><option value="references">References</option></select></label></nav><main id="main" tabindex="-1"><section class="view" id="overview" tabindex="-1"><div class="section-title"><h2>Overview</h2><span></span></div><aside class="start"><strong>Before you start</strong><p>Download the <a download="" href="https://github.com/WikiSteve/networking-labs/blob/main/labs/240-samba-domain-and-shares/Samba%20AD%20Lab%20SUBMISSION%20TEMPLATE.pptx">PowerPoint submission template</a>. Add each required screenshot as you complete the lab, then submit the completed template for grading.</p></aside><details><summary>Preview the four screenshots</summary><ol><li><a href="#screenshot-1">Domain Controller DNS</a></li><li><a href="#screenshot-2">Both Windows Domain Members</a></li><li><a href="#screenshot-3">Alice Saves to Workbench</a></li><li><a href="#screenshot-4">Bob Denied Access to Drafts</a></li></ol></details><p>Your team is preparing an event. Everyone needs the bulletin. Only the editors should see the draft on Samba. On Windows Server, reviewers should be able to read the workbench without changing it. Use the same domain accounts on both servers.</p>
 <h2>What you need</h2>
 <h3>Name your VMs before configuration</h3>
@@ -133,7 +140,15 @@ sudo samba-tool group addmembers Reviewers bob
 </code></pre><nav aria-label="Previous and next steps" class="pager"><a href="#overview">← Overview</a><a href="#join">Join Windows →</a></nav></section><section class="view" id="join" tabindex="-1"><div class="section-title"><h2>Join Windows</h2><span>8 min</span></div><p>Do this on <strong>Windows Server and Windows 11</strong>. Start the second VM's join while the first restarts.</p>
 <ol>
 <li>Open <strong>Control Panel → Network and Internet → Network and Sharing Center → Change adapter settings</strong>. Right-click the active adapter and select <strong>Properties</strong>.</li>
-<li>Open <strong>Internet Protocol Version 4 (TCP/IPv4)</strong>. Keep the existing IP settings. Select <strong>Use the following DNS server addresses</strong>. Enter the Debian VM's IPv4 address as the preferred DNS server and leave Alternate blank. Click <strong>OK</strong> in both properties windows.</li>
+<li>Open <strong>Internet Protocol Version 4 (TCP/IPv4)</strong>. Keep the existing IP settings. Select <strong>Use the following DNS server addresses</strong>. Enter the Debian VM's IPv4 address as the preferred DNS server and leave Alternate blank. Click <strong>OK</strong> in both properties windows.
+
+<aside class="lab-visual permission-demo" id="dns-discovery" tabindex="-1">
+<h3>How does Windows find the domain controller?</h3>
+<p>Windows needs to find the controller for <code>lee-lab.internal</code>. Predict which DNS server knows that private domain, then pick one to see the lookup.</p>
+<fieldset class="demo-choices" hidden><legend>Which DNS server would you use?</legend><button type="button" data-demo-choice="regular" aria-pressed="false">Regular network DNS</button><button type="button" data-demo-choice="samba" aria-pressed="false">Debian Samba DNS</button></fieldset><div class="demo-answer" role="status" aria-atomic="true"></div>
+<noscript><p>Regular DNS without access to the lab zone has no usable answer. Samba DNS returns an SRV record that points to the domain controller, then an A record gives its IPv4 address.</p></noscript>
+</aside>
+</li>
 <li>Open the <strong>Computer Name</strong> tab in <strong>System Properties</strong> using the path for your VM.
 <ul>
 <li>On <strong>Windows Server</strong>, open <strong>Server Manager → Local Server</strong> and click the <strong>Workgroup</strong> link.</li>
@@ -168,7 +183,7 @@ sudo systemctl restart samba-ad-dc
 <p><code>-s</code> makes <code>testparm</code> print the verified configuration without asking you to press Enter. Check for <strong>Loaded services file OK</strong> and both share names before restarting. The domain controller hosts these two read-only practice shares.</p><nav aria-label="Previous and next steps" class="pager"><a href="#join">← Join Windows</a><a href="#windows">Set Windows permissions →</a></nav></section><section class="view" id="windows" tabindex="-1"><div class="section-title"><h2>Set Windows permissions</h2><span>7 min</span></div><p>On <strong>Windows Server</strong>, sign in as <code>LAB\Administrator</code>.</p>
 <ol>
 <li>In File Explorer, create <strong>C:\Workbench</strong>. Right-click the folder and open <strong>Properties → Security → Advanced</strong>.</li>
-<li>Select <strong>Disable inheritance → Convert inherited permissions into explicit permissions</strong>. Keep <strong>SYSTEM</strong> and the server’s local <strong>Administrators</strong> entry. If the entry is missing, see <a href="#help-administrators">how to look up the local group</a>. Remove every <strong>Users</strong> or <strong>Authenticated Users</strong> entry you see. There can be two <strong>MAYA-FS\Users</strong> entries. Do this only on the new Workbench folder.
+<li>Select <strong>Disable inheritance → Convert inherited permissions into explicit permissions</strong>. Keep <strong>SYSTEM</strong> and the server’s local <strong>Administrators</strong> entry. If the entry is missing, see <a href="#help-administrators">how to look up the local group</a>. Try <a href="#explore-group-lookup">Local vs. domain group lookup</a> in Troubleshooting to see why the location matters. Remove every <strong>Users</strong> or <strong>Authenticated Users</strong> entry you see. There can be two <strong>MAYA-FS\Users</strong> entries. Do this only on the new Workbench folder.
 <figure class="troubleshooting-example">
 <a class="evidence-example-link" href="https://raw.githubusercontent.com/WikiSteve/networking-labs/main/labs/240-samba-domain-and-shares/assets/help-local-admin.png"><img alt="Select User or Group dialog with location MAYA-FS and MAYA-FS Administrators resolved and underlined" height="260" src="./assets/help-local-admin.png" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/WikiSteve/networking-labs/main/labs/240-samba-domain-and-shares/assets/help-local-admin.png'" width="468"/></a>
 <figcaption>In <strong>Locations</strong>, choose your own <code>-FS</code> computer.</figcaption>
@@ -206,7 +221,6 @@ sudo systemctl restart samba-ad-dc
 <p id="visual-explain" role="status"></p>
 </div>
 <noscript><p class="lab-note">A remote save needs permission at both layers. Bob’s share permission allows Change, but his NTFS permission allows reading only.</p></noscript>
-<p><a href="https://github.com/WikiSteve/networking-labs/blob/main/labs/240-samba-domain-and-shares/canvas-workbench.html">Download the animated Canvas version from GitHub</a></p>
 </aside>
 <details><summary>Optional CLI (untested)</summary><p><strong>Optional CLI (untested on the lab VMs).</strong> Use this as an alternative to the folder and share steps above on a fresh VM. Open PowerShell as administrator. Set the Domain firewall rule with the GUI.</p>
 <pre><code class="language-powershell">New-Item -ItemType Directory -Path C:\Workbench
@@ -214,7 +228,7 @@ icacls C:\Workbench /grant:r "SYSTEM:(OI)(CI)F" "BUILTIN\Administrators:(OI)(CI)
 icacls C:\Workbench /inheritance:r
 Set-Content -Path C:\Workbench\event.txt -Value 'Update the event plan here.'
 New-SmbShare -Name Workbench -Path C:\Workbench -ChangeAccess 'LAB\Domain Users' -FullAccess 'BUILTIN\Administrators'
-</code></pre></details><nav aria-label="Previous and next steps" class="pager"><a href="#samba">← Publish Samba shares</a><a href="#test">Test as Alice and Bob →</a></nav></section><section class="view" id="test" tabindex="-1"><div class="section-title"><h2>Test as Alice and Bob</h2><span>10 min</span></div><details class="model"><summary>Try a permission prediction</summary><p>For a remote write, the share and the folder ACL must both allow writing. Predict the result, then compare it with what you see on your VMs.</p><div class="simulation" hidden=""><label>Person <select id="person"><option>Alice</option><option>Bob</option></select></label><label>Action <select id="action"><option value="workread">Read Workbench</option><option value="workwrite">Edit Workbench</option><option value="draftread">Open Drafts</option><option value="bulletin">Open Bulletin</option></select></label><button id="predict">Check prediction</button><p id="prediction" role="status">Simulated result appears here.</p></div></details><p>On <strong>Windows 11</strong>, choose <strong>Other user</strong> and sign in as <code>LAB\alice</code>. Paste each path below into File Explorer's address bar. Then <strong>sign out</strong> and repeat as <code>LAB\bob</code>. The first sign-in for each user can take a minute while Windows creates their profile. Signing out closes the previous user’s SMB sessions. The next sign-in also loads that user’s current group membership. File Explorer may show <code>event</code> or <code>draft</code> without the <code>.txt</code> extension.</p>
+</code></pre></details><nav aria-label="Previous and next steps" class="pager"><a href="#samba">← Publish Samba shares</a><a href="#test">Test as Alice and Bob →</a></nav></section><section class="view" id="test" tabindex="-1"><div class="section-title"><h2>Test as Alice and Bob</h2><span>10 min</span></div><p>On <strong>Windows 11</strong>, choose <strong>Other user</strong> and sign in as <code>LAB\alice</code>. Paste each path below into File Explorer's address bar. Then <strong>sign out</strong> and repeat as <code>LAB\bob</code>. The first sign-in for each user can take a minute while Windows creates their profile. Signing out closes the previous user’s SMB sessions. The next sign-in also loads that user’s current group membership. Try <a href="#explore-group-membership">When does Windows see a group change?</a> in Troubleshooting. File Explorer may show <code>event</code> or <code>draft</code> without the <code>.txt</code> extension.</p>
 <h3>Show which VM and user ran the test</h3>
 <p>While signed in as Alice or Bob, open <strong>Command Prompt</strong> from Start and run:</p>
 <pre><code>hostname
@@ -273,9 +287,27 @@ whoami</code></pre>
 <figcaption>Windows 11 uses the Debian VM’s address for Preferred DNS. Enter your own Debian VM’s address.</figcaption>
 </figure>
 </details>
+
+<details id="explore-group-membership" tabindex="-1">
+<summary>Explore: When does Windows see a group change?</summary>
+<div class="permission-demo">
+<p>Imagine you add Bob to <strong>Editors</strong> while he is signed in. His current session began before the change. Pick what Bob does next. This example leaves your lab accounts as configured.</p>
+<fieldset class="demo-choices" hidden><legend>How should Bob try again?</legend><button type="button" data-demo-choice="reopen" aria-pressed="false">Reopen Drafts</button><button type="button" data-demo-choice="signin" aria-pressed="false">Sign out and back in</button></fieldset><div class="demo-answer" role="status" aria-atomic="true"></div>
+<noscript><p>Reopening Explorer does not refresh Bob’s Windows sign-in. After the domain records the change, signing out and back in loads the updated membership and starts a fresh SMB session.</p></noscript>
+</div>
+</details>
 <details id="help-sign-in" tabindex="-1">
 <summary>A domain account cannot sign in</summary>
 <p>At the Windows 11 sign-in screen, choose <strong>Other user</strong> and enter <code>LAB\alice</code> or <code>LAB\bob</code>. Check the lab password and make sure the Windows and Debian clocks agree. If either user’s group membership changed, sign out and sign back in.</p>
+</details>
+
+<details id="explore-group-lookup" tabindex="-1">
+<summary>Explore: Local vs. domain group lookup</summary>
+<div class="permission-demo">
+<p>In Workbench’s <strong>Select User or Group</strong> dialog, pick a search location. Compare where you find the server’s local <strong>Administrators</strong> group and the domain’s <strong>Editors</strong> group.</p>
+<fieldset class="demo-choices" hidden><legend>Where should Windows look?</legend><button type="button" data-demo-choice="server" aria-pressed="false">MAYA-FS (this server)</button><button type="button" data-demo-choice="domain" aria-pressed="false">lee-lab.internal (the domain)</button></fieldset><div class="demo-answer" role="status" aria-atomic="true"></div>
+<noscript><p>Use your <code>-FS</code> server as the location for its local Administrators group. Use your lab domain for Editors and Reviewers.</p></noscript>
+</div>
 </details>
 <details id="help-administrators" tabindex="-1">
 <summary>Check Names cannot find Administrators</summary>
@@ -335,12 +367,6 @@ picker.addEventListener('change',()=>location.hash=picker.value);
 window.addEventListener('hashchange',()=>route(true));
 route(Boolean(location.hash));
 document.querySelectorAll('main table').forEach(table=>{const box=document.createElement('div');box.className='table-wrap';table.before(box);box.append(table)});
-document.querySelector('.simulation').hidden=false;
-document.querySelector('#predict').addEventListener('click',()=>{
- const alice=document.querySelector('#person').value==='Alice';
- const outcome={workread:'Allowed. Both groups can read Workbench.',workwrite:alice?'Allowed. Share Change and folder Modify both allow the edit.':'Denied. Share Change allows the request, but the Reviewers folder ACL grants read only.',draftread:alice?'Allowed. Editors are listed on the Drafts share.':'Denied. Reviewers are absent from the Drafts share access list.',bulletin:'Allowed. Both groups can read Bulletin.'};
- document.querySelector('#prediction').textContent='Simulation · '+outcome[document.querySelector('#action').value];
-});
 </script>
 <script>
 (() => {
@@ -378,4 +404,34 @@ document.querySelector('#predict').addEventListener('click',()=>{
   update();
   document.querySelectorAll('.lab-visual .visual-controls').forEach((controls) => controls.hidden = false);
 })();
+</script>
+<script>
+const demoResults = {
+  'dns-discovery': {
+    regular: '<p><strong>No usable domain record.</strong> This resolver cannot see the private lab zone, so Windows cannot find the controller from this lookup.</p>',
+    samba: '<ol><li><strong>SRV record:</strong> Find the LDAP service for <code>lee-lab.internal</code>. It points to <code>maya-dc.lee-lab.internal</code> on port 389.</li><li><strong>A record:</strong> Look up that host to get its IPv4 address. In this example it is <code>172.16.171.62</code>.</li></ol><p><strong>Domain controller found.</strong> Continue with the Windows join.</p>'
+  },
+  'explore-group-lookup': {
+    server: '<p><strong>Local Administrators:</strong> <code>MAYA-FS\\Administrators</code> is the group you want for Workbench.</p><p><strong>Editors:</strong> Search the lab domain for this group.</p>',
+    domain: '<p><strong>Editors:</strong> This group belongs to the lab domain.</p><p><strong>Administrators:</strong> The directory has its own Builtin group. Search your <code>-FS</code> computer for the local group Workbench needs.</p>'
+  },
+  'explore-group-membership': {
+    reopen: '<p><strong>Still denied in this example.</strong> Bob’s current Windows sign-in still has his old group membership. Reopening Explorer does not create a new sign-in.</p>',
+    signin: '<p><strong>Drafts opens in this example.</strong> After the domain records the change, the new sign-in includes Editors and starts a fresh SMB session. Drafts admits Editors.</p>'
+  }
+};
+
+Object.entries(demoResults).forEach(([id, outcomes]) => {
+  const demo = document.getElementById(id);
+  const choices = demo.querySelector('.demo-choices');
+  const buttons = choices.querySelectorAll('button');
+  const answer = demo.querySelector('.demo-answer');
+  for (const button of buttons) {
+    button.addEventListener('click', () => {
+      for (const choice of buttons) choice.setAttribute('aria-pressed', String(choice === button));
+      answer.innerHTML = outcomes[button.dataset.demoChoice];
+    });
+  }
+  choices.hidden = false;
+});
 </script></body></html>

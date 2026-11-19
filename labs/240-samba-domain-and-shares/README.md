@@ -2,9 +2,7 @@
 
 > **Before you start:** Download the [Samba AD Lab Submission Template](https://github.com/WikiSteve/networking-labs/blob/main/labs/240-samba-domain-and-shares/Samba%20AD%20Lab%20SUBMISSION%20TEMPLATE.pptx). Click **Download raw file** on GitHub. Add each required screenshot as you complete the lab, then submit the completed template for grading.
 
-[Interactive HTML lab](https://github.com/WikiSteve/networking-labs/blob/main/labs/240-samba-domain-and-shares/index.html) · On the GitHub file page, click **Download raw file**, then open the saved `index.html` in your browser. The screenshots load from GitHub.
-
-[Animated Canvas demo](https://github.com/WikiSteve/networking-labs/blob/main/labs/240-samba-domain-and-shares/canvas-workbench.html) · Download and open it the same way.
+[Download the interactive HTML lab](https://github.com/WikiSteve/networking-labs/releases/download/samba-ad-lab-html/index.html) · Open the downloaded `index.html` in your browser. The screenshots load from GitHub.
 
 ## Before you start
 
@@ -134,6 +132,8 @@ sudo samba-tool group addmembers Reviewers bob
 
 ## 2. Join Windows
 
+The [interactive HTML lab](./index.html) includes a short DNS discovery activity after you set Preferred DNS.
+
 Do this on **Windows Server and Windows 11**. Start the second VM's join while the first restarts.
 
 1.  Open **Control Panel → Network and Internet → Network and Sharing Center → Change adapter settings**. Right-click the active adapter and select **Properties**.
@@ -202,6 +202,8 @@ sudo systemctl restart samba-ad-dc
 
 ## 4. Set Windows permissions
 
+Check [Administrators lookup](#administrators-lookup) if Windows cannot find the group. The interactive HTML also has **Local vs. domain group lookup** in Troubleshooting.
+
 On **Windows Server**, sign in as `LAB\Administrator`.
 
 1.  In File Explorer, create **C:\Workbench**. Right-click the folder and open **Properties → Security → Advanced**.
@@ -245,6 +247,8 @@ New-SmbShare -Name Workbench -Path C:\Workbench -ChangeAccess 'LAB\Domain Users'
 ```
 
 ## 5. Test as Alice and Bob
+
+For help refreshing a user’s group membership, see [Domain sign-in](#domain-sign-in). The interactive HTML has **When does Windows see a group change?** in Troubleshooting.
 
 On **Windows 11**, choose **Other user** and sign in as `LAB\alice`. Paste each path below into File Explorer's address bar. Then **sign out** and repeat as `LAB\bob`. The first sign-in for each user can take a minute while Windows creates their profile. Signing out closes the previous user’s SMB sessions. The next sign-in also loads that user’s current group membership. File Explorer may show `event` or `draft` without the `.txt` extension.
 
