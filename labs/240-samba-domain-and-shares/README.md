@@ -1,8 +1,10 @@
 # Samba Active Directory and File Shares
 
-> **Before you start:** Download the [Samba AD Lab Submission Template](https://raw.githubusercontent.com/WikiSteve/networking-labs/main/labs/240-samba-domain-and-shares/Samba%20AD%20Lab%20SUBMISSION%20TEMPLATE.pptx). Add each required screenshot as you complete the lab, then submit the completed template for grading.
+> **Before you start:** Download the [Samba AD Lab Submission Template](https://github.com/WikiSteve/networking-labs/blob/main/labs/240-samba-domain-and-shares/Samba%20AD%20Lab%20SUBMISSION%20TEMPLATE.pptx). Click **Download raw file** on GitHub. Add each required screenshot as you complete the lab, then submit the completed template for grading.
 
-[Download the interactive HTML lab](https://raw.githubusercontent.com/WikiSteve/networking-labs/main/labs/240-samba-domain-and-shares/Samba%20AD%20Lab.zip) · Unzip the kit and open `index.html` in your browser. The kit includes the screenshots, Canvas demo, and submission template.
+[Interactive HTML lab](https://github.com/WikiSteve/networking-labs/blob/main/labs/240-samba-domain-and-shares/index.html) · On the GitHub file page, click **Download raw file**, then open the saved `index.html` in your browser. The screenshots load from GitHub.
+
+[Animated Canvas demo](https://github.com/WikiSteve/networking-labs/blob/main/labs/240-samba-domain-and-shares/canvas-workbench.html) · Download and open it the same way.
 
 ## Before you start
 
