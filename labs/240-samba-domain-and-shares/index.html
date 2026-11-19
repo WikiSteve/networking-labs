@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Samba Active Directory and File Shares</title><style>
+:root{color-scheme:light;--ink:#18333a;--muted:#506369;--accent:#145c51;--paper:#f5f6ef;--line:#d7dfd9;font:17px/1.6 system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink)}a{color:#135e55;text-underline-offset:.2em}button,select{font:inherit;color:inherit}button{cursor:pointer}a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid #ad5329;outline-offset:3px}.wrap{width:min(1160px,94vw);margin:auto}.hero{background:#153e3d;color:#fff;padding:42px 0 48px;border-bottom:6px solid #e6ba73}.hero strong{color:#ffdb9d;font-size:.85rem;letter-spacing:.09em;text-transform:uppercase}.hero h1{font:700 clamp(2.25rem,6vw,4rem)/1.05 Georgia,serif;max-width:850px;margin:12px 0 15px;letter-spacing:-.035em}.hero p{max-width:64ch;margin:0;color:#e0eeea}.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:24px;margin-block:26px 40px}.steps{position:sticky;top:12px;align-self:start;background:white;border:1px solid var(--line);border-radius:18px;padding:16px;z-index:2}.steps h2{font-size:1rem;margin:0 0 8px}.links a{display:block;padding:8px 10px;border-radius:8px;text-decoration:none;font-size:.93rem}.links a[aria-current="step"]{background:var(--accent);color:white}.picker{display:none}main{min-width:0}.view{background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(16px,4vw,36px);margin-bottom:20px}.section-title{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:15px}.section-title span{white-space:nowrap;color:var(--muted)}h2,h3{line-height:1.2}h2{font:700 clamp(1.55rem,4vw,2.05rem)/1.2 Georgia,serif;margin:0}h3{margin:1.5em 0 .5em}p,li{max-width:78ch}.start,.evidence,details{padding:15px 18px;border-radius:12px;margin:16px 0}.start{background:#eaf4ec;border:1px solid #afd0bd}.start p,.evidence p{margin:5px 0}.evidence{background:#fff5e1;border:1px solid #ead2a8;border-left:5px solid #a95d19}.evidence span{color:#754212;font-weight:700;font-size:.86rem}.evidence h3{margin:5px 0}.pager{display:flex;gap:12px;justify-content:space-between;border-top:1px solid var(--line);padding-top:16px;margin-top:24px}.pager a,button{padding:7px 12px;border:1px solid var(--line);border-radius:8px;background:#f2f7f3}.pager a:last-child{margin-left:auto}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;margin:10px 0}th{text-align:left;background:#eaf1ec}th,td{padding:8px 11px;border:1px solid var(--line);vertical-align:top}td code{overflow-wrap:anywhere}pre.output{background:#eaf4ec;color:#18333a;border:1px solid #afd0bd}pre{background:#163237;color:#f6fbf7;padding:18px;border-radius:10px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:.86rem}code{font-family:Consolas,monospace}p code,li code,td code{overflow-wrap:anywhere;background:#eef2ed;padding:.05em .2em;border-radius:4px}details{background:#f5f8f5;border:1px solid var(--line)}summary{cursor:pointer;font-weight:700}.simulation label{display:inline-block;margin:4px 10px 4px 0}.skip{position:absolute;left:-9999px}.skip:focus{left:8px;background:white;padding:8px;z-index:8}
+.evidence figure,.troubleshooting-example{margin:14px 0 0}.evidence img,.troubleshooting-example img{display:block;width:auto;max-width:100%;height:auto;border:1px solid var(--line);border-radius:6px}.evidence figcaption,.troubleshooting-example figcaption{color:var(--muted);font-size:.9rem;margin-top:5px}.evidence-examples{display:flex;flex-wrap:wrap;gap:12px}.evidence-examples figure{flex:1 1 280px;min-width:0}.evidence-example-link{display:inline-block;max-width:100%}.evidence, [id]{scroll-margin-top:16px}
+@media(max-width:740px){.layout{display:block}.steps{position:static;top:0;margin-bottom:14px;padding:8px 12px}.paged .steps{position:sticky}.paged .links,.paged .steps h2{display:none}.paged .picker{display:flex;gap:8px;align-items:center}.picker select{flex:1;min-width:0}.view,.evidence,#troubleshooting details,.troubleshooting-example{scroll-margin-top:90px}.hero{padding:25px 0}.pager{flex-wrap:wrap}}
+@media print{.steps,.pager,.skip,button,.model{display:none!important}.view[hidden]{display:block!important}.layout{display:block}.view{border:0;padding:0}.hero{color:black;background:white;padding:0;border:0}.hero p,.hero strong{color:black}.evidence,pre{break-inside:avoid}pre{color:black;background:#eee}.wrap{width:100%}}
+
+.lab-visual{margin:1.4rem 0;padding:1rem;border:1px solid var(--line);border-radius:10px}
+.lab-visual h3{margin:0 0 .5rem}
+.lab-visual label{display:inline-block;margin:.35rem .7rem .35rem 0}
+.lab-visual input,.lab-visual button{font:inherit}
+.lab-flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.6rem;margin:.8rem 0}
+.lab-flow div{padding:.75rem;border:1px solid var(--line);border-radius:7px}
+.lab-flow span{display:block;font-weight:700;margin:.2rem 0}
+.lab-flow [data-state="allow"]{border-left:4px solid #27834e}
+.lab-flow [data-state="deny"]{border-left:4px solid #b74238}
+.lab-flow [data-state="skipped"]{border-left:4px solid #737c87}
+.lab-visual button{margin:.2rem .3rem .2rem 0;padding:.35rem .65rem}
+.lab-visual [role="status"]{display:block;margin:.7rem 0 0}
+noscript .lab-note{display:block}
+</style></head><body><a class="skip" href="#main">Skip to lab</a><header class="hero"><div class="wrap"><strong>Hands-on lab · 40-minute target</strong><h1>Samba Active Directory<br/>and File Shares</h1><p>Join two Windows VMs to a Linux-hosted domain, then see how group membership changes what each user can open or edit.</p></div></header><div class="layout wrap"><nav aria-label="Lab steps" class="steps"><h2>Lab steps</h2><div class="links"><a href="#overview">Overview</a><a href="#domain">Create the domain</a><a href="#join">Join Windows</a><a href="#samba">Publish Samba shares</a><a href="#windows">Set Windows permissions</a><a href="#test">Test as Alice and Bob</a><a href="#troubleshooting">Troubleshooting</a><a href="#references">References</a></div><label class="picker">Lab step <select id="step-picker"><option value="overview">Overview</option><option value="domain">Create the domain</option><option value="join">Join Windows</option><option value="samba">Publish Samba shares</option><option value="windows">Set Windows permissions</option><option value="test">Test as Alice and Bob</option><option value="troubleshooting">Troubleshooting</option><option value="references">References</option></select></label></nav><main id="main" tabindex="-1"><section class="view" id="overview" tabindex="-1"><div class="section-title"><h2>Overview</h2><span></span></div><aside class="start"><strong>Before you start</strong><p>Download the <a download="" href="./Samba%20AD%20Lab%20SUBMISSION%20TEMPLATE.pptx">PowerPoint submission template</a>. Add each required screenshot as you complete the lab, then submit the completed template for grading.</p></aside><details><summary>Preview the four screenshots</summary><ol><li><a href="#screenshot-1">Domain Controller DNS</a></li><li><a href="#screenshot-2">Both Windows Domain Members</a></li><li><a href="#screenshot-3">Alice Saves to Workbench</a></li><li><a href="#screenshot-4">Bob Denied Access to Drafts</a></li></ol></details><p>Your team is preparing an event. Everyone needs the bulletin. Only the editors should see the draft on Samba. On Windows Server, reviewers should be able to read the workbench without changing it. Use the same domain accounts on both servers.</p>
+<h2>What you need</h2>
+<h3>Name your VMs before configuration</h3>
+<p>Use your first name on all three VMs and your last name in the AD domain. Use letters A–Z and omit spaces and punctuation. If needed, shorten the first name to 11 letters so <code>-W11</code> fits the Windows computer name limit. This guide uses Maya Lee as its example. The computers are <code>maya-dc</code>, <code>MAYA-FS</code>, and <code>MAYA-W11</code>, and the domain is <code>lee-lab.internal</code>. Substitute your own names in the setup, DNS lookups, and share paths.</p>
+<p>On Debian, set the hostname before provisioning Samba. Replace <code>maya</code> with your first name.</p>
+<pre><code>sudo hostnamectl set-hostname maya-dc</code></pre>
+<p>On Windows 11, use <strong>Settings → System → About → Rename this PC</strong> and set the <code>-W11</code> name. On Windows Server, use <strong>Server Manager → Local Server</strong>, click the current computer name, then choose <strong>Computer Name → Change</strong> and set the <code>-FS</code> name. Restart both before joining the domain.</p><table>
+<thead>
+<tr>
+<th>VM</th>
+<th>Name</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fresh Debian 13 (Trixie)</td>
+<td><code>maya-dc</code></td>
+<td>Samba domain controller, DNS, and two small practice shares</td>
+</tr>
+<tr>
+<td>Windows Server 2022 or 2025 with Desktop Experience</td>
+<td><code>MAYA-FS</code></td>
+<td>Domain member and Windows file server</td>
+</tr>
+<tr>
+<td>Windows 11 Education</td>
+<td><code>MAYA-W11</code></td>
+<td>Domain member and test client</td>
+</tr>
+</tbody>
+</table>
+<p>Use your own VMs on one shared private NAT network. In VirtualBox, choose NAT Network for all three VMs and select the same network. Check that the VM clocks agree before joining. Avoid bridging the lab to the campus network. The 40-minute target starts after VM and package preparation. Check that the three VMs can reach each other and give Debian a stable IPv4 address. Write down the Debian address and the current DNS server for Internet lookups. Use local administrator accounts on Windows for setup. The Windows Server VM starts as a standalone server.</p>
+<p>On Debian, install these packages before timing the lab:</p>
+<pre><code class="language-bash">sudo apt update
+sudo apt install samba-ad-dc krb5-user bind9-dnsutils
+</code></pre>
+<p>Press Enter to accept the defaults if Kerberos setup asks for a realm or servers. You will replace its configuration during the lab.</p><nav aria-label="Previous and next steps" class="pager"><a href="#domain">Create the domain →</a></nav></section><section class="view" id="domain" tabindex="-1"><div class="section-title"><h2>Create the domain</h2><span>10 min</span></div><p>On Debian, open <code>/etc/hosts</code> with <code>sudo nano /etc/hosts</code>. Add a line with your Debian VM’s IPv4 address, full name, and short name. Remove any <code>127.0.1.1</code> mapping for this VM’s old or new hostname. Keep <code>127.0.0.1 localhost</code>. Use your own IP address, first name, and last-name domain in place of the example below.</p>
+<pre><code class="language-text">192.168.50.10 maya-dc.lee-lab.internal maya-dc
+</code></pre>
+<p>Prepare Samba and run the interactive setup:</p>
+<pre><code class="language-bash">sudo systemctl disable --now smbd nmbd winbind
+sudo systemctl mask smbd nmbd winbind
+sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.orig
+sudo samba-tool domain provision --interactive
+</code></pre>
+<p><code>disable --now</code> stops the standalone services and keeps them from starting at boot. <code>mask</code> prevents them from starting while the domain controller owns their duties. Moving the original configuration gives Samba a free filename for its new configuration.</p>
+<table>
+<thead>
+<tr>
+<th>Prompt</th>
+<th>Enter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Realm</td>
+<td>Your last-name domain in uppercase, such as <code>LEE-LAB.INTERNAL</code></td>
+</tr>
+<tr>
+<td>Domain (NetBIOS)</td>
+<td><code>LAB</code>. Enter this explicitly to keep account names such as <code>LAB\alice</code>.</td>
+</tr>
+<tr>
+<td>Server role</td>
+<td><code>dc</code></td>
+</tr>
+<tr>
+<td>DNS backend</td>
+<td><code>SAMBA_INTERNAL</code></td>
+</tr>
+<tr>
+<td>DNS forwarder</td>
+<td>Your upstream DNS server's IP. Enter <code>none</code> if you only need lab names.</td>
+</tr>
+<tr>
+<td>Administrator password</td>
+<td>Choose and record a strong lab password. Use it only for this lab.</td>
+</tr>
+</tbody>
+</table>
+<p>Install the Kerberos configuration that Samba generated.</p>
+<pre><code class="language-bash">sudo cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
+</code></pre>
+<p>Point this dedicated lab VM at its own Samba DNS. First, check which resolver Debian is using.</p>
+<pre><code class="language-bash">ls -l /etc/resolv.conf
+systemctl is-active systemd-resolved
+</code></pre>
+<p>On a typical Debian install, <code>/etc/resolv.conf</code> is a regular file and the service reports <code>inactive</code>. If the service reports <code>active</code>, run <code>sudo systemctl disable --now systemd-resolved</code> before continuing. Samba will provide DNS for this VM.</p>
+<p>Back up the resolver file and open a new one:</p>
+<pre><code class="language-bash">sudo mv /etc/resolv.conf /etc/resolv.conf.orig
+sudo nano /etc/resolv.conf
+</code></pre>
+<p>Enter the following two lines. In Nano, save with <strong>Ctrl+O</strong>, <strong>Enter</strong>, then exit with <strong>Ctrl+X</strong>.</p>
+<pre><code class="language-text">nameserver 127.0.0.1
+search lee-lab.internal
+</code></pre>
+<pre><code class="language-bash">sudo systemctl unmask samba-ad-dc
+sudo systemctl enable --now samba-ad-dc
+hostname
+host -t SRV _ldap._tcp.lee-lab.internal
+host maya-dc.lee-lab.internal
+</code></pre>
+<p>Windows uses the SRV record to find <code>maya-dc.lee-lab.internal</code> on port 389 and the A record to find its IPv4 address. Compare both lookups with the example below. Your address should match your Debian VM. If either lookup fails, check <code>systemctl status samba-ad-dc</code> and the address in <code>/etc/hosts</code> before joining Windows.</p>
+<aside class="evidence" id="screenshot-1" tabindex="-1"><span>Screenshot 1 of 4</span><h3>Domain Controller DNS</h3><p><strong>Requirement</strong> · Show <code>hostname</code> and the LDAP SRV lookup in the same Debian terminal. Your <code>-DC</code> name must be visible, and the SRV result must point to that host in your last-name domain on port 389.</p><figure><a class="evidence-example-link" href="./assets/01-dns.png"><img alt="Debian terminal showing hostname maya-dc, the LDAP SRV record pointing to maya-dc.lee-lab.internal on port 389, and its IPv4 address 172.16.171.62" height="135" src="./assets/01-dns.png" width="740"/></a><figcaption>The Debian hostname and SRV record show the first and last names used in the lab. The A record shows the example VM’s IPv4 address.</figcaption></figure></aside><p>Create two domain users and two groups. Enter a separate lab password at each user prompt. <code>addmembers</code> takes the group name first and the username second.</p>
+<pre><code class="language-bash">sudo samba-tool user create alice
+sudo samba-tool user create bob
+sudo samba-tool group add Editors
+sudo samba-tool group add Reviewers
+sudo samba-tool group addmembers Editors alice
+sudo samba-tool group addmembers Reviewers bob
+</code></pre><nav aria-label="Previous and next steps" class="pager"><a href="#overview">← Overview</a><a href="#join">Join Windows →</a></nav></section><section class="view" id="join" tabindex="-1"><div class="section-title"><h2>Join Windows</h2><span>8 min</span></div><p>Do this on <strong>Windows Server and Windows 11</strong>. Start the second VM's join while the first restarts.</p>
+<ol>
+<li>Open <strong>Control Panel → Network and Internet → Network and Sharing Center → Change adapter settings</strong>. Right-click the active adapter and select <strong>Properties</strong>.</li>
+<li>Open <strong>Internet Protocol Version 4 (TCP/IPv4)</strong>. Keep the existing IP settings. Select <strong>Use the following DNS server addresses</strong>. Enter the Debian VM's IPv4 address as the preferred DNS server and leave Alternate blank. Click <strong>OK</strong> in both properties windows.</li>
+<li>Open the <strong>Computer Name</strong> tab in <strong>System Properties</strong> using the path for your VM.
+<ul>
+<li>On <strong>Windows Server</strong>, open <strong>Server Manager → Local Server</strong> and click the <strong>Workgroup</strong> link.</li>
+<li>On <strong>Windows 11</strong>, search Start for <strong>About your PC</strong>. Under <strong>Related links</strong>, click <strong>Domain or workgroup</strong>.</li>
+</ul></li>
+<li>Select <strong>Change → Domain</strong>, enter your last-name domain, such as <code>lee-lab.internal</code>, and click <strong>OK</strong>. When prompted, sign in with <code>LAB\Administrator</code> and the password created on Debian.</li>
+<li>When Windows welcomes you to your domain, restart. Open <strong>System Properties → Computer Name</strong> again on each VM. Verify each computer name and your last-name domain.</li>
+</ol>
+<p>If the join cannot find the domain, follow the <a href="#help-dns">domain DNS checks</a>.</p><aside class="evidence" id="screenshot-2" tabindex="-1"><span>Screenshot 2 of 4</span><h3>Both Windows Domain Members</h3><p><strong>Requirement</strong> · Show both System Properties → Computer Name tabs with your <code>-FS</code> and <code>-W11</code> names and your last-name domain. Put both captures on the same slide.</p><div class="evidence-examples"><figure><a class="evidence-example-link" href="./assets/02-fileserver.png"><img alt="Windows Server Computer Name tab showing MAYA-FS.lee-lab.internal and domain lee-lab.internal" height="485" src="./assets/02-fileserver.png" width="425"/></a><figcaption>Windows Server member with its first-name computer name and last-name domain.</figcaption></figure><figure><a class="evidence-example-link" href="./assets/02-win11.png"><img alt="Windows 11 Computer Name tab showing MAYA-W11.lee-lab.internal and domain lee-lab.internal" height="469" src="./assets/02-win11.png" width="413"/></a><figcaption>Windows 11 member with its first-name computer name and last-name domain.</figcaption></figure></div></aside><details><summary>Optional CLI (untested)</summary><p><strong>Optional CLI (untested on the lab VMs).</strong> The GUI steps above are the main path. After setting adapter DNS, these PowerShell checks resolve the domain controller and display the computer's join status.</p>
+<pre><code class="language-powershell">Resolve-DnsName maya-dc.lee-lab.internal
+Get-CimInstance Win32_ComputerSystem | Select-Object Name, Domain, PartOfDomain
+</code></pre></details><nav aria-label="Previous and next steps" class="pager"><a href="#domain">← Create the domain</a><a href="#samba">Publish Samba shares →</a></nav></section><section class="view" id="samba" tabindex="-1"><div class="section-title"><h2>Publish Samba shares</h2><span>5 min</span></div><p>Back on Debian, make two folders and add a small file to each.</p>
+<pre><code class="language-bash">sudo mkdir -p /srv/samba/bulletin /srv/samba/drafts
+echo 'Event starts at 10 AM.' | sudo tee /srv/samba/bulletin/event.txt
+echo 'Draft schedule for editors.' | sudo tee /srv/samba/drafts/draft.txt
+</code></pre>
+<p>Open <code>/etc/samba/smb.conf</code> with <code>sudo nano /etc/samba/smb.conf</code>. Add these sections at the bottom. Keep the existing domain configuration and built-in shares.</p>
+<pre><code class="language-ini">[Bulletin]
+    path = /srv/samba/bulletin
+    valid users = "@LAB\Editors" "@LAB\Reviewers"
+    read only = yes
+
+[Drafts]
+    path = /srv/samba/drafts
+    valid users = "@LAB\Editors"
+    read only = yes
+</code></pre>
+<p>The <code>@</code> marks a group name. Use one backslash between <code>LAB</code> and each group name. <code>valid users</code> controls who can open each share. Both shares are read-only.</p>
+<pre><code class="language-bash">sudo testparm -s
+sudo systemctl restart samba-ad-dc
+</code></pre>
+<p><code>-s</code> makes <code>testparm</code> print the verified configuration without asking you to press Enter. Check for <strong>Loaded services file OK</strong> and both share names before restarting. The domain controller hosts these two read-only practice shares.</p><nav aria-label="Previous and next steps" class="pager"><a href="#join">← Join Windows</a><a href="#windows">Set Windows permissions →</a></nav></section><section class="view" id="windows" tabindex="-1"><div class="section-title"><h2>Set Windows permissions</h2><span>7 min</span></div><p>On <strong>Windows Server</strong>, sign in as <code>LAB\Administrator</code>.</p>
+<ol>
+<li>In File Explorer, create <strong>C:\Workbench</strong>. Right-click the folder and open <strong>Properties → Security → Advanced</strong>.</li>
+<li>Select <strong>Disable inheritance → Convert inherited permissions into explicit permissions</strong>. Keep <strong>SYSTEM</strong> and the server’s local <strong>Administrators</strong> entry. If the entry is missing, see <a href="#help-administrators">how to look up the local group</a>. Remove every <strong>Users</strong> or <strong>Authenticated Users</strong> entry you see. There can be two <strong>MAYA-FS\Users</strong> entries. Do this only on the new Workbench folder.
+<figure class="troubleshooting-example">
+<a class="evidence-example-link" href="./assets/help-local-admin.png"><img alt="Select User or Group dialog with location MAYA-FS and MAYA-FS Administrators resolved and underlined" height="260" src="./assets/help-local-admin.png" width="468"/></a>
+<figcaption>In <strong>Locations</strong>, choose your own <code>-FS</code> computer.</figcaption>
+</figure>
+</li>
+<li>Select <strong>Add → Select a principal</strong> and enter <code>LAB\Editors</code>. Select <strong>Check Names</strong>, then <strong>OK</strong>. Set <strong>Type</strong> to <strong>Allow</strong>, <strong>Applies to</strong> to <strong>This folder, subfolders and files</strong>, and tick <strong>Modify</strong>. Select <strong>OK</strong>.</li>
+<li>Add <code>LAB\Reviewers</code> the same way. Select <strong>Read &amp; execute</strong>. Windows also selects <strong>List folder contents</strong> and <strong>Read</strong>. Leave <strong>Write</strong> and <strong>Modify</strong> clear. Apply the changes.
+<figure class="troubleshooting-example">
+<a class="evidence-example-link" href="./assets/help-ntfs.png"><img alt="MAYA-FS Workbench NTFS permissions showing Editors with Modify and Reviewers with Read and execute" height="520" src="./assets/help-ntfs.png" width="767"/></a>
+<figcaption>The Editors and Reviewers entries have the expected NTFS access. The pilot dialog displays the group names with <code>lee-lab</code>.</figcaption>
+</figure>
+</li>
+<li>Inside <strong>Workbench</strong>, create <code>event.txt</code> with the line <strong>Update the event plan here.</strong> Creating it now lets the file inherit the folder permissions.</li>
+<li>Open <strong>Workbench → Properties → Sharing → Advanced Sharing</strong>. Tick <strong>Share this folder</strong>, leave the name <strong>Workbench</strong>, and open <strong>Permissions</strong>. Add <code>LAB\Domain Users</code> and allow <strong>Change</strong> and <strong>Read</strong>. Select <strong>Add → Locations → MAYA-FS → OK</strong>. Enter <code>Administrators</code>, choose <strong>Check Names</strong>, and confirm it resolves to <code>MAYA-FS\Administrators</code>. Allow <strong>Full Control</strong> for that group. Remove <strong>Everyone</strong>, then apply.
+<figure class="troubleshooting-example">
+<a class="evidence-example-link" href="./assets/help-share.png"><img alt="MAYA-FS Workbench share permissions with Domain Users selected and Allow checked for Change and Read" height="450" src="./assets/help-share.png" width="363"/></a>
+<figcaption>Workbench share permissions on MAYA-FS. Domain Users has Change and Read.</figcaption>
+</figure>
+</li>
+</ol>
+<p>In <strong>Windows Defender Firewall with Advanced Security → Inbound Rules</strong>, check for an enabled <strong>File and Printer Sharing (SMB-In)</strong> rule for the <strong>Domain</strong> profile. On the Server 2025 lab VM, <strong>File and Printer Sharing (Restrictive) (SMB-In)</strong> was already enabled for Domain. If the Domain rule is disabled, enable it. Keep the firewall enabled.</p>
+<p>The share allows domain users to request changes. The NTFS access control list (ACL) in the <strong>Security</strong> tab controls who can change files. Both the share permissions and the NTFS ACL must allow an action for it to succeed over SMB.</p>
+<aside class="lab-visual" id="permission-visual">
+<h3>Why can Bob read Workbench but not save?</h3>
+<p>Try turning on NTFS Modify while the share still allows Change. Then turn off share Change and see which layer blocks the save.</p>
+<div class="visual-controls" hidden="">
+<label><input checked="" id="visual-share" type="checkbox"/> Share permits Change</label>
+<label><input id="visual-ntfs" type="checkbox"/> NTFS permits Modify</label>
+<button id="visual-reset" type="button">Reset to Bob’s settings</button>
+<div class="lab-flow">
+<div id="visual-share-state"><strong>1. Share permission</strong><span></span></div>
+<div id="visual-ntfs-state"><strong>2. NTFS permission</strong><span></span></div>
+<div id="visual-result"><strong>3. Save result</strong><span></span></div>
+</div>
+<p id="visual-explain" role="status"></p>
+</div>
+<noscript><p class="lab-note">A remote save needs permission at both layers. Bob’s share permission allows Change, but his NTFS permission allows reading only.</p></noscript>
+<p><a href="./canvas-workbench.html">Try the animated Canvas version</a></p>
+</aside>
+<details><summary>Optional CLI (untested)</summary><p><strong>Optional CLI (untested on the lab VMs).</strong> Use this as an alternative to the folder and share steps above on a fresh VM. Open PowerShell as administrator. Set the Domain firewall rule with the GUI.</p>
+<pre><code class="language-powershell">New-Item -ItemType Directory -Path C:\Workbench
+icacls C:\Workbench /grant:r "SYSTEM:(OI)(CI)F" "BUILTIN\Administrators:(OI)(CI)F" "LAB\Editors:(OI)(CI)M" "LAB\Reviewers:(OI)(CI)RX"
+icacls C:\Workbench /inheritance:r
+Set-Content -Path C:\Workbench\event.txt -Value 'Update the event plan here.'
+New-SmbShare -Name Workbench -Path C:\Workbench -ChangeAccess 'LAB\Domain Users' -FullAccess 'BUILTIN\Administrators'
+</code></pre></details><nav aria-label="Previous and next steps" class="pager"><a href="#samba">← Publish Samba shares</a><a href="#test">Test as Alice and Bob →</a></nav></section><section class="view" id="test" tabindex="-1"><div class="section-title"><h2>Test as Alice and Bob</h2><span>10 min</span></div><details class="model"><summary>Try a permission prediction</summary><p>For a remote write, the share and the folder ACL must both allow writing. Predict the result, then compare it with what you see on your VMs.</p><div class="simulation" hidden=""><label>Person <select id="person"><option>Alice</option><option>Bob</option></select></label><label>Action <select id="action"><option value="workread">Read Workbench</option><option value="workwrite">Edit Workbench</option><option value="draftread">Open Drafts</option><option value="bulletin">Open Bulletin</option></select></label><button id="predict">Check prediction</button><p id="prediction" role="status">Simulated result appears here.</p></div></details><p>On <strong>Windows 11</strong>, choose <strong>Other user</strong> and sign in as <code>LAB\alice</code>. Paste each path below into File Explorer's address bar. Then <strong>sign out</strong> and repeat as <code>LAB\bob</code>. The first sign-in for each user can take a minute while Windows creates their profile. Signing out closes the previous user’s SMB sessions. The next sign-in also loads that user’s current group membership. File Explorer may show <code>event</code> or <code>draft</code> without the <code>.txt</code> extension.</p>
+<h3>Show which VM and user ran the test</h3>
+<p>While signed in as Alice or Bob, open <strong>Command Prompt</strong> from Start and run:</p>
+<pre><code>hostname
+whoami</code></pre>
+<p>Keep Command Prompt visible for each capture. The two commands show your <code>-W11</code> name and <code>lab\alice</code> or <code>lab\bob</code>. Arrange it with File Explorer and the test result so all are readable in a single capture. Open Command Prompt before the Drafts test so the denial dialog can stay open.</p><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Alice, an Editor</th>
+<th>Bob, a Reviewer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\\maya-dc.lee-lab.internal\Bulletin</code></td>
+<td>Open <code>event.txt</code></td>
+<td>Open <code>event.txt</code></td>
+</tr>
+<tr>
+<td><code>\\maya-dc.lee-lab.internal\Drafts</code></td>
+<td>Open <code>draft.txt</code></td>
+<td>Access denied</td>
+</tr>
+<tr>
+<td><code>\\maya-fs.lee-lab.internal\Workbench</code></td>
+<td>Open and edit <code>event.txt</code>, then save</td>
+<td>Open <code>event.txt</code>, make a test edit, and try to save it to the same file in Notepad. Expect a permission error.</td>
+</tr>
+</tbody>
+</table>
+<p>If Notepad opens <strong>Save As</strong> for Bob, keep the Workbench folder and <code>event.txt</code> filename. Choose <strong>Save</strong>, then choose <strong>Yes</strong> if asked to replace the file. Windows 11 can say <strong>You do not have permission to open this file</strong> during the save attempt. Dismiss the dialog and discard the unsaved edit.</p>
+<details><summary>Optional CLI (untested)</summary><p>While signed in as Bob, run the following in PowerShell. It attempts to append one line. Expect an access-denied error.</p><pre><code>Add-Content '\\maya-fs.lee-lab.internal\Workbench\event.txt' 'Reviewer edit test'</code></pre></details><p>After Alice saves, close the <code>event.txt</code> tab in Notepad and reopen the file from the Workbench share. Arrange the windows so Notepad shows the saved text and File Explorer’s address bar shows both the server and share for Screenshot 3. For Screenshot 4, open <code>\\maya-dc.lee-lab.internal</code> as Bob, then open <strong>Drafts</strong>. If Windows asks for network credentials, enter <code>LAB\bob</code> and Bob’s password once. Leave the <strong>Access is denied</strong> message and the server and selected share visible. Keep the password field empty in the capture, then select <strong>Cancel</strong>. If Windows reports a missing network path, check DNS and the share path.</p><aside class="evidence" id="screenshot-3" tabindex="-1"><span>Screenshot 3 of 4</span><h3>Alice Saves to Workbench</h3><p><strong>Requirement</strong> · Show Alice’s saved edit reopened from Workbench and the share path with your <code>-FS</code> hostname. Keep Command Prompt visible with your <code>-W11</code> name and <code>lab\alice</code>.</p><figure><a class="evidence-example-link" href="./assets/03-alice-workbench.png"><img alt="File Explorer shows maya-fs.lee-lab.internal and Workbench, Notepad shows Alice’s saved edit, and Command Prompt shows MAYA-W11 and lab Alice" height="537" src="./assets/03-alice-workbench.png" width="904"/></a><figcaption>The reopened file, Workbench path, and Alice’s Command Prompt output are visible in one capture.</figcaption></figure></aside><aside class="evidence" id="screenshot-4" tabindex="-1"><span>Screenshot 4 of 4</span><h3>Bob Denied Access to Drafts</h3><p><strong>Requirement</strong> · Show the Drafts denial, server, and selected share. Keep Command Prompt visible with your <code>-W11</code> name and <code>lab\bob</code>. Keep any password field empty.</p><figure><a class="evidence-example-link" href="./assets/04-bob-drafts.png"><img alt="File Explorer shows maya-dc.lee-lab.internal and selected Drafts, Windows Security shows Access is denied with an empty password field, and Command Prompt shows MAYA-W11 and lab Bob" height="720" src="./assets/04-bob-drafts.png" width="1024"/></a><figcaption>Bob’s computer name and account, the selected Drafts share, and the access denial are visible in one capture.</figcaption></figure></aside><p>If your results differ from the table, check <a href="#help-save">Workbench write permissions</a> or <a href="#help-workbench">Workbench connectivity</a>.</p>
+<p>Add your four screenshots to the submission template. Use the results table to check your work. Explain why Bob can read Workbench but cannot save even though <code>Domain Users</code> has Change permission on the share. Then explain how Samba’s <code>valid users</code> setting affects Bob’s access to Drafts.</p><nav aria-label="Previous and next steps" class="pager"><a href="#windows">← Set Windows permissions</a><a href="#troubleshooting">Troubleshooting →</a></nav></section>
+<section class="view" id="troubleshooting" tabindex="-1">
+<div class="section-title"><h2>Troubleshooting</h2></div>
+<aside class="lab-visual" id="diagnosis-visual">
+<h3>Which check comes next?</h3>
+<p>Bob opened Bulletin from the same server. When he selects Drafts, Windows shows <strong>Access is denied</strong>. What would you check first?</p>
+<div class="visual-controls" hidden="">
+<button data-diagnosis="dns" type="button">DNS lookup</button>
+<button data-diagnosis="group" type="button">Drafts group access</button>
+<button data-diagnosis="ntfs" type="button">Workbench NTFS</button>
+<p id="visual-diagnosis" role="status"></p>
+</div>
+<noscript><p class="lab-note">Reading Bulletin shows the server was reachable. Drafts has a separate Samba group gate. Check which group the Drafts share permits.</p></noscript>
+</aside>
+<details id="help-dns" tabindex="-1">
+<summary>Windows cannot find the domain or share path</summary>
+<ol>
+<li>Check that the VMs are connected to the same private NAT network and have IPv4 addresses on that network. Keep automatic IP addressing on Windows if your lab uses DHCP.</li>
+<li>Check the Windows adapter’s IPv4 properties. Set <strong>Preferred DNS server</strong> to your Debian VM’s IPv4 address and leave <strong>Alternate DNS server</strong> blank.</li>
+<li>Repeat the <a href="#screenshot-1">LDAP SRV and host A lookups</a> on Debian. The SRV record should point to <code>maya-dc.lee-lab.internal</code> on port 389. The A record should show your Debian address.</li>
+</ol>
+<figure class="troubleshooting-example">
+<a class="evidence-example-link" href="./assets/help-dns.png"><img alt="Windows IPv4 properties showing automatic IP addressing, preferred DNS 172.16.171.62, and a blank alternate DNS field" height="455" src="./assets/help-dns.png" width="401"/></a>
+<figcaption>Windows 11 uses the Debian VM’s address for Preferred DNS. Enter your own Debian VM’s address.</figcaption>
+</figure>
+</details>
+<details id="help-sign-in" tabindex="-1">
+<summary>A domain account cannot sign in</summary>
+<p>At the Windows 11 sign-in screen, choose <strong>Other user</strong> and enter <code>LAB\alice</code> or <code>LAB\bob</code>. Check the lab password and make sure the Windows and Debian clocks agree. If either user’s group membership changed, sign out and sign back in.</p>
+</details>
+<details id="help-administrators" tabindex="-1">
+<summary>Check Names cannot find Administrators</summary>
+<p>Active Directory Users and Computers shows the domain’s <strong>Administrators</strong> group in its <strong>Builtin</strong> container. Workbench uses the <strong>MAYA-FS</strong> member server’s local <strong>Administrators</strong> group. <a href="https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-b--privileged-accounts-and-groups-in-active-directory#administrators">Microsoft’s Administrators group reference</a></p>
+<p>Typing <code>BUILTIN\Administrators</code> while searching <strong>lee-lab.internal</strong> can trigger a location error. Keep the existing local Administrators entry in Workbench’s <strong>Security</strong> permissions. If it is missing, open <strong>Add → Select a principal → Locations</strong>, choose <strong>MAYA-FS</strong>, enter <code>Administrators</code>, and select <strong>Check Names</strong>. It should resolve to <code>MAYA-FS\Administrators</code>. Allow <strong>Full control</strong> on this folder, subfolders, and files. Use the same location when adding Administrators in the share permissions. Use your last-name domain, such as <strong>lee-lab.internal</strong>, as the search location for <strong>Editors</strong> and <strong>Reviewers</strong>.</p>
+<figure class="troubleshooting-example">
+<a class="evidence-example-link" href="./assets/help-local-admin.png"><img alt="Select User or Group dialog with location MAYA-FS and MAYA-FS Administrators resolved and underlined" height="260" src="./assets/help-local-admin.png" width="468"/></a>
+<figcaption>In <strong>Locations</strong>, choose your own <code>-FS</code> computer.</figcaption>
+</figure>
+</details>
+<details id="help-save" tabindex="-1">
+<summary>Alice can open Workbench but cannot save</summary>
+<p>Check that you signed in as <code>LAB\alice</code>. On Windows Server, confirm that <strong>Domain Users</strong> has <strong>Change</strong> and <strong>Read</strong> in <strong>Sharing → Advanced Sharing → Permissions</strong>. Then open <strong>Security → Advanced</strong> and confirm that <strong>Editors</strong> has <strong>Modify</strong> on the folder, subfolders, and files.</p>
+<div class="evidence-examples">
+<figure class="troubleshooting-example" id="example-share" tabindex="-1">
+<a class="evidence-example-link" href="./assets/help-share.png"><img alt="MAYA-FS Workbench share permissions with Domain Users selected and Allow checked for Change and Read" height="450" src="./assets/help-share.png" width="363"/></a>
+<figcaption>Workbench share permissions on MAYA-FS. Domain Users has Change and Read.</figcaption>
+</figure>
+<figure class="troubleshooting-example" id="example-ntfs" tabindex="-1">
+<a class="evidence-example-link" href="./assets/help-ntfs.png"><img alt="MAYA-FS Workbench NTFS permissions showing Editors with Modify and Reviewers with Read and execute" height="520" src="./assets/help-ntfs.png" width="767"/></a>
+<figcaption>The Editors and Reviewers entries have the expected NTFS access. The pilot dialog displays the group names with <code>lee-lab</code>.</figcaption>
+</figure>
+</div>
+</details>
+<details id="help-workbench" tabindex="-1">
+<summary>Neither user can open Workbench</summary>
+<p>Check the share path <code>\\maya-fs.lee-lab.internal\Workbench</code> and the <a href="#screenshot-2">Windows Server computer name and domain</a>. Confirm that the client and server use Debian for DNS. If the server name resolves, check the <a href="#windows">Domain-profile SMB-In rule</a> and confirm that <strong>Workbench</strong> is shared.</p>
+</details>
+<details id="help-drafts" tabindex="-1">
+<summary>Bob sees a permission error opening Drafts</summary>
+<p>This is the expected result. The Drafts share’s <code>valid users</code> permits <strong>Editors</strong>, and Bob belongs to <strong>Reviewers</strong>. Windows 11 can show <strong>Enter network credentials</strong> with <strong>Access is denied</strong> after Bob enters his credentials. Use the <a href="#screenshot-4">Screenshot 4 example</a> to check what your dialog should show.</p>
+</details>
+<nav aria-label="Previous and next steps" class="pager"><a href="#test">← Test as Alice and Bob</a><a href="#references">References →</a></nav></section>
+<section class="view" id="references" tabindex="-1"><div class="section-title"><h2>References</h2><span></span></div><ul>
+<li><a href="https://packages.debian.org/trixie/samba-ad-dc">Debian 13 Samba AD package</a></li><li><a href="https://wiki.debian.org/resolv.conf">Debian DNS resolver</a></li><li><a href="https://ubuntu.com/server/docs/how-to/samba/provision-samba-ad-controller/">Ubuntu Server: Provisioning a Samba AD domain controller</a></li>
+<li><a href="https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html">Samba share settings</a></li>
+<li><a href="https://learn.microsoft.com/windows-server/identity/ad-ds/manage/join-computer-to-domain">Microsoft: Join a computer to a domain</a></li>
+<li><a href="https://learn.microsoft.com/en-us/iis/web-hosting/configuring-servers-in-the-windows-web-platform/configuring-share-and-ntfs-permissions">Microsoft: Share and NTFS permissions</a></li>
+</ul><nav aria-label="Previous and next steps" class="pager"><a href="#troubleshooting">← Troubleshooting</a></nav></section></main></div><script>
+const panels=[...document.querySelectorAll('.view')], picker=document.querySelector('#step-picker');
+function route(focus){
+ const target=document.getElementById(location.hash.slice(1));
+ const panel=target?.closest('.view')||panels[0];
+ panels.forEach(p=>p.hidden=p!==panel);
+ document.querySelectorAll('.links a').forEach(a=>a.getAttribute('href')==='#'+panel.id?a.setAttribute('aria-current','step'):a.removeAttribute('aria-current'));
+ picker.value=panel.id;
+ const expandable=target?.closest('details');
+ if(expandable) expandable.open=true;
+ if(focus){const point=target||panel;point.focus({preventScroll:true});point.scrollIntoView({block:'start'});}
+}
+document.body.classList.add('paged');
+document.querySelector('.skip').addEventListener('click',event=>{
+ event.preventDefault();
+ document.getElementById('main').focus();
+});
+picker.addEventListener('change',()=>location.hash=picker.value);
+window.addEventListener('hashchange',()=>route(true));
+route(Boolean(location.hash));
+document.querySelectorAll('main table').forEach(table=>{const box=document.createElement('div');box.className='table-wrap';table.before(box);box.append(table)});
+document.querySelector('.simulation').hidden=false;
+document.querySelector('#predict').addEventListener('click',()=>{
+ const alice=document.querySelector('#person').value==='Alice';
+ const outcome={workread:'Allowed. Both groups can read Workbench.',workwrite:alice?'Allowed. Share Change and folder Modify both allow the edit.':'Denied. Share Change allows the request, but the Reviewers folder ACL grants read only.',draftread:alice?'Allowed. Editors are listed on the Drafts share.':'Denied. Reviewers are absent from the Drafts share access list.',bulletin:'Allowed. Both groups can read Bulletin.'};
+ document.querySelector('#prediction').textContent='Simulation · '+outcome[document.querySelector('#action').value];
+});
+</script>
+<script>
+(() => {
+  const byId = (id) => document.getElementById(id);
+  const share = byId('visual-share'), ntfs = byId('visual-ntfs');
+  function state(id, allowed, label) {
+    const card = byId(id);
+    card.dataset.state = allowed === null ? 'skipped' : allowed ? 'allow' : 'deny';
+    card.querySelector('span').textContent = label;
+  }
+  function update() {
+    const shareAllows = share.checked, ntfsAllows = ntfs.checked;
+    const allowed = shareAllows && ntfsAllows;
+    state('visual-share-state', shareAllows, shareAllows ? 'Change allowed' : 'Read only');
+    state('visual-ntfs-state', shareAllows ? ntfsAllows : null,
+      shareAllows ? (ntfsAllows ? 'Modify allowed' : 'Read only') : 'Save stopped at share');
+    state('visual-result', allowed, allowed ? 'Save allowed' : 'Save denied');
+    byId('visual-explain').textContent = allowed ? 'Both layers allow the save.' :
+      (!shareAllows ? 'The share blocks writing, so changing NTFS alone cannot help.' :
+        'NTFS blocks writing, even though the share allows Change.') +
+      ' Reading is allowed in this example.';
+  }
+  share.addEventListener('change', update);
+  ntfs.addEventListener('change', update);
+  byId('visual-reset').addEventListener('click', () => {share.checked = true; ntfs.checked = false; update();});
+  const answers = {
+    dns: 'Bulletin opened on the same server, so start with what differs between the two shares.',
+    group: 'Check Drafts first. Samba allows Editors through its valid users setting. Bob is a Reviewer.',
+    ntfs: 'Workbench runs on Windows Server. Drafts is a Samba share with its own access rules.'
+  };
+  byId('diagnosis-visual').addEventListener('click', (event) => {
+    const choice = event.target.dataset.diagnosis;
+    if (choice) byId('visual-diagnosis').textContent = answers[choice];
+  });
+  update();
+  document.querySelectorAll('.lab-visual .visual-controls').forEach((controls) => controls.hidden = false);
+})();
+</script></body></html>

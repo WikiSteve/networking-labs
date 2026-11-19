@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Windows File Permissions — Two-Gate Teaching Model</title>
+  <style>
+    /* =========================================================================
+       DESIGN TOKENS & ACCESSIBLE THEME (Offline / Zero External Dependencies)
+       ========================================================================= */
+    :root {
+      --bg: #f4f6f9;
+      --surface: #ffffff;
+      --surface-subtle: #f8fafc;
+      --border: #d8e0ea;
+      --text: #0f172a;
+      --text-muted: #475569;
+
+      /* High-contrast, colorblind-conscious semantic colors */
+      --allow-bg: #e6f6ef;
+      --allow-border: #0f766e;
+      --allow-text: #0b524c;
+      --allow-accent: #0d9488;
+
+      --block-bg: #fef2f2;
+      --block-border: #b91c1c;
+      --block-text: #881313;
+      --block-accent: #dc2626;
+
+      --focus-ring: #2563eb;
+      --primary: #1d4ed8;
+      --primary-hover: #1e40af;
+
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b1120;
+        --surface: #111827;
+        --surface-subtle: #1e293b;
+        --border: #334155;
+        --text: #f8fafc;
+        --text-muted: #cbd5e1;
+
+        --allow-bg: #082f2c;
+        --allow-border: #2dd4bf;
+        --allow-text: #99f6e4;
+        --allow-accent: #14b8a6;
+
+        --block-bg: #3b1116;
+        --block-border: #f87171;
+        --block-text: #fecaca;
+        --block-accent: #ef4444;
+
+        --focus-ring: #60a5fa;
+        --primary: #3b82f6;
+        --primary-hover: #2563eb;
+
+        --shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    /* =========================================================================
+       LAYOUT & CARD CONTAINER
+       ========================================================================= */
+    .app-shell {
+      width: 100%;
+      max-width: 920px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    @media (min-width: 640px) {
+      body {
+        padding: 28px 20px;
+      }
+      .app-shell {
+        padding: 28px;
+        gap: 20px;
+      }
+    }
+
+    /* Header & Scenario Prompt */
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.25rem, 2.8vw, 1.65rem);
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+    }
+
+    .scenario-prompt {
+      margin: 0;
+      font-size: 0.98rem;
+      color: var(--text-muted);
+    }
+
+    .code-chip {
+      display: inline-block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.9em;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 6px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    /* =========================================================================
+       CANVAS STAGE
+       ========================================================================= */
+    .canvas-wrapper {
+      width: 100%;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 290px;
+    }
+
+    @media (max-width: 560px) {
+      canvas {
+        height: 250px;
+      }
+    }
+
+    /* =========================================================================
+       INSTANT STATUS EXPLANATION BANNER
+       ========================================================================= */
+    .status-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      border: 2px solid var(--block-border);
+      background: var(--block-bg);
+      color: var(--block-text);
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .status-banner.allowed {
+      border-color: var(--allow-border);
+      background: var(--allow-bg);
+      color: var(--allow-text);
+    }
+
+    .status-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+      background: var(--block-accent);
+      color: #ffffff;
+      margin-top: 1px;
+    }
+
+    .status-banner.allowed .status-icon {
+      background: var(--allow-accent);
+    }
+
+    .status-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .status-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .status-detail {
+      margin: 0;
+      font-size: 0.92rem;
+    }
+
+    /* =========================================================================
+       CONTROLS: TWO SWITCHES + ACTIONS
+       ========================================================================= */
+    .controls-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 680px) {
+      .controls-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .switch-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 16px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    .switch-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .switch-label {
+      font-weight: 700;
+      font-size: 0.96rem;
+      color: var(--text);
+    }
+
+    .switch-sub {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+    }
+
+    /* Accessible Toggle Switch Button */
+    .toggle-btn {
+      position: relative;
+      flex-shrink: 0;
+      width: 62px;
+      height: 34px;
+      border-radius: 999px;
+      border: 2px solid var(--block-border);
+      background: var(--block-bg);
+      cursor: pointer;
+      padding: 0;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .toggle-btn[aria-checked="true"] {
+      background: var(--allow-accent);
+      border-color: var(--allow-border);
+    }
+
+    .toggle-btn:focus-visible,
+    .action-btn:focus-visible {
+      outline: 3px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    .toggle-knob {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--block-accent);
+      transform: translateX(4px);
+      transition: transform 0.2s ease, background-color 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    }
+
+    .toggle-btn[aria-checked="true"] .toggle-knob {
+      background: #ffffff;
+      transform: translateX(30px);
+    }
+
+    .toggle-state-text {
+      display: inline-block;
+      min-width: 34px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-align: right;
+      letter-spacing: 0.04em;
+    }
+
+    .toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Action Bar */
+    .action-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 4px;
+    }
+
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .action-btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--surface-subtle);
+    }
+
+    .action-btn:active {
+      transform: translateY(1px);
+    }
+
+    .action-btn.primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .action-btn.primary:hover {
+      background: var(--primary-hover);
+      border-color: var(--primary-hover);
+    }
+
+    /* =========================================================================
+       FOOTER / SIMPLIFIED MODEL NOTE
+       ========================================================================= */
+    .footnote {
+      margin: 0;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <main class="app-shell">
+    <!-- Header & Beginner Question -->
+    <header class="header">
+      <div class="eyebrow">Beginner Windows Permissions</div>
+      <h1>Why can Bob read <span class="code-chip">Workbench</span>, but cannot save?</h1>
+      <p class="scenario-prompt">
+        Network writes pass through <strong>two separate gates</strong>: the <strong>SMB Share</strong> gate and the <strong>NTFS</strong> folder gate. Both must allow saving.
+      </p>
+    </header>
+
+    <!-- Accessible Two-Gate Canvas Visualization -->
+    <section class="canvas-wrapper" aria-label="Two-gate permission diagram">
+      <canvas
+        id="gateCanvas"
+        role="img"
+        aria-label="Diagram showing Bob trying to save to Workbench through two gates: SMB Share and NTFS."
+      ></canvas>
+    </section>
+
+    <!-- Instant Explanation Region -->
+    <section
+      id="statusBanner"
+      class="status-banner"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <div id="statusIcon" class="status-icon" aria-hidden="true">✕</div>
+      <div class="status-content">
+        <p id="statusTitle" class="status-title">Save blocked by NTFS</p>
+        <p id="statusDetail" class="status-detail">
+          SMB share allows Change, so Bob passes Gate 1, but NTFS Modify is OFF at Gate 2.
+        </p>
+      </div>
+    </section>
+
+    <!-- Two Permission Switches -->
+    <section class="controls-grid" aria-label="Permission switches">
+      <!-- Switch 1: SMB Share -->
+      <div class="switch-card">
+        <div class="switch-info">
+          <span id="smbLabel" class="switch-label">SMB share allows Change</span>
+          <span class="switch-sub">Gate 1 · Network share permission</span>
+        </div>
+        <div class="toggle-wrap">
+          <span id="smbStateText" class="toggle-state-text">ON</span>
+          <button
+            id="smbToggle"
+            type="button"
+            class="toggle-btn"
+            role="switch"
+            aria-checked="true"
+            aria-labelledby="smbLabel"
+          >
+            <span class="toggle-knob" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Switch 2: NTFS -->
+      <div class="switch-card">
+        <div class="switch-info">
+          <span id="ntfsLabel" class="switch-label">NTFS allows Modify</span>
+          <span class="switch-sub">Gate 2 · Folder security permission</span>
+        </div>
+        <div class="toggle-wrap">
+          <span id="ntfsStateText" class="toggle-state-text">OFF</span>
+          <button
+            id="ntfsToggle"
+            type="button"
+            class="toggle-btn"
+            role="switch"
+            aria-checked="false"
+            aria-labelledby="ntfsLabel"
+          >
+            <span class="toggle-knob" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Action Bar: Replay & Reset -->
+    <div class="action-bar">
+      <div class="action-buttons">
+        <button id="replayBtn" type="button" class="action-btn primary">Test Save Again</button>
+        <button id="resetBtn" type="button" class="action-btn">Reset to Default</button>
+      </div>
+      <span class="switch-sub">Read is already allowed at both gates.</span>
+    </div>
+
+    <!-- Concise Teaching Model Note -->
+    <p class="footnote">
+      <strong>Simplified teaching model:</strong> Windows applies the most restrictive result of SMB Share and NTFS permissions. This demo assumes Bob already has <em>Read</em> access on both layers and no explicit <em>Deny</em> rules exist.
+    </p>
+  </main>
+
+  <script>
+    /**
+     * Standalone Offline Windows File Permissions Two-Gate Demo
+     * - Zero external dependencies (pure HTML5 Canvas + Vanilla JS).
+     * - Demonstrates why Bob can read Workbench but cannot save until
+     *   BOTH SMB Share (Change) and NTFS (Modify) are enabled.
+     */
+    (function () {
+      "use strict";
+
+      try {
+        // =====================================================================
+        // DOM REFERENCES
+        // =====================================================================
+        const canvas = document.getElementById("gateCanvas");
+        const ctx = canvas.getContext("2d");
+
+        const smbToggle = document.getElementById("smbToggle");
+        const ntfsToggle = document.getElementById("ntfsToggle");
+        const smbStateText = document.getElementById("smbStateText");
+        const ntfsStateText = document.getElementById("ntfsStateText");
+
+        const statusBanner = document.getElementById("statusBanner");
+        const statusIcon = document.getElementById("statusIcon");
+        const statusTitle = document.getElementById("statusTitle");
+        const statusDetail = document.getElementById("statusDetail");
+
+        const replayBtn = document.getElementById("replayBtn");
+        const resetBtn = document.getElementById("resetBtn");
+
+        // =====================================================================
+        // STATE (Defaults: SMB = ON, NTFS = OFF)
+        // =====================================================================
+        const DEFAULTS = {
+          smbChange: true,
+          ntfsModify: false
+        };
+
+        const state = {
+          smbChange: DEFAULTS.smbChange,
+          ntfsModify: DEFAULTS.ntfsModify,
+
+          // Animation progress for the "Save" request packet (0 -> 1 along its allowed path)
+          packetProgress: 0,
+          packetTargetX: 0,
+          packetStatus: "moving", // "moving" | "blocked" | "saved"
+          impactTimer: 0,
+
+          // Smooth gate open/close interpolation (0 = closed, 1 = open)
+          smbGateOpen: DEFAULTS.smbChange ? 1 : 0,
+          ntfsGateOpen: DEFAULTS.ntfsModify ? 1 : 0,
+
+          // Logical canvas dimensions
+          width: 800,
+          height: 290
+        };
+
+        const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+        // =====================================================================
+        // THEME PALETTE FOR CANVAS (Adapts to Light/Dark Mode)
+        // =====================================================================
+        function getPalette() {
+          const isDark = darkModeQuery.matches;
+          return {
+            bg: isDark ? "#1e293b" : "#f8fafc",
+            track: isDark ? "#334155" : "#cbd5e1",
+            trackActive: isDark ? "#14b8a6" : "#0d9488",
+            cardFill: isDark ? "#0f172a" : "#ffffff",
+            cardStroke: isDark ? "#475569" : "#94a3b8",
+            text: isDark ? "#f8fafc" : "#0f172a",
+            muted: isDark ? "#cbd5e1" : "#475569",
+
+            allowFill: isDark ? "#082f2c" : "#e6f6ef",
+            allowStroke: isDark ? "#2dd4bf" : "#0f766e",
+            allowAccent: isDark ? "#14b8a6" : "#0d9488",
+
+            blockFill: isDark ? "#3b1116" : "#fef2f2",
+            blockStroke: isDark ? "#f87171" : "#b91c1c",
+            blockAccent: isDark ? "#ef4444" : "#dc2626",
+
+            packetFill: isDark ? "#2563eb" : "#1d4ed8",
+            packetText: "#ffffff"
+          };
+        }
+
+        // =====================================================================
+        // ACCESSIBLE EXPLANATION LOGIC
+        // =====================================================================
+        function getPermissionVerdict() {
+          const { smbChange, ntfsModify } = state;
+
+          if (smbChange && ntfsModify) {
+            return {
+              allowed: true,
+              blockedBy: null,
+              title: "Save allowed!",
+              detail:
+                "Both gates are open: SMB share allows Change and NTFS allows Modify, so Bob can save to Workbench.",
+              ariaSummary:
+                "Diagram: Both SMB Share and NTFS gates are open. Bob's save request reaches Workbench and succeeds."
+            };
+          }
+
+          if (!smbChange && ntfsModify) {
+            return {
+              allowed: false,
+              blockedBy: "SMB",
+              title: "Save blocked by SMB Share (Gate 1)",
+              detail:
+                "NTFS allows Modify, but SMB share Change is OFF. The network share stops the save before it reaches the folder.",
+              ariaSummary:
+                "Diagram: SMB Share gate is closed and NTFS gate is open. Bob's save request is blocked at Gate 1 (SMB Share)."
+            };
+          }
+
+          if (smbChange && !ntfsModify) {
+            return {
+              allowed: false,
+              blockedBy: "NTFS",
+              title: "Save blocked by NTFS (Gate 2)",
+              detail:
+                "SMB share allows Change, so Bob passes Gate 1, but NTFS Modify is OFF and blocks the save at Workbench.",
+              ariaSummary:
+                "Diagram: SMB Share gate is open and NTFS gate is closed. Bob's save request passes Gate 1 and is blocked at Gate 2 (NTFS)."
+            };
+          }
+
+          return {
+            allowed: false,
+            blockedBy: "BOTH",
+            title: "Save blocked by SMB Share and NTFS",
+            detail:
+              "Both gates are closed. The save stops immediately at Gate 1 (SMB Share), and Gate 2 (NTFS) would also block it.",
+            ariaSummary:
+              "Diagram: Both SMB Share and NTFS gates are closed. Bob's save request is blocked at Gate 1 (SMB Share)."
+          };
+        }
+
+        // =====================================================================
+        // SYNC UI CONTROLS & STATUS BANNER
+        // =====================================================================
+        function updateUI(restartPacket = true) {
+          // Update Switch 1 (SMB)
+          smbToggle.setAttribute("aria-checked", String(state.smbChange));
+          smbStateText.textContent = state.smbChange ? "ON" : "OFF";
+          smbStateText.style.color = state.smbChange
+            ? "var(--allow-text)"
+            : "var(--block-text)";
+
+          // Update Switch 2 (NTFS)
+          ntfsToggle.setAttribute("aria-checked", String(state.ntfsModify));
+          ntfsStateText.textContent = state.ntfsModify ? "ON" : "OFF";
+          ntfsStateText.style.color = state.ntfsModify
+            ? "var(--allow-text)"
+            : "var(--block-text)";
+
+          // Update Instant Explanation Banner
+          const verdict = getPermissionVerdict();
+          statusBanner.classList.toggle("allowed", verdict.allowed);
+          statusIcon.textContent = verdict.allowed ? "✓" : "✕";
+          statusTitle.textContent = verdict.title;
+          statusDetail.textContent = verdict.detail;
+
+          // Update Canvas ARIA description for screen readers
+          canvas.setAttribute("aria-label", verdict.ariaSummary);
+
+          if (restartPacket) {
+            resetPacketAnimation();
+          }
+        }
+
+        // =====================================================================
+        // ANIMATION CONTROL
+        // =====================================================================
+        function resetPacketAnimation() {
+          if (reducedMotionQuery.matches) {
+            // Jump directly to final state for reduced-motion users
+            state.smbGateOpen = state.smbChange ? 1 : 0;
+            state.ntfsGateOpen = state.ntfsModify ? 1 : 0;
+            state.packetProgress = 1;
+            state.packetStatus =
+              state.smbChange && state.ntfsModify ? "saved" : "blocked";
+            state.impactTimer = 0;
+          } else {
+            state.packetProgress = 0;
+            state.packetStatus = "moving";
+            state.impactTimer = 0;
+          }
+        }
+
+        // =====================================================================
+        // CANVAS SIZING (High-DPI & Responsive)
+        // =====================================================================
+        function resizeCanvas() {
+          const rect = canvas.getBoundingClientRect();
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+          state.width = Math.max(300, rect.width);
+          state.height = Math.max(220, rect.height);
+
+          canvas.width = Math.round(state.width * dpr);
+          canvas.height = Math.round(state.height * dpr);
+
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        // =====================================================================
+        // DRAWING HELPERS
+        // =====================================================================
+        function drawRoundedRect(x, y, w, h, r) {
+          const radius = Math.min(r, w / 2, h / 2);
+          ctx.beginPath();
+          ctx.moveTo(x + radius, y);
+          ctx.arcTo(x + w, y, x + w, y + h, radius);
+          ctx.arcTo(x + w, y + h, x, y + h, radius);
+          ctx.arcTo(x, y + h, x, y, radius);
+          ctx.arcTo(x, y, x + w, y, radius);
+          ctx.closePath();
+        }
+
+        function drawBobNode(x, y, scale, palette) {
+          const r = 24 * scale;
+
+          // Outer badge circle
+          ctx.fillStyle = palette.cardFill;
+          ctx.strokeStyle = palette.cardStroke;
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.arc(x, y, r, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+
+          // Simple accessible user silhouette
+          ctx.fillStyle = palette.text;
+          ctx.beginPath();
+          ctx.arc(x, y - 6 * scale, 6.5 * scale, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.arc(x, y + 13 * scale, 11 * scale, Math.PI, Math.PI * 2);
+          ctx.fill();
+
+          // Labels
+          ctx.fillStyle = palette.text;
+          ctx.font = `700 ${Math.round(14 * scale)}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+          ctx.textAlign = "center";
+          ctx.fillText("Bob", x, y + r + 18 * scale);
+
+          ctx.fillStyle = palette.muted;
+          ctx.font = `500 ${Math.round(11 * scale)}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+          ctx.fillText("Tries to Save", x, y + r + 33 * scale);
+        }
+
+        function drawWorkbenchNode(x, y, scale, palette, isSaved) {
+          const w = 64 * scale;
+          const h = 48 * scale;
+          const left = x - w / 2;
+          const top = y - h / 2;
+
+          // Subtle success glow when saved
+          if (isSaved) {
+            ctx.fillStyle = palette.allowFill;
+            ctx.strokeStyle = palette.allowStroke;
+            ctx.lineWidth = 2.5;
+            drawRoundedRect(left - 8, top - 8, w + 16, h + 16, 14);
+            ctx.fill();
+            ctx.stroke();
+          }
+
+          // Folder tab
+          ctx.fillStyle = isSaved ? palette.allowAccent : "#d97706";
+          drawRoundedRect(left, top - 6 * scale, w * 0.45, 14 * scale, 5);
+          ctx.fill();
+
+          // Folder body
+          ctx.fillStyle = isSaved ? palette.allowAccent : "#f59e0b";
+          drawRoundedRect(left, top + 2 * scale, w, h - 2 * scale, 8);
+          ctx.fill();
+
+          // Folder inner icon ("✓" when saved, page icon otherwise)
+          ctx.fillStyle = "#ffffff";
+          ctx.font = `700 ${Math.round(16 * scale)}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(isSaved ? "✓" : "📄", x, y + 4 * scale);
+          ctx.textBaseline = "alphabetic";
+
+          // Folder name
+          ctx.fillStyle = palette.text;
+          ctx.font = `700 ${Math.round(13.5 * scale)}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+          ctx.textAlign = "center";
+          ctx.fillText("Workbench", x, y + h / 2 + 20 * scale);
+
+          // Read status pill
+          ctx.fillStyle = palette.muted;
+          ctx.font = `600 ${Math.round(11 * scale)}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+          ctx.fillText("Read: OK", x, y + h / 2 + 35 * scale);
+        }
+
+        /**
+         * Draws a mechanical two-state gate (open or closed) with clear shape,
+         * color, and text cues for accessibility.
+         */
+        function drawGate(config) {
+          const {
+            x,
+            trackY,
+            scale,
+            title,
+            ruleText,
+            isOpen,
+            openAmount,
+            isBlockingPacket,
+            palette
+          } = config;
+
+          const postW = 14 * scale;
+          const gateGap = 44 * scale;
+          const topPostY = trackY - gateGap / 2 - 22 * scale;
+          const bottomPostY = trackY + gateGap / 2;
+
+          // Gate header label above the gate
+          ctx.textAlign = "center";
+          ctx.fillStyle = palette.text;
+          ctx.font = `700 ${Math.round(13 * scale)}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+          ctx.fillText(title, x, topPostY - 26 * scale);
+
+          // Status badge pill (OPEN / CLOSED) with symbol
+          const badgeW = 88 * scale;
+          const badgeH = 22 * scale;
+          const badgeX = x - badgeW / 2;
+          const badgeY = topPostY - 21 * scale;
+
+          ctx.fillStyle = isOpen ? palette.allowFill : palette.blockFill;
+          ctx.strokeStyle = isOpen ? palette.allowStroke : palette.blockStroke;
+          ctx.lineWidth = 1.5;
+          drawRoundedRect(badgeX, badgeY, badgeW, badgeH, 11 * scale);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.fillStyle = isOpen ? palette.allowStroke : palette.blockStroke;
+          ctx.font = `700 ${Math.round(10.5 * scale)}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+          ctx.textBaseline = "middle";
+          ctx.fillText(
+            isOpen ? "✓ ALLOW" : "✕ BLOCK",
+            x,
+            badgeY + badgeH / 2
+          );
+          ctx.textBaseline = "alphabetic";
+
+          // Gate top & bottom pillars
+          ctx.fillStyle = palette.cardStroke;
+          drawRoundedRect(x - postW / 2, topPostY + 4 * scale, postW, 18 * scale, 4);
+          ctx.fill();
+          drawRoundedRect(x - postW / 2, bottomPostY, postW, 18 * scale, 4);
+          ctx.fill();
+
+          // Moving barrier arm (slides up when open, drops across track when closed)
+          const barHeight = gateGap * (1 - openAmount * 0.92);
+          if (barHeight > 2) {
+            const barW = 10 * scale;
+            const barX = x - barW / 2;
+            const barY = trackY - gateGap / 2;
+
+            ctx.fillStyle = isOpen ? palette.allowAccent : palette.blockAccent;
+            drawRoundedRect(barX, barY, barW, barHeight, 4);
+            ctx.fill();
+
+            // Diagonal hazard stripes on closed gate for colorblind distinction
+            if (!isOpen && barHeight > 14) {
+              ctx.save();
+              ctx.strokeStyle = "rgba(255,255,255,0.55)";
+              ctx.lineWidth = 2;
+              for (let sy = barY + 6; sy < barY + barHeight - 4; sy += 9) {
+                ctx.beginPath();
+                ctx.moveTo(barX + 1, sy);
+                ctx.lineTo(barX + barW - 1, sy - 4);
+                ctx.stroke();
+              }
+              ctx.restore();
+            }
+          }
+
+          // Rule subtitle below gate
+          ctx.fillStyle = palette.muted;
+          ctx.font = `600 ${Math.round(11.5 * scale)}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+          ctx.textAlign = "center";
+          ctx.fillText(ruleText, x, bottomPostY + 34 * scale);
+
+          // Highlight callout if the save packet is currently blocked at this gate
+          if (isBlockingPacket) {
+            const calloutY = bottomPostY + 54 * scale;
+            const calloutW = 94 * scale;
+            const calloutH = 22 * scale;
+            ctx.fillStyle = palette.blockAccent;
+            drawRoundedRect(
+              x - calloutW / 2,
+              calloutY - calloutH / 2,
+              calloutW,
+              calloutH,
+              6
+            );
+            ctx.fill();
+
+            ctx.fillStyle = "#ffffff";
+            ctx.font = `700 ${Math.round(10.5 * scale)}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+            ctx.textBaseline = "middle";
+            ctx.fillText("Blocked here", x, calloutY);
+            ctx.textBaseline = "alphabetic";
+          }
+        }
+
+        function drawSavePacket(x, y, scale, status, palette) {
+          const w = 52 * scale;
+          const h = 28 * scale;
+
+          // Subtle shake when freshly blocked
+          let shakeX = 0;
+          if (status === "blocked" && state.impactTimer > 0 && !reducedMotionQuery.matches) {
+            shakeX = Math.sin(state.impactTimer * 38) * 4 * state.impactTimer;
+          }
+
+          const px = x + shakeX;
+          ctx.fillStyle =
+            status === "saved"
+              ? palette.allowAccent
+              : status === "blocked"
+              ? palette.blockAccent
+              : palette.packetFill;
+
+          drawRoundedRect(px - w / 2, y - h / 2, w, h, 8 * scale);
+          ctx.fill();
+
+          // White outline for strong contrast against track/gates
+          ctx.strokeStyle = "#ffffff";
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          ctx.fillStyle = palette.packetText;
+          ctx.font = `700 ${Math.round(11.5 * scale)}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(
+            status === "saved" ? "Saved!" : status === "blocked" ? "Denied" : "Save",
+            px,
+            y
+          );
+          ctx.textBaseline = "alphabetic";
+        }
+
+        // =====================================================================
+        // MAIN RENDER & ANIMATION LOOP
+        // =====================================================================
+        let lastTimestamp = 0;
+
+        function render(timestamp) {
+          const dt = Math.min(0.05, (timestamp - lastTimestamp) / 1000 || 0.016);
+          lastTimestamp = timestamp;
+
+          const W = state.width;
+          const H = state.height;
+          const scale = Math.max(0.76, Math.min(1, W / 740));
+          const palette = getPalette();
+
+          // Clear canvas background
+          ctx.fillStyle = palette.bg;
+          ctx.fillRect(0, 0, W, H);
+
+          // Responsive horizontal layout coordinates
+          const trackY = H * 0.5;
+          const bobX = W * 0.11;
+          const gate1X = W * 0.37;
+          const gate2X = W * 0.64;
+          const folderX = W * 0.89;
+
+          // Smoothly animate gates opening/closing
+          const gateSpeed = reducedMotionQuery.matches ? 20 : 8;
+          const targetSmb = state.smbChange ? 1 : 0;
+          const targetNtfs = state.ntfsModify ? 1 : 0;
+          state.smbGateOpen += (targetSmb - state.smbGateOpen) * Math.min(1, dt * gateSpeed);
+          state.ntfsGateOpen += (targetNtfs - state.ntfsGateOpen) * Math.min(1, dt * gateSpeed);
+
+          // Determine where the "Save" packet stops based on the two gates
+          const startX = bobX + 36 * scale;
+          let stopX = folderX - 42 * scale;
+          let blockingGate = null;
+
+          if (!state.smbChange) {
+            stopX = gate1X - 36 * scale;
+            blockingGate = "SMB";
+          } else if (!state.ntfsModify) {
+            stopX = gate2X - 36 * scale;
+            blockingGate = "NTFS";
+          }
+
+          // Advance packet animation
+          if (state.packetStatus === "moving") {
+            state.packetProgress += dt * 0.95;
+            if (state.packetProgress >= 1) {
+              state.packetProgress = 1;
+              state.packetStatus = blockingGate ? "blocked" : "saved";
+              if (blockingGate) {
+                state.impactTimer = 1;
+              }
+            }
+          } else if (state.impactTimer > 0) {
+            state.impactTimer = Math.max(0, state.impactTimer - dt * 2.2);
+          }
+
+          // Eased packet X coordinate
+          const t = state.packetProgress;
+          const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+          const packetX = startX + (stopX - startX) * eased;
+
+          // 1. Draw base pipeline track
+          ctx.strokeStyle = palette.track;
+          ctx.lineWidth = 8 * scale;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(bobX + 24 * scale, trackY);
+          ctx.lineTo(folderX - 32 * scale, trackY);
+          ctx.stroke();
+
+          // 2. Draw highlighted active path behind packet
+          ctx.strokeStyle =
+            state.packetStatus === "blocked" ? palette.blockAccent : palette.trackActive;
+          ctx.lineWidth = 8 * scale;
+          ctx.beginPath();
+          ctx.moveTo(bobX + 24 * scale, trackY);
+          ctx.lineTo(Math.max(bobX + 24 * scale, packetX), trackY);
+          ctx.stroke();
+
+          // 3. Draw Bob (Left) and Workbench (Right)
+          drawBobNode(bobX, trackY, scale, palette);
+          drawWorkbenchNode(
+            folderX,
+            trackY,
+            scale,
+            palette,
+            state.packetStatus === "saved"
+          );
+
+          // 4. Draw Gate 1 (SMB Share) & Gate 2 (NTFS)
+          drawGate({
+            x: gate1X,
+            trackY,
+            scale,
+            title: "Gate 1: SMB Share",
+            ruleText: state.smbChange ? "Change: ON" : "Change: OFF",
+            isOpen: state.smbChange,
+            openAmount: state.smbGateOpen,
+            isBlockingPacket: state.packetStatus === "blocked" && blockingGate === "SMB",
+            palette
+          });
+
+          drawGate({
+            x: gate2X,
+            trackY,
+            scale,
+            title: "Gate 2: NTFS",
+            ruleText: state.ntfsModify ? "Modify: ON" : "Modify: OFF",
+            isOpen: state.ntfsModify,
+            openAmount: state.ntfsGateOpen,
+            isBlockingPacket: state.packetStatus === "blocked" && blockingGate === "NTFS",
+            palette
+          });
+
+          // 5. Draw moving/resting Save packet on top
+          drawSavePacket(packetX, trackY, scale, state.packetStatus, palette);
+
+          window.requestAnimationFrame(render);
+        }
+
+        // =====================================================================
+        // EVENT LISTENERS (Click, Touch, Keyboard & Resize)
+        // =====================================================================
+        smbToggle.addEventListener("click", function () {
+          state.smbChange = !state.smbChange;
+          updateUI(true);
+        });
+
+        ntfsToggle.addEventListener("click", function () {
+          state.ntfsModify = !state.ntfsModify;
+          updateUI(true);
+        });
+
+        replayBtn.addEventListener("click", function () {
+          resetPacketAnimation();
+        });
+
+        resetBtn.addEventListener("click", function () {
+          state.smbChange = DEFAULTS.smbChange;
+          state.ntfsModify = DEFAULTS.ntfsModify;
+          updateUI(true);
+        });
+
+        window.addEventListener("resize", resizeCanvas);
+
+        // Initialize on load
+        window.addEventListener("load", function () {
+          resizeCanvas();
+          updateUI(true);
+          window.requestAnimationFrame(render);
+        });
+      } catch (err) {
+        // Graceful fallback without alert()
+        const banner = document.getElementById("statusDetail");
+        if (banner) {
+          banner.textContent = "Unable to initialize the interactive canvas: " + err.message;
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
