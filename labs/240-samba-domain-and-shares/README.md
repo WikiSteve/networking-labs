@@ -2,7 +2,7 @@
 
 > **Before you start:** Download the [Samba AD Lab Submission Template](https://github.com/WikiSteve/networking-labs/releases/download/samba-ad-lab-html/Samba-AD-Lab-Submission-Template.pptx). Add each required screenshot as you complete the lab, then submit the completed template for grading.
 
-[Download the interactive HTML lab](https://github.com/WikiSteve/networking-labs/releases/download/samba-ad-lab-html/index.html?rev=2) · Open the downloaded `index.html` in your browser. The screenshots load from GitHub.
+[Download the interactive HTML lab](https://github.com/WikiSteve/networking-labs/releases/download/samba-ad-lab-html/index.html?rev=3) · Open the downloaded `index.html` in your browser. The screenshots load from GitHub.
 
 ## Before you start
 
@@ -202,7 +202,7 @@ sudo systemctl restart samba-ad-dc
 
 ## 4. Set Windows permissions
 
-Check [Administrators lookup](#administrators-lookup) if Windows cannot find the group. The interactive HTML also has **Local vs. domain group lookup** in Troubleshooting.
+Curious why ADUC shows Administrators but the folder picker can miss it? [See what the picker is searching](#administrators-lookup). The interactive HTML also has **Local vs. domain group lookup** in Troubleshooting.
 
 On **Windows Server**, sign in as `LAB\Administrator`.
 
@@ -317,9 +317,41 @@ At the Windows 11 sign-in screen, choose **Other user** and enter `LAB\alice` or
 
 ### Administrators lookup
 
+**Why the search list can be confusing.** **Advanced → Find Now** can show well-known identities alongside domain groups. Look at **From this location** and the **In Folder** column to see where an entry comes from. In the pilot, Authenticated Users had a blank In Folder value, while Editors appeared under the domain’s Users container. Administrators, Users, Guests, and the other Builtin groups we sampled were all present in Samba AD, but the picker could not resolve them from that location.
+
 Active Directory Users and Computers shows the domain’s **Administrators** group in its **Builtin** container. Workbench uses the **MAYA-FS** member server’s local **Administrators** group. [Microsoft’s Administrators group reference](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-b--privileged-accounts-and-groups-in-active-directory#administrators)
 
 Typing `BUILTIN\Administrators` while searching **lee-lab.internal** can trigger a location error. Keep the existing local Administrators entry in Workbench’s **Security** permissions. If it is missing, open **Add → Select a principal → Locations**, choose **MAYA-FS**, enter `Administrators`, and select **Check Names**. It should resolve to `MAYA-FS\Administrators`. Allow **Full control** on this folder, subfolders, and files. Use the same location when adding Administrators in the share permissions. Use your last-name domain, such as **lee-lab.internal**, as the search location for **Editors** and **Reviewers**.
+
+**Try a quick comparison.** In **Select User or Group**, search your lab domain for `Editors`. Then change **Locations** to your `-FS` server and check `Administrators`. The domain owns the first group, and the file server manages local Administrators. Select **Cancel** when you finish the comparison.
+
+> “When the user selects a scope from the list, the dialog box applies the filters for that scope type”
+
+[Microsoft Learn · Directory Object Picker](https://learn.microsoft.com/en-us/windows/win32/ad/directory-object-picker)
+
+> “Membership in domain-joined computers' local Administrators group is where local privilege is granted”
+
+[Microsoft Learn · Administrators groups](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-b--privileged-accounts-and-groups-in-active-directory#administrators)
+
+#### What the picker showed in the pilot
+
+These screens use FILESERVER and lab.internal. Substitute your own server name and domain.
+
+![Object Types with Groups and Built-in security principals both checked.](./assets/picker-object-types.png)
+
+Object Types controls what the picker searches. Both Groups and Built-in security principals were already selected in the pilot.
+
+![Find Now results showing entries with and without a value in the In Folder column.](./assets/picker-mixed-results.png)
+
+The domain search mixes directory entries and well-known identities. Look at In Folder before assuming an entry is in ADUC.
+
+![Domain search finds Editors under lab.internal/Users.](./assets/picker-domain-editors.png)
+
+Editors resolves from the domain. In Folder shows lab.internal/Users in this pilot.
+
+![Windows picker says Administrators cannot be found in the selected domain search.](./assets/picker-admin-domain-error.png)
+
+The same domain search could not resolve Administrators. The local lookup on the file server succeeds, as shown below.
 
 ![Select User or Group dialog with location MAYA-FS and MAYA-FS Administrators resolved and underlined](./assets/help-local-admin.png)
 
