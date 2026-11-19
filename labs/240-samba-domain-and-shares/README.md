@@ -2,7 +2,7 @@
 
 > **Before you start:** Download the [Samba AD Lab Submission Template](https://github.com/WikiSteve/networking-labs/releases/download/samba-ad-lab-html/Samba-AD-Lab-Submission-Template.pptx). Add each required screenshot as you complete the lab, then submit the completed template for grading.
 
-[Download the interactive HTML lab](https://github.com/WikiSteve/networking-labs/releases/download/samba-ad-lab-html/index.html) · Open the downloaded `index.html` in your browser. The screenshots load from GitHub.
+[Download the interactive HTML lab](https://github.com/WikiSteve/networking-labs/releases/download/samba-ad-lab-html/index.html?rev=2) · Open the downloaded `index.html` in your browser. The screenshots load from GitHub.
 
 ## Before you start
 
