@@ -16,8 +16,6 @@ Your team is preparing an event. Everyone needs the bulletin. Only the editors s
 6. <a name="5-test-as-alice-and-bob"></a>[Test as Alice and Bob](./06-test-as-alice-and-bob.md)
 7. <a name="troubleshooting"></a>[Troubleshooting](./07-troubleshooting.md)
 
-<a name="administrators-lookup"></a>Looking for the Workbench picker explanation? [Administrators lookup](./07-troubleshooting.md#administrators-lookup).
-
 ## Four screenshots to submit
 
 1. [Domain controller DNS with your hostname](./02-create-the-domain.md#screenshot-1-domain-controller-dns)
