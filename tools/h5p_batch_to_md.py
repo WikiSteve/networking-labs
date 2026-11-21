@@ -6,7 +6,7 @@ Batch convert .h5p InteractiveBook packages to GitHub-friendly Markdown.
 - One Markdown file per chapter (or index.md per chapter folder if you want)
 - Copies image assets out of the .h5p zip into assets/images/
 - Converts common content types:
-  - H5P.AdvancedText: keeps HTML as-is (fast, faithful)
+  - H5P.AdvancedText: converts supported formatting and links to Markdown (fast, faithful)
   - H5P.Image: links extracted files
   - H5P.Link: normal markdown links
   - H5P.DragText: converts to a fill-in-the-blanks prompt + <details> answer
@@ -34,6 +34,27 @@ def slugify(s: str) -> str:
 def unzip_h5p(h5p_path: Path, out_dir: Path) -> None:
     with zipfile.ZipFile(h5p_path, "r") as z:
         z.extractall(out_dir)
+
+SAFE_SCHEMES = ("http", "https", "mailto")
+
+def safe_url(url: str) -> str:
+    """Return a cleaned URL if it is http(s)/mailto or scheme-less, else ''."""
+    url = unescape(url or "").strip()
+    if not url or re.search(r"[\x00-\x20]", url):
+        return ""
+    m = re.match(r"^([A-Za-z][A-Za-z0-9+.-]*):", url)
+    if m and m.group(1).lower() not in SAFE_SCHEMES:
+        return ""
+    return url.replace("(", "%28").replace(")", "%29")
+
+def _anchor_to_md(m) -> str:
+    attrs, text = m.group(1), m.group(2)
+    h = re.search(r"""(?:^|\s)href\s*=\s*(?:"([^"]*)"|'([^']*)')""", attrs, flags=re.IGNORECASE)
+    url = safe_url((h.group(1) if h.group(1) is not None else h.group(2)) if h else "")
+    text = text.strip()
+    if not url:
+        return text
+    return f"[{text or url}]({url})"
 
 def md_escape(s: str) -> str:
     return s.replace("\n", " ").strip()
@@ -87,6 +108,9 @@ def clean_html(html: str) -> str:
     # Remove some common wrappers if they are the only thing
     s = s.strip()
     
+    # Anchors: keep the URL (safe schemes only)
+    s = re.sub(r"<a\s([^>]*)>(.*?)</a>", _anchor_to_md, s, flags=re.IGNORECASE | re.DOTALL)
+
     # Replace headers
     s = re.sub(r"<(?:h1|h2)[^>]*>(.*?)</(?:h1|h2)>", r"## \1", s, flags=re.IGNORECASE)
     s = re.sub(r"<(?:h3|h4)[^>]*>(.*?)</(?:h3|h4)>", r"### \1", s, flags=re.IGNORECASE)
@@ -162,7 +186,6 @@ def truefalse_to_md(params: dict, meta: dict) -> str:
     correct = params.get("correct") == "true"
     title = meta.get("title") or "Quick Check"
     feedback_correct = params.get("behaviour", {}).get("feedbackOnCorrect", "")
-    feedback_wrong = params.get("behaviour", {}).get("feedbackOnWrong", "")
     
     lines = [
         "---",
@@ -179,7 +202,9 @@ def truefalse_to_md(params: dict, meta: dict) -> str:
         "",
         f"**Correct:** {'True' if correct else 'False'}"
     ]
-    feedback = feedback_correct if correct else feedback_wrong
+    # The reveal shows the correct answer, so use the feedback for answering
+    # correctly regardless of which answer is correct.
+    feedback = feedback_correct
     if feedback:
         lines.append("")
         lines.append(f"**Feedback:** {clean_html(feedback)}")
@@ -301,8 +326,9 @@ def convert_one(h5p_path: Path, out_root: Path) -> Path:
 
                 elif lib == "H5P.Link":
                     lw = params.get("linkWidget", {}) or {}
-                    url = (lw.get("protocol") or "") + (lw.get("url") or "")
-                    text = params.get("title") or url
+                    raw = unescape((lw.get("protocol") or "") + (lw.get("url") or ""))
+                    url = safe_url(raw)
+                    text = unescape(params.get("title") or raw)
                     if url:
                         lines.append(f"[{md_escape(text)}]({url})")
                         lines.append("")
@@ -343,18 +369,9 @@ def convert_one(h5p_path: Path, out_root: Path) -> Path:
 
             md_file.write_text("\n".join(lines).strip() + "\n", encoding="utf-8")
 
-        # Write a per-book README using the template from CODEX_KB.md
+        # Write a per-book README (no placeholder sections; goals etc. are not invented)
         readme_lines = [
             f"# {title}",
-            "",
-            "## Goal",
-            "*(Add lab goal here)*",
-            "",
-            "## Prereqs",
-            "- *(Add prerequisites here)*",
-            "",
-            "## Deliverables",
-            "- *(Add deliverables here)*",
             "",
             "## Pages"
         ]
@@ -379,13 +396,20 @@ def main() -> int:
         raise SystemExit(f"No .h5p files found in {inp}")
 
     converted = []
+    failed = []
     for h5p in h5ps:
         try:
             converted_dir = convert_one(h5p, out)
             converted.append(converted_dir)
             print(f"OK: {h5p.name} -> {converted_dir}")
         except Exception as e:
+            failed.append(h5p.name)
             print(f"FAIL: {h5p.name}: {e}")
+
+    if failed or not converted:
+        # Do not clobber an existing index when the batch did not fully succeed.
+        print(f"Failed: {len(failed)}/{len(h5ps)} files; top-level README not written.")
+        return 1
 
     # Write a top-level README
     toc = ["# Course content", "", "## Books", ""]
