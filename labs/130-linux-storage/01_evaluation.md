@@ -15,7 +15,7 @@ The password for the quiz will be posted in the classroom and may change from cl
 
 ## PowerPoint Submission
 
-Make sure to use the submission template. Look for the PowerPoint file in the same module where you found this guide.
+Download the PowerPoint submission template from the [lab homepage](README.md) and use it for your screenshots.
 
 ## Late Submissions
 

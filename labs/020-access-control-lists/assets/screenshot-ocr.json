@@ -1,6 +1,6 @@
 {
   "file-6743bf4dc16fa.png": {
-    "alt": "Nmap scan comparing the loopback address and the VLAN 1 management address, with the management ports filtered on 192.168.100.1.",
+    "alt": "Nmap scan comparing the loopback and VLAN 1 management addresses. On 192.168.100.1, HTTP is open and SSH and HTTPS are filtered.",
     "ocr": [
       "[stevedssharpe-acllab 2024-11-24 19:59:10 ~]$ nmap p 22,80 443 10.10 Starting Nmap 7.93 nttos: / /nmad ora at 2024-11-24 9:59 AST Nmap scan report for sharpeswl. sharpe. com (10.10.10.1) Host is up (0.00275 latency)",
       "1 192 168.100",

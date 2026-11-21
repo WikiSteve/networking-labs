@@ -65,6 +65,7 @@ This file makes the book's relationship to the rest of the repo explicit. The ch
 ## Chapter 10: Linux Networking and Distribution-Specific Administration
 
 - [Linux Networking](../../course-materials/lectures/systems/linux-networking.md)
+- [Linux Basic Routing](../../labs/040-linux-basic-routing/README.md)
 
 ## Chapter 11: Certificates, TLS, and Service Trust
 

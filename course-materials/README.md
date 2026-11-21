@@ -1,6 +1,6 @@
 # Course Materials
 
-Tracked copy of curated course files and their corresponding notes.
+Tracked copy of curated course files and their corresponding notes. Browse the [course materials index](index.md).
 
 Principles:
 

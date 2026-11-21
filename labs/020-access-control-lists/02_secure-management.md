@@ -222,7 +222,7 @@ Once installed, use `nmap` to run the command provided in the guide and verify y
 
 ## Screenshot 1 Explanation and Requirements
 
-![Nmap scan comparing the loopback address and the VLAN 1 management address, with the management ports filtered on 192.168.100.1.](assets/images/file-6743bf4dc16fa.png)
+![Nmap scan comparing the loopback and VLAN 1 management addresses. On 192.168.100.1, HTTP is open and SSH and HTTPS are filtered.](assets/images/file-6743bf4dc16fa.png)
 
 **1. The Command**
 

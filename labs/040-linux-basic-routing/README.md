@@ -3,13 +3,15 @@
 > **Before you start:** Download the [Basic Routing Submission Template](./assets/Basic%20routing%20SUBMISSION%20TEMPLATE.pptx). Add each required screenshot directly into this file as you complete the lab, then submit the completed template for grading.
 
 ## Goal
-*(Add lab goal here)*
+Set up two Debian VMs and prove that the client can send traffic through the server.
 
 ## Prereqs
-- *(Add prerequisites here)*
+Use VMware Workstation and a Debian VM you can clone. Review the [topology](02_topology.md) before changing names and addresses.
 
 ## Deliverables
-- *(Add deliverables here)*
+- [Screenshots 1 and 2](04_renaming-linux-machines.md#screenshot-1-hostname-change-proof) — Hostname change and host file verification.
+- [Screenshot 3](05_network-prep.md#screenshot-3-topology-verification) — Topology verification.
+- [Screenshot 4](06_routing.md#screenshot-4-routing-proof) — Client traffic passes through the server.
 
 ## Pages
 - [Evaluation](01_evaluation.md)

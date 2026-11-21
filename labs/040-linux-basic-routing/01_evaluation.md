@@ -1,8 +1,8 @@
 # Evaluation
 
-## PowerPont submission
+## PowerPoint submission
 
-Make sure to use the submission template.  Look for a PowerPoint file in the same module you found this guide.
+Download the PowerPoint submission template from the [lab homepage](README.md) and use it for your screenshots.
 
 ## Late submissions
 

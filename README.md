@@ -104,6 +104,10 @@
 ### Challenges
 - [Storage and IPv6 Challenge](./course-materials/challenges/systems/storage-and-ipv6-challenge.md)
 
+## Browse course materials
+
+- [Course materials and submission template index](./course-materials/index.md)
+
 ## Source
 - Original H5P files: `h5p_src/`
 - Converter scripts: `tools/`

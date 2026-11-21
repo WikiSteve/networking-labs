@@ -3,6 +3,7 @@
 - [Lectures](lectures/index.md)
 - [Labs](labs/index.md)
 - [Challenges](challenges/index.md)
+- [Templates](templates/index.md)
 
 ## Site Map
 
@@ -33,6 +34,7 @@
 #### Systems
 
 - [Systems index](lectures/systems/index.md)
+- [Bash Introduction](lectures/systems/bash-introduction.md)
 - [Introduction to Computer Hardware and Operating Systems Part 1](lectures/systems/introduction-to-computer-hardware-and-operating-systems-part-1.md)
 - [Introduction to Computer Hardware and Operating Systems Part 2](lectures/systems/introduction-to-computer-hardware-and-operating-systems-part-2.md)
 - [Linux Editors](lectures/systems/linux-editors.md)

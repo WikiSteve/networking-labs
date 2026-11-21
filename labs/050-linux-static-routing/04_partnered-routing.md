@@ -26,13 +26,39 @@
 
 ### **Submission Guidelines**
 
-- Ensure your VM's hostname is set in the format of your first initial followed by your last name, and then `-Debian` (e.g., `dduck-Debian`).
-- Initiate a traceroute from your VM to your partner's VM:
-  **`traceroute [Partner's Tunnel Adapter IP]`**
-  Capture a screenshot of the traceroute result.
-- Establish an SSH session to your partner's VM:
-  **`ssh [username]@[Partner's Tunnel Adapter IP]`**
-- Once logged in, run the **`w`** command. Capture a screenshot showing the source IP as the other partner's assigned network.
+- Set your VM’s hostname to your first initial and last name followed by `-Debian` (for example, `dduck-Debian`).
+- Use the assigned tunnel addresses for these two partnered tests. The DHCP addresses are next hops for the routes you added above.
+
+## **Screenshot 2: Partner Tunnel Traceroute**
+
+**Requirement:** Show the traceroute command and output. Use your assigned `tun0` address as the source and your partner’s assigned `tun0` address as the destination. The destination must appear in the result.
+
+Use `man traceroute` to find the option that selects the source address before opening the worked example.
+
+<details>
+<summary>Worked example from two Debian VMs</summary>
+
+![Traceroute from 10.50.1.1 reaches the partner tunnel address 10.50.2.1. The route lookup above it shows the next hop on the shared link.](assets/images/partner-tunnel-traceroute.png)
+
+The example uses `10.50.1.1` as the source and reaches `10.50.2.1`. Use the addresses from your assigned spreadsheet.
+
+</details>
+
+## **Screenshot 3: Partner SSH Source Address**
+
+Connect to your partner’s assigned tunnel address. Replace the brackets and their contents with your values.
+
+```text
+ssh -b [Your Tunnel Adapter IP] [username]@[Partner's Tunnel Adapter IP]
+```
+
+The `-b` option sets your tunnel address as the source of the SSH connection. After signing in to your partner’s VM, run `w`.
+
+**Requirement:** Show your partner’s prompt and the SSH session in the `w` output. The session’s `FROM` column must show your assigned tunnel address.
+
+![The partner VM's w output shows the SSH session on pts/0 with FROM 10.50.1.1.](assets/images/partner-ssh-source.png)
+
+In the worked example, the remote SSH session is on `pts/0`. The `ttyS0` row is the partner’s local console session.
 
 ---
 [Prev](03_routing.md) | [Home](README.md)
