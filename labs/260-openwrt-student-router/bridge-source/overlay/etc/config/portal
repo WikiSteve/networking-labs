@@ -1,0 +1,3 @@
+config portal 'upstream'
+	option address ''
+	option port '80'

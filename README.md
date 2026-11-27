@@ -21,6 +21,7 @@
 - [Linux Basic Routing](./labs/040-linux-basic-routing/README.md)
 - [Linux Static Routing](./labs/050-linux-static-routing/README.md)
 - [Linux Group Routing: Static Routes and OSPF](./labs/055-linux-static-routing-ospf/README.md)
+- [OpenWrt Student Router Lab](./labs/260-openwrt-student-router/README.md)
 - [Client Server with Netcat](./course-materials/labs/networking/lab-client-server-with-netcat.md)
 - [DHCP, ARP, DNS, and Static IP Setup](./course-materials/labs/networking/lab-dhcp-arp-dns-and-static-ip-setup.md)
 - [Traceroute and Path Selection](./course-materials/labs/networking/lab-traceroute-and-path-selection.md)

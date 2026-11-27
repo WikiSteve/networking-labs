@@ -1,0 +1,5 @@
+#!/bin/sh
+uci set system.@system[0].hostname='Minion-Bridge'
+uci commit system
+/etc/init.d/portal-relay enable
+exit 0
