@@ -2,24 +2,77 @@
 
 [← Verify the VMware networks](./02-verify-vmware-networks.md) · [Lab overview](./README.md) · [Give clients their LAN settings →](./04-enable-lan-addressing.md)
 
-1. Start **Minion Bridge** and wait for its console prompt. After your instructor has configured the relay, test it from that VM.
+## What Minion Bridge does
+
+Minion Bridge gets an IPv4 address from VMware NAT on **Adapter 1**. On **Adapter 2**, it sends IPv6 Router Advertisements to the Student Router over the private **Minion-WAN** segment. The Student Router learns an address in `fd88:77:1::/64` and answers DNS requests for `minion.lab` with the Bridge's private portal address, `fd00:1ab:5::102`. The Bridge accepts portal requests over IPv6 and opens a separate IPv4 connection to the upstream portal relay.
+
+## Test Minion Bridge on its own
+
+1. Select **Minion Bridge** in VMware Workstation, power it on, and wait for its OpenWrt console. Keep **OpenWrt Student Router** powered off.
+2. In **VM → Settings**, confirm the Bridge's **Network Adapter** is connected to **NAT**. Confirm its **Network Adapter 2** and the Student Router's **Network Adapter 3** both use **Minion-WAN** and have **Connect at power on** checked.
+3. Click inside the Bridge console and press **Enter** if needed. Look for the `root@Minion-Bridge` prompt. If a fresh Bridge asks you to log in, enter `root` and leave its password field empty. After your instructor has configured the relay, run this one line.
 
    ```sh
    http_proxy='http://[fd00:1ab:5::102]' wget -O /dev/null http://minion.lab/
    ```
 
-   The `http_proxy` setting directs this one download through the Bridge’s relay. The brackets enclose its IPv6 address. The capital `-O` sends output to `/dev/null` so you can repeat the check without saving a file. Expect the download to complete. If it fails, recheck the Bridge’s NAT adapter and VMnet8 DHCP.
+   - `http_proxy` sends this one download through the Bridge’s own relay. The brackets enclose its IPv6 address. The Bridge test uses the address directly because the Student Router's DNS service is still off.
+   - `wget` downloads the page. The capital `-O` sends the output to `/dev/null` so you can repeat the check without saving a file.
+   - `http://minion.lab/` names the site to the upstream server. Requesting the numeric address as the website can return **404 Not Found**.
 
-2. Leave the Bridge running and start **OpenWrt Student Router**. Open `http://192.168.220.2/` on the Router PC. The prebuilt image uses `root` with an empty password for the first LuCI login. Set your router password using LuCI’s password prompt. In **System → System**, save a hostname such as `openwrt-steve` using your own first name.
-3. Open **Network → Interfaces**. Find **wwan** on device **eth2** and look for **wwan6** with an IPv6 address in `fd88:77:1::/64`.
-4. In the Student Router console, run the checks below. Stop ping with **Ctrl+C** after you see replies. The second command saves the page to a named temporary file so you can repeat it.
+Look for **Download completed**. If the test fails, leave the Student Router off and the Intel bench cable unplugged. Use [Diagnose a failed check on Minion Bridge](./09-troubleshooting.md#diagnose-a-failed-check-on-minion-bridge) before continuing.
+
+## Open LuCI and name your Student Router
+
+1. Leave Minion Bridge running. If VMware is holding the mouse and keyboard, press **Ctrl+Alt**. Power on **OpenWrt Student Router** and open [http://192.168.220.2/](http://192.168.220.2/) in the Router PC's browser.
+2. Sign in as `root`. Leave the password empty on a fresh Student Router. If you already set one, use it. If LuCI does not open, give the VM time to boot, check **Adapter 1** is connected to **VMnet1**, then [verify the Windows VMnet1 address](./02-verify-vmware-networks.md#set-up-vmnet1-for-luci).
+3. Click **Go to password configuration…** in the yellow **No password set!** banner, or open **System → Administration**. Enter your new password in **Password** and **Confirmation** and click **Save**. Use the new password if LuCI asks you to sign in again.
+4. Open **System → System → General Settings**. Set **Hostname** to `openwrt-firstname`, using your own lowercase first name, for example `openwrt-steve`. Click **Save & Apply** and look for the name at the top of LuCI.
+
+![First login in LuCI. The username is root and the password box is empty.](./evidence/luci-first-login.png)
+
+First login in LuCI. The username is root and the password box is empty.
+
+![After the first login, the yellow banner has a button that opens the password settings.](./evidence/luci-change-password.png)
+
+After the first login, the yellow banner has a button that opens the password settings.
+
+![General Settings with openwrt-steve entered in the Hostname field. Scroll down to Save & Apply.](./evidence/luci-hostname.png)
+
+General Settings with openwrt-steve entered in the Hostname field. Scroll down to Save & Apply.
+
+## Check the Student Router's WAN
+
+1. Open **Network → Interfaces**. Find **wwan** on device **eth2**, then check **wwan6** for an IPv6 address in `fd88:77:1::/64`. If you see only an address starting with `fe80:`, it is link-local and the advertised prefix is still missing. Verify that both VMs use the same **Minion-WAN** segment and that the Bridge is running.
+2. Open the Student Router console in VMware. Press **Enter** if needed and, if prompted, sign in as `root` with the password you set. Run:
 
    ```sh
    ping minion.lab
+   ```
+
+   Look for `minion.lab` to resolve to `fd00:1ab:5::102` and for replies from that address. Stop with **Ctrl+C** after replies appear.
+3. In the same console, run:
+
+   ```sh
    wget -O /tmp/minion.html http://minion.lab/
    ```
 
-   Wait for both checks to pass before turning on LAN services. If there is only a link-local address starting with `fe80:`, recheck the shared **Minion-WAN** segment and that the Bridge is running.
+   Look for **Download completed**. The capital `-O` saves the page to a temporary filename you can reuse. This checks the relay and its upstream connection together.
+4. Optional. Run `head /tmp/minion.html` to print the first lines. Look for the page title **Minion | Networking labs**. Press **Ctrl+Alt** when you need to return to Windows.
+
+Keep the Intel cable unplugged and the Student Router's LAN services off until both the ping and portal download succeed. If either fails, use the [Bridge troubleshooting checks](./09-troubleshooting.md#diagnose-a-failed-check-on-minion-bridge) before moving to Step 3.
+
+![Worked console check on openwrt-steve. Minion replied to all three pings.](./evidence/router-uplink-ping.png)
+
+Worked console check on openwrt-steve. Minion replied to all three pings.
+
+![Worked console check using the default filename index.html. Your command uses a temporary filename. Look for Download completed and the Minion | Networking labs title.](./evidence/router-uplink-download.png)
+
+Worked console check using the default filename index.html. Your command uses a temporary filename. Look for Download completed and the Minion | Networking labs title.
+
+![lab LuCI Interfaces shows wwan on eth2 and a wwan6 address in fd88:77:1::/64.](./evidence/router-uplink-interfaces.png)
+
+Worked Screenshot 2 from lab after the bridge remap. Read eth2 below wwan and the IPv6 prefix under wwan6.
 
 ## **Screenshot 2: Prove the Minion uplink**
 

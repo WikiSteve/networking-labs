@@ -31,4 +31,21 @@ On the tested bench, Windows could ping over its upstream Realtek connection. Us
 
 If the phone appears in **Associated Stations**, it has joined the access point. Keep the phone connected to the lab Wi-Fi if it warns that the network has no internet. Temporarily turn off mobile data, open `http://minion.lab/` in your browser, and turn mobile data back on after the test.
 
+## Diagnose a failed check on Minion Bridge
+
+In VMware, select **Minion Bridge** and click its console. Press **Enter** if needed. On a fresh Bridge, log in as `root` with the password field empty.
+
+1. Run `ifstatus wan` on the Bridge. Look for `"up": true`, an `ipv4-address`, and a default route. The address varies. If one is missing, make sure Bridge Adapter 1 uses NAT, VMnet8 has DHCP enabled, and the Router PC’s upstream Ethernet link is up.
+2. Run `ip -6 addr show eth1` on the Bridge. The command lists IPv6 addresses on the adapter connected to Minion-WAN. Look for the handoff address `fd88:77:1::1/64` and portal address `fd00:1ab:5::102/128`. If the Student Router has only a link-local address, check that both VMs use the same private segment and the Bridge has finished booting. Run `/etc/init.d/odhcpd status` to check that the service sending Router Advertisements says `running`.
+3. Run `/etc/init.d/portal-relay status` on the Bridge. If the relay is stopped, run `/etc/init.d/portal-relay start`, check its status again, then repeat the [Bridge-only test](./03-verify-minion-uplink.md).
+4. If the relay is running but the download fails, run `netstat -lnt` on the Bridge. The flags show listening sockets (`-l`), numeric addresses and ports (`-n`), and TCP only (`-t`). Look for `fd00:1ab:5::102` listening on port `80`.
+5. On the **Student Router** console, compare `ping minion.lab` with `ping fd00:1ab:5::102`. If only the numeric address works, check DNS. If neither works, recheck the private segment, Bridge addresses, the **wwan6** route, and [VMnet8 in Step 1](./02-verify-vmware-networks.md). These pings diagnose the router’s uplink.
+6. If the router can ping and the relay listens, but the download still fails, optionally use PowerShell on the **Router PC** to test the upstream portal. Replace `PORTAL-ADDRESS` with the configured IPv4 address and `8080` with the configured port if it differs.
+
+   ```powershell
+   curl.exe -I -H "Host: minion.lab" http://PORTAL-ADDRESS:8080/
+   ```
+
+   `-I` asks for headers. `-H` sends the site name when you connect by IP. Look for **200 OK**. If Windows gets 200 while the router download fails, recheck the Bridge NAT adapter and relay. If Windows also fails, check the Router PC’s upstream connection before changing the student LAN.
+
 [← Submit and clean up](./08-submit-and-clean-up.md) · [Lab overview](./README.md)

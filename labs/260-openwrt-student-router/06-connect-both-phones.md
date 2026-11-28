@@ -2,24 +2,102 @@
 
 [← Verify the wired Partner PC](./05-verify-wired-partner.md) · [Lab overview](./README.md) · [Test the MAC filter and restore access →](./07-test-mac-filter.md)
 
-1. Plug the Archer into the Router PC. Select the **OpenWrt Student Router** tab in VMware. Open **VM → Removable Devices**, point to the USB Wi-Fi adapter, then choose **Connect (Disconnect from Host)**. Accept the USB handoff if VMware prompts you. Reopen its menu and check that it now offers **Disconnect (Connect to host)**.
-2. In the Student Router console, run these three commands in order. Look for USB ID `2357:0115` after the first command and a radio such as `phy0` after the second. Run the third only after the radio appears.
+Your Student Router already serves the wired LAN. Connect the physical radio to that VM so your phones can join the same LAN over Wi-Fi.
 
-   ```sh
-   lsusb
-   ls /sys/class/ieee80211
-   wifi config
-   ```
+### Attach the Archer to the Student Router
 
-   If the USB ID is missing, review VMware’s device handoff. If the ID appears and there is no radio, ask your instructor to check driver and firmware support. After `wifi config`, sign back in to LuCI and open **Network → Wireless**.
-3. Edit the network row beneath your radio, or select **Add** on the radio row if there is no network. In **Device Configuration**, choose the country code for your location and the channel assigned to your bench. For a 2.4 GHz bench, use a width of **20 MHz** and channel **1**, **6**, or **11** as assigned.
-4. In **Interface Configuration → General Setup**, select **Access Point**, enter `FirstName-Wireless` as the ESSID using the Router PC operator’s first name, and select **lan** for **Network**. In **Wireless Security**, choose **WPA2-PSK** and set a temporary passphrase. Save, enable the network if needed, and click **Save & Apply**.
-5. Join one phone at a time. If the phone offers to stay connected without Internet access, choose to stay connected to your lab Wi-Fi. Open `http://minion.lab/` on each phone. In **Associated Stations**, match each phone to the row that appeared when it joined. A station row shows that the phone joined the radio. Opening the portal checks its network path separately. If the phone is associated but the page will not open, see [Phone joined but Minion will not open](./09-troubleshooting.md#phone-joined-but-minion-will-not-open).
+[See the VMware USB handoff in pictures](#vmware-usb-handoff-in-pictures) if the menu is unfamiliar.
+
+1. Find the Archer T4U v3 USB adapter with the hinged antenna panel assigned to your bench. Plug it into the Router PC. If VMware says the adapter belongs to another VM, stop and ask your instructor to release it.
+2. Select the **OpenWrt Student Router** tab in VMware. Open **VM → Removable Devices**. Point to the USB Wi-Fi adapter. The bench example calls it **TP-Link 802.11ac NIC**. Yours may say **TP-Link**, **Realtek**, or **USB Wireless**.
+3. Choose **Connect (Disconnect from Host)**. If prompted, select **OpenWrt Student Router** and click **OK** to release the adapter from Windows. Reopen the adapter submenu. When it offers **Disconnect (Connect to host)**, the selected VM owns the radio. Press **Esc** to close the menu and leave it connected.
+
+![Student Router selected in VMware with VM, Removable Devices, TP-Link 802.11ac NIC and Connect visible.](./evidence/radio-vm-menu.png)
+
+Student Router selected in VMware with VM, Removable Devices, TP-Link 802.11ac NIC and Connect visible.
+
+![Classroom TP-Link Archer T4U with its antenna panel raised and USB plug visible.](./evidence/radio-usb-adapter.png)
+
+Find the TP-Link Archer T4U USB adapter with the hinged antenna panel.
+
+### Check the radio before opening Wireless
+
+Click in the Student Router console and look for the `root@openwrt-firstname` prompt.
+
+1. Run `lsusb` to list USB devices. Find `2357:0115`, the USB ID for the Archer. The bus and device numbers can vary. If the ID is missing, check the plug and the Student Router’s device handoff. If VMware offers no device, check **VM → Settings → USB Controller**. Reattach the dongle and run `lsusb` again. Continue when the ID appears.
+2. Run `ls /sys/class/ieee80211` to list the radios registered by the Wi-Fi driver. Look for an entry such as `phy0`. If you saw the USB ID but no radio, confirm you opened the supplied Student Router VM and reattach the dongle once. If the directory still has no radio, stop and show your instructor both commands’ results so they can check the driver and firmware.
+3. Once a radio appears, run `wifi config` to create its wireless settings. It may return to the prompt silently. Press **Ctrl+Alt** to release the console. In LuCI, log out, sign back in and open **Network → Wireless**. If Wireless is missing after the command finished and you signed back in, stop and record any command message for your instructor.
+
+### Set up your team’s access point
+
+1. In **Wireless Overview**, find the radio row, such as **radio0**. Click **Edit** on the network row beneath it. A fresh network may be called **OpenWrt**. If there is no network row, click **Add** on the radio row.
+2. In the upper **Device Configuration → General Setup** tab, set **Country Code** to **CA** for this bench. Under **Operating frequency**, choose **2.4 GHz**, a width of **20 MHz**, and channel **1**, **6**, or **11** as assigned. The frequency controls appear with the physical radio attached.
+3. In the lower **Interface Configuration → General Setup** tab, select **Access Point**, enter `FirstName-Wireless` as the **ESSID** using the Router PC operator’s first name, and select **lan** for **Network**. Both phones will use the same address services as the wired partner. Older practice images show `minion-team07`. Use your own name, as in `Steve-Wireless`.
+4. In the lower **Wireless Security** tab, choose **WPA2-PSK** and enter a temporary passphrase of 8 to 63 characters in **Key**. Keep it handy for both phones. Click **Save**. Back on Wireless Overview, click **Enable** on your network row if needed, then **Save & Apply**. Wait for your SSID under the radio. LuCI may label its mode **Master**.
+
+![Older practice image showing the SSID minion-team07. Enter FirstName-Wireless for this lab. On a fresh router, the network may be named OpenWrt. Add is on the radio row. Edit and Enable are on the network row.](./evidence/wireless-luci-rows.png)
+
+Older practice image showing the SSID minion-team07. Enter FirstName-Wireless for this lab. On a fresh router, the network may be named OpenWrt. Add is on the radio row. Edit and Enable are on the network row.
+
+![Older LuCI practice image showing minion-team07. Enter FirstName-Wireless for this lab. Country Code belongs to the device. Mode, ESSID and Network belong to the interface. The frequency controls appear with a physical radio attached.](./evidence/wireless-luci-edit.png)
+
+Older LuCI practice image showing minion-team07. Enter FirstName-Wireless for this lab. Country Code belongs to the device. Mode, ESSID and Network belong to the interface. The frequency controls appear with a physical radio attached.
+
+![Older LuCI Wireless Security image showing minion-team07. Use your FirstName-Wireless network and set your own Key.](./evidence/wireless-luci-security.png)
+
+Older LuCI Wireless Security image showing minion-team07. Use your FirstName-Wireless network and set your own Key.
+
+![LuCI Device Configuration showing Steve-Wireless active with WPA2, country Canada, 2.4 GHz, channel 1 and 20 MHz.](./evidence/wireless-luci-active.png)
+
+Live lab radio settings after Save & Apply. Both phones rejoined on 2.4 GHz and received an address.
+
+### Join one phone at a time
+
+1. On **Phone A**, open Wi-Fi settings, join your team’s SSID and enter the passphrase. If asked whether to stay connected without Internet access, choose to stay connected. Open `http://minion.lab/` in the phone’s browser.
+2. On the Router PC, find the new row for your SSID in **Wireless Overview → Associated Stations**. Match the Wi-Fi address in that row to the phone’s address for this network using the directions below. A signal reading in that row confirms radio association. To check IP assignment separately, look under **Status → Overview** or **Network → DHCP → Leases**.
+3. Repeat on **Phone B**. Watch for its separate row under the same SSID and open the portal on Phone B. If a connected phone cannot open Minion, temporarily turn off mobile data, retry the URL in its regular browser and turn mobile data back on when finished. See [Phone joined but Minion will not open](./09-troubleshooting.md#phone-joined-but-minion-will-not-open).
+
+**Using an Android VM?** You can use its mobile browser to check the portal over virtual Ethernet or NAT. To use it for Screenshot 5 or the filter test, match its Wi-Fi address to a separate station row under your Archer radio. If only one station appears under your SSID, pause the filter test until the second Wi-Fi client joins.
+
+![Phone B browser displays Minion Networking labs at minion.lab.](./evidence/wireless-phone-portal.png)
+
+Worked lab capture. Phone B opened Minion at minion.lab while joined to Steve-Wireless.
+
+### Find the Wi-Fi address your phone is using
+
+- **iPhone.** Open **Settings → Wi-Fi**, tap **ⓘ** beside your team SSID and read **Wi-Fi Address**. If **Private Wi-Fi Address** offers modes, select **Fixed** for your team SSID to keep a private address stable during the test. After changing it, reconnect, read the address again and match it to LuCI. [Apple’s Wi-Fi privacy guide](https://support.apple.com/en-us/102509)
+- **Android.** On a Pixel, open **Settings → Network & internet → Internet**. On a Galaxy, open **Settings → Connections → Wi-Fi**. Tap the gear beside your team SSID, open its details and find the address. Keep the per-network randomized MAC mode. If you change the setting, reconnect, read the address again and match it to LuCI. [Android’s network settings guide](https://support.google.com/android/answer/9654714)
+
+If your menus differ, join one phone at a time and watch which row appears. The filter uses the address LuCI sees on your team’s SSID.
 
 ## **Screenshot 5: Show two phones on your access point**
 
 **Requirement:** Show two **Associated Stations** rows under your own SSID. Label them **Phone A** and **Phone B**. Show only the last two pairs of digits of each phone’s Wi-Fi MAC address, and use those same endings in Screenshot 6.
 
 ![Two phones associated with the same access point, with client identifiers masked](./evidence/05-phones.png)
+
+In the example, Phone A ends in `E4:50` and Phone B ends in `37:8C` under `Steve-Wireless`. The hostnames, host addresses and AP MAC are covered. Use your own phones’ endings. Verify the portal separately on each phone.
+
+## VMware USB handoff in pictures
+
+![Worked VMware menu capture. Point to Removable Devices.](./evidence/radio-removable-devices.png)
+
+Worked VMware menu capture. Point to Removable Devices.
+
+![Worked VMware submenu capture. Point to TP-Link 802.11ac NIC.](./evidence/radio-device-menu.png)
+
+Worked VMware submenu capture. Point to TP-Link 802.11ac NIC.
+
+![Before attachment. Choose Connect (Disconnect from Host).](./evidence/radio-connect-to-guest.png)
+
+Before attachment. Choose Connect (Disconnect from Host).
+
+![VMware warns that Windows will release the USB adapter. Click OK.](./evidence/radio-confirm-usb.png)
+
+VMware warns that Windows will release the USB adapter. Click OK.
+
+![After attachment. The submenu now offers Disconnect (Connect to host). Leave the adapter connected.](./evidence/radio-connected-to-guest.png)
+
+After attachment. The submenu now offers Disconnect (Connect to host). Leave the adapter connected.
 
 [← Verify the wired Partner PC](./05-verify-wired-partner.md) · [Lab overview](./README.md) · [Test the MAC filter and restore access →](./07-test-mac-filter.md)
