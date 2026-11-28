@@ -6,9 +6,15 @@
 
 Windows gives itself a `169.254.x.x` address while it waits for DHCP. Check that both bench cables land on access ports in the same VLAN, that Adapter 2 is connected to the Intel bridge, and that the saved LAN DHCP settings match [Step 3](./04-enable-lan-addressing.md). The switch’s link lights only confirm the physical links are up. For the one-workstation setup, confirm that the Windows partner VM’s only connected adapter is **Custom: VMnet10**.
 
+## The partner has IPv4 but Minion will not open
+
+1. Run `ipconfig /all` on the Partner PC and read the same wired adapter that received the lease. Look for a separate IPv6 address, usually starting with `fd`, and an IPv6 default gateway. A gateway starting with `fe80:` is normal. If the address or gateway is missing, check [the LAN’s Router Advertisements](./04-enable-lan-addressing.md#enable-ipv4-dhcp-and-ipv6-router-advertisements).
+2. Run `nslookup minion.lab 192.168.77.1` to ask OpenWrt for the portal’s address. Look for `fd00:1ab:5::102`. A DNS answer confirms the name lookup. Try the page in a private browser window to test the web connection.
+3. If the wired adapter has both IPv6 fields and the page still fails, [check Minion Bridge](#diagnose-a-failed-check-on-minion-bridge) to see whether the private uplink and portal relay are working. You can also [check the HTTP response with Windows curl](./05-verify-wired-partner.md#optional-windows-check--see-the-http-status) for a second view of the web result.
+
 ## Minion opens but ping reports Destination port unreachable
 
-If Minion opens on the Partner PC with only its bench Ethernet active, you can finish [Screenshot 4](./05-verify-wired-partner.md#screenshot-4-prove-the-partners-wired-connection). DNS, ping and the browser test answer different questions. DNS looks up the address, ping sends an echo request, and the browser asks for the page.
+If Minion opens on the Partner PC with only its bench Ethernet active, you can finish [Screenshot 4](./05-verify-wired-partner.md#screenshot-4-prove-the-partners-wired-connection). To see the difference in LuCI, open the [optional firewall demonstration](#optional-firewall-demonstration) and compare ping before, during, and after permitting ICMPv6 Echo. DNS, ping and the browser test answer different questions. DNS looks up the address, ping sends an echo request, and the browser asks for the page.
 
 ### Optional firewall demonstration
 
@@ -27,9 +33,15 @@ On the tested bench, Windows could ping over its upstream Realtek connection. Us
 
 ![Separate HTTP and ping rules with the same destination](./evidence/firewall-compare.png)
 
+## The Archer radio or Wireless menu is missing
+
+- **VMware shows no USB Wi-Fi adapter, or `lsusb` lacks `2357:0115`.** Check the plug and [the USB handoff in VMware](./06-connect-both-phones.md#vmware-usb-handoff-in-pictures). Check **VM → Settings → USB Controller** if the device list is empty. Reattach the adapter to the Student Router and repeat `lsusb`. If it belongs to another VM, ask your instructor to release it.
+- **The USB ID appears but there is no radio such as `phy0`.** Confirm you opened the supplied Student Router VM, then reattach the Archer once. If `ls /sys/class/ieee80211` still shows no radio, show your instructor both console results so they can check the driver and firmware.
+- **The radio appears but LuCI has no Wireless menu.** Confirm `wifi config` finished on the Student Router console, then sign out of LuCI and sign back in. If Wireless is still missing, stop and record any message from the command.
+
 ## Phone joined but Minion will not open
 
-If the phone appears in **Associated Stations**, it has joined the access point. Keep the phone connected to the lab Wi-Fi if it warns that the network has no internet. Temporarily turn off mobile data, open `http://minion.lab/` in your browser, and turn mobile data back on after the test.
+If the phone appears in **Associated Stations**, it has joined the access point. Keep the phone connected to the lab Wi-Fi if it warns that the network has no internet. Temporarily turn off mobile data, open `http://minion.lab/` in your browser, and turn mobile data back on after the test. This keeps the web test on the lab Wi-Fi. Check the station list separately to confirm the phone is on your access point.
 
 ## Diagnose a failed check on Minion Bridge
 
@@ -37,7 +49,7 @@ In VMware, select **Minion Bridge** and click its console. Press **Enter** if ne
 
 1. Run `ifstatus wan` on the Bridge. Look for `"up": true`, an `ipv4-address`, and a default route. The address varies. If one is missing, make sure Bridge Adapter 1 uses NAT, VMnet8 has DHCP enabled, and the Router PC’s upstream Ethernet link is up.
 2. Run `ip -6 addr show eth1` on the Bridge. The command lists IPv6 addresses on the adapter connected to Minion-WAN. Look for the handoff address `fd88:77:1::1/64` and portal address `fd00:1ab:5::102/128`. If the Student Router has only a link-local address, check that both VMs use the same private segment and the Bridge has finished booting. Run `/etc/init.d/odhcpd status` to check that the service sending Router Advertisements says `running`.
-3. Run `/etc/init.d/portal-relay status` on the Bridge. If the relay is stopped, run `/etc/init.d/portal-relay start`, check its status again, then repeat the [Bridge-only test](./03-verify-minion-uplink.md).
+3. Run `/etc/init.d/portal-relay status` on the Bridge. If the relay is stopped, run `/etc/init.d/portal-relay start`, check its status again, then repeat the [Bridge-only test](./03-verify-minion-uplink.md#test-minion-bridge-on-its-own).
 4. If the relay is running but the download fails, run `netstat -lnt` on the Bridge. The flags show listening sockets (`-l`), numeric addresses and ports (`-n`), and TCP only (`-t`). Look for `fd00:1ab:5::102` listening on port `80`.
 5. On the **Student Router** console, compare `ping minion.lab` with `ping fd00:1ab:5::102`. If only the numeric address works, check DNS. If neither works, recheck the private segment, Bridge addresses, the **wwan6** route, and [VMnet8 in Step 1](./02-verify-vmware-networks.md). These pings diagnose the router’s uplink.
 6. If the router can ping and the relay listens, but the download still fails, optionally use PowerShell on the **Router PC** to test the upstream portal. Replace `PORTAL-ADDRESS` with the configured IPv4 address and `8080` with the configured port if it differs.

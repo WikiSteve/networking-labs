@@ -11,7 +11,7 @@ Start with the Archer assigned to your bench. Your instructor prepares the adapt
 [See the VMware USB handoff in pictures](#vmware-usb-handoff-in-pictures) if the menu is unfamiliar.
 
 1. Find the Archer T4U v3 USB adapter with the hinged antenna panel assigned to your bench. Plug it into the Router PC. If VMware says the adapter belongs to another VM, stop and ask your instructor to release it.
-2. Select the **OpenWrt Student Router** tab in VMware. Open **VM → Removable Devices**. Point to the USB Wi-Fi adapter. The bench example calls it **TP-Link 802.11ac NIC**. Yours may say **TP-Link**, **Realtek**, or **USB Wireless**.
+2. Select the **OpenWrt Student Router** tab in VMware. Open **VM → Removable Devices**. Point to the USB Wi-Fi adapter. The bench example calls it **TP-Link 802.11ac NIC**. Yours may say **TP-Link**, **Realtek**, or **USB Wireless**. If VMware lists no adapter, [check the USB connection and controller](./09-troubleshooting.md#the-archer-radio-or-wireless-menu-is-missing) so the Student Router can receive the dongle.
 3. Choose **Connect (Disconnect from Host)**. If prompted, select **OpenWrt Student Router** and click **OK** to release the adapter from Windows. Reopen the adapter submenu. When it offers **Disconnect (Connect to host)**, the selected VM owns the radio. Press **Esc** to close the menu and leave it connected.
 
 ![Student Router selected in VMware with VM, Removable Devices, TP-Link 802.11ac NIC and Connect visible.](./evidence/radio-vm-menu.png)
@@ -26,9 +26,9 @@ Find the TP-Link Archer T4U USB adapter with the hinged antenna panel.
 
 Click in the Student Router console and look for the `root@openwrt-firstname` prompt.
 
-1. Run `lsusb` to list USB devices. Find `2357:0115`, the USB ID for the Archer. The bus and device numbers can vary. If the ID is missing, check the plug and the Student Router’s device handoff. If VMware offers no device, check **VM → Settings → USB Controller**. Reattach the dongle and run `lsusb` again. Continue when the ID appears.
-2. Run `ls /sys/class/ieee80211` to list the radios registered by the Wi-Fi driver. Look for an entry such as `phy0`. If you saw the USB ID but no radio, confirm you opened the supplied Student Router VM and reattach the dongle once. If the directory still has no radio, stop and show your instructor both commands’ results so they can check the driver and firmware.
-3. Once a radio appears, run `wifi config` to create its wireless settings. It may return to the prompt silently. Press **Ctrl+Alt** to release the console. In LuCI, log out, sign back in and open **Network → Wireless**. If Wireless is missing after the command finished and you signed back in, stop and record any command message for your instructor.
+1. Run `lsusb` to list USB devices. Find `2357:0115`, the USB ID for the Archer. The bus and device numbers can vary. If the ID is missing, [check the USB handoff to the Student Router](./09-troubleshooting.md#the-archer-radio-or-wireless-menu-is-missing). The ID confirms that the guest received the dongle. Continue when it appears.
+2. Run `ls /sys/class/ieee80211` to list the radios registered by the Wi-Fi driver. Look for an entry such as `phy0`. If the USB ID appears and the radio list is empty, [check radio detection](./09-troubleshooting.md#the-archer-radio-or-wireless-menu-is-missing). A visible USB device still needs its driver and firmware to register a radio.
+3. Once a radio appears, run `wifi config` to create its wireless settings. It may return to the prompt silently. Press **Ctrl+Alt** to release the console. In LuCI, log out, sign back in and open **Network → Wireless**. If Wireless is still missing, [check the configuration and LuCI session](./09-troubleshooting.md#the-archer-radio-or-wireless-menu-is-missing) so you can tell which part of setup is incomplete.
 
 ### Set up your team’s access point
 
@@ -56,8 +56,11 @@ Live lab radio settings after Save & Apply. Both phones rejoined on 2.4 GHz and 
 ### Join one phone at a time
 
 1. On **Phone A**, open Wi-Fi settings, join your team’s SSID and enter the passphrase. If asked whether to stay connected without Internet access, choose to stay connected. Open `http://minion.lab/` in the phone’s browser.
-2. On the Router PC, find the new row for your SSID in **Wireless Overview → Associated Stations**. Match the Wi-Fi address in that row to the phone’s address for this network using the directions below. A signal reading in that row confirms radio association. To check IP assignment separately, look under **Status → Overview** or **Network → DHCP → Leases**.
-3. Repeat on **Phone B**. Watch for its separate row under the same SSID and open the portal on Phone B. If a connected phone cannot open Minion, temporarily turn off mobile data, retry the URL in its regular browser and turn mobile data back on when finished. See [Phone joined but Minion will not open](./09-troubleshooting.md#phone-joined-but-minion-will-not-open).
+2. On the Router PC, find the new row for your SSID in **Wireless Overview → Associated Stations**. [Match the phone’s Wi-Fi address](#find-the-wi-fi-address-your-phone-is-using) to that row so you can identify it again during the filter test. A signal reading confirms radio association. To check IP assignment separately, look under **Status → Overview** or **Network → DHCP → Leases**.
+3. Repeat on **Phone B**. Watch for its separate row under the same SSID and open the portal on Phone B.
+
+- **Your SSID is missing or a phone has no station row.** [Recheck the access-point settings](#set-up-your-teams-access-point). Confirm your SSID is enabled, the settings were applied and the phone has the correct passphrase.
+- **Either phone has a station row, but Minion will not open.** [Check whether the phone is using Wi-Fi for Minion](./09-troubleshooting.md#phone-joined-but-minion-will-not-open). The station row confirms it joined the radio. The portal test checks the path through the Student Router.
 
 **Using an Android VM?** You can use its mobile browser to check the portal over virtual Ethernet or NAT. To use it for Screenshot 5 or the filter test, match its Wi-Fi address to a separate station row under your Archer radio. If only one station appears under your SSID, pause the filter test until the second Wi-Fi client joins.
 

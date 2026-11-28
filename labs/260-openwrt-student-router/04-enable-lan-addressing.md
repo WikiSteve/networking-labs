@@ -4,7 +4,7 @@
 
 ## Check the LAN with Adapter 2 disconnected
 
-1. Open LuCI at `http://192.168.220.2/` and go to **Network → Interfaces**. Find **lan** on **br-lan** with IPv4 address `192.168.77.1/24`. This will be the partner's gateway. The separate **mgmt** interface is the connection your browser is using.
+1. Open LuCI at `http://192.168.220.2/` and go to **Network → Interfaces**. Find **lan** on **br-lan** with IPv4 address `192.168.77.1/24`. This will be the partner's gateway. The separate **mgmt** interface is the connection your browser is using. If LuCI does not open, [check the VMnet1 management connection](./02-verify-vmware-networks.md#set-up-vmnet1-for-luci) so the Router PC can reach the management address while Adapter 2 is disconnected.
 2. Click **Edit** on the **lan** row. In the upper tab row choose **DHCP Server**, then choose **General Setup** in the lower row. Confirm **Ignore interface** is checked and **Force** is clear.
 3. Go to the lower **IPv6 Settings** tab and confirm **RA-Service** is disabled. If you changed a setting, click the green **Save** in the dialog, then the blue **Save & Apply** on the Interfaces page. Otherwise click **Dismiss**. Leave Adapter 2 disconnected for this check.
 
@@ -48,17 +48,17 @@ On the Partner PC or in the Windows partner VM, open **Command Prompt** and run:
 ipconfig /all
 ```
 
-The `/all` option includes the **DHCP Server** field. Find the adapter whose name you recorded. Before the lab DHCP service starts, expect no IPv4 address or an autoconfiguration address starting with `169.254.`. An IPv6 link-local address starting with `fe80:` is normal. If this adapter already has an assigned IPv4 address, a routed IPv6 address or a default gateway, **stop** and trace the bench connections before enabling any services.
+The `/all` option includes the **DHCP Server** field. Find the adapter whose name you recorded. Before the lab DHCP service starts, expect no IPv4 address or an autoconfiguration address starting with `169.254.`. An IPv6 link-local address starting with `fe80:` is normal. If this adapter already has an assigned IPv4 address, a routed IPv6 address or a default gateway, **stop** and keep DHCP and Router Advertisements off. Trace the [physical bench cables](#connect-the-two-physical-pcs) or recheck the [Windows partner VM’s adapter](#one-workstation-with-a-windows-partner-vm) before enabling any services. Your partner may be receiving addresses from another network.
 
 ## Enable IPv4 DHCP and IPv6 Router Advertisements
 
-1. On the Router PC, recheck **Student Router → VM → Settings → Network Adapter 2**. It must show **Custom: VMnet10**. Open **Edit → Virtual Network Editor**, select that exact VMnet, and read **Bridged to**. It must show the **Intel I210-T1** connected to the isolated switch. If it shows **Realtek**, **Automatic**, or another adapter, **leave DHCP and Router Advertisements off** and [follow the bridge checks in Step 1](./02-verify-vmware-networks.md#verify-the-bench-bridges).
+1. On the Router PC, recheck **Student Router → VM → Settings → Network Adapter 2**. It must show **Custom: VMnet10**. Open **Edit → Virtual Network Editor**, select that exact VMnet, and read **Bridged to**. It must show the **Intel I210-T1** connected to the isolated switch. If it shows **Realtek**, **Automatic**, or another adapter, **leave DHCP and Router Advertisements off** and [follow the bridge checks in Step 1](./02-verify-vmware-networks.md#verify-the-bench-bridges) to keep address announcements on the isolated bench.
 2. In LuCI, open **Network → Interfaces → lan → Edit → DHCP Server → General Setup**. Clear **Ignore interface**. Keep **Dynamic DHCP** checked and the lease time at **2h**.
 3. In the lower **IPv4 Settings** tab, set **DHCPv4 Service** to **enabled**, **Start** to **100**, and **Limit** to **50**. If the fields are greyed out, return to **General Setup** and clear **Ignore interface**.
 4. In the lower **IPv6 Settings** tab, set **RA-Service** to **server mode**. Leave **DHCPv6-Service** and **NDP-Proxy** disabled.
 5. Click the green **Save** in the dialog, then the blue **Save & Apply** on the Interfaces page. Wait for the applying overlay to close and reopen the LAN dialog to verify the saved values.
 
-DHCPv4 gives the partner an IPv4 address from `192.168.77.100` to `192.168.77.149`. Router Advertisements give the partner the information it needs for an IPv6 address and default route to reach the Minion portal. Screenshot 3 records the saved IPv4 pool. In Step 4, you'll verify the IPv6 address and route and open the portal.
+DHCPv4 gives the partner an IPv4 address from `192.168.77.100` to `192.168.77.149`. Router Advertisements give the partner the information it needs for an IPv6 address and default route to reach the Minion portal. Screenshot 3 records the saved IPv4 pool. In Step 4, you'll verify the IPv6 address and route and open the portal. If the Partner PC still shows `169.254.x.x` after you apply these settings, use the [Partner PC DHCP checks](./09-troubleshooting.md#the-partner-pc-still-has-a-169254-address) to see whether the lease can reach the correct adapter.
 
 ![lab LuCI IPv6 Settings shows RA-Service in server mode and DHCPv6-Service disabled.](./evidence/lan-ra.png)
 

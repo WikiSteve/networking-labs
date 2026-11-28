@@ -50,6 +50,8 @@ Worked example from the corrected bench: VMnet8 is selected, NAT is in use, and 
 
 Enable IPv6 is checked for VMnet8. The example subnet and prefix can differ from the ones on your PC.
 
+If Minion Bridge starts but its portal download fails, use the [Minion Bridge checks](./09-troubleshooting.md#diagnose-a-failed-check-on-minion-bridge) to see whether the VM received an address from VMware NAT and whether its relay is running.
+
 ## Set up VMnet1 for LuCI
 
 The Student Router's management address is fixed at `192.168.220.2/24`. Set up the Windows end of this link on the same subnet.
