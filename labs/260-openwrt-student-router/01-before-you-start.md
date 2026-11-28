@@ -9,10 +9,10 @@ Your pair will build a private network and open the Minion lab portal from a wir
 ## Pick your two PCs
 
 - **Router PC.** Run both OpenWrt VMs in VMware Workstation here and open LuCI in this PC's browser. Keep the upstream cable on Realtek and leave the separate Intel I210-T1 bench jack unplugged until Step 3.
-- **Partner PC.** Use its dedicated Ethernet connection as the wired test client. You don't need to open VMware on this PC.
+- **Partner PC.** Use its dedicated Ethernet connection as the wired test client. Leave its bench cable unplugged until Step 3. You don't need to open VMware on this PC.
 - **One workstation?** Keep both OpenWrt VMs on it and follow the [one-workstation bench setup](./04-enable-lan-addressing.md#one-workstation-with-a-windows-partner-vm) in Step 3.
 
-Use one isolated switch, two Ethernet patch cables, two phones, and a supported USB Wi-Fi adapter. The worked example uses a Catalyst 1300 and TP-Link Archer T4U v3. In Step 3, you'll use two same-VLAN access ports on the isolated switch and check that it has no uplink.
+Use one isolated switch, two Ethernet patch cables, two phones, and a TP-Link Archer T4U v3 USB Wi-Fi adapter. The worked examples use a Catalyst 1300. In Step 3, you'll use two same-VLAN access ports on the isolated switch and check that it has no uplink.
 
 ## Get the two VMs ready
 

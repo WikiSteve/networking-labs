@@ -4,7 +4,7 @@
 
 ## The Partner PC still has a 169.254 address
 
-Windows gives itself a `169.254.x.x` address while it waits for DHCP. Check that both bench cables land on access ports in the same VLAN, that Adapter 2 is connected to the Intel bridge, and that the saved LAN DHCP settings match [Step 3](./04-enable-lan-addressing.md). The switch’s link lights only confirm the physical links are up.
+Windows gives itself a `169.254.x.x` address while it waits for DHCP. Check that both bench cables land on access ports in the same VLAN, that Adapter 2 is connected to the Intel bridge, and that the saved LAN DHCP settings match [Step 3](./04-enable-lan-addressing.md). The switch’s link lights only confirm the physical links are up. For the one-workstation setup, confirm that the Windows partner VM’s only connected adapter is **Custom: VMnet10**.
 
 ## Minion opens but ping reports Destination port unreachable
 
@@ -14,7 +14,7 @@ If Minion opens on the Partner PC with only its bench Ethernet active, you can f
 
 The prebuilt router’s **Allow LAN to Minion portal** rule permits TCP ports 80 and 443 to `fd00:1ab:5::102`. Ping uses ICMPv6 Echo, which has no TCP or UDP port. On the prepared bench, Windows can report **Destination port unreachable** for the rejected echo even though HTTP returns **200 OK**.
 
-1. On the Partner PC, run `ping -6 minion.lab` and read the result.
+1. Keep only the isolated bench connection active on the Partner PC, then run `ping -6 minion.lab` and read the result.
 2. In LuCI, open **Network → Firewall → Traffic Rules**. Find **Allow LAN to Minion portal** and click **Edit**. On **General Settings**, read **Protocol** for the kind of packet, **Source zone** and **Destination zone** for its direction, and **Destination address** for the host. **Destination port** and **Action** tell you which TCP ports the rule accepts. Click **Dismiss** after reading the rule.
 3. Add a separate rule called **Lab demo - Ping Minion**. Select only **ICMP** for **Protocol**, **lan** for **Source zone**, **wan** for **Destination zone**, `fd00:1ab:5::102` for **Destination address**, and **accept** for **Action**. Under **Advanced Settings**, set **Restrict to address family** to **IPv6 only** and select **echo-request** for **Match ICMP type**. Save and apply.
 4. Repeat `ping -6 minion.lab` and reload the portal in a private browser window. Then delete the demo rule, save and apply, and repeat the ping. Compare the three results.

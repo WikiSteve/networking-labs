@@ -25,8 +25,6 @@ In the restoration example, Phone B kept `37:8C`. Phone A rejoined the same save
 
 ![lab LuCI shows both phones associated with Steve-Wireless after the deny policy was disabled. Client details are covered.](./evidence/filter-restored.png)
 
-Worked lab restoration. Both phones rejoined Steve-Wireless after we disabled the deny rule. Phone B kept its address ending 37:8C . Phone A rejoined using the same saved Wi-Fi network, received a LAN address, and reached the router. Android used a new randomized address ending 58:33 . Screenshots 5 and 6 still show Phone A’s earlier E4:50 address from the deny test.
-
 ### Optional local checks
 
 - Open **Status → Realtime Graphs → Bandwidth**, choose the LAN, reload the portal and watch for a traffic change.

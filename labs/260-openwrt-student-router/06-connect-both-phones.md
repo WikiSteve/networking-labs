@@ -6,6 +6,8 @@ Your Student Router already serves the wired LAN. Connect the physical radio to 
 
 ### Attach the Archer to the Student Router
 
+Start with the Archer assigned to your bench. Your instructor prepares the adapter for this lab.
+
 [See the VMware USB handoff in pictures](#vmware-usb-handoff-in-pictures) if the menu is unfamiliar.
 
 1. Find the Archer T4U v3 USB adapter with the hinged antenna panel assigned to your bench. Plug it into the Router PC. If VMware says the adapter belongs to another VM, stop and ask your instructor to release it.

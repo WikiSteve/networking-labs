@@ -8,7 +8,7 @@ Minion Bridge gets an IPv4 address from VMware NAT on **Adapter 1**. On **Adapte
 
 ## Test Minion Bridge on its own
 
-1. Select **Minion Bridge** in VMware Workstation, power it on, and wait for its OpenWrt console. Keep **OpenWrt Student Router** powered off.
+1. Select **Minion Bridge** in VMware Workstation, power it on, and wait for its OpenWrt console. If **OpenWrt Student Router** is already running, shut it down before the Bridge-only test.
 2. In **VM → Settings**, confirm the Bridge's **Network Adapter** is connected to **NAT**. Confirm its **Network Adapter 2** and the Student Router's **Network Adapter 3** both use **Minion-WAN** and have **Connect at power on** checked.
 3. Click inside the Bridge console and press **Enter** if needed. Look for the `root@Minion-Bridge` prompt. If a fresh Bridge asks you to log in, enter `root` and leave its password field empty. After your instructor has configured the relay, run this one line.
 
@@ -70,9 +70,9 @@ Worked console check on openwrt-steve. Minion replied to all three pings.
 
 Worked console check using the default filename index.html. Your command uses a temporary filename. Look for Download completed and the Minion | Networking labs title.
 
-![lab LuCI Interfaces shows wwan on eth2 and a wwan6 address in fd88:77:1::/64.](./evidence/router-uplink-interfaces.png)
+![Student Router console showing eth2 IPv6, ping replies and the Minion portal download](./evidence/router-uplink-console.png)
 
-Worked Screenshot 2 from lab after the bridge remap. Read eth2 below wwan and the IPv6 prefix under wwan6.
+Use this console example to diagnose the WAN. Screenshot 2 uses the LuCI Interfaces view below.
 
 ## **Screenshot 2: Prove the Minion uplink**
 

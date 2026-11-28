@@ -52,7 +52,7 @@ The `/all` option includes the **DHCP Server** field. Find the adapter whose nam
 
 ## Enable IPv4 DHCP and IPv6 Router Advertisements
 
-1. On the Router PC, recheck **Student Router → VM → Settings → Network Adapter 2**. It must show **Custom: VMnet10**. Open **Edit → Virtual Network Editor**, select that exact VMnet, and read **Bridged to**. It must show the **Intel I210-T1** connected to the isolated switch. If it shows **Realtek**, **Automatic**, or another adapter, **leave DHCP and Router Advertisements off** and [correct the bridge in Step 1](./02-verify-vmware-networks.md#verify-the-bench-bridges).
+1. On the Router PC, recheck **Student Router → VM → Settings → Network Adapter 2**. It must show **Custom: VMnet10**. Open **Edit → Virtual Network Editor**, select that exact VMnet, and read **Bridged to**. It must show the **Intel I210-T1** connected to the isolated switch. If it shows **Realtek**, **Automatic**, or another adapter, **leave DHCP and Router Advertisements off** and [follow the bridge checks in Step 1](./02-verify-vmware-networks.md#verify-the-bench-bridges).
 2. In LuCI, open **Network → Interfaces → lan → Edit → DHCP Server → General Setup**. Clear **Ignore interface**. Keep **Dynamic DHCP** checked and the lease time at **2h**.
 3. In the lower **IPv4 Settings** tab, set **DHCPv4 Service** to **enabled**, **Start** to **100**, and **Limit** to **50**. If the fields are greyed out, return to **General Setup** and clear **Ignore interface**.
 4. In the lower **IPv6 Settings** tab, set **RA-Service** to **server mode**. Leave **DHCPv6-Service** and **NDP-Proxy** disabled.
