@@ -97,18 +97,26 @@ Keep **Connect at power on** checked for the NAT, host-only and LAN segment adap
 
 1. Use only the isolated bench link on the Partner PC for this check. Temporarily turn off its Wi-Fi and disconnect its other Ethernet cables. Keep the Router PC’s upstream connection in place.
 2. In Command Prompt, run `ipconfig /all` and find the same dedicated adapter. Expect an IPv4 address from `192.168.77.100` to `192.168.77.149`. The IPv4 default gateway and DHCP server should be `192.168.77.1`. Look for an IPv6 address in addition to its link-local address and an IPv6 default gateway.
-3. Open `http://minion.lab/` in the Partner PC’s browser. Check that the Minion page is visible and keep the address bar in view.
-4. Confirm the portal responds over IPv6. The `-6` option uses IPv6, and the capital `-I` shows just the HTTP response headers.
+3. Open a private browser window and go to `http://minion.lab/`. If the Minion page appears, the wired web check passed. Keep the address bar visible for Screenshot 4. In this lab, OpenWrt gives Minion an IPv6 address.
 
-   ```text
-   curl.exe -6 -I http://minion.lab/
-   ```
+If the browser cannot resolve the name, run `nslookup minion.lab 192.168.77.1` in Command Prompt to ask OpenWrt directly. A correct answer shows that DNS works. Loading the page is the separate web check.
 
-   Expect **200 OK**. If the browser cannot resolve the name, ask OpenWrt directly with `nslookup minion.lab 192.168.77.1`. A correct answer shows that DNS works. The HTTP response shows that the website is reachable from the partner.
+<details>
+<summary>Optional Windows check · See the HTTP status</summary>
+
+Windows 11 includes `curl.exe`. Run it in Command Prompt to view the web response over IPv6.
+
+```text
+curl.exe -6 -I http://minion.lab/
+```
+
+The `-6` option uses IPv6. The capital `-I` shows the response headers. Look for **200 OK**.
+
+</details>
 
 ### Screenshot 4 · Prove the partner’s wired connection
 
-**Requirement:** Show the Partner PC’s wired adapter name, IPv4 lease, IPv6 address, default gateways and DHCP server beside the Minion portal at `http://minion.lab/`. Record the IPv6-only HTTP status line in the slide notes.
+**Requirement:** Show the Partner PC’s wired adapter name, IPv4 lease, IPv6 address, default gateways and DHCP server beside the Minion portal at `http://minion.lab/`. In the slide notes, record whether Minion opened with only the wired bench connection active.
 
 ![Partner PC’s Intel Ethernet configuration beside the Minion portal](evidence/04-wired.png)
 
@@ -120,7 +128,7 @@ The prebuilt router’s **Allow LAN to Minion portal** rule permits TCP ports 80
 1. On the Partner PC, run `ping -6 minion.lab` and read the result.
 2. In LuCI, open **Network → Firewall → Traffic Rules**. Find **Allow LAN to Minion portal** and click **Edit**. On **General Settings**, read **Protocol** for the kind of packet, **Source zone** and **Destination zone** for its direction, and **Destination address** for the host. **Destination port** and **Action** tell you which TCP ports the rule accepts. Click **Dismiss** after reading the rule.
 3. Add a separate rule called **Lab demo - Ping Minion**. Select only **ICMP** for **Protocol**, **lan** for **Source zone**, **wan** for **Destination zone**, `fd00:1ab:5::102` for **Destination address**, and **accept** for **Action**. Under **Advanced Settings**, set **Restrict to address family** to **IPv6 only** and select **echo-request** for **Match ICMP type**. Save and apply.
-4. Repeat `ping -6 minion.lab` and the IPv6 HTTP check. Then delete the demo rule, save and apply, and repeat the ping. Compare the three results.
+4. Repeat `ping -6 minion.lab` and reload the portal in a private browser window. Then delete the demo rule, save and apply, and repeat the ping. Compare the three results.
 
 On the tested bench, Windows could ping over its upstream Realtek connection. Using only the Intel bench path gave **Destination port unreachable** before adding the rule, replies while it was active, and **Destination port unreachable** after deleting it. HTTP returned **200 OK** in all three states.
 
@@ -171,6 +179,6 @@ In **MAC-Filter**, set **MAC Address Filter** back to **Disable**, then **Save**
 
 ## Submit and clean up
 
-Add both names to the template. Include the six numbered screenshots, the IPv6 HTTP status line, and your MAC-filter observations in the appropriate slide notes. Explain which observation shows IPv4 DHCP worked and which shows the partner reached the portal over IPv6.
+Add both names to the template. Include the six numbered screenshots, the wired portal result, and your MAC-filter observations in the appropriate slide notes. Explain which observation shows IPv4 DHCP worked and which shows the partner reached the portal over IPv6.
 
 Forget the temporary lab SSID on both phones. Shut down both lab VMs before disconnecting the bench cables and USB adapter. Restore the Partner PC’s normal connections.
